@@ -1,0 +1,9 @@
+package gzgl;
+
+import com.jfinal.core.Controller;
+
+public class MoldOkController extends Controller {
+public void index(){
+	render("ok.html");
+}
+}

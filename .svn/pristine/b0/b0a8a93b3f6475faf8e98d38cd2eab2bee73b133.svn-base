@@ -1,0 +1,45 @@
+package sbgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class WdController extends Controller{
+	/*****************************主页展示***********************************/
+	public void index(){
+		//int x=getParaToInt("x");
+		String x=getPara("x");
+		//Wd y = Wd.dao.findById(x,"");
+			//接收参数对象
+		List<Wd> wd=Wd.dao.find("select * from sbgl_wd where t_sbyjdh ='"+x+"'");	//从数据库得到list对象
+		renderJson(wd);					//发送到前台
+	}
+	/*****************************添加功能***********************************/
+	public void child_add(){
+		Wd wd=getModel(Wd.class);	//得到对象
+		wd.save();									//保存对象
+		//renderText("添加成功！");						//随便发一行文字给前台，然而并前台并没有接收
+	}
+	
+	/*****************************更新功能***********************************/
+	public void update(){
+		//String x=getPara("x");
+		int x=getParaToInt("x");
+		Wd n=Wd.dao.findById(x);			//找到对应的内容
+		renderJson(n); 		//发送mode对象
+	}
+	
+	
+	public void up(){
+		Wd n=getModel(Wd.class);
+		if(n!=null){n.update();}		//更新数据
+		String m=n.get("t_sbyjdh");
+		renderJson(String.valueOf(m));
+	}
+	/*****************************删除功能***********************************/
+	public void delete(){					//删除数据的代码
+		Wd.dao.findById(getPara("x")).delete();			//根据前台发送过来的参数删除数据库响应内容
+		renderText("删除成功");
+	}
+	
+}

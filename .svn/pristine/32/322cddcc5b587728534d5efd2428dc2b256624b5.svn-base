@@ -1,0 +1,52 @@
+package sbgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class ESpotContentsTableController extends Controller{
+	public void index(){
+		List<ESpotContentsTable> list = ESpotContentsTable.dao.find("select * from eSpotContentsTable");
+		setAttr("eSpotContentsTablelist",list);
+		render("/sbgl/eSpotContentsTable.html");
+	}
+	public void updater(){
+		String _id =(String)getPara("eContentsNo");
+		System.out.println(_id);
+		setAttr("eSpotContentsTable", ESpotContentsTable.dao.findById(getParaToInt()));
+		//String _id =(String)getPara("eContentsNo");
+		//System.out.println(_id);
+		render("/sbgl/updaterESpotContentsTable.html");
+	}
+	public void update(){
+		System.out.println("四顾但湖泓");
+		String _id =(String)getPara("eContentsNo");
+		
+		//int i =(int) ESpotContentsTable.dao.findById(getParaToInt());
+		ESpotContentsTable eSpotContentsTable = getModel(ESpotContentsTable.class);
+		System.out.println(_id);
+		eSpotContentsTable.update();
+		System.out.println("四顾但湖泓");
+		redirect("/eSpotContentsTables");
+	}
+	public void delete(){
+		ESpotContentsTable.dao.deleteById(getParaToInt());
+		redirect("/eSpotContentsTables");
+	}
+    public void save(){
+    	ESpotContentsTable eSpotContentsTable = getModel(ESpotContentsTable.class);
+    	eSpotContentsTable.save();
+		redirect("/eSpotContentsTables");
+    }
+    public void turnpage(){
+    	//String id = request.getParameter(“classId”);
+    	String s = (String)getPara("eSpotNo");
+    	String str=(String)getPara("eno");
+    	System.out.println(s);
+    	if(s!=null && !s.equals("")){
+    		List<ESpotContentsTable> list = ESpotContentsTable.dao.find("select * from eSpotContentsTable where eSpotNo ="+s);
+    		setAttr("eSpotContentsTablelist",list);
+    		render("/eSpotContentsTable.html");
+    	}
+    }
+}

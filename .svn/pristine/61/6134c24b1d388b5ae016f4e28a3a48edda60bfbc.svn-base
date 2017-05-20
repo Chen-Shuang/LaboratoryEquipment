@@ -1,0 +1,88 @@
+package xtgl;
+
+import java.util.List;
+
+
+
+import com.jfinal.core.Controller;
+
+public class UserController extends Controller {
+	public void users(){
+		List<User> users = User.dao.find("select * from user");
+		List<Department> depts = Department.dao.find("select * from dept");
+		List<Role> roles = Role.dao.find("select * from role");
+		setAttr("roles",roles);
+		setAttr("list", users);
+		setAttr("depts",depts);
+		render("/xtgl/Users.html");
+	}
+	public void delete(){
+		User.dao.deleteById(getParaToInt("id"));
+		redirect("#users/users");
+	}
+	public void addUser(){
+		User dept = getModel(User.class,"u");
+		dept.save();
+		redirect("#users/users");
+	}
+	public void update(){
+		User user=User.dao.findById(getParaToInt("id"));
+		user.set("username", getPara("username"));
+		user.set("password", getPara("password"));
+		user.set("gender", getPara("gender"));
+		user.set("name",getPara("name"));
+		user.set("age", getParaToInt("age")); 
+		user.set("dept", getParaToInt("dept"));
+		user.set("role_id", getParaToInt("role_id"));
+		user.set("position", getPara("position"));
+		user.set("education", getPara("education"));
+		user.set("hiredate", getParaToDate("hiredate"));
+		user.set("seniority", getPara("seniority"));
+		user.set("email", getPara("email"));
+		user.set("regist_date", getParaToDate("regist_date"));
+		user.set("role_id", getParaToInt("role_id"));
+		user.set("status", getParaToBoolean("status"));
+		user.update();
+		redirect("#users/users");
+	}
+	public void select(){
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		String str = getPara("str");
+		System.out.println(str);
+		String a = getPara("a");
+		System.out.println(a);
+		if(a.equals("id")){
+			List<User> users = User.dao.find("select * from user where id"+a+"");
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			setAttr("roles",roles);
+			setAttr("list", users);
+			setAttr("depts",depts);
+			render("/xtgl/Users.html");
+		}else if(a.equals("dept_id")){
+			List<User> users = User.dao.find("select * from user where dept_id=(select dept_id from dept where dept_name='"+a+"')");
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			setAttr("roles",roles);
+			setAttr("list", users);
+			setAttr("depts",depts);
+			render("/xtgl/Users.html");
+		}else if(a.equals("username")){
+			List<User> users = User.dao.find("select * from user where username like '%"+a+"%'");
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			setAttr("roles",roles);
+			setAttr("list", users);
+			setAttr("depts",depts);
+			render("/xtgl/Users.html");
+		}else if(a.equals("name")){
+			List<User> users = User.dao.find("select * from user where name like '%"+a+"%'");
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			setAttr("roles",roles);
+			setAttr("list", users);
+			setAttr("depts",depts);
+			render("/xtgl/Users.html");
+		}
+	}
+}

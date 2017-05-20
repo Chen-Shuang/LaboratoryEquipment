@@ -1,0 +1,7 @@
+package scsjgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Tzhljl extends Model<Tzhljl> {
+	public static final Tzhljl me = new Tzhljl();
+}

@@ -1,0 +1,8 @@
+package scgygl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Scgcgylcnr extends Model<Scgcgylcnr> {
+	public static final Scgcgylcnr me = new Scgcgylcnr();
+
+}

@@ -1,0 +1,42 @@
+package xtgl;
+
+import java.util.List;
+import com.jfinal.core.Controller;
+
+public class Logincontroller extends Controller {
+	
+	public void index(){
+		User user= (User) getSession().getAttribute("user");
+		System.out.println(user);
+		if(user==null){
+			render("/login.html");
+			return ;
+		}else{
+			render("/index.html");
+			
+		}
+	}
+	public void main(){
+		String username = getPara("username");
+		 String password = getPara("password");
+		 String sql = "select * from user where username = '"+username+"' and password = '"+password+"'";
+		 User user =User.dao.findFirst(sql);
+		 if (user!=null) {
+			 if(user.getBoolean("status")){
+			 getSession().setAttribute("user", user);
+			 //redirect("/index.html");
+			renderText("success");
+			return;
+		}else{
+			renderText("nostatus");
+			return;
+		}
+	}else{
+			 renderText("error");
+			 return;
+			
+		 }
+
+	}
+
+}

@@ -1,0 +1,15 @@
+package sbgl;
+
+import com.jfinal.core.Controller;
+
+public class sbgl_gysController extends Controller{
+	public void index(){           //到表单页面
+		renderFreeMarker("/sbgl/sbgl_gys_add.html");
+	}
+	public void add(){  
+		sbgl_gys a=getModel(sbgl_gys.class); //得到表单中传过来的参数
+		a.save();
+		renderFreeMarker("/sbgl/ok.html");
+	}
+	
+}

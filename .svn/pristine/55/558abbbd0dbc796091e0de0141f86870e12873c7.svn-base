@@ -1,0 +1,28 @@
+package config;
+
+import xtgl.Department;
+import xtgl.Dept_Privilege;
+import xtgl.Dept_Role;
+import xtgl.Log;
+import xtgl.Privilege;
+import xtgl.Role;
+import xtgl.Role_Privilege;
+import xtgl.User_Role;
+
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.activerecord.generator.MappingKitGenerator;
+
+public class XtglMapping{
+
+	public static void mapping(ActiveRecordPlugin arp){
+		arp.addMapping("Role","role_id",Role.class);
+		arp.addMapping("privilege","privilege_id", Privilege.class);
+		arp.addMapping("log", Log.class);
+		arp.addMapping("dept","dept_id", Department.class);
+		arp.addMapping("dept_privilege",Dept_Privilege.class );
+		arp.addMapping("dept_role",Dept_Role.class );
+		arp.addMapping("role_privilege",Role_Privilege.class );
+		arp.addMapping("user_role",User_Role.class );
+	}
+	
+}

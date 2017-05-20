@@ -1,0 +1,60 @@
+<div class="main-content">
+				<div id="main-content-inner"><div class="main-content">
+				<div id="main-content-inner"><meta charset="utf-8">
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<span>物料调拨单</span>
+		</li>
+
+		<li>
+			<span>物料调拨单</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div>
+<br>
+<div class="col-xs-12">
+										
+
+										
+										<div class="table-header">物料调拨单
+										</div>
+
+										<!-- div.table-responsive -->
+
+										<!-- div.dataTables_borderWrap -->
+										<div>
+											<div class="dataTables_wrapper form-inline no-footer" id="dynamic-table_wrapper"><div class="row"><div class="col-xs-6"><div id="dynamic-table_length" class="dataTables_length"><label>设置每页显示 <select class="form-control input-sm" aria-controls="dynamic-table" name="dynamic-table_length"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> 行</label></div></div><div class="col-xs-6"><div class="dataTables_filter" id="dynamic-table_filter"><label>	<a class="_p" href="scsjgl/scgcgxadd.html">添加数据
+	 <i class="icon-zoom-in bigger-130"></i>  
+		</a>查找:<input type="search" aria-controls="dynamic-table" placeholder="" class="form-control input-sm"></label></div></div></div><table aria-describedby="dynamic-table_info" role="grid" id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable">
+												<thead>
+													<tr role="row">
+  <th aria-label="Domain: activate to sort column ascending" colspan="1" rowspan="1" aria-controls="dynamic-table" tabindex="0" class="sorting">工序卡编号</th>
+  <th aria-label="Price: activate to sort column ascending" colspan="1" rowspan="1" aria-controls="dynamic-table" tabindex="0" class="sorting">产品名称</th>
+  <th aria-label="Price: activate to sort column ascending" colspan="1" rowspan="1" aria-controls="dynamic-table" tabindex="0" class="sorting">生产指令单</th>
+  <th aria-label="Price: activate to sort column ascending" colspan="1" rowspan="1" aria-controls="dynamic-table" tabindex="0" class="sorting">班组</th>
+  <th aria-label="Price: activate to sort column ascending" colspan="1" rowspan="1" aria-controls="dynamic-table" tabindex="0" class="sorting">零件号</th>
+  <th aria-label="Status: activate to sort column ascending" colspan="1" rowspan="1" aria-controls="dynamic-table" tabindex="0" class="hidden-480 sorting">客户订单号</th>
+  <th aria-label="Status: activate to sort column ascending" colspan="1" rowspan="1" aria-controls="dynamic-table" tabindex="0" class="hidden-480 sorting">生产批次号</th></tr>
+												</thead>		
+												
+												<tbody>
+												
+												 												   
+											</tbody></table>
+											
+									
+											
+											<div class="row"><div class="col-xs-6"></div><div class="col-xs-6"><div id="dynamic-table_paginate" class="dataTables_paginate paging_simple_numbers"><ul class="pagination"><li id="dynamic-table_previous" tabindex="0" aria-controls="dynamic-table" class="paginate_button previous disabled"><a href="#">Previous</a></li><li tabindex="0" aria-controls="dynamic-table" class="paginate_button active"><a href="#">1</a></li><li tabindex="0" aria-controls="dynamic-table" class="paginate_button "><a href="#">2</a></li><li tabindex="0" aria-controls="dynamic-table" class="paginate_button "><a href="#">3</a></li><li id="dynamic-table_next" tabindex="0" aria-controls="dynamic-table" class="paginate_button next"><a href="#">Next</a></li></ul></div></div></div></div>
+										</div>
+									</div>
+	<div class="col-xs-12">		
+	
+	</div>
+</div>
+			</div></div>
+			</div>

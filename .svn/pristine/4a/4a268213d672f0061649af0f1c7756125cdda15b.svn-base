@@ -1,0 +1,45 @@
+package xtgl;
+
+
+import java.util.List;
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+
+public class Deptcontroller extends Controller {
+	public void index(){
+		List<Department> dept = Department.dao.find("select * from dept");
+		setAttr("privilege", Privilege.dao.getPrivilege());
+		setAttr("list", dept);
+		render("/xtgl/dept.html");
+	}
+	public void del(){
+		Dept_Privilege.dao.deleteDeptPrivilegeByRoleId(getParaToInt(0));
+		Db.update("delete from dept where dept_id="+getParaToInt(0));
+		redirect("/#dept");
+	}
+	public void edit(){
+		Department dept=Department.dao.findById(getParaToInt(0));
+		setAttr("dept",dept);
+		render("/xtgl/edit.html");
+	}
+	public void update() throws Exception{
+		 Department d=Department.dao.findById(getParaToInt("dept_id"));
+		 d.set("dept_name", getPara("dept_name"));
+		 d.set("status", getParaToBoolean("status"));
+		 d.update();
+		 redirect("/#dept");
+	}
+	public void add(){
+		Department user=getModel(Department.class,"dept");
+		user.save();
+		redirect("/#dept");
+	}
+
+	public void insert(){
+		Integer deptId = getParaToInt("dept.dept_id");;
+		Integer[] check = getParaValuesToInt("privilege_id");
+		Dept_Privilege.dao.updateDeptPrivilege(deptId, check);
+		redirect("/#dept");
+	}
+
+}

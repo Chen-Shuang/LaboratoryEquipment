@@ -1,0 +1,432 @@
+<style type="text/css">
+.a{color:#666;float:left;margin-right:10px;padding:4px;}
+.a:hover{cursor:pointer;background-color:rgb(153,217,234);}
+#x:hover{cursor:pointer;}
+</style>
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span class="glyphicon glyphicon-wrench">&nbsp;维护保养记录</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div> 
+<div class="col-xs-12" style="margin-top:10px;">
+	<div class="table-header">保养维护记录列表</div>
+<div class="dataTables_wrapper form-inline no-footer">
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="dataTables_length">
+				<label>
+				查询
+				<input class="form-control input-sm" aria-controls="dynamic-table" type="text" placeholder="离开文本框后自动查询"/>
+				</label>
+			</div>
+		</div>
+		<div class="pull-right">
+				<button class="btn btn-sm btn-primary" style="margin-right:30px;" onclick="A001();">添加维护记录</button>
+		</div>
+	</div>
+	<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" aria-describedby="dynamic-table_info" role="grid">
+		<thead>
+			<tr role="row">
+				<th style="width:50px">序号</th>
+				<th>设备编号</th>
+				<th>设备名称</th>
+				<th>设备类型</th>
+				<th>规格型号</th>
+				<th>使用部门</th>
+				<th>设备标记</th>
+				<th>维护部门</th>
+				<th>维护日期</th>
+				<th>维护人</th>
+				<th>确认人</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="A_002_body"></tbody>                           <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+	</table>
+	<div class="breadcrumbs" id="breadcrumbs" style="height:38px;">
+		<div class="pull-right"><ul id="A002_foot" class="pagination" style="margin-top:5px">123</ul></div>
+	</div>
+</div>
+</div>
+
+<script>		//这里的js代码我写到了一起了 看的时候按照调用的编号查找，每一个方法的功能我尽力写一些注释信息   js脚本是区分大小写的  请注意！！！
+var A_001="";
+ function A001(){			//有用弹窗的函数 暂时用A来表示
+ 	A_001=layer.open({
+ 	 	type: 1,
+  		title: '添加维护记录模块儿', //不显示标题
+  		content:$('#A_001'),
+  		area: ['1000px', '760px']
+  		});
+ };
+ B001(1);		//这个是页面的初始化~~~~~~
+ function B001(n){		//这里回调后台的数据，因此我用B来表示  所有的页码用参数n来表示出来
+ 	$.post("WH/B001",{"n":n},function(data){
+ 		B001_trList(data.list); //此方法用于填充表格
+		B001_writePageFoot(data); //此方法用于填充页脚
+ 	});
+ };
+function B001_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += B001_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#B_001_body").html(dataStr);						//这里是正式填充的语句！！！！！
+
+};
+function B001_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr onclick="B001_click(\''+v.t_sbbh+'\',\''+v.t_sbmc+'\',\''+v.t_sblx+'\',\''+v.t_ggxh+'\',\''+v.t_sybm+'\')">';
+	dataStr += '<td>' + i + '</td>';
+	dataStr += '<td>' + v.t_sbbh + '</td>';
+	dataStr += '<td>' + v.t_sbmc + '</td>';
+	dataStr += '<td>' + v.t_sblx + '</td>';
+	dataStr += '<td>' + v.t_ggxh + '</td>';
+	dataStr += '<td>' + v.t_sybm + '</td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+function B001_click(a,b,c,d,e){
+	layer.close(A_003);
+	document.getElementById("A_sbbh").value=a;
+	document.getElementById("A_sbmc").value=b;
+	document.getElementById("A_sblx").value=c;
+	document.getElementById("A_sbxh").value=d;
+	document.getElementById("A_sybm").value=e;
+};
+ 
+ 
+function B001_writePageFoot(data){   //填充页码部分的内容！！！！
+  	var n="";
+  	var x=data.PageNumber;			
+  	if(x=1){x=1;}else{x-=1;}			//此时x为前一页
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.PageNumber){
+			n +="<li class=\"active\" onclick=\"B001_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"B001_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	$("#B001_foot").html(n);       									//替换的语句
+  };
+  function B001_pageChange(n) {  
+	$.post("WH/B001",{"n": n},function(data){
+		B001_trList(data.list); //此方法用于填充表格
+		B001_writePageFoot(data); //此方法用于填充页脚
+	});
+};
+  $("#C001").blur(			//查询框儿失去焦点就运行下面的函数
+	function(){
+		var x=document.getElementById("C001").value;
+		$.post("WH/C001",{"n":1,"x":x},function(data){		//最初为是第一页
+ 		B001_trList(data.list); //此方法用于填充表格
+		B001_writePageFoot(data); //此方法用于填充页脚
+		});	
+	});
+	function D001(){							        //处理那个短表单的方法
+	    var x=document.getElementById("D001x").value;
+	    var y=document.getElementById("D001y").value;
+	    var z=document.getElementById("A_sbbh").value;
+	    if(x==""||y==""){layer.msg("有空值哦！");}else{
+	    	  if(z==""){layer.msg("请先选择设备！");}else{
+	    	  	$.post("WH/D001",{"x":x,"y":y},function(data){
+	    	  		D001_trList(data);
+	    	  	});
+	    	  	
+	    	  }
+	    }	
+	};
+function D001_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += D001_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#D_001_body").html(dataStr);						//这里是正式填充的语句！！！！！
+
+};
+function D001_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + i + '</td>';
+	dataStr += '<td>' + v.t_whmc + '</td>';
+	dataStr += '<td>' + v.t_whjg + '</td>';
+	dataStr += '<td><a style="margin:5px;" id="x" onclick="E001('+v.t_id+')"><i class="ace-icon fa fa-trash-o bigger-130"></i></a></td>';
+	dataStr += '</tr>';
+	return dataStr;
+};	
+function E001(i){						//用于删除小框的项目的
+	$.post("WH/E001",{"i":i},function(data){
+		
+		D001_trList(data);				//填充语句 调用的是前面的  返回的是一个列表对象
+	});
+};
+function abcd(){
+	this.a=document.getElementById("A_sbbh").value;
+	this.b=document.getElementById("A_sbmc").value;
+	this.c=document.getElementById("A_sblx").value;
+	this.d=document.getElementById("A_sbxh").value;
+	this.e=document.getElementById("A_sybm").value;
+	this.f=document.getElementById("A_sbbj").value;
+	this.g=document.getElementById("A_wbbm").value;
+	this.h=document.getElementById("A_whrq").value;
+	this.i=document.getElementById("A_whr").value;
+	this.j=document.getElementById("A_qrr").value;
+	this.k=document.getElementById("A_sybm").value;
+};
+function F001(){
+	if(F001_ok()){     	//用于校验用的方法
+	var ttt=new abcd();   //用于向页面获取参数值的方法
+	$.post("WH/F001",ttt,function(data){		//发送到后台进行处理
+		alert(data);
+	});
+	
+	}else{}
+};
+function F001_ok(){				//这里是前台校验的方法！！
+	var a=document.getElementById("A_sbbh").value;
+	var b=document.getElementById("A_sbmc").value;
+	var c=document.getElementById("A_sblx").value;
+	var d=document.getElementById("A_sbxh").value;
+	var e=document.getElementById("A_sybm").value;
+	var f=document.getElementById("A_sbbj").value;
+	var g=document.getElementById("A_wbbm").value;
+	var h=document.getElementById("A_whrq").value;
+	var i=document.getElementById("A_whr").value;
+	var j=document.getElementById("A_qrr").value;
+	var k=document.getElementById("A_sybm").value;
+	if((a&&b&&c&&d&&e&&f&&g&&h&&i&&j&&k)==""){layer.msg("有空值哦！"); return !true; }else{return true;}
+}
+A002(1);				//初始化页面信息时候用的
+function A002(n){                                                             //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$.post("WH/A002",{"n":n},function(data){
+			A002_trList(data.list); //此方法用于填充表格
+			A002_writePageFoot(data);	//此方法用于页脚的填充
+	});
+}
+function A002_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += A002_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#A_002_body").html(dataStr);						//这里是正式填充的语句！！！！！
+
+};
+function A002_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + i + '</td>';
+	dataStr += '<td>' + v.t_sbbh + '</td>';
+	dataStr += '<td>' + v.t_sbmc + '</td>';
+	dataStr += '<td>' + v.t_sblx + '</td>';
+	dataStr += '<td>' + v.t_sbxh + '</td>';
+	dataStr += '<td>' + v.t_sybm + '</td>';
+	dataStr += '<td>' + v.t_sbbj + '</td>';
+	dataStr += '<td>' + v.t_wbbm + '</td>';
+	dataStr += '<td>' + v.t_whrq + '</td>';
+	dataStr += '<td>' + v.t_whr + '</td>';
+	dataStr += '<td>' + v.t_qrr + '</td>';
+	dataStr += '<td><a class="blue" href="javascript:B002(\''+v.t_sbbh+'\')"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>';
+	dataStr += '<a class="red" href="javascript:C002(\''+v.t_sbbh+'\')"><i class="ace-icon fa fa-trash-o bigger-130" style="margin-left:10px;"></i></a></td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+function B002(x){
+	layer.open({
+			  type: 1,
+			  title:"维护内容",
+			  area: ['500px', '300px'],
+			  content:$('#B_002')
+			});   
+}
+function C002(x){
+	$.post("WH/C002",{"x":x},function(data){		//删除内容的函数
+		layer.msg(data);
+		A002(1);						//重新初始化内容
+	});
+}
+function A002_writePageFoot(data){   //填充页码部分的内容！！！！
+  	var n="";
+    var x=data.pageNumber;
+    if(x==1){x=1;}else{x=x-1;};				//x为上一页
+    var y=x+2;
+    if(y>data.totalPage){y=data.totalPage;}else{};		//y为下一页
+    n +="<li onclick=\"A002_pageChange("+x+")\"><a>"+"上一页"+"</a></li>&nbsp;&nbsp;";
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.pageNumber){
+			n +="<li class=\"active\" onclick=\"A002_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"A002_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	n +="<li onclick=\"A002_pageChange("+y+")\"><a>"+"下一页"+"</a></li>&nbsp;&nbsp;";
+	$("#A002_foot").html(n);       									//替换的语句
+  };
+function A002_pageChange(n) {  
+	$.post("WH/A002",{"n": n},function(data){
+		A002_trList(data.list); //此方法用于填充表格
+		A002_writePageFoot(data); //此方法用于填充页脚
+	});
+};
+var A_003="";
+function A003(){
+  A_003=layer.open({
+ 	 	type: 1,
+  		title: '请选择设备', //不显示标题
+  		content:$('#B_003'),
+  		area: ['640px', '400px'],
+  		scrollbar: false
+  		});
+}
+</script>
+
+<!-- 隐藏的内容都会写到这个下面，这里都是需要隐藏的元素，其中，最外面的id与调用他的layer的名是保持一直的 -->
+<div id="B_002" style="display:none;">
+<div>隐藏内容</div>
+</div>
+<div id="A_001" style="display:none;overflow:hidden;position:relative;height:715px;">
+<form  class="form-horizontal" style="">
+        <fieldset class="solid" style="margin:15px;border:1px #c0c0c0 solid;padding:20px;">
+        	<div class="form-group" >
+        	<div class="col-md-offset-0 col-md-12">
+					<button class="btn btn-info" onclick="A003()" style="float:left;">
+						选择设备
+					</button>
+				</div>
+		    </div>
+        	<div class="form-group" style="margin-top:35px;">
+				<label class="col-sm-1 control-label no-padding-right" >设备编号</label>
+				<div class="col-sm-3">
+					<input type="text" class="col-xs-12 col-sm-12" id="A_sbbh"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right">设备名称</label>
+				<div class="col-sm-3">
+					<input type="text" class="col-xs-12 col-sm-12" id="A_sbmc"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right">设备类型</label>
+				<div class="col-sm-3">
+					<input type="text" class="col-xs-12 col-sm-12" id="A_sblx"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-1 control-label no-padding-right">使用部门</label>
+				<div class="col-sm-3">
+					<input type="text" class="col-xs-12 col-sm-12" id="A_sybm"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right">规格型号</label>
+				<div class="col-sm-3">
+					<input type="text" class="col-xs-12 col-sm-12" id="A_sbxh"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right" style="height:20px;">维护日期</label>
+				<div class="col-sm-3">
+					<input type="date" class="col-xs-12 col-sm-12" style="height:36px;" id="A_whrq"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-1 control-label no-padding-right">维护人</label>
+				<div class="col-sm-3">
+					<input type="text" class="col-xs-12 col-sm-12" id="A_whr"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right" >备件标记</label>
+				<div class="col-sm-3">
+					<input type="text" class="col-xs-12 col-sm-12" id="A_sbbj"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right" >确认人</label>
+				<div class="col-sm-3">
+					<input type="text" class="col-xs-12 col-sm-12" id="A_qrr"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-1 control-label no-padding-right" >维护部门</label>
+				<div class="col-sm-3">
+					<input type="text" class="col-xs-12 col-sm-12" id="A_wbbm"/>
+				</div>
+			</div>
+        </fieldset>
+    </form>
+ 
+	
+    <div style="margin-top:15px;">
+    	<div class="col-xs-12" style="height:300px;overflow:auto;">
+				<div class="table-header">保养维护记录表</div>
+			<div class="dataTables_wrapper form-inline no-footer">
+			</div>
+				<div class="dataTables_wrapper form-inline no-footer">
+					<div class="row">
+						<div class="col-xs-11">
+							<div class="dataTables_length">
+								<label>
+								维护项目名称
+								<input type="text" class="form-control input-sm" style="width:200px;" id="D001x"/>
+								维护项目结果
+								<input type="text" class="form-control input-sm" style="width:400px;" id="D001y"/>
+								</label>
+							</div>
+						</div>	
+						<button class="btn btn-sm btn-primary" onclick="D001();">添加</button>		                                         <!-- <<<<<<<<<<<<<<<<<<<<<<<<<< -->
+				</div>
+				</div>
+						
+   		<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" aria-describedby="dynamic-table_info" role="grid">
+		<thead>
+			<tr role="row">
+				<th style="width:50px">序号</th>
+				<th>维护项目名称</th>
+				<th>维护项目结果</th>
+				<th style="width:50px">操作</th>
+			</tr>
+		</thead>
+		
+		<tbody id="D_001_body"></tbody>
+	</table>
+	</div>
+	<div class="col-md-offset-4 col-md-9" style="position:absolute;top:660px;">
+		<button class="btn btn-info" onclick="F001()">
+			<i class="ace-icon fa fa-check bigger-110"></i>
+			提交
+		</button>
+		<button class="btn" type="reset" style="margin-left:80px;">
+			<i class="ace-icon fa fa-check bigger-110"></i>
+			重置
+		</button>
+	</div>
+    </div>
+</div>
+<div id="B_003"style="width:600px; height:300px;margin:20px;display:none;overflow:hidden;">
+    <div class="table-header">设备信息简表</div>
+    <div class="breadcrumbs">
+    	<div class="pull-left" style="margin-left:10px;" >查询
+    		<input style="height:30px;" id="C001" type="text" placeholder="离开文本框后自动查询"/>
+    	</div>
+    </div>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" aria-describedby="dynamic-table_info" role="grid">
+		<thead>
+			<tr role="row">
+				<th style="width:50px">序号</th>
+				<th>设备编号</th>
+				<th>设备名称</th>
+				<th>设备类型</th>
+				<th>规格型号</th>
+				<th>使用部门</th>
+			</tr>
+		</thead>
+		<tbody id="B_001_body"></tbody>
+	</table>
+<div class="breadcrumbs" id="breadcrumbs" style="height:38px;">
+		<div class="text-center"><ul id="B001_foot" class="pagination" style="margin-top:5px">123</ul></div>
+</div>
+    </div>

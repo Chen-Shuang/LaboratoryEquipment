@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>eSpotContentsTable.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+   <table border="1">
+   	<tr>
+   		<td>点检内容编号</td>
+   		<td>点检编号</td>
+   		<td>点检项目</td>
+   		<td>点检结果</td>
+   		<td>操作</td>
+   	</tr>
+   	<#list eSpotContentsTablelist as eSpotContentsTable>
+   	<tr>
+   		<td>${eSpotContentsTable.eContentsNo}</td>
+   		<td>${eSpotContentsTable.eSpotNo}</td>
+   		<td>${eSpotContentsTable.eSpotItem}</td>
+   		<td>${eSpotContentsTable.eSpotResult}</td>
+   		<td><a href="/mes/eSpotContentsTables/delete/${eSpotContentsTable.eContentsNo}">删除</a>
+   			<a href="/mes/eSpotContentsTables/updater/${eSpotContentsTable.eContentsNo}">修改</a>
+   		</td>
+   	</tr>
+   	</#list>
+
+  </body>
+</html>

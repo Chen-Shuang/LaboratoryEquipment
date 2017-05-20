@@ -1,0 +1,58 @@
+package sbgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class EquipmentInfo extends Model<EquipmentInfo>{
+	public static final EquipmentInfo dao = new EquipmentInfo();
+	
+	
+	public void setENo(java.lang.Integer eNo) {
+		set("eNo", eNo);
+	}
+
+	public java.lang.Integer getENo() {
+		return get("eNo");
+	}
+	public void setEName(java.lang.String eName) {
+		set("eName", eName);
+	}
+
+	public java.lang.String getEName() {
+		return get("eName");
+	}
+	public void setEType(java.lang.String eType) {
+		set("eType", eType);
+	}
+
+	public java.lang.String getEType() {
+		return get("eType");
+	}
+	public void setEDescription(java.lang.String eDescription) {
+		set("eDescription", eDescription);
+	}
+
+	public java.lang.String getEDescription() {
+		return get("eDescription");
+	}
+	public void setEOffline(java.lang.String eOffline) {
+		set("eOffline", eOffline);
+	}
+
+	public java.lang.String getEOffline() {
+		return get("eOffline");
+	}
+	public void setEStartday(java.sql.Timestamp eStartday) {
+		set("eStartday", eStartday);
+	}
+
+	public java.sql.Timestamp getEStartday() {
+		return get("eStartday");
+	}
+	public void setEStatus(java.lang.Integer eStatus) {
+		set("eStatus", eStatus);
+	}
+
+	public java.lang.Integer getEStatus() {
+		return get("eStatus");
+	}
+}

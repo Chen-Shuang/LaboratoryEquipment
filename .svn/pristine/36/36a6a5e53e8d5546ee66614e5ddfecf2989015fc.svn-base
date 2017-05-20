@@ -1,0 +1,75 @@
+package sbgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class A_BF extends Controller{
+	public void index(){
+		render("/sbgl/sbbf.html");
+	}
+	public void A001(){
+		int n=getParaToInt("n");
+		System.out.println(n);
+		Page<Sbbf> list =Sbbf.dao.paginate(n, 10, "select *", "from sbgl_sbbfb");	//从设备台账表中得到page对象
+		renderJson(list);		//将台账的列表信息展示到前台
+	}
+	
+	
+	
+	public void XZ001(){
+		
+		int n=getParaToInt("n");
+		System.out.println(n);
+		Page<sbgl_sbtz> list =sbgl_sbtz.dao.paginate(n, 4, "select *", "from sbgl_sbtz where t_syzk != 2");	//从设备台账表中得到page对象,报废为2，不为2，全部提取
+		renderJson(list);		//将台账的列表信息展示到前台
+		//System.out.println(list.getList());
+		
+	}
+	
+	
+	//后台给前台表中传值
+	public void C001(){
+		int n=getParaToInt("n");			//n代表的是页码
+		String m=getPara("m");			//m代表的是精度表的外键
+		Sbbf x=Sbbf.dao.findById(m);
+		
+		System.out.println(x);
+		renderJson(x);		//将精度检查表的list对象发送到前台
+	}
+	
+	
+	//故障履历查询
+	public void GZCX1(){
+		int n=getParaToInt("n");			//n代表的是页码
+		String m=getPara("m");			//m代表的是精度表的外键
+		List<sbgzxl> x=sbgzxl.dao.find("select * from sbgl_sbgzxl where t_sbbh ='"+m+"'");
+		renderJson(x);		//将精度检查表的list对象发送到前台
+	}
+	
+	
+	//添加更新到数据库
+	public void add(){
+		Sbbf x =getModel(Sbbf.class,"sbgl_sbbfb");
+		System.out.println(x.getStr("t_sbbh"));
+		if(x!=null){x.save();}	   //保存数据
+		System.out.println(x);
+		renderText("success");
+	}
+	
+	public void edit(){
+		Sbbf x =getModel(Sbbf.class,"sbgl_sbbfb");
+		if(x!=null){x.update();}	   //保存数据
+		renderText("success");
+	}
+	
+	public void delete(){
+		String x=getPara("x");
+		Sbbf.dao.findById(x).delete();   //删除数据库的对象
+		renderText("删除成功！");
+	}
+	
+	
+	
+}

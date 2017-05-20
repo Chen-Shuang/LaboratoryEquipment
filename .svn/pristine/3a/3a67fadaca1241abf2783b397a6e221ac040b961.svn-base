@@ -1,0 +1,10 @@
+package scsjgl;
+
+import com.jfinal.core.Controller;
+
+public class TzhljlController extends Controller {
+	public void index(){
+		System.out.println("*****");
+		renderFreeMarker("/scsjgl/tzhljl.html");
+	}
+}

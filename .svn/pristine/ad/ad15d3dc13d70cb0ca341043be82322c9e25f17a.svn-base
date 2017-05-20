@@ -1,0 +1,9 @@
+package pdm;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class pdm_cplbgl extends Model<pdm_cplbgl> {
+	
+	public static final pdm_cplbgl dao=new pdm_cplbgl();
+	
+}

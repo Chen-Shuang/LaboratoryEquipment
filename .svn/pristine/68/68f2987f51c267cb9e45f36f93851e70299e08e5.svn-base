@@ -1,0 +1,53 @@
+package xtgl;
+
+import xtgl.Log;
+
+import com.jfinal.core.Controller;
+
+public class LogController extends Controller {
+
+	public void index() {
+		setAttr("list", Log.dao.getlogs());
+		render("/xtgl/rzgl.html");
+	}
+
+	// 多条件日志查询
+	public void sele() {
+		if (getPara("selevalue").equals("") && getPara("begintime").equals("")
+				&& getPara("endtime").equals(""))
+			redirect("/#log");
+		if (!getPara("selevalue").equals("") && getPara("begintime").equals("")
+				&& getPara("endtime").equals("")) {
+			setAttr("list",
+					Log.dao.find("select * from log where "
+							+ getPara("seletype") + " = '"
+							+ getPara("selevalue") + "'"));
+			render("/xtgl/rzgl.html");
+		}
+		if (getPara("selevalue").equals("") && !getPara("begintime").equals("")
+				&& !getPara("endtime").equals("")) {
+			setAttr("list",
+					Log.dao.find("select * from log where operation_time between'"
+							+ getPara("begintime")
+							+ "' and '"
+							+ getPara("endtime") + "'"));
+			render("/xtgl/rzgl.html");
+		}
+		if (!getPara("selevalue").equals("")
+				&& !getPara("begintime").equals("")
+				&& !getPara("endtime").equals("")) {
+			setAttr("list",
+					Log.dao.find("select * from log where operation_time between'"
+							+ getPara("begintime")
+							+ "' and '"
+							+ getPara("endtime")
+							+ "' and "
+							+ getPara("seletype")
+							+ " = '"
+							+ getPara("selevalue") + "'"));
+			render("/xtgl/rzgl.html");
+		}
+
+	}
+
+}

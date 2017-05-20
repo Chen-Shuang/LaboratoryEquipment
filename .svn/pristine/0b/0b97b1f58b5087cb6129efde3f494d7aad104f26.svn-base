@@ -1,0 +1,76 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="gzgl" class="_p">工装管理</a>
+		</li>
+		<li>
+			<span>工装基本信息</span>
+		</li>		
+	</ul><!-- /.breadcrumb -->
+</div>  
+   <div class="col-xs-12">
+   <div class="table-header">工装基本信息表</div>
+   <div class="breadcrumbs" id="breadcrumbs">
+   	    <div class= "nav-search" id="nav-search"> 
+   <form class="form-search" action="#" id="a" _lpchecked="1" method="post">
+ 		<input type="text" placeholder="请输入编号" class="nav-search-input"  autocomplete="off" name="moldNo" value="">
+ 		<input type="text" placeholder="请输入名称" class="nav-search-input"  autocomplete="off" name="moldName" value="">
+   <i class="ace-icon fa fa-search nav-search-icon"></i>
+   <input value="检索" type="submit" id="b">&nbsp;
+   <a href="gzgl/add" class="_p">增加</a>
+   </form>
+   </div>
+   </div>
+  
+   
+   <table align="center" class="table table-striped table-bordered table-hover">
+   	<tr align="center">
+   		<td>模具编号</td>
+   		<td>模具名称</td>
+   		<td>模具材料类型</td>
+   		<td>模具类别</td>
+   		<td>制作年月</td>
+   		<td>设计顺序编号</td>
+   		<td>创建时间</td>
+   		<td>创建人</td>
+   		<td>图纸操作</td>
+   		<td>模具状态</td>
+   		<td>操作</td>
+   	</tr>
+   	<#list moldInfolist as moldInfo>
+   	<tr align="center">
+   		<td>${moldInfo.moldNo}</td>
+   		<td>${moldInfo.moldName}</td>
+   		<td>${moldInfo.moldMaterialType}</td>
+   		<td>${moldInfo.moldType}</td>
+   		<td>${moldInfo.makeDate}</td>
+   		<td>${moldInfo.designNo}</td>
+   		<td>${moldInfo.createTime}</td>
+   		<td>${moldInfo.creator}</td>
+   		<td><a href="gzgl/printPaper/${moldInfo.moldNo}" class="_p">打印图纸</a>
+   			<a href="gzgl/preview/${moldInfo.moldNo}" class="_p">预览图纸</a></td>
+   		
+   		<#if  moldInfo.moldStatus =1>
+   		<td>启用</td>
+   		<#elseif  moldInfo.moldStatus =0>
+   		<td>禁用</td>
+   		</#if>
+   		
+   		<td>
+   			
+   			<a href="gzgl/delete/${moldInfo.moldNo}"class="_p">删除</a>
+   			<a href="gzgl/edit/${moldInfo.moldNo}" class="_p" >修改</a>
+   			<br>
+   			
+   		</td>
+   		
+   	</tr>
+   	</#list>
+   	</table>
+   	</div>
+   	

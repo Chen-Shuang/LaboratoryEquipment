@@ -1,0 +1,30 @@
+package xtgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+
+public class Deptcontroller extends Controller {
+	public void index(){
+		List<Department> dept = Department.dao.find("select * from dept");
+		setAttr("list", dept);
+		render("/xtgl/dept.html");
+	}
+	public void del(){
+		Db.update("delete from dept where dept_id="+getParaToInt(0));
+		redirect("#dept/index");
+	}
+	public void edit(){
+		//Db.update("selete from dept where dept_id="+getParaToInt(0));
+		Department user = Department.dao.findById(getParaToInt("dept_id"));
+		setAttr("dept",user );
+		render("#dept");
+	}
+	public void add(){
+		Department user=getModel(Department.class,"dept");
+		user.save();
+		redirect("/index.html#dept");
+	}
+
+}

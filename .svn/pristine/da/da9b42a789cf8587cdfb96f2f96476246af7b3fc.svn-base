@@ -1,0 +1,83 @@
+package xtgl;
+
+import java.nio.channels.SelectableChannel;
+import java.util.List;
+
+import xtgl.Role;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+
+public class RoleController extends Controller {
+
+	// 跳转jsgl.html
+	public void index() {
+		setAttr("rp", Role_Privilege.dao.find("select * from role_privilege"));
+		setAttr("dept", Department.dao.find("select * from dept"));
+		setAttr("list", Role.dao.getRoles());
+		setAttr("privilege", Privilege.dao.getPrivilege());
+		renderFreeMarker("/xtgl/jsgl.html");
+	}
+
+	// ͨ删除角色
+	public void delerolebyid() {
+		Role_Privilege.dao.deleteDeptPrivilegeByRoleId(getParaToInt(0));	//根据roleId删除角色的权限
+		Dept_Role.dao.deleteDeptRole(getParaToInt(0));						//根据roleId在部门中删除角色
+		Role.dao.deleteRole(getParaToInt(0));								//根据roleId删除角色
+
+		redirect("/#role");
+	}
+
+	// 添加角色
+	public void addrole() {
+		Role role = getModel(Role.class, "role");
+		role.save();
+		Dept_Role dept_role = new Dept_Role();
+		dept_role.set("dept_id", role.getInt("dept_id"));
+		dept_role.set("role_id", role.getInt("role_id"));
+		dept_role.save();
+		redirect("/#role");
+	}
+
+	public void toUpdaterole() {
+		renderJson(Role.dao.findById(getParaToInt("role_id")));// 获取前端传递的id
+	}
+
+	// 更改角色
+	public void update() {
+		Role role = getModel(Role.class);
+		role.update();
+		Db.update("delete from dept_role where role_id="
+				+ role.getInt("role_id"));
+		Dept_Role dept_role = new Dept_Role();
+		dept_role.set("dept_id", role.getInt("dept_id"));
+		dept_role.set("role_id", role.getInt("role_id"));
+		dept_role.save();
+		redirect("/#role");
+	}
+
+	// 添加权限
+	public void addprivilege() {
+
+		Integer roleId = getParaToInt("role.role_id");
+		Integer[] check = getParaValuesToInt("privi");
+		Role_Privilege.dao.updateDeptPrivilege(roleId, check);
+		redirect("/#role");
+
+	}
+
+	// 将状态设为停用
+	public void changestatus0() {
+		int id = getParaToInt(0);
+		Role.dao.findById(id).set("status", false).update();
+		redirect("/#role");
+	}
+
+	// 将状态设为启用
+	public void changestatus1() {
+		int id = getParaToInt(0);
+		Role.dao.findById(id).set("status", true).update();
+		redirect("/#role");
+	}
+
+}

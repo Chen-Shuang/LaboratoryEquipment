@@ -1,0 +1,204 @@
+<div class="main-content">
+	<div id="main-content-inner">
+		<div class="main-content">
+			<div id="main-content-inner">
+				<meta charset="utf-8">
+				<!-- 导航栏div -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li><i class="ace-icon fa fa-home home-icon"></i> <a
+							href="index">主页</a></li>
+						<li><span>生产数据管理</span></li>
+
+						<li><span>生产过程工序</span></li>
+					</ul>
+				</div>
+				<br>
+				<!-- 最外层div -->
+				<div class="col-xs-12">
+					<div class="table-header" style="width:100%;">生产工程工序</div>
+					<div class="tabbable">
+						<!-- 内部操作界面总div -->
+						<div class="tab-content"
+							style=" height:100%;width:100%;padding: 0;">
+							<!-- 今日订单div -->
+							<div
+								style="width:20%;position:absolute z-index:999; top:0;hight:250px;float: left;">
+								<table
+									class="  table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
+									id="dynamic-table" role="grid"
+									aria-describedby="dynamic-table_info">
+									<thead>
+										<tr>
+											<th style="text-align:center;line-height:40px;">今日订单</th>
+											<th style="text-align:center;width:50%;line-height:40px;">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+
+										<#list scgxgl_rscjhs as s>
+										<tr>
+											<td style="text-align:center;">${s.ddh}</td>
+
+											<td style="text-align:center;"><a id=${s.ddh}
+												href="javascript:addSelect(${s.ddh});"> 添加</a></td>
+
+										</tr>
+										<script type="text/javascript">
+											//"/mes/scgcgx/add_select?ddh=${s.ddh}"
+											var num=0;
+											function addSelect(ddh) {
+												$
+														.post(
+																"/mes/scgcgx/add_select?ddh="
+																		+ ddh,
+																function(data) {
+																	$("#cpmc")
+																			.val(
+																					data.shangbiao.chmc);
+																	$("#sczld")
+																			.val(
+																					data.shangbiao.ddh);
+																	$("#bz")
+																			.val(
+																					data.shangbiao.scbzbh);
+																	$("#ljh")
+																			.val(
+																					);
+																	$("#khddh")
+																			.val(
+																					data.shangbiao.ddh);
+																	$("#scpch")
+																			.val(
+																					data.shangbiao.scpch);
+																	var xiabiaoStr = '';
+																	
+																	$.each(data.xiabiao,function(i,v) {
+																			xiabiaoStr+=stringBuilder(v);
+																			num++;
+																			});
+																		
+																	$("#addform").html(xiabiaoStr);				
+													var numhtml="";
+													numhtml='<input type="hidden" name="num" value="'+num+'">';
+													$("#addform").append(numhtml);
+																}, "json");
+
+											}
+											function stringBuilder(v) {
+												var dataStr = "";
+												dataStr += '<tr>';
+												dataStr += '<td ><input type="text" name="scsjgl_scgcgxzi' +num+'.gy_id" value="'+v.gylc_id+'">' + '</td>';
+												dataStr += '<td ><input type="text" name="scsjgl_scgcgxzi' +num+'.gylc_name" value="'+v.gylc_name+'" >' + '</td>';
+												dataStr += '<td ><input type="text" name="scsjgl_scgcgxzi' +num+'.pzwlmc">'+ '</td>';
+												dataStr += '<td ><input type="text" name="scsjgl_scgcgxzi' +num+'.sl" >'+ '</td>';
+												dataStr += '<td ><input type="text" name="scsjgl_scgcgxzi' +num+'.bhgsl">'+ '</td>';
+												dataStr += '<td ><input type="text" name="scsjgl_scgcgxzi' +num+'.wlpc">'+ '</td>';	
+												dataStr += '<td ><input type="text" name="scsjgl_scgcgxzi' +num+'.sbbh">'+ '</td>';	
+												dataStr += '<td ><select name="scsjgl_scgcgxzi' +num+'.czy">' +'</select>'+ '</td>';
+												dataStr += '<td ><select name="scsjgl_scgcgxzi' +num+'.jyy">' +'</select>'+ '</td>';																												
+												dataStr += '<td ><input type="text" name="scsjgl_scgcgxzi' +num+'.bz">'+ '</td>';	
+												
+												dataStr += '</tr>';
+												return dataStr;
+											}
+										</script>
+
+										</#list>
+									</tbody>
+								</table>
+							</div>
+							<!-- 异步刷新区域div -->
+							<div class="add_order"
+								style="margin-top:0;width: 79%;hight:300px;display: inline-block;style="padding: 0;">
+
+						
+
+								<form class="form-horizontal"  action="/mes/scgcgx/save_order" method="post" role="form">
+
+									<table
+										class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
+										id="dynamic-table" role="grid"
+										aria-describedby="dynamic-table_info">
+										<thead>
+											<tr>
+												<td colspan="10"
+													style="font-size:30px;text-align:center;line-height:40px;">郑州跃博汽车有限公司</td>
+											</tr>
+											<tr>
+												<td style="text-align:center;">产品名称</td>
+												<td colspan="2"><input name="scsjgl_scgcgxzu.cpmc" id="cpmc" readOnly="true"/>
+												</td>
+												<td style="text-align:center;">生产指令单</td>
+												<td colspan="2"><input name="scsjgl_scgcgxzu.sczld" id="sczld" readOnly="true"/>
+												</td>
+												<td style="text-align:center;">班组</td>
+												<td colspan="3"><input name="scsjgl_scgcgxzu.bz" id="bz" readOnly="true"/>
+												</td>
+											</tr>
+
+											<tr>
+												<td style="text-align:center;">零件号</td>
+												<td colspan="2"><input name="scsjgl_scgcgxzu.ljh" id="ljh" readOnly="true"/>
+												</td>
+												<td style="text-align:center;">客户订单号</td>
+												<td colspan="2"><input name="scsjgl_scgcgxzu.khddh" id="khddh" readOnly="true">
+												</td>
+												<td style="text-align:center;">生产批次号</td>
+												<td colspan="3"><input name="scsjgl_scgcgxzu.scpch" id="scpch" readOnly="true">
+												</td>
+											</tr>
+											<tr>
+												<td style="text-align:center;">工序序号
+												</td>
+												<td style="text-align:center;">工序名称
+												</td>
+												<td style="text-align:center;">配置物料名称
+												</td>
+												<td style="text-align:center;">数量
+												</td>
+												<td style="text-align:center;">不合格数量
+												</td>
+												<td style="text-align:center;">物料批次
+												</td>
+												<td style="text-align:center;">设备编号
+												</td>
+												<td style="text-align:center;">操作员
+												</td>
+												<td style="text-align:center;">检验员
+												</td><td style="text-align:center;">备注
+												</td>
+											</tr>
+										</thead>
+										<tbody id="addform">
+										</tbody>
+
+									</table>
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<button type="submit" class="btn btn-info">
+												<i class="ace-icon fa fa-check bigger-110"></i> 提交
+											</button>
+
+											&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+											<button type="reset" class="btn">
+												<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+											</button>
+										</div>
+									</div>
+								</form>
+								<div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="/mes/js/jquery-1.8.3.js">
+	
+</script>
+

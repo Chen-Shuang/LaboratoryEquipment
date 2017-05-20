@@ -1,0 +1,87 @@
+package xtgl;
+
+import xtgl.Log;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class LogController extends Controller {
+
+	public void index() {
+		setAttr("list", Log.dao.getlogs());
+		render("/xtgl/rzgl.html");
+	}
+
+	public void pagedemo() {
+		int n = getParaToInt("pageNumber");
+		Page<Log> list = Log.dao.paginate(n, 10, "select *", "from log");
+		renderJson(list);
+	}
+
+	// 多条件日志查询
+//	public void sele() {
+//		if (getPara("selevalue").equals("") && getPara("begintime").equals("")
+//				&& getPara("endtime").equals(""))
+//			redirect("/#log");
+//		if (!getPara("selevalue").equals("") && getPara("begintime").equals("")
+//				&& getPara("endtime").equals("")) {
+//			setAttr("list",
+//					Log.dao.find("select * from log where "
+//							+ getPara("seletype") + " = '"
+//							+ getPara("selevalue") + "'"));
+//			render("/xtgl/rzgl.html");
+//		}
+//		if (getPara("selevalue").equals("") && !getPara("begintime").equals("")
+//				&& !getPara("endtime").equals("")) {
+//			setAttr("list",
+//					Log.dao.find("select * from log where operation_time between'"
+//							+ getPara("begintime")
+//							+ "' and '"
+//							+ getPara("endtime") + "'"));
+//			render("/xtgl/rzgl.html");
+//		}
+//		if (!getPara("selevalue").equals("")
+//				&& !getPara("begintime").equals("")
+//				&& !getPara("endtime").equals("")) {
+//			setAttr("list",
+//					Log.dao.find("select * from log where operation_time between'"
+//							+ getPara("begintime")
+//							+ "' and '"
+//							+ getPara("endtime")
+//							+ "' and "
+//							+ getPara("seletype")
+//							+ " = '"
+//							+ getPara("selevalue") + "'"));
+//			render("/xtgl/rzgl.html");
+//		}
+//
+//	}
+	
+	public void sele() {
+		int n = getParaToInt("pageNumber", 1);
+		if (getPara("selevalue").equals("") && getPara("begintime").equals("")
+				&& getPara("endtime").equals("")){
+			Page<Log> list = Log.dao.paginate(n, 10,"select *", "from log");
+			renderJson(list);
+			}
+		if (!getPara("selevalue").equals("") && getPara("begintime").equals("")
+				&& getPara("endtime").equals("")) {
+			Page<Log> list = Log.dao.paginate(n, 10,"select *", "from log where " + getPara("seletype") + " = '" + getPara("selevalue") + "'");
+			renderJson(list);
+		}
+		if (getPara("selevalue").equals("") && !getPara("begintime").equals("")
+				&& !getPara("endtime").equals("")) {
+			Page<Log> list = Log.dao.paginate(n, 10,"select *", "from log where operation_time between'" + getPara("begintime") + "' and '" + getPara("endtime") + "'");
+			renderJson(list);
+		}
+		if (!getPara("selevalue").equals("")
+				&& !getPara("begintime").equals("")
+				&& !getPara("endtime").equals("")) {
+			Page<Log> list = Log.dao.paginate(n, 10,"select *", "from log where operation_time between'" + getPara("begintime") + "' and '" + getPara("endtime") + "' and " + getPara("seletype") + " = '" + getPara("selevalue") + "'");
+			renderJson(list);
+		}
+
+	}
+
+
+}

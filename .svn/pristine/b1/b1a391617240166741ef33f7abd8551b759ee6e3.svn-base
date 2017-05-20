@@ -1,0 +1,8 @@
+package xcckgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Xccbcpxx extends Model<Xccbcpxx> {
+	public static final Xccbcpxx me = new Xccbcpxx();
+
+}

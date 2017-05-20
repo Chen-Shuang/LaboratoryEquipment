@@ -1,0 +1,34 @@
+package scsjgl;
+
+import scjhgl.Cprscjh;
+
+import com.jfinal.core.Controller;
+
+public class TzhljlController extends Controller {
+	public void index(){
+		setAttr("tzhljl",Tzhljl.dao.paginate(getParaToInt(0, 1), 3));
+		render("/scsjgl/tzhljl_main.html");
+	}
+	
+	
+	
+	
+	public void tzddel() {
+		
+		Tzhljl.dao.deleteById(getParaToInt(0));
+		 System.out.println(getPara(0));
+		 
+	/*		int id=getParaToInt(0);
+			boolean flag=Cprscjh.dao.deleteById(id);
+			if(flag){
+				redirect("/#cpjh");
+			}else{
+				renderText("有异常，删除失败");
+			}
+		 */
+		 
+		 
+	   redirect("/#tzhljl/index");
+	}
+
+}

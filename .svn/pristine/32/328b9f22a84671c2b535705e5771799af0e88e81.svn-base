@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>addView.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<script language = "JavaScript" src="/js/checkAddForm.js"></script>
+  </head>
+  
+  <body>
+   <form action="/mes/moldMaintenances/save" method="post" name="addForm" >
+		<fieldset class="solid">
+	<legend>moldMaintenance</legend>
+	<input type="hidden" name="moldMaintenance.flowNo" value="${(moldMaintenance.flowNo)!}" />
+	<div>
+		<label>模具编号</label>
+		<input type="text" name="moldMaintenance.moldNo" value="${(moldMaintenance.moldNo)!}" />
+	</div>
+	<div>
+		<label>维护内容</label>
+		<textarea name="moldMaintenance.maintenanceContents" cols="80" rows="10">${(moldMaintenance.maintenanceContents)!}</textarea>
+	</div>
+	<div>
+		<label>记录时间</label>
+		<input type="text" name="moldMaintenance.recordTime" value="${.now}" />
+	</div>
+	<div>
+		<label>记录人员</label>
+		<input type="text" name="moldMaintenance.recorder" value="${(moldMaintenance.recorder)!}" />
+	</div>
+	<div>
+		<label>&nbsp;</label>
+		<input value="添加" type="submit" onClick="return checkAddForm()"/>
+	</div>
+</fieldset>
+	</form>
+   
+  </body>
+</html>

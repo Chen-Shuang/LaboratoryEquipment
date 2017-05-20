@@ -1,0 +1,163 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">系统管理</a>
+		</li>
+
+		<li><span>日志管理</span>
+		</li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+<div class="page-content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="clearfix"></div>
+			<div class="table-header">日志管理</div>
+
+
+			<div>
+				<div id="dynamic-table_wrapper"
+					class="dataTables_wrapper form-inline no-footer">
+					<div class="row">
+						<div class="widget">
+							<div class="widget-main">
+								<form class="form-inline" id="selefrom" action="log/sele" method="post">
+									<input type="search" class="form-control input-sm"
+										placeholder="输入查询内容" aria-controls="dynamic-table"
+										name="selevalue"> <select name="seletype"
+										aria-controls="dynamic-table" class="form-control">
+										<option value="operation_user">操作用户</option>
+										<option value="operation_genre">操作备注</option>
+									</select> 起始时间：<input type="text" onClick="WdatePicker()" class="form-control" name="begintime" />
+									终止时间：<input type="text" onClick="WdatePicker()" class="form-control" name="endtime" />
+									<button id="selectfromsb" class="btn btn-info btn-sm">查询</button>
+									<button type="reset" class="btn btn-info btn-sm">重置</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					<table
+						class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
+						id="dynamic-table" role="grid"
+						aria-describedby="dynamic-table_info">
+						<thead>
+							<tr role="row">
+								<th>日志编号</th>
+								<th class="hidden-480">操作用户</th>
+								<th><i class="icon-time bigger-110 hidden-480"></i>操作备注</th>
+								<th class="hidden-480">操作时间</th>
+							</tr>
+						</thead>
+
+						<tbody id="logpage">
+						</tbody>
+
+					</table>
+					<div class="row">
+						<div class="col-xs-12 col-md-7"></div>
+						<div class="col-xs-12 col-md-5">
+
+
+							<div class=" pull-left">
+								<label>显示<select name="dynamic-table_length"
+									aria-controls="dynamic-table" class="form-control input-sm"><option
+											value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+								</select> 条记录</label>
+							</div>
+
+							<div class="dataTables_paginate paging_simple_numbers "
+								id="dynamic-table_paginate">
+								<ul id="package" class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	pagedemo(1);
+	function pagedemo(n) {
+		$.get("log/pagedemo", {
+			"pageNumber" : n
+		}, function(data) {
+			pack(data.list);
+			packpage(data);
+		});
+	}
+
+	function pack(data) { //填充数据
+		var dataStr = "";
+		$.each(data, function(i, v) {
+			dataStr += packlist(v);
+		});
+		$("#logpage").html(dataStr);
+	}
+
+	function packlist(v) {
+		var dataStr = "";
+		dataStr += '<tr>';
+		dataStr += '<td>' + v.log_id + '</td>';
+		dataStr += '<td>' + v.operation_user + '</td>';
+		dataStr += '<td>' + v.operation_genre + '</td>';
+		dataStr += '<td>' + v.operation_time + '</td>';
+		dataStr += '</tr>';
+		return dataStr;
+	};
+	function packpage(data) {
+
+		var n = "";
+		if (data.pageNumber == 1) { //上一页
+			var m = 1;
+		} else {
+			var m = data.pageNumber - 1;
+		}
+		;
+		if (data.pageNumber >= data.totalPage) {
+			var p = data.totalPage;
+		} else {
+			var p = data.pageNumber + 1;
+		}
+		;
+		n += "<li onclick=\"packpagesc(" + m + ")\"><a>" + "上一页"
+				+ "</a>&nbsp;&nbsp;";
+		for ( var a = 1; a <= data.totalPage; a++) {
+			if (a == data.pageNumber) {
+				n += "<li class=\"active\" onclick=\"packpagesc(" + a
+						+ ")\"><a>" + a + "</a>&nbsp;&nbsp;";
+			} else {
+
+				n += "<li onclick=\"packpagesc(" + a + ")\"><a>" + a
+						+ "</a></li>&nbsp;&nbsp;";
+			}
+			;
+		}
+		n += "<li onclick=\"packpagesc(" + p + ")\"><a>" + "下一页"
+				+ "</a>&nbsp;&nbsp;";
+		$("#package").html(n);
+	};
+	function packpagesc(curr) {
+
+		$.get("log/pagedemo", {
+			"pageNumber" : curr
+		}, function(data) {
+			pack(data.list);
+			packpage(data);
+		});
+	};
+	
+	$("#selectfromsb").click(function() {
+		$.post("log/sele", $("#selefrom").serialize(), function(data) {
+			pack(data.list);
+		})
+		return false;
+	});
+	
+</script>

@@ -1,0 +1,92 @@
+package gzgl;
+
+import java.util.List;
+
+
+import com.jfinal.core.Controller;
+import com.jfinal.upload.UploadFile;
+
+public class MoldController extends Controller {
+	public void index(){
+		List<Mold> mold = Mold.dao.find("select * from moldinfoo");
+		setAttr("moldInfolist", mold); 
+		render("list.html");
+	}
+	public void delete(){
+		//System.out.println("delete执行");
+		Mold.dao.findById(getPara(0)).set("moldStatus", "0").update();
+		redirect("/gzgl");
+	}
+	public void edit(){
+		Mold mold=Mold.dao.findById(getPara(0));
+		setAttr("mold", mold);
+		 
+		render("edit.html");
+	}
+	public void add(){
+		render("add.html");
+	}
+	public void update(){
+		
+		 UploadFile upFile=getFile("paper");
+		Mold mold=getModel(Mold.class);
+		try{
+			String a=upFile.getUploadPath()+"\\"+upFile.getFileName();
+			mold.set("paperUrl", a);
+		}catch(Exception e){}
+		System.out.println(mold);
+		mold.update();
+		redirect("/#gzgl/index");
+	}
+	public void  preview(){
+		
+		Mold mold =Mold.dao.findByIdLoadColumns(getPara(0), "paperUrl");
+		String url=mold.getStr("paperUrl");
+		renderText(url);
+	}
+    public void  printPaper(){
+		
+		Mold mold =Mold.dao.findByIdLoadColumns(getPara(0), "paperUrl");
+		String url=mold.getStr("paperUrl");
+		renderText(url);
+	}
+    public void save(){
+    	UploadFile upFile=getFile("paper");
+		Mold mold=getModel(Mold.class);
+		String moldMaterialType= mold.getStr("moldMaterialType");
+		String moldType= mold.getStr("moldType");
+		String makeDate= mold.getStr("makeDate");
+		String designNo= mold.getStr("designNo");
+		mold.put("moldNo", "209"+moldMaterialType+moldType+makeDate+designNo);
+		//没有上传图纸时，数据库中不存放图纸路径
+		try{
+			String a=upFile.getUploadPath()+"\\"+upFile.getFileName();
+			mold.put("paperUrl", a);
+		}catch(Exception e){}	   
+		 mold.save();
+		redirect("/#gzgl/index");
+	}
+    public void select(){
+    	String moldNo=getPara("moldNo");
+    	String moldName=getPara("moldName");
+    	if(moldNo!=null && !moldNo.equals("")){
+    		List<Mold> mold = Mold.dao.find("select * from moldinfoo where moldNo= "+moldNo);
+    		setAttr("moldInfolist", mold); 
+			render("/#gzgl/select.html");
+    	}else if(moldName!=null && !moldName.equals("")){
+    		List<Mold> name = Mold.dao.find("select * from moldinfoo where moldName like \"%"+moldName+"%\"");
+    		setAttr("moldInfolist", name); 
+    		render("/#gzgl/select.html");    		
+    	}else{
+    		index();
+    	}
+    }
+    	
+    	
+    	
+    	
+		
+
+	
+
+}

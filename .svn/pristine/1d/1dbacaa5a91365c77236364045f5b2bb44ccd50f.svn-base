@@ -1,0 +1,40 @@
+package xcckgl;
+
+ 
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
+ 
+public class Xcckgl  extends Model<Xcckgl> {
+	public static final Xcckgl me = new Xcckgl();
+	
+	public Page<Xcckgl> paginate( int pageNumber, int pageSize){
+		
+		return Xcckgl.me.paginate(pageNumber, pageSize,"select *","from xcckgl order by id asc");
+ 
+}
+	//根据id查询
+	public Page<Xcckgl> paginateid( int pageNumber, int pageSize ,int ID ){
+	 
+		return Xcckgl.me.paginate(pageNumber, pageSize,"select *","from xcckgl where id= '"+ ID+"'");
+		
+ 
+}
+	//根据工艺编号模糊查询
+	public Page<Xcckgl> paginatemh( int pageNumber, int pageSize ,String mc ){
+		 
+		return Xcckgl.me.paginate(pageNumber, pageSize,"select *","from xcckgl where cpmc like '%"+ mc +"%'");
+    }
+	
+	//根据今日时间和产品类型查询
+		public Page<Xcckgl> paginatenewday( int pageNumber, int pageSize ,String cplx ){
+			 
+			return Xcckgl.me.paginate(pageNumber, pageSize,"select *","from xcckgl where rqsj >=date(now()) and"
+		    		+ " rqsj<DATE_ADD(date(now()),INTERVAL 1 DAY) and cplx='"+cplx+"'");
+	    }
+		
+	
+	
+	
+	
+	
+}

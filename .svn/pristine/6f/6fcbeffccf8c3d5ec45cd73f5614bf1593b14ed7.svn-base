@@ -1,0 +1,204 @@
+package xcckgl;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.List;
+
+import scgygl.Lsgyxx;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+public class RkckController extends Controller {
+	public void index() {
+		System.out.println("入库");
+		int n[]=this.fenye(); 
+		Page<Xccrk> xccwlrk=Xccrk.me.paginate(n[0],n[1],"select *","from xcc_rk order by id desc");
+		List<Xccrk> wlrk=xccwlrk.getList();
+		setAttr("xccrk",wlrk);
+		
+		System.out.println("出库");
+		Page<Xccbcpck> xccbcpck=Xccbcpck.me.paginate(n[0],n[1],"select *","from xcc_bcpck order by id desc");
+		List<Xccbcpck> bcpck=xccbcpck.getList();
+		setAttr("xccck", bcpck);
+		render("/xcckgl/Rkck_main.html");
+	}
+	public void lsadd() {
+		System.out.println("执行增加方法");
+		//物料
+		String strBm = getPara("xcc_rk.wlbm");
+		String strMc = getPara("xcc_rk.wlmc");
+		String strPc = getPara("xcc_rk.wlpc");
+		String strSl = getPara("xcc_rk.wlsl");
+		String strLyc = getPara("xcc_rk.lyc");
+		String strLx = getPara("lx");
+		String strChbm = getPara("xcc_rk.chbm");
+		String strQxc = getPara("xcc_rk.qxc");
+		//半成品
+		String strBcpbm = getPara("xcccpxx.cpbm");
+		String strBcpmc = getPara("xcccpxx.cpmc");
+		String strBsczld = getPara("xcccpxx.sczld");
+		String strBbz = getPara("xcccpxx.bz");
+		String strBljh = getPara("xcccpxx.ljh");
+		String strBlyc = getPara("xcccpxx.lyc");
+		String strBqxc = getPara("xcccpxx.qxc");
+		String strBkhddh = getPara("xcccpxx.khddh");
+		String strBscpch = getPara("xcccpxx.scpch");
+		String strBsl = getPara("xcccpxx.sl");
+		String strBbhgsl = getPara("xcccpxx.bhgsl");
+		String strBhgsl = getPara("xcccpxx.hgsl");
+		
+		
+		
+		System.out.println("####"+strLx);
+		
+		if(strLx.equals("物料")){
+			Xccylxx xccylxx = getModel(Xccylxx.class);
+			Xccrk xccrk=getModel(Xccrk.class,"xccrk");
+			xccrk.set("rklx", strLx);
+			xccrk.set("mc", strMc);
+			xccrk.set("pc", strPc);
+			xccrk.set("sl", strSl);
+			xccrk.set("lyc", strLyc);
+			xccrk.set("rqsj", new Date());
+			xccrk.save();
+			
+			System.out.println("原料信息");
+			xccylxx.set("chbh", strChbm);
+			xccylxx.set("wlbm", strBm);
+			xccylxx.set("wlmc", strMc);
+			xccylxx.set("wlpc", strPc);
+			xccylxx.set("wlsl",strSl);
+			xccylxx.set("lyc", strLyc);
+			xccylxx.set("qxc", strQxc);
+			xccylxx.set("rqsj",new Date());
+			xccylxx.save();
+		}
+		else if(strLx.equals("半成品")){
+			Xccbcpxx xcccpxx = getModel(Xccbcpxx.class);
+			Xccrk xccrk=getModel(Xccrk.class,"xccrk");
+			xccrk.set("rklx", strLx);
+			xccrk.set("mc", strBcpmc);
+			xccrk.set("pc", strBscpch);
+			//xccrk.set("sl", strBsl);
+			xccrk.set("lyc", strBlyc);
+			xccrk.set("rqsj", new Date());
+			xccrk.save();
+			
+			System.out.println("半成品信息");
+			//xcccpxx.set("cpbm", strBcpbm);
+			xcccpxx.set("cpmc", strBcpmc);
+			xcccpxx.set("sczld", strBsczld);
+			xcccpxx.set("bz", strBbz);
+			//xcccpxx.set("ljh", strBljh);
+			xcccpxx.set("lyc", strBlyc);
+			xcccpxx.set("qxc", strBqxc);
+			xcccpxx.set("khddh", strBkhddh);
+			xcccpxx.set("scpch", strBscpch);
+			//xcccpxx.set("sl", strBsl);
+			//xcccpxx.set("bhgsl", strBbhgsl);
+			//xcccpxx.set("hgsl", strBhgsl);
+			xcccpxx.set("rqsj",new Date());
+			xcccpxx.save();
+		}
+		else{System.out.println("选择错误");}
+			
+		
+		redirect("/#rkck/index");
+	}
+	public void search() {
+
+		String ID = getPara("ID");
+
+		List<Rkck> list = Rkck.me.find("select * from xcc_rkck where (id like'%" + ID + "%')"+ "order by id");
+
+		if (list.size() > 0) {
+			renderText("#rkck/aa/");
+		} else {
+			renderText("flase");
+		}
+	}
+
+
+	/*public void aa() {
+		String ID = getPara(0);
+		System.out.println("执行*668**" + ID);
+
+		Page<Xcccpxx> pjb = Xcccpxx.me.paginateid(1, 5, ID);
+		setAttr("xcccrk", pjb);
+
+		render("/xcckgl/Rkck_main.html");
+	}*/
+	public int[] fenye(){   //分页代码  返回一页多少个内容以及从第多少页开始的代码，返回值为数组
+		int x=1;  //x代表起始页
+		int y=10;  //y代表每一页的数量  默认为每页十个
+		if(getParaToInt("x")==null||getParaToInt("y")==null){}  //如果页面元素为空的话就直接采用默认值
+		else{
+			x=getParaToInt("x");
+			y=getParaToInt("y");
+		}
+		int[] n={x,y};
+		return n;  
+	}
+	public String fenye(int z,int y,int x){   //打印分页的样式的方法
+		String a="";
+		for(int b=1;b<=z;b++){
+			if(b==x){   //当前页
+				a=a+"<li class=\"active\"><a href=\"/mes/#xccylxx/index?x="+b+"&y="+y+"\">"+b+"</a></li>&nbsp;&nbsp;";
+			}else{    //其他页
+			a=a+"<li><a href=\"/mes/#xccylxx/index?x="+b+"&y="+y+"\">"+b+"</a></li>&nbsp;&nbsp;";   //这里直接打印出分页链接，可以在这里修改样式
+			}
+		}
+		return a;
+	}
+
+	//原料入库
+	public void ylrk() {
+       
+		System.out.println("执行增加方法//原料入库");
+		
+		
+		String strBm = getPara("xcc_rk.bm");
+		String strPc = getPara("xcc_rk.pc");
+		String strSl = getPara("xcc_rk.sl");
+		String strLx = getPara("xcc_rk.lx");
+		Xccrk xccrk=getModel(Xccrk.class,"xccrk");
+		xccrk.set("bm", strBm);
+		xccrk.set("pc", strPc);
+		xccrk.set("sl", strSl);
+		xccrk.set("lx", strLx);
+		xccrk.save();
+
+ 
+		
+	}
+	
+	
+	public void Tbody_list2(){
+		Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 5,  "SELECT *","FROM xcc_bcpck");    
+		
+		renderJson(dataPage);
+		System.out.println("Tbody_list2="+dataPage.getList()+"条信息");
+	}
+	
+	public void search2() throws UnsupportedEncodingException{     		// search for 未排产
+		String ID =getPara("require","");  	//得到result的值  默认值问"" 
+		Page<?> dataPage=Db.paginate(getParaToInt("pageNumer",1), 5, "select *", "from xcc_bcpck where (id like'%" + ID + "%')"
+				+ " or (cpbh like'%" + ID + "%') " 
+				+ "or (cpmc like'%"+ID + "%') " 
+				+ " or (sczld like'%" + ID + "%') "
+				+ " or (qxc like'%" + ID + "%') " 
+				+ "or (khddh like'%"+ID + "%') " 
+				+ " or (scpch like'%" + ID + "%') "
+				+ "	or (sl like'%" + ID + "%') "
+				+ " or (bhgsl like'%" + ID + "%') " 
+				+ "	or (hgsl like'%"+ ID + "%') "
+				+ " or (rqsj like'%" + ID + "%') "
+
+				+ "order by id");
+		renderJson(dataPage);
+	}
+	
+	
+}

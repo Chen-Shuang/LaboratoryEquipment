@@ -1,0 +1,9 @@
+package scjhgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Zzpscdd extends Model <Zzpscdd>{
+	public static final Zzpscdd dao =new Zzpscdd();
+
+	
+}

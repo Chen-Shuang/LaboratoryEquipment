@@ -1,0 +1,122 @@
+package xtgl;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class UserController extends Controller {
+	public void users() throws Exception {
+		List<User> users = User.dao.find("select * from user");
+		List<Department> depts = Department.dao.find("select * from dept");
+		List<Role> roles = Role.dao.find("select * from role");
+		for (int i = 0; i < users.size(); i++) {
+			User user = users.get(i);
+			if (user.getDate("hiredate") != null) {
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date date = new Date();
+				String now = df.format(date);
+				Date d1 = df.parse(now);
+				Date d2 = user.getDate("hiredate");
+				String str=df.format(d2);
+				Date d3 = df.parse(str);
+				long diff = d1.getTime() - d3.getTime();
+				long year =diff / (1000 * 60 * 60 * 24);
+				int y = (int)(year/365);
+				user.set("seniority", y);
+			}
+
+		}
+		setAttr("roles", roles);
+		setAttr("list", users);
+		setAttr("depts", depts);
+		render("/xtgl/Users.html");
+	}
+
+	public void delete() {
+		User.dao.deleteById(getParaToInt("id"));
+		redirect("#users/users");
+	}
+
+	public void addUser() {
+		User dept = getModel(User.class, "u");
+
+		Date date = new Date();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = format.format(date);
+		System.out.println(time);
+		dept.set("regist_date", time);
+		dept.save();
+		redirect("#users/users");
+	}
+
+	public void update() {
+		User user = User.dao.findById(getParaToInt("id"));
+		user.set("username", getPara("username"));
+		user.set("password", getPara("password"));
+		user.set("gender", getPara("gender"));
+		user.set("name", getPara("name"));
+		user.set("age", getParaToInt("age"));
+		user.set("dept", getParaToInt("dept"));
+		//user.set("role_id", getParaToInt("role_id"));
+		System.out.println("========================================");
+		System.out.println(getParaToInt("role_id"));
+		System.out.println("========================================");
+		user.set("position", getPara("position"));
+		user.set("education", getPara("education"));
+		user.set("hiredate", getParaToDate("hiredate"));
+		user.set("email", getPara("email"));
+		user.set("regist_date", getParaToDate("regist_date"));
+		user.set("role_id", getParaToInt("role_id"));
+		user.set("status", getParaToBoolean("status"));
+		user.update();
+		redirect("#users/users");
+	}
+
+	public void select() {
+		System.out.println("welcome!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		String str = getPara("str");
+		String type = getPara("type");
+		if (type.equals("id")) {
+			List<User> users = User.dao.find("select * from user where id="+str);
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			setAttr("roles", roles);
+			setAttr("list", users);
+			setAttr("depts", depts);
+			render("/xtgl/Users.html");
+		} else if (type.equals("dept_id")) {
+			List<User> users = User.dao
+					.find("select * from user where dept_id=(select dept_id from dept where dept_name='"
+							+ str + "')");
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			setAttr("roles", roles);
+			setAttr("list", users);
+			setAttr("depts", depts);
+			render("/xtgl/Users.html");
+		} else if (type.equals("username")) {
+			List<User> users = User.dao
+					.find("select * from user where username like '%" + str
+							+ "%'");
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			setAttr("roles", roles);
+			setAttr("list", users);
+			setAttr("depts", depts);
+			render("/xtgl/Users.html");
+		} else if (type.equals("name")) {
+			List<User> users = User.dao
+					.find("select * from user where name like '%" + str + "%'");
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			setAttr("roles", roles);
+			setAttr("list", users);
+			setAttr("depts", depts);
+			render("/xtgl/Users.html");
+		}
+	}
+}

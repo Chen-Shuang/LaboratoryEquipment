@@ -1,0 +1,7 @@
+package sbgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Wd extends Model<Wd>{
+	public static final Wd dao = new Wd();
+}

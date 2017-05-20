@@ -1,0 +1,12 @@
+package xcckgl;
+
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
+
+public class Xcccpxx extends Model<Xcccpxx> {
+	public static final Xcccpxx me = new Xcccpxx();
+
+ }
+	
+	
+ 

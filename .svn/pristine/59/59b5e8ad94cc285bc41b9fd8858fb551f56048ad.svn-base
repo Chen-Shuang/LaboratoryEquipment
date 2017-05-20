@@ -1,0 +1,21 @@
+package sbgl;
+
+import com.jfinal.config.Routes;
+/*
+ * 设备信息管理分模块而的总路由配置
+ * */
+public class SbglConfigRoute extends Routes {  
+	public void config() {
+		add("/moldInfos", MoldInfoController.class);
+		add("/moldMaintenances", MoldMaintenanceController.class);
+		add("/equipmentInfos", EquipmentInfoController.class);
+		add("/equipmentMaintenances",EquipmentMaintenanceController.class );
+		add("/equipmentSpotChecks", EquipmentSpotCheckController.class);
+		add("/eSpotContentsTables", ESpotContentsTableController.class);
+		
+		add("/sbgl_bjk",sbgl_bjkController.class);   //备件库的路由信息
+		add("/sbgl_gys",sbgl_gysController.class);   //供应商的路由信息
+		add("/sbgl_bjlx",sbgl_bjlxController.class);  //备件类型的路由信息
+	}
+
+}

@@ -1,0 +1,16 @@
+package xtgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+import java.util.List;
+
+public class Log extends Model<Log> {
+	
+	public static final Log dao=new Log();
+	
+	public List<Log> getlogs() {
+		List<Log> list = Log.dao.find("select * from log");
+		return list;
+	}
+	
+}

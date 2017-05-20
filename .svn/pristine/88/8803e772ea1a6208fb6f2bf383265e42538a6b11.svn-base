@@ -1,0 +1,123 @@
+package xtgl;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+public class Deptcontroller extends Controller {
+	public void index() {
+		List<Map<String, Object>> deptList = new ArrayList<Map<String, Object>>();
+		List<Department> ldept = Department.dao.find("select * from dept");
+		for (int i = 0; i < ldept.size(); i++) {
+			Map<String, Object> dep = new HashMap<String, Object>();
+			dep.put("id", ldept.get(i).get("dept_id"));
+			dep.put("pid", ldept.get(i).get("prent_id"));
+			dep.put("name", ldept.get(i).get("dept_name"));
+			dep.put("open", "true");
+			if (ldept.get(i).getInt("prent_id").equals(0))
+				dep.put("isParent", true); 
+			dep.put("click", "abclick("+ldept.get(i).getInt("dept_id")+")");
+			deptList.add(dep);
+		}
+		Gson gson = new Gson();
+		String strList = gson.toJson(deptList);
+		strList = strList.replaceAll("\"id\"", "id");
+		strList = strList.replaceAll("\"pid\"", "pId");
+		strList = strList.replaceAll("\"name\"", "name");
+		strList=strList.replaceAll("\"click\"", "click");
+		strList=strList.replaceAll("\"open\"", "open");
+		setAttr("strList", strList);
+		
+		setAttr("user", User.dao.find("select * from user"));
+		List<Department> dept = Department.dao.find("select * from dept");
+		setAttr("privilege", Privilege.dao.getPrivilege());
+		setAttr("list", dept);
+		render("/xtgl/dept.html");
+	}
+	public void select(){
+		List<Map<String, Object>> deptList = new ArrayList<Map<String, Object>>();
+		List<Department> ldept = Department.dao.find("select * from dept");
+		for (int i = 0; i < ldept.size(); i++) {
+			Map<String, Object> dep = new HashMap<String, Object>();
+			dep.put("id", ldept.get(i).get("dept_id"));
+			dep.put("pid", ldept.get(i).get("prent_id"));
+			dep.put("name", ldept.get(i).get("dept_name"));
+			dep.put("open", "true");
+			if (ldept.get(i).getInt("prent_id").equals(0))
+				dep.put("isParent", true); 
+			dep.put("click", "abclick("+ldept.get(i).getInt("dept_id")+")");
+			deptList.add(dep);
+			
+		}
+		Gson gson = new Gson();
+		String strList = gson.toJson(deptList);
+		strList = strList.replaceAll("\"id\"", "id");
+		strList = strList.replaceAll("\"pid\"", "pId");
+		strList = strList.replaceAll("\"name\"", "name");
+		strList=strList.replaceAll("\"click\"", "click");
+		strList=strList.replaceAll("\"open\"", "open");
+		setAttr("strList", strList);
+		setAttr("privilege", Privilege.dao.getPrivilege());
+		
+		int i=getParaToInt("id");
+		List<User> user = User.dao.find("select * from user where dept_id="+i);
+
+		setAttr("user", user);
+		List<Department> dept = Department.dao.find("select * from dept");
+		setAttr("privilege", Privilege.dao.getPrivilege());
+		setAttr("list", dept);
+		render("/xtgl/dept.html");
+	}
+	
+	
+	public void del() {
+		Dept_Privilege.dao.deleteDeptPrivilegeByRoleId(getParaToInt("id"));
+		Db.update("delete from dept where dept_id=" + getParaToInt("id"));
+		index();
+	}
+	
+
+	public void add() {
+		Department dep = getModel(Department.class, "dept");
+		dep.save();
+		Integer deptId=dep.getInt("dept_id");
+		Integer[] listpri=getParaValuesToInt("privilege_id");
+		for(int i=0;i<listpri.length;i++){
+			Dept_Privilege.dao.set("dept_id", deptId).set("privilege_id", listpri[i]).save();
+		}
+		redirect("/#dept");
+	}
+	
+	public void upprivi(){
+		Integer dept_id=getParaToInt("dept_id");
+		String dept_name=getPara("dept_name");
+		Integer[] listpri=getParaValuesToInt("privilege_id");
+		Dept_Privilege.dao.deleteDeptPrivilegeByRoleId(dept_id);
+		Department dept=Department.dao.findById(dept_id);
+		dept.set("dept_name", dept_name).update();
+		for(int i=0;i<listpri.length;i++)
+			Dept_Privilege.dao.set("dept_id", dept_id).set("privilege_id", listpri[i]).save();
+		redirect("/#dept");
+	}
+
+	public void pagedemo(){
+		List<Object> listrol=new ArrayList<Object>();
+		Map<String,Object> map=new HashMap<String, Object>();
+		List<Role> role=Role.dao.find("select * from role");
+		int n = getParaToInt("pageNumber");
+		Page<User> list = User.dao.paginate(n, 10, "select *",
+				"from user");
+		map.put("roles", role);
+		map.put("list", list);
+		listrol.add(map);
+		renderJson(listrol);
+	}
+
+
+
+}

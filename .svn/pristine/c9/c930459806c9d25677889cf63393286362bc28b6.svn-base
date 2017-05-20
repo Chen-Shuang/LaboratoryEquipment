@@ -1,0 +1,39 @@
+package xtgl;
+
+import xtgl.Privilege;
+
+import com.jfinal.core.Controller;
+
+public class PrivilegeController extends Controller {
+
+	// ��תqxgl.html
+	public void index() {
+		setAttr("list", Privilege.dao.getPrivilege());
+		render("/xtgl/qxgl.html");
+	}
+
+	public void sele() {
+		if (getPara("seletype").equals("status")) {
+			if (getPara("selevalue").equals("启用")) {
+				setAttr("list",
+						Privilege.dao
+								.find("select * from privilege where status=true"));
+			} else if (getPara("selevalue").equals("停用")) {
+				setAttr("list",
+						Privilege.dao
+								.find("select * from privilege where status=false"));
+			} else {
+				setAttr("list", Privilege.dao.getPrivilege());
+			}
+			render("/xtgl/qxgl.html");
+		} else {
+			setAttr("list",
+					Privilege.dao.find("select * from privilege where "
+							+ getPara("seletype") + " = '"
+							+ getPara("selevalue") + "'"));
+			render("/xtgl/qxgl.html");
+		}
+
+	}
+
+}

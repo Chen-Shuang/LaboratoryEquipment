@@ -1,0 +1,67 @@
+package sbgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class CgsqController extends Controller{
+	/**************************主页展示功能*********************************/
+	public void index(){
+		render("/sbgl/cgsq.html");
+	}
+	
+	
+    public void indexm(){
+		int n=getParaToInt("n");
+		Page<Cgsq> list =Cgsq.dao.paginate(n, 10, "select *", "from sbgl_cgsq");	//从表中得到page对象
+		System.out.println(list.getList());
+		renderJson(list);		//将表的列表信息展示到前台
+	}
+    
+    
+    
+    
+    
+	/**************************详细功能*********************************/
+    public void detail(){
+		int x=getParaToInt("x");		//前台得到参数
+		Cgsq n=Cgsq.dao.findById(x);
+		renderJson(n);
+	}
+	
+    /**************************添加功能*********************************/
+	public void addModel(){
+		Cgsq cgsq =getModel(Cgsq.class);
+		if(cgsq!=null){cgsq.save();}	   //保存数据
+		renderText("success");
+	}
+	/**************************修改功能*********************************/
+	
+	public void update(){
+		Cgsq cgsq =getModel(Cgsq.class);
+		if(cgsq!=null){cgsq.update();}	   //更新数据
+		renderText("success");
+	}
+	
+	/**************************删除功能*********************************/
+	
+	public void deleteModel(){
+		int x=getParaToInt("x");
+		Cgsq.dao.findById(x).delete();   //删除数据库的对象
+		/*List<Cgsq> a=Cgsq.dao.find("select * from sbgl_cgsq where t_id = "+String.valueOf(x));
+		if (a.isEmpty()){}else{
+			for(int t=0;t<a.size();t++){
+				a.get(t).delete();			//删除所有查询到的内容
+			}
+		}*/
+		renderText("删除成功！");
+	}
+	
+	/**************************查找功能*********************************/
+	public void select(){
+		String x=getPara("x");
+		Page<Cgsq> n=Cgsq.dao.paginate(1, 10, "select *", "from sbgl_cgsq where t_id ="+x); 
+		renderJson(n);
+	}
+}

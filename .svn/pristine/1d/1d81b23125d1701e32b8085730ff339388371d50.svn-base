@@ -1,0 +1,35 @@
+package config;
+
+import scsjgl.BcpxlbzzjlController;
+import scsjgl.Bfhczhjgcjc;
+import scsjgl.BhhczhjgcjcController;
+import scsjgl.GwqxjlController;
+import scsjgl.LtwdcsjlController;
+import scsjgl.PqcxcjlController;
+import scsjgl.QzdfbjscgcjcController;
+import scsjgl.ScgcgxController;
+import scsjgl.TzhljlController;
+import scsjgl.Wldbd;
+import scsjgl.WldbdController;
+import scsjgl.XgffsyglController;
+import scsjgl.bmtzgcjcController;
+
+import com.jfinal.config.Routes;
+
+
+public class scsjhlConfig  extends Routes {  
+	public void config() {
+		add("/bcpxlbzzjl", BcpxlbzzjlController.class);
+		add("/scgcgx",ScgcgxController.class);
+		add("/wldbd",WldbdController.class);
+		add("/xgffsyjl",XgffsyglController.class);
+		add("/gwqxjl",GwqxjlController.class);
+		add("/tzhljl",TzhljlController.class);
+		add("/pqcxcjl",PqcxcjlController.class);
+		add("/ltwdcsjl",LtwdcsjlController.class);
+		add("bmtzgcjc",bmtzgcjcController.class);
+		add("/qzdfbjscgcjc",QzdfbjscgcjcController.class);
+		add("bhhczhjgcjc",BhhczhjgcjcController.class);
+		
+	}
+}

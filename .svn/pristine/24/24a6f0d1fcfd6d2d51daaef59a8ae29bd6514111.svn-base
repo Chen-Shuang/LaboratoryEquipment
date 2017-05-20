@@ -1,0 +1,1149 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">生产计划管理</a>
+		</li>
+		<li><span>订单信息</span>
+		</li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+<div class="page-content">
+	<div class="row">
+		<div class="col-xs-12">					<!-- 66666 -->
+			<div class="clearfix"></div>
+				<div class="tabbable">
+					<!-- Only required for left/right tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab1" data-toggle="tab">未排产</a></li>
+						<li><a href="#tab2" data-toggle="tab">已排产</a></li>
+						<li><a href="#tab3" data-toggle="tab">已闭单</a></li>
+					</ul>
+				</div>
+				<br>
+				<div class="table-header">订单信息表</div>
+				
+				<div class="tab-content">
+					<!-- 不同的内容 -->
+					<div class="tab-pane active" id="tab1">			<!-- 待排产 -->
+
+
+                        <div class="row">
+						<div class="widget">
+							<div class="widget-main">
+								<form id="selefrom1" class="form-inline" action="zzpscdd/sele1" method="post">
+									<input type="search" class="form-control input-sm"
+										placeholder="请输入订单号..." aria-controls="dynamic-table" name="ddh">
+										
+										<input type="search" class="form-control input-sm"
+										placeholder="请输入子件编码..." aria-controls="dynamic-table" name="zjbm">
+										
+										<input type="search" class="form-control input-sm"
+										placeholder="请输入子件名称..." aria-controls="dynamic-table" name="zjmc">
+											 
+									<button id="selectfromsb1" class="btn btn-info btn-sm">查询</button>
+									
+									<div class="pull-right col-xs-0">
+										<a href="#" class="btn btn-mini btn-primary">导入订单信息</a>  <a href="javascript:addForm()" class="btn btn-mini btn-primary">添加新订单</a>  <a href="#" class="btn btn-mini btn-primary">打印</a>  <a id="pc1" href="" class="btn btn-mini btn-primary">排产</a>  
+									</div>
+					      		</form>						
+							</div>
+						</div>
+					</div>
+
+
+						<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid">
+							<thead>
+								<tr role="row">
+									<th class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label></th>
+									<th class="hidden-480"><span>订单号</span></th>
+									<th class="hidden-480"><span>客户简称</span></th>
+									<th class="hidden-480"><span>子件编码</span></th>
+									<th class="hidden-480"><span>子件名称</span></th>
+									<th class="hidden-480"><span>子件规格</span></th>
+									<th class="hidden-480"><span>计量</span></th>
+									<th class="hidden-480"><span>需求量</span></th>
+									<th class="hidden-480"><span>库存量</span></th>
+									<th class="hidden-480"><span>生产数量</span></th>
+									<th class="hidden-480"><span>操作</span></th>
+								</tr>
+							</thead>
+							<tbody id="table_1"> </tbody>
+						</table>
+						<div class="breadcrumbs" id="breadcrumbs">    		 <!-- 分页 -->
+							<div class="text-right">
+								<ul id="pagefoot1" class="pagination">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="tab-pane" id="tab2">				<!--已排产  -->
+					
+
+                        <div class="row">
+						<div class="widget">
+							<div class="widget-main">
+								<form id="selefrom2" class="form-inline" action="zzpscdd/sele2" method="post">
+									<input type="search" class="form-control input-sm"
+										placeholder="请输入订单号..." aria-controls="dynamic-table" name="ddh">
+										
+										<input type="search" class="form-control input-sm"
+										placeholder="请输入子件编码..." aria-controls="dynamic-table" name="zjbm">
+										
+										<input type="search" class="form-control input-sm"
+										placeholder="请输入子件名称..." aria-controls="dynamic-table" name="zjmc">
+											 
+									<button id="selectfromsb2" class="btn btn-info btn-sm">查询</button>
+									
+									<div class="pull-right col-xs-0">
+											<a href="#" class="btn btn-mini btn-primary">打印</a> <a id="pc2" href="" class="btn btn-mini btn-primary">排产</a> <a href="javascript:BD()" class="btn btn-mini btn-primary">闭单</a> 
+										</div>
+					      		</form>						
+							</div>
+						</div>
+					</div>
+
+
+
+
+						<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" role="grid" aria-describedby="dynamic-table_info">
+							<thead>
+								<tr role="row">
+									<th class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label></th>
+								<th class="hidden-480"><span>订单号</span></th>
+								<th class="hidden-480"><span>客户简称</span></th>
+								<th class="hidden-480"><span>子件编码</span></th>
+								<th class="hidden-480"><span>子件名称</span></th>
+								<th class="hidden-480"><span>子件规格</span></th>
+								<th class="hidden-480"><span>计量</span></th>
+								<th class="hidden-480"><span>需求量</span></th>
+								<th class="hidden-480"><span>生产数量</span></th>
+								<th class="hidden-480"><span>已排产数</span></th>
+								<th class="hidden-480"><span>待排产数</span></th>
+								<th class="hidden-480"><span>已入库数</span></th>
+								<th class="hidden-480"><span>操作</span></th>
+								</tr>
+							</thead>
+							<tbody id="table_2"></tbody>
+						</table>
+
+						<div class="breadcrumbs" id="breadcrumbs">    		 <!-- 分页 -->
+							<div class="text-right">
+								<ul id="pagefoot2" class="pagination">
+									
+								</ul>
+							</div>
+						</div>
+						
+					</div>
+
+
+
+					<div class="tab-pane" id="tab3">
+						<!-- 已闭单 -->
+
+
+                        <div class="row">
+						<div class="widget">
+							<div class="widget-main">
+								<form id="selefrom3" class="form-inline" action="zzpscdd/sele3" method="post">
+									<input type="search" class="form-control input-sm"
+										placeholder="请输入订单号..." aria-controls="dynamic-table" name="ddh">
+										
+										<input type="search" class="form-control input-sm"
+										placeholder="请输入子件编码..." aria-controls="dynamic-table" name="zjbm">
+										
+										<input type="search" class="form-control input-sm"
+										placeholder="请输入子件名称..." aria-controls="dynamic-table" name="zjmc">
+											 
+									<button id="selectfromsb3" class="btn btn-info btn-sm">查询</button>
+									
+									<div class="pull-right col-xs-0">
+										<a href="#" class="btn btn-mini btn-primary">打印</a>
+									</div>
+					      		</form>						
+							</div>
+						</div>
+					</div>
+
+
+
+						<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" id="dynamic-table" role="grid" aria-describedby="dynamic-table_info">
+							<thead>
+								<tr role="row">
+								<th class="hidden-480"><span>订单号</span></th>
+								<th class="hidden-480"><span>客户简称</span></th>
+								<th class="hidden-480"><span>子件编码</span></th>
+								<th class="hidden-480"><span>子件名称</span></th>
+								<th class="hidden-480"><span>子件规格</span></th>
+								<th class="hidden-480"><span>计量</span></th>
+								<th class="hidden-480"><span>需求量</span></th>
+								<th class="hidden-480"><span>生产数量</span></th>
+								<th class="hidden-480"><span>闭单日期</span></th>
+								<th class="hidden-480"><span>操作</span></th>
+								</tr>
+							</thead>
+							<tbody id="table_3"> </tbody>
+						</table>
+						
+						<div class="breadcrumbs" id="breadcrumbs">    		 <!-- 分页 -->
+							<div class="text-right">
+								<ul id="pagefoot3" class="pagination">
+									
+								</ul>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+
+		</div>
+	</div>
+
+
+
+
+	<<div class="hide" id="add">     <!-- 添加订单 -->
+		<form id="pform" action="zzpscdd/c" method="post">
+			 <input type="hidden" name="zzpscd.id">
+             <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">订单号：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" placeholder="请输入订单号"  name="zzpscdd.ddh" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">子件编码：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" placeholder="请输入子件编码"  name="zzpscdd.zjbm"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">子件名称：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" placeholder="请输入子件名称"  name="zzpscdd.zjmc"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">子件规格：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2"  placeholder="请输入子件规格" name="zzpscdd.zjgg"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">计量：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2"  placeholder="请输入计量" name="zzpscdd.jl"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">需求量：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2"  placeholder="请输入计量" name="zzpscdd.xql"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">生产数量：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2" placeholder="请输入生产数量"  name="zzpscdd.scsl"/>
+				</div>
+			</div>
+		</form>
+</div>
+
+
+<!--修改自制品订单信息1  -->
+	<div class="hide" id="update1">	<!-- 未排产修改 -->
+	<div class="col-xs-2"></div>
+					<div class="col-xs-8">
+		<form id="updateFormA" action="zzpscdd/u" method="post">
+		<input type="text" name="scjhgl_zzpscdd.id" type="hidden" id="id" class="hide"><!--js中通过id来显示表单数据 ,在js中隐藏  -->	
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">订单号：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.ddh" class="form-control" id="ddh">
+					<!-- <input type="text" class="form-control" name="scjhgl_xsdd.ddh" id="ddh" /> -->
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">子件编码：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.zjbm"
+					class="form-control" id="zjbm">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">子件名称：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.zjmc"
+					class="form-control" id="zjmc">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">子件规格：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.zjgg"
+					class="form-control" id="zjgg">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">计量：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.jl"
+					class="form-control" id="jl">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">需求量：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.xql"
+					class="form-control" id="xql">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">生产数量：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.scsl"
+					class="form-control" id="scsl">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+<!--修改自制品订单信息2  -->
+	<div class="hide" id="update2">	<!-- 已排产修改 -->
+	<div class="col-xs-2"></div>
+					<div class="col-xs-8">
+		<form id="updateFormB" action="zzpscdd/u1" method="post">
+		<input type="text" name="scjhgl_zzpscdd.id" type="hidden" id="id2" class="hide"><!--js中通过id来显示表单数据 ,在js中隐藏  -->	
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">订单号：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.ddh"
+					class="form-control" id="ddh2">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">子件编码：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.zjbm"
+					class="form-control" id="zjbm2">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">子件名称：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.zjmc"
+					class="form-control" id="zjmc2">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">子件规格：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.zjgg"
+					class="form-control" id="zjgg2">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">计量：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.jl"
+					class="form-control" id="jl2">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">需求量：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.xql"
+					class="form-control" id="xql2">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">生产数量：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.scsl"
+					class="form-control" id="scsl2">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">已排产数量：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.ypcs"
+					class="form-control" id="ypcs2">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">待排产数量：</label>
+				<div class="col-sm-9">
+					<input type="text" name="scjhgl_zzpscdd.dpcs"
+					class="form-control" id="dpcs2">                  
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+	<script type="text/javascript">
+	$("#selectfromsb1").click(function(){
+					$.post("zzpscdd/sele1",$("#selefrom1").serialize(),function(data){
+					WPC(data);
+				/* PageFoot1(data[0].paginate); */
+					});
+					return false;
+					});
+	
+	
+	
+	
+		
+		function WPC(data) {				//未排产
+			var dataStr = "";
+			$.each(data, function(i, a) {
+				$.each(a.paginate.list, function(i, v) {  //v. _ zzpscdd表数据   a.paginate.list -->v
+					dataStr += '<tr>';	
+					dataStr += '<td><input class="ace" name="checkboxs" id="checkboxs" type="checkbox" value="'+v.id+'"> <span class="lbl"></span></td>'; 
+						
+						dataStr += '<td>' + v.ddh + '</td>'; 
+						
+					dataStr += '<td>';	
+					$.each(a.xsdd, function(i, m) {   	  //  m. _xsdd表数据  a.xsdd --> m
+						if(m.ddh==v.ddh) dataStr += m.khjc;		
+					});	
+					dataStr += '</td>';
+					
+						dataStr += '<td>' + v.zjbm + '</td>';   
+						dataStr += '<td>' + v.zjmc + '</td>';  
+						dataStr += '<td>' + v.zjgg + '</td>';  
+						dataStr += '<td>' + v.jl + '</td>';  
+						dataStr += '<td>' + v.xql + '</td>';  
+						
+					dataStr += '<td>';
+					$.each(a.kcxx, function(i, n) {       // n. _kcxx表数据  a.kcxx -->n
+						if(n.zjbm==v.zjbm) dataStr += n.kcl;   	 
+					});	
+					dataStr += '</td>';
+					
+					dataStr += '<td>'+v.scsl+'</td>';
+					dataStr += '<td><div class="hidden-sm hidden-xs action-buttons"><a class="green" href="javascript:updateForm1('+v.id+',\''+v.ddh+'\',\''+v.zjbm+'\',\''+v.zjmc+'\',\''+v.zjgg+'\',\''+v.jl+'\',\''+v.xql+'\',\''+v.scsl+'\')"> <i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:Delete('+v.id+')" class="red"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a></div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button data-position="auto" data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button><ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close"><li><a href="scjhgl/toUpdateUser?id='+v.id+'" class="tooltip-success" data-rel="tooltip" title=""> <span class="green"> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span> </a></li><li><a title="" data-rel="tooltip" class="tooltip-error" href="scjhgl/d/'+v.id+'" data-original-title="Delete"> <span class="red"> <i class="ace-icon fa fa-trash-o bigger-120"></i> </span> </a></li></ul></div></div></td>';
+					                                                                                                                  
+					dataStr += '</tr>';
+				});
+			});
+			$("#table_1").html(dataStr);
+		}
+		
+function PageFoot1(data){
+			var n="";
+			var backword="上一页";
+			var forword="下一页";
+			var x=data.PageNumber; //当前页
+			var back;		//前一页
+			var next;       //后一页
+			if(x=1){            	//对上一页的判断		
+				back =1;
+			}else{
+				back=x-1;   		
+			}
+			if(x<data.totalPage){   //对下一页判断
+				next=x+1;
+			}else{
+				next=data.totalPage;		
+			}
+			
+			n+="<li onclick=\"showPage1("+back+")\"><a>"+backword+"</a></li>&nbsp;&nbsp;";
+			for(var a=1;a<=data.totalPage;a++){
+				if(a==data.PageNumber){
+					n +="<li class=\"active\" onclick=\"showPage1("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				}else{
+					n +="<li onclick=\"showPage1("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				};
+			}
+			n+="<li onclick=\"showPage1("+next+")\"><a>"+forword+"</a></li>&nbsp;&nbsp;";
+			
+			$("#pagefoot1").html(n);       //把循环好的页码给替换掉
+		};
+		
+		function showPage1(curr) {  
+			$.get("zzpscdd/Tbody_list1", {"pageNumber": curr}, function(data) {
+				WPC(data);
+				PageFoot1(data[0].paginate); 		   //调用的PageFoot方法，循环输出页码连接  
+			});
+		}
+		showPage1(1);   		//刚进入页面为第一页，列出第一页数据和页脚
+</script>		
+		
+		
+<script type="text/javascript">	
+
+		$("#selectfromsb2").click(function(){
+					$.post("zzpscdd/sele2",$("#selefrom2").serialize(),function(data){
+					YPC(data);
+				/* PageFoot1(data[0].paginate); */
+					});
+					return false;
+					});
+		
+		
+		
+		function YPC(data) {				//已排产
+			var dataStr = "";
+			$.each(data, function(i, a) {
+				$.each(a.paginate.list, function(i, v) {  //v. _ zzpscdd表数据   a.paginate.list -->v
+					dataStr += '<tr>';	
+					dataStr += '<td><input class="ace" name="checkboxs2" id="checkboxs2" type="checkbox" value="'+v.id+'"> <span class="lbl"></span></td>'; 
+						dataStr += '<td>' + v.ddh + '</td>'; 
+						
+					dataStr += '<td>';	
+					$.each(a.xsdd, function(i, m) {   	  //  m. _xsdd表数据  a.xsdd --> m
+						if(m.ddh==v.ddh) dataStr += m.khjc;		
+					})	
+					dataStr += '</td>';
+					
+						dataStr += '<td>' + v.zjbm + '</td>';   
+						dataStr += '<td>' + v.zjmc + '</td>';  
+						dataStr += '<td>' + v.zjgg + '</td>';  
+						dataStr += '<td>' + v.jl + '</td>';  
+						dataStr += '<td>' + v.xql + '</td>';  
+						dataStr += '<td>'+v.scsl+'</td>';
+						dataStr += '<td>'+v.ypcs+'</td>';
+						dataStr += '<td>'+v.dpcs+'</td>';
+						
+					dataStr += '<td><form id="rks" name="rks" action="zzpscdd/yrks/'+v.id+'"?><input name="yrks" type="text" value="'+v.yrks+'"/></form></td>';   
+					dataStr += '<td><div class="hidden-sm hidden-xs action-buttons"><a class="green" href="javascript:updateForm2('+v.id+',\''+v.ddh+'\',\''+v.zjbm+'\',\''+v.zjmc+'\',\''+v.zjgg+'\',\''+v.jl+'\',\''+v.xql+'\',\''+v.scsl+'\',\''+v.ypcs+'\',\''+v.dpcs+'\')"> <i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:Delete('+v.id+')" class="red"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a></div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button data-position="auto" data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button><ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close"><li><a href="scjhgl/toUpdateUser?id='+v.id+'" class="tooltip-success" data-rel="tooltip" title=""> <span class="green"> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span> </a></li><li><a title="" data-rel="tooltip" class="tooltip-error" href="scjhgl/d/'+v.id+'" data-original-title="Delete"> <span class="red"> <i class="ace-icon fa fa-trash-o bigger-120"></i> </span> </a></li></ul></div></div></td>';
+					                                                                                                                           
+					dataStr += '</tr>';
+				})
+			})
+			$("#table_2").html(dataStr);
+		}
+		
+		$("#rks").blur( function () {   	
+		 	 //document.getElementById("rks").submit();
+		 	 $("form[name='rks']").submit(); 
+		} ); 
+		
+			//获取分页数据列表并显示
+		function showPage2(curr) {  
+			$.get("zzpscdd/Tbody_list2", {"pageNumber": curr}, function(data) {
+				YPC(data);
+				PageFoot2(data[0].paginate); 		   //调用的PageFoot方法，循环输出页码连接  
+			});
+		}
+		showPage2(1);   		//~暂不理解 ,应该是刚进入页面为第一页，列出第一页数据和页脚
+		
+		function PageFoot2(data){
+			var n="";
+			var backword="上一页";
+			var forword="下一页";
+			var x=data.PageNumber; //当前页
+			var back;		//前一页
+			var next;       //后一页
+			if(x=1){            	//对上一页的判断		
+				back =1; 
+			}else{
+				back=x-1; 		
+			}
+			if(x<data.totalPage){   //对下一页判断
+				next=x+1;
+			}else{
+				next=data.totalPage;			
+			}
+			
+			n+="<li onclick=\"showPage2("+back+")\"><a>"+backword+"</a></li>&nbsp;&nbsp;";
+			for(var a=1;a<=data.totalPage;a++){
+				if(a==data.PageNumber){
+					n +="<li class=\"active\" onclick=\"showPage2("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				}else{
+					n +="<li onclick=\"showPage2("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				};
+			}
+			n+="<li onclick=\"showPage2("+next+")\"><a>"+forword+"</a></li>&nbsp;&nbsp;";
+			
+			$("#pagefoot2").html(n);       //把循环好的页码给替换掉
+		};
+</script>		
+		
+		
+<script type="text/javascript">		
+
+		$("#selectfromsb3").click(function(){
+					$.post("zzpscdd/sele3",$("#selefrom3").serialize(),function(data){
+					YBD(data);
+				/* PageFoot1(data[0].paginate); */
+					});
+					return false;
+					});
+
+		function YBD(data) {				//已闭单
+			var dataStr = "";
+			$.each(data, function(i, a) {
+				$.each(a.paginate.list, function(i, v) {  //v. _ zzpscdd表数据   a.paginate.list -->v
+					dataStr += '<tr>';	
+						dataStr += '<td>' + v.ddh + '</td>'; 
+						
+					dataStr += '<td>';	
+					$.each(a.xsdd, function(i, m) {   	  //  m. _xsdd表数据  a.xsdd --> m
+						if(m.ddh==v.ddh) dataStr += m.khjc;		
+					})	
+					dataStr += '</td>';
+					
+						dataStr += '<td>' + v.zjbm + '</td>';   
+						dataStr += '<td>' + v.zjmc + '</td>';  
+						dataStr += '<td>' + v.zjgg + '</td>';  
+						dataStr += '<td>' + v.jl + '</td>';  
+						dataStr += '<td>' + v.xql + '</td>';  
+						
+					dataStr += '<td>'+v.scsl+'</td>';
+					dataStr += '<td>'+v.bdrq+'</td>';
+					dataStr += '<td> <a href="javascript:Delete('+v.id+')" class="red"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a></td>';					
+					dataStr += '</tr>';
+				})
+			})
+			$("#table_3").html(dataStr);
+		}
+			//获取分页数据列表并显示
+		function showPage3(curr) {  
+			$.get("zzpscdd/Tbody_list3", {"pageNumber": curr}, function(data) {
+				YBD(data);
+				PageFoot3(data[0].paginate); 
+			});
+		}
+		showPage3(1);   		//~暂不理解 ,应该是刚进入页面为第一页，列出第一页数据和页脚
+		
+		function PageFoot3(data){
+		var n="";
+			var backword="上一页";
+			var forword="下一页";
+			var x=data.PageNumber; //当前页
+			var back;		//前一页
+			var next;       //后一页
+			if(x>1){            	//对上一页的判断		
+				back=x-1;
+			}else{
+				back =1;   		
+			}
+			if(x<data.totalPage){   //对下一页判断
+				next=x+1;
+			}else{
+				next=data.totalPage;			
+			}
+			
+			n+="<li onclick=\"showPage3("+back+")\"><a>"+backword+"</a></li>&nbsp;&nbsp;";
+			for(var a=1;a<=data.totalPage;a++){
+				if(a==data.PageNumber){
+					n +="<li class=\"active\" onclick=\"showPage3("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				}else{
+					n +="<li onclick=\"showPage3("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				};
+			}
+			n+="<li onclick=\"showPage3("+next+")\"><a>"+forword+"</a></li>&nbsp;&nbsp;";
+			
+			$("#pagefoot3").html(n);       //把循环好的页码给替换掉
+		};
+</script>
+
+	<script type="text/javascript">
+/*未排产的进行排产  */
+	$("#pc1").click(function(event){
+		var ls = $("input[type=checkbox]:checked").size();   		//选中的个数
+            if (ls != "") {
+            	
+                layer.confirm('确定排产？', {
+		  			btn: ['确认','取消'] //按钮
+					}, function(){
+					var idlist='';
+					$("input[type='checkbox'][name='checkboxs']").filter(':checked').each(function() {
+                idlist = idlist + $(this).val() + ",";
+                });
+                if(idlist.length>0){
+                idlist = idlist.substring(0,idlist.length-1);
+                $.post("zzpscdd/PC1",{"idlist":idlist},function(data){
+                	if(data=="success"){
+                		location.reload();
+                		idlist='';
+                	}
+                });
+                }
+				layer.colse();
+		}, function(){
+			layer.msg("已取消"); 
+		});
+            } else {
+                layer.alert("请选择要排产的数据！");
+            }
+	return false;
+	});	
+	
+	
+/*已排产的进行排产  */
+	$("#pc2").click(function(event){
+		var ls = $("input[type=checkbox]:checked").size();   		//选中的个数
+            if (ls != "") {
+            	
+                layer.confirm('确定排产？', {
+		  			btn: ['确定','取消'] //按钮
+					}, function(){
+					var idlist='';
+					$("input[type='checkbox'][name='checkboxs2']").filter(':checked').each(function() {
+                idlist = idlist + $(this).val() + ",";
+                });
+                if(idlist.length>0){
+                idlist = idlist.substring(0,idlist.length-1);
+                $.post("zzpscdd/PC2",{"idlist":idlist},function(data){
+                	if(data=="success"){
+                		location.reload();
+                		idlist='';
+                	}
+                });
+                }
+				layer.colse();
+		}, function(){
+			layer.msg("已取消"); 
+		});
+            } else {
+                layer.alert("请选择要排产的数据！");
+            }
+	return false;
+	});
+	
+	
+        
+        function BD(){
+        	var ls = $("input[type=checkbox]:checked").size();   		//选中的个数
+            if (ls != "") {
+                layer.confirm("确定闭单？", function () {
+							var ids = new Array([checkboxs2.length]);  
+							var j = 0;
+							for (var i=0;i<checkboxs2.length;i++ ){   //checkboxs为id名
+								if(checkboxs2[i].checked){		 //判断复选框是否选中
+									ids[j]=checkboxs2[i].value; 	 //值的拼凑 .. 具体处理看需要
+									j++;
+								}
+							}
+						//alert(ids);//输出你选中的那些复选框的值
+						 for(var s=0;s<ids.length;s++ ){
+                         $.updateByUrl("zzpscdd/BD/"+ids[s]);  
+                         }
+                });
+            } else {
+                layer.alert("请选择要闭单的数据！");
+            }
+        }
+        	 
+	
+	
+	function Delete(id) {
+        	 		if(id!=null){
+	                layer.confirm("确定删除？", function () {
+	                $.post("zzpscdd/d?id="+id,function(data){
+	                	if(data=="success"){
+	                		location.reload();
+	                	}
+	                });
+	                     //$.updateByUrl("scjhgl/d?id="+id);
+	                });
+	               }else{
+	               	layer.alert("请选择要删除的数据！");
+	              }
+	        }
+	
+	
+	
+	
+	
+		$('table th input:checkbox').on('click' , function(){   		 /*复选框js_全选  */
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+		});
+				
+		function addForm() {
+			document.getElementById("pform").reset();
+			$('#add').removeClass("hide");
+			userModel = layer.open({
+				type : 1,
+				shade : [ 0.5 ],
+				title : '增加订单',  //不显示标题
+				area : [ '40%', '350px' ], //显示空间
+				content : $('#add'), //捕获的元素
+				btn : [ '确定', '取消' ],
+				yes : function(index, layero) { //或者使用btn1
+					$.post("add", $("#pform").serialize(), function(data) {
+
+						layer.close(index);
+						$('#add').addClass("hide");
+						document.getElementById("pform").submit();
+					});
+				},
+				cancel : function(index) {
+					layer.close(index);
+					$('#add').addClass("hide"); //取消继续隐藏
+				},
+			});
+		};
+	</script>
+
+<script>
+/*修改自制品订单1 */
+function updateForm1(id,ddh,zjbm,zjmc,zjgg,jl,xql,scsl) {
+						document.getElementById("updateFormA").reset();												
+												$("#id").val(id);
+												$("#ddh").val(ddh);
+												$("#zjbm").val(zjbm);
+												$("#zjmc").val(zjmc);
+												$("#zjgg").val(zjgg);
+												$("#jl").val(jl);
+												$("#xql").val(xql);
+												$("#scsl").val(scsl);
+												
+						$('#update1').removeClass("hide");
+						userModel = layer.open({
+							type : 1,
+							shade : [ 0.5 ],
+							title : '修改自制品订单信息', //不显示标题
+							area : [ '60%', '370px' ], //显示空间
+							content : $('#update1'), //捕获的元素
+							btn : [ '确定', '取消' ],
+							yes : function(index, layero) { //或者使用btn1
+								$.post("update1", $("#updateFormA").serialize(),
+										function(data) {
+
+											layer.close(index);
+											$('#update1').addClass("hide");
+											document.getElementById("updateFormA")
+													.submit();
+										});
+							},
+							cancel : function(index) {
+								layer.close(index);
+								$('#update1').addClass("hide"); //取消继续隐藏
+							},
+						});
+					};
+
+	</script>
+<script>
+/*修改自制品订单2 */	
+function updateForm2(id,ddh,zjbm,zjmc,zjgg,jl,xql,scsl,ypcs,dpcs) {
+						document.getElementById("updateFormB").reset();												
+												$("#id2").val(id);
+												$("#ddh2").val(ddh);
+												$("#zjbm2").val(zjbm);
+												$("#zjmc2").val(zjmc);
+												$("#zjgg2").val(zjgg);
+												$("#jl2").val(jl);
+												$("#xql2").val(xql);
+												$("#scsl2").val(scsl);
+												$("#ypcs2").val(ypcs);
+												$("#dpcs2").val(dpcs);
+											
+						$('#update2').removeClass("hide");
+						userModel = layer.open({
+							type : 1,
+							shade : [ 0.5 ],
+							title : '修改自制品订单信息', //不显示标题
+							area : [ '60%', '420px' ], //显示空间
+							content : $('#update2'), //捕获的元素
+							btn : [ '确定', '取消' ],
+							yes : function(index, layero) { //或者使用btn1
+								$.post("update2", $("#updateFormB").serialize(),
+										function(data) {
+
+											layer.close(index);
+											$('#update2').addClass("hide");
+											document.getElementById("updateFormB")
+													.submit();
+										});
+							},
+							cancel : function(index) {
+								layer.close(index);
+								$('#update2').addClass("hide"); //取消继续隐藏
+							},
+						});
+					};
+
+	</script>
+
+	
+	<script type="text/javascript">
+		jQuery(function($) {
+			$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+				_title : function(title) {
+					var $title = this.options.title || '&nbsp;'
+					if (("title_html" in this.options)
+							&& this.options.title_html == true)
+						title.html($title);
+					else
+						title.text($title);
+				}
+			}));
+			
+			
+			
+			
+			//initiate dataTables plugin						初始化表格插件
+			/* var oTable1 = $('#dynamic-table')
+			//.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
+			.dataTable({
+				bAutoWidth : false,
+				"aoColumns" : [ null, null, null, null, null, null, {
+					"bSortable" : false
+				} ],
+				"aaSorting" : [],
+
+			}); */
+			//oTable1.fnAdjustColumnSizing();
+
+
+
+
+			//TableTools settings
+			TableTools.classes.container = "btn-group btn-overlap";
+			TableTools.classes.print = {
+				"body" : "DTTT_Print",
+				"info" : "tableTools-alert gritter-item-wrapper gritter-info gritter-center white",
+				"message" : "tableTools-print-navbar"
+			}
+
+			//initiate TableTools extension
+			var tableTools_obj = new $.fn.dataTable.TableTools(
+					oTable1,
+					{
+						"sSwfPath" : "plugins/ace/assets/js/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf", //in Ace demo plugins/ace/assets will be replaced by correct assets path
+
+						"sRowSelector" : "td:not(:last-child)",
+						"sRowSelect" : "multi",
+						"fnRowSelected" : function(row) {
+							//check checkbox when row is selected
+							try {
+								$(row).find('input[type=checkbox]').get(0).checked = true
+							} catch (e) {
+							}
+						},
+						"fnRowDeselected" : function(row) {
+							//uncheck checkbox
+							try {
+								$(row).find('input[type=checkbox]').get(0).checked = false
+							} catch (e) {
+							}
+						},
+
+						"sSelectedClass" : "success",
+						"aButtons" : [
+								{
+									"sExtends" : "copy",
+									"sToolTip" : "复制到剪贴板",
+									"sButtonClass" : "btn btn-white btn-primary btn-bold",
+									"sButtonText" : "<i class='fa fa-copy bigger-110 pink'></i>",
+									"fnComplete" : function() {
+										this
+												.fnInfo(
+														'<h3 class="no-margin-top smaller">表格已复制</h3>\
+							<p>已复制 '
+																+ (oTable1
+																		.fnSettings()
+																		.fnRecordsTotal())
+																+ ' 行数据到剪贴板.</p>',
+														1500);
+									}
+								},
+
+								{
+									"sExtends" : "csv",
+									"sToolTip" : "导出成 CSV",
+									"sButtonClass" : "btn btn-white btn-primary  btn-bold",
+									"sButtonText" : "<i class='fa fa-file-excel-o bigger-110 green'></i>"
+								},
+
+								{
+									"sExtends" : "pdf",
+									"sToolTip" : "导出成 PDF",
+									"sButtonClass" : "btn btn-white btn-primary  btn-bold",
+									"sButtonText" : "<i class='fa fa-file-pdf-o bigger-110 red'></i>"
+								},
+
+								{
+									"sExtends" : "print",
+									"sToolTip" : "打印页面",
+									"sButtonClass" : "btn btn-white btn-primary  btn-bold",
+									"sButtonText" : "<i class='fa fa-print bigger-110 grey'></i>",
+
+									"sMessage" : "<div class='navbar navbar-default'><div class='navbar-header pull-left'><a class='navbar-brand' href='#'><small>可选导航栏 &amp; 文本</small></a></div></div>",
+
+									"sInfo" : "<h3 class='no-margin-top'>打印页面</h3>\
+							  <p>请用您的浏览器打印功能打印这个表格 \
+							  <br />请打印完成关闭此页面</p>",
+								} ]
+					});
+
+			//we put a container before our table and append TableTools element to it
+			$(tableTools_obj.fnContainer())
+					.appendTo($('.tableTools-container'));
+
+			//also add tooltips to table tools buttons
+			//addding tooltips directly to "A" buttons results in buttons disappearing (weired! don't know why!)
+			//so we add tooltips to the "DIV" child after it becomes inserted
+			//flash objects inside table tools buttons are inserted with some delay (100ms) (for some reason)
+			setTimeout(function() {
+				$(tableTools_obj.fnContainer()).find('a.DTTT_button').each(
+						function() {
+							var div = $(this).find('> div');
+							if (div.length > 0)
+								div.tooltip({
+									container : 'body'
+								});
+							else
+								$(this).tooltip({
+									container : 'body'
+								});
+						});
+			}, 200);
+
+			//ColVis extension
+			var colvis = new $.fn.dataTable.ColVis(oTable1, {
+				"buttonText" : "<i class='fa fa-search'></i>",
+				"aiExclude" : [ 0, 6 ],
+				"bShowAll" : true,
+				//"bRestore": true,
+				"sAlign" : "right",
+				"fnLabel" : function(i, title, th) {
+					return $(th).text();//remove icons, etc
+				}
+
+			});
+
+			//style it
+			$(colvis.button()).addClass('btn-group').find('button').addClass(
+					'btn btn-white btn-info btn-bold')
+
+			//and append it to our table tools btn-group, also add tooltip
+			$(colvis.button()).prependTo('.tableTools-container .btn-group')
+					.attr('title', '显示/隐藏 数据列').tooltip({
+						container : 'body'
+					});
+
+			//and make the list, buttons and checkboxed Ace-like
+			$(colvis.dom.collection)
+					.addClass(
+							'dropdown-menu dropdown-light dropdown-caret dropdown-caret-right')
+					.find('li').wrapInner('<a href="javascript:void(0)" />') //'A' tag is required for better styling
+					.find('input[type=checkbox]').addClass('ace').next()
+					.addClass('lbl padding-8');
+
+			//table checkboxes
+			$('th input[type=checkbox], td input[type=checkbox]').prop(
+					'checked', false);
+
+			//select/deselect all rows according to table header checkbox
+			$('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0)
+					.on(
+							'click',
+							function() {
+								var th_checked = this.checked;//checkbox inside "TH" table header
+
+								$(this).closest('table').find('tbody > tr')
+										.each(function() {
+											var row = this;
+											if (th_checked)
+												tableTools_obj.fnSelect(row);
+											else
+												tableTools_obj.fnDeselect(row);
+										});
+							});
+
+			//select/deselect a row when the checkbox is checked/unchecked
+			$('#dynamic-table').on(
+					'click',
+					'td input[type=checkbox]',
+					function() {
+						var row = $(this).closest('tr').get(0);
+						if (!this.checked)
+							tableTools_obj.fnSelect(row);
+						else
+							tableTools_obj.fnDeselect($(this).closest('tr')
+									.get(0));
+					});
+
+			$(document).on('click', '#dynamic-table .dropdown-toggle',
+					function(e) {
+						e.stopImmediatePropagation();
+						e.stopPropagation();
+						e.preventDefault();
+					});
+
+			//And for the first simple table, which doesn't have TableTools or dataTables
+			//select/deselect all rows according to table header checkbox
+			var active_class = 'active';
+			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on(
+					'click',
+					function() {
+						var th_checked = this.checked;//checkbox inside "TH" table header
+
+						$(this).closest('table').find('tbody > tr').each(
+								function() {
+									var row = this;
+									if (th_checked)
+										$(row).addClass(active_class).find(
+												'input[type=checkbox]').eq(0)
+												.prop('checked', true);
+									else
+										$(row).removeClass(active_class).find(
+												'input[type=checkbox]').eq(0)
+												.prop('checked', false);
+								});
+					});
+
+			//select/deselect a row when the checkbox is checked/unchecked
+			$('#simple-table').on('click', 'td input[type=checkbox]',
+					function() {
+						var $row = $(this).closest('tr');
+						if (this.checked)
+							$row.addClass(active_class);
+						else
+							$row.removeClass(active_class);
+					});
+
+			/********************************/
+			//add tooltip for small view action buttons in dropdown menu
+			$('[data-rel="tooltip"]').tooltip({
+				placement : tooltip_placement
+			});
+
+			//tooltip placement on right or left
+			function tooltip_placement(context, source) {
+				var $source = $(source);
+				var $parent = $source.closest('table')
+				var off1 = $parent.offset();
+				var w1 = $parent.width();
+
+				var off2 = $source.offset();
+				//var w2 = $source.width();
+
+				if (parseInt(off2.left) < parseInt(off1.left)
+						+ parseInt(w1 / 2))
+					return 'right';
+				return 'left';
+			}
+
+		})
+	</script>

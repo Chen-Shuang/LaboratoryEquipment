@@ -1,0 +1,690 @@
+﻿
+
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+
+ 
+
+
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div id="breadcrumbs" class="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="#">统计表</a>
+							</li>
+							<li class="#">管理</li>
+						</ul><!-- /.breadcrumb -->
+
+						<!-- #section:basics/content.searchbox -->
+						<div id="nav-search" class="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" autocomplete="off" id="nav-search-input" class="nav-search-input" placeholder="查找...">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+							</form>
+							
+						</div><!-- /.nav-search -->
+
+						<!-- /section:basics/content.searchbox -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+						
+
+						<div class="row">
+									<div class="col-xs-12">
+										
+										<div class="table-header">
+											波峰焊插装焊接过程表
+										
+  
+										</div>
+										
+
+										
+                                     
+                                      <div class="clearfix form-actions"  >
+										<div class="col-offset-3 col-md-9">
+											 
+												 <a href="bfhczj_form.html" class="btn btn-info">添加数据</a>
+												
+											 
+										</div>
+									</div>
+
+
+
+
+
+										<div class="table-responsive">
+											<div> 
+									            </div><table class="table table-striped table-bordered table-hover" id="sample-table-2">
+												<thead>
+												  <tr>
+									 		<th class="hidden-480" colspan="6">设备名称：____</th>
+										 
+											<th class="hidden-480" colspan="6">设备编号：_____</th>
+											<th class="hidden-480" colspan="7">编号:  ZYB M W 6.2-1.01 F-31</th>
+											
+											</tr>
+											
+											<tr>
+											
+											<th rowspan="2">序 号</th>
+											<th rowspan="2">产品名称</th>
+											<th rowspan="2">数量</th>
+											<th rowspan="2">日期/时间(M-D/HH:MM)</th>
+											<th class="center" colspan="2">焊前检查</th>
+											<th class="center" colspan="6">焊接参数确认</th>
+											<th>焊后检查</th>
+											<th class="center" colspan="2">签字栏</th>
+											<th class="center" rowspan="2"> </th>										
+											</tr>
+													<tr>
+													 
+														<th>物料是否与明细表相符</th>
+														<th>焊接程序名称</th>
+														<th>喷雾流量</th>
+														<th>预热一</th>
+														<th>预热二</th>
+														<th>预热三</th>
+														<th>锡槽</th>
+														<th>链速</th>
+														<th>焊点状态（漏焊、虚焊、少件等）</th>														 
+														<th>操作员</th>
+														<th>IPQC</th>
+														
+													</tr>
+												</thead>
+
+												<tbody>
+													
+
+													
+
+												
+
+													<tr>
+														 
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td>00111	</td>
+														<td>8.15/11:10</td>
+														<td>YES</td>
+													  <td>YES</td>
+													 <td>YES</td>
+													 <td>YES</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+													
+												 
+											          <td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a href="#" class="blue">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a href="#" class="green">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a title="View" data-rel="tooltip" class="tooltip-info" href="#">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Edit" data-rel="tooltip" class="tooltip-success" href="#">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Delete" data-rel="tooltip" class="tooltip-error" href="#">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+												
+
+					</tr><tr>
+							                           
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td>00111	</td>
+														<td>8.15/11:10</td>
+														<td>YES</td>
+													  <td>YES</td>
+													 <td>YES</td>
+													 <td>YES</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+													
+	
+
+
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a href="#" class="blue">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a href="#" class="green">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+
+ 
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a title="View" data-rel="tooltip" class="tooltip-info" href="#">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Edit" data-rel="tooltip" class="tooltip-success" href="#">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Delete" data-rel="tooltip" class="tooltip-error" href="#">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr><tr>
+						                               	 
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td>00111	</td>
+														<td>8.15/11:10</td>
+														<td>YES</td>
+													  <td>YES</td>
+													 <td>YES</td>
+													 <td>YES</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+													
+
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																	<a href="#" class="blue">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a href="#" class="green">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a title="View" data-rel="tooltip" class="tooltip-info" href="#">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Edit" data-rel="tooltip" class="tooltip-success" href="#">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Delete" data-rel="tooltip" class="tooltip-error" href="#">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+													<tr>
+	                                             	 
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td>00111	</td>
+														<td>8.15/11:10</td>
+														<td>YES</td>
+													  <td>YES</td>
+													 <td>YES</td>
+													 <td>YES</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+													
+
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a href="#" class="blue">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a href="#" class="green">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a title="View" data-rel="tooltip" class="tooltip-info" href="#">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Edit" data-rel="tooltip" class="tooltip-success" href="#">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Delete" data-rel="tooltip" class="tooltip-error" href="#">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+												
+													</tr>
+<tr>
+	                                             	 
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td>00111	</td>
+														<td>8.15/11:10</td>
+														<td>YES</td>
+													  <td>YES</td>
+													 <td>YES</td>
+													 <td>YES</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+													
+														<td>															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a href="#" class="blue">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a href="#" class="green">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a title="View" data-rel="tooltip" class="tooltip-info" href="#">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Edit" data-rel="tooltip" class="tooltip-success" href="#">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Delete" data-rel="tooltip" class="tooltip-error" href="#">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+	                                             	 
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td>00111	</td>
+														<td>8.15/11:10</td>
+														<td>YES</td>
+													  <td>YES</td>
+													 <td>YES</td>
+													 <td>YES</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+													
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a href="#" class="blue">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a href="#" class="green">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a title="View" data-rel="tooltip" class="tooltip-info" href="#">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Edit" data-rel="tooltip" class="tooltip-success" href="#">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Delete" data-rel="tooltip" class="tooltip-error" href="#">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+													<tr>
+	                                             	 
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td>00111	</td>
+														<td>8.15/11:10</td>
+														<td>YES</td>
+													  <td>YES</td>
+													 <td>YES</td>
+													 <td>YES</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+													
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a href="#" class="blue">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a href="#" class="green">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a title="View" data-rel="tooltip" class="tooltip-info" href="#">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Edit" data-rel="tooltip" class="tooltip-success" href="#">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Delete" data-rel="tooltip" class="tooltip-error" href="#">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+													<tr>
+	                                             	 
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td>00111	</td>
+														<td>8.15/11:10</td>
+														<td>YES</td>
+													  <td>YES</td>
+													 <td>YES</td>
+													 <td>YES</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>YES	</td>
+													<td>YES</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+													
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a href="#" class="blue">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a href="#" class="green">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+
+																<a href="#" class="red">
+																	<i class="icon-trash bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a title="View" data-rel="tooltip" class="tooltip-info" href="#">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Edit" data-rel="tooltip" class="tooltip-success" href="#">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a title="Delete" data-rel="tooltip" class="tooltip-error" href="#">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+					</div><!-- /.page-content -->
+					
+					<h4>注：</h4><h5> 1、 按要求填写表格；</h5><h5>
+					2、 巡检时间间隔至少 ：1 次/2 小时；</h5><h5>
+           3、 定时检查助焊剂液面、锡槽液面高度及时补充。 </h5><h5>
+            4、如有停电事件，产线需要重做首件检查；</h5>
+          
+          
+
+
+          
+          
+				</div>
+			</div><!-- /.main-content -->
+
+<script>
+	
+</script>

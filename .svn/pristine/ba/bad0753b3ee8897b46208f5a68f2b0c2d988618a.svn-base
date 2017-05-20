@@ -1,0 +1,51 @@
+ <meta charset="utf-8" />
+ <div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span>设备日保点检</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div> 
+
+  <form action ="#"  method="post">         <!------"/equipmentSpotChecks"----- -->
+   <table border="1" class="table table-striped table-bordered table-hover">
+   <div class="breadcrumbs" id="breadcrumbs">
+   	    <div class= "nav-search" id="nav-search"> 
+   <form class="form-search" action="#" id="a" _lpchecked="1" method="post">
+   <input value="完成" type="submit" id="b">&nbsp;
+   <a href="/mes/equipmentSpotChecks/add" class="_p">添加</a>
+   </form>
+   </div>
+   </div>
+   	<tr>
+   		<td>点检内容编号</td>
+   		<td>点检编号</td>
+   		<td>点检项目</td>
+   		<td>点检结果</td>
+   		<td>操作</td>
+   	</tr>
+   	<#list eSpotContentsTablelist as eSpotContentsTable>
+   	<tr>
+   		<td>${eSpotContentsTable.eContentsNo}</td>
+   		<td>${eSpotContentsTable.eSpotNo}</td>
+   		<td>${eSpotContentsTable.eSpotItem}</td>
+   		<td>${eSpotContentsTable.eSpotResult}</td>
+   		<td><a href="#">删除</a> <!---------- "../eSpotContentsTables/delete/${eSpotContentsTable.eContentsNo}"   --------->
+   			<a href="#">修改</a> <!---------- "../eSpotContentsTables/update/${eSpotContentsTable.eContentsNo}"   --------->
+   		</td>
+   	</tr>
+   	</#list>
+
+</table>
+<!----------
+<input value="完成" type="submit" />
+<a href="#">添加</a>  "../eSpotContentsTables/add"   --------->
+</form>
+

@@ -1,0 +1,25 @@
+package controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+
+
+import com.jfinal.core.Controller;
+
+import com.jfinal.plugin.activerecord.Db;
+
+
+public class ActController extends Controller {
+
+	public void getMenuList() {	
+		List dataList = Db.find("select * from ac_act");
+		Map<String, Object> resp=new HashMap<String, Object>();
+		resp.put("code", 0);
+		resp.put("content", dataList);
+		renderJson(resp);
+	}
+	
+}

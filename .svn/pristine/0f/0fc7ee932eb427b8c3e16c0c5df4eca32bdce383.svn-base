@@ -1,0 +1,109 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">系统管理</a>
+		</li>
+
+		<li><span>日志管理</span>
+		</li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+<div class="page-content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="clearfix"></div>
+			<div class="table-header">日志管理</div>
+
+
+			<div>
+				<div id="dynamic-table_wrapper"
+					class="dataTables_wrapper form-inline no-footer">
+					<div class="row">
+						<div class="widget">
+							<div class="widget-main">
+								<form class="form-inline" action="log/sele" method="post">
+									<input type="search" class="form-control input-sm"
+										placeholder="输入查询内容" aria-controls="dynamic-table"
+										name="selevalue"> <select name="seletype"
+										aria-controls="dynamic-table" class="form-control">
+										<option value="log_id">日志编号</option>
+										<option value="operation_user">操作用户</option>
+										<option value="operation_genre">操作类型</option>
+									</select> 起始时间：<input type="date" class="form-control" name="begintime" />
+									终止时间：<input type="date" class="form-control" name="endtime" />
+									<button type="submit" class="btn btn-info btn-sm">查询</button>
+									<button type="reset" class="btn btn-info btn-sm">取消</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					<table
+						class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
+						id="dynamic-table" role="grid"
+						aria-describedby="dynamic-table_info">
+						<thead>
+							<tr role="row">
+								<th>日志编号</th>
+								<th class="hidden-480">操作用户</th>
+								<th><i class="icon-time bigger-110 hidden-480"></i>操作备注</th>
+								<th class="hidden-480">操作时间</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<#list list as log>
+							<tr role="row" class="odd">
+								<td>${log.log_id}</td>
+								<td class="hidden-480">${log.operation_user}</td>
+								<td>${log.operation_genre}</td>
+								<td class="hidden-480">${log.operation_time}</td>
+							</tr>
+							</#list>
+						</tbody>
+
+					</table>
+					<div class="row">
+						<div class="col-xs-12 col-md-7"></div>
+						<div class="col-xs-12 col-md-5">
+
+
+							<div class=" pull-left">
+								<label>显示<select name="dynamic-table_length"
+									aria-controls="dynamic-table" class="form-control input-sm"><option
+											value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+								</select> 条记录</label>
+							</div>
+
+							<div class="dataTables_paginate paging_simple_numbers "
+								id="dynamic-table_paginate">
+								<ul class="pagination">
+									<li class="paginate_button previous disabled"
+										aria-controls="dynamic-table" tabindex="0"
+										id="dynamic-table_previous"><a href="#">上一页</a>
+									</li>
+									<li class="paginate_button active"
+										aria-controls="dynamic-table" tabindex="0"><a href="#">1</a>
+									</li>
+									<li class="paginate_button " aria-controls="dynamic-table"
+										tabindex="0"><a href="#">2</a>
+									</li>
+									<li class="paginate_button " aria-controls="dynamic-table"
+										tabindex="0"><a href="#">3</a>
+									</li>
+									<li class="paginate_button next" aria-controls="dynamic-table"
+										tabindex="0" id="dynamic-table_next"><a href="#">下一页</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,44 @@
+ <div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span>设备基本信息</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div>    
+ 
+  <form action="/mes/equipmentMaintenances/save" method="post" name="addForm" >
+		<fieldset class="solid">
+	<legend>equipmentMaintenance</legend>
+	<input type="hidden" name="equipmentMaintenance.eFlowNO" value="${(equipmentMaintenance.eFlowNO)!}" />
+	<div>
+		<label>设备编号</label>
+		<input type="text" name="equipmentMaintenance.eNo" value="${(equipmentMaintenance.eNo)!}" />
+	</div>
+	<div>
+		<label>维护内容</label>
+		<textarea name="equipmentMaintenance.eMeContents" cols="80" rows="10">${(equipmentMaintenance.eMeContents)!}</textarea>
+	</div>
+	<div>
+		<label>记录时间</label>
+		<input type="text" name="equipmentMaintenance.eRecordTime" value="${(equipmentMaintenance.eRecordTime)!}" />
+	</div>
+	<div>
+		<label>记录人员</label>
+		<input type="text" name="equipmentMaintenance.eRecorder" value="${(equipmentMaintenance.eRecorder)!}" />
+	</div>
+	<div>
+		<label>附件</label>
+		<input type="text" name="equipmentMaintenance.eAccessory" value="${(equipmentMaintenance.eAccessory)!}" />
+	</div>
+	<div>
+		<label>&nbsp;</label>
+		<input value="添加" type="submit" onClick="return checkAddForm()"/>
+	</div>
+</fieldset>

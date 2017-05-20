@@ -1,0 +1,26 @@
+package sbgl;
+import java.util.List;
+import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.core.Controller;
+public class WHJC extends Controller{
+	public void index(){
+		render("/sbgl/WHJC.html");
+	}
+	public void whjc(){				//主页面展示
+		int x=getParaToInt("x");
+		Page<sbgl_whjc> n=sbgl_whjc.dao.paginate(x, 10, "select *", "from sbgl_whjc group by t_sbbh having count(*)>1");
+		renderJson(n);
+	}
+	public void year(){				//主页面展示
+		int y=getParaToInt("year");
+		int m=getParaToInt("month");
+		//System.out.println(y+"-"+m);
+		sbgl_whjc n=sbgl_whjc.dao.findFirst("select * from sbgl_whjc where t_jcrq ='"+y+"-"+m+"'");
+		System.out.println(n);
+		if(n!=null)
+		renderJson(n);
+		else
+		renderText("IsNull");
+	}
+}
+ 

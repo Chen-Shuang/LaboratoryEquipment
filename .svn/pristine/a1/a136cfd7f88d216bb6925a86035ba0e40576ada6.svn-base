@@ -1,0 +1,48 @@
+package sbgl;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import com.jfinal.core.Controller;
+
+public class EquipmentInfoController extends Controller{
+	public void index(){
+		List<EquipmentInfo> list = EquipmentInfo.dao.find("select * from equipmentInfo");
+		setAttr("equipmentInfolist",list);
+		render("/sbgl/equipmentInfo.html");
+	}
+	public void add(){
+		render("/sbgl/addViewEquipmentInfo.html");
+	}
+	public void updater() {
+		setAttr("equipmentInfo", EquipmentInfo.dao.findById(getParaToInt()));
+		render("/sbgl/updaterEquipmentInfo.html");
+	}
+	public void update(){
+		EquipmentInfo equipmentInfo = getModel(EquipmentInfo.class);
+		equipmentInfo.update();
+		redirect("/equipmentInfos");
+	}
+	public void select(){
+		String _id =(String)getPara("option");
+			if(isNumeric(_id)){
+				List<EquipmentInfo> list = EquipmentInfo.dao.find("select * from equipmentInfo where eNo= "+_id);
+				setAttr("equipmentInfoslist",list);
+				render("/sbgl/selectEquipmentInfo.html");
+			}else{
+				List<EquipmentInfo> list = EquipmentInfo.dao.find("select * from equipmentInfo where eName like '%"+_id+"%'");
+				setAttr("equipmentInfoslist",list);
+				render("/sbgl/selectEquipmentInfo.html");
+		   }
+	}
+	public void save(){
+		EquipmentInfo equipmentInfo = getModel(EquipmentInfo.class);
+		equipmentInfo.save();
+		redirect("/equipmentInfos");
+	}
+	public static boolean isNumeric(String str){ 
+	     Pattern pattern = Pattern.compile("[0-9]*"); 
+	     return pattern.matcher(str).matches();    
+	} 
+}

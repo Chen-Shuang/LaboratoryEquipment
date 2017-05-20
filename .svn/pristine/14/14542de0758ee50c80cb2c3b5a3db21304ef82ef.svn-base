@@ -1,0 +1,602 @@
+<div class="main-content">
+				<div id="main-content-inner"><div class="main-content">
+				<div id="main-content-inner"><meta charset="utf-8">
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+
+ 
+
+
+
+
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+
+			<div class="table-header">全自动分板机生产过程检查表</div><div class="row">
+						<div class="col-xs-6">
+							<div id="dynamic-table_length" class="dataTables_length">
+							<form method="post" action="/mes/lsgyxx/lsquery/"> 
+								 
+								 
+								  <input type=" text" aria-controls="dynamic-table" placeholder="请输入工艺编号" class="" name="scgygl_lsgyxx.gybh">
+									<input type="submit" value="根据工艺编号查询">
+									
+							 	
+									</form>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="dataTables_filter" id="dynamic-table_filter">
+
+								<a id="l1ink" class="_p" href="scgygl/lsgyxx_add.html">
+								<h4>添加数据</h4>
+									<i class="icon-zoom-in bigger-130"></i>
+								</a>  
+							</div>
+						</div>
+					</div>
+
+			<div class="table-responsive">
+				<div>
+							</div><table id="sample-table-2" class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+								<th colspan="4" class="hidden-480">生产班超：</th>
+								<th colspan="4" class="hidden-480">设备编号：</th>
+								<th colspan="4" class="hidden-480">编号：ZYB M W 6.2-1.01 F-29</th>
+							</tr>
+						
+						<tr>
+							
+							<th>序 号</th>
+							<th>程序名称</th>
+							<th>工装编号</th>
+							<th>刀头尺寸</th>
+							<th>刀头编号</th>
+							<th>刀头寿命</th>
+							<th>生产数量</th>
+							<th>操作员</th>
+							<th>IPQC</th>
+							<th>生产日期</th>
+							<th>操作</th>
+						</tr>
+						
+							<tr class="odd" role="row">
+														<td class="center">1</td>
+
+														<td>
+															<a href="#">app.com</a>
+														</td>
+														<td>$45</td>
+														<td class="hidden-480">3,330</td>
+														<td>Feb 12</td>
+
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														
+
+														<td class="hidden-480">
+															<span class="label label-sm label-warning">Expiring</span>
+														</td>
+
+
+															<!--  这里是写最后操作选项-->
+														<td>
+															<div class="hidden-sm hidden-xs action-buttons">
+																<a class="blue" href="#">
+																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">
+																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																</a>
+
+																<a class="red" href="#">
+																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="hidden-md hidden-lg">
+																<div class="inline pos-rel">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																		<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																		<li>
+																			<a data-original-title="View" href="#" class="tooltip-info" data-rel="tooltip" title="">
+																				<span class="blue">
+																					<i class="ace-icon fa fa-search-plus bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Edit" href="#" class="tooltip-success" data-rel="tooltip" title="">
+																				<span class="green">
+																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Delete" href="#" class="tooltip-error" data-rel="tooltip" title="">
+																				<span class="red">
+																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+						
+							<tr class="odd" role="row">
+														<td class="center">1</td>
+
+														<td>
+															<a href="#">app.com</a>
+														</td>
+														<td>$45</td>
+														<td class="hidden-480">3,330</td>
+														<td>Feb 12</td>
+
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														
+
+														<td class="hidden-480">
+															<span class="label label-sm label-warning">Expiring</span>
+														</td>
+
+
+															<!--  这里是写最后操作选项-->
+														<td>
+															<div class="hidden-sm hidden-xs action-buttons">
+																<a class="blue" href="#">
+																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">
+																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																</a>
+
+																<a class="red" href="#">
+																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="hidden-md hidden-lg">
+																<div class="inline pos-rel">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																		<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																		<li>
+																			<a data-original-title="View" href="#" class="tooltip-info" data-rel="tooltip" title="">
+																				<span class="blue">
+																					<i class="ace-icon fa fa-search-plus bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Edit" href="#" class="tooltip-success" data-rel="tooltip" title="">
+																				<span class="green">
+																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Delete" href="#" class="tooltip-error" data-rel="tooltip" title="">
+																				<span class="red">
+																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+						
+							<tr class="odd" role="row">
+														<td class="center">1</td>
+
+														<td>
+															<a href="#">app.com</a>
+														</td>
+														<td>$45</td>
+														<td class="hidden-480">3,330</td>
+														<td>Feb 12</td>
+
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														
+
+														<td class="hidden-480">
+															<span class="label label-sm label-warning">Expiring</span>
+														</td>
+
+
+															<!--  这里是写最后操作选项-->
+														<td>
+															<div class="hidden-sm hidden-xs action-buttons">
+																<a class="blue" href="#">
+																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">
+																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																</a>
+
+																<a class="red" href="#">
+																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="hidden-md hidden-lg">
+																<div class="inline pos-rel">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																		<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																		<li>
+																			<a data-original-title="View" href="#" class="tooltip-info" data-rel="tooltip" title="">
+																				<span class="blue">
+																					<i class="ace-icon fa fa-search-plus bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Edit" href="#" class="tooltip-success" data-rel="tooltip" title="">
+																				<span class="green">
+																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Delete" href="#" class="tooltip-error" data-rel="tooltip" title="">
+																				<span class="red">
+																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+						
+							<tr class="odd" role="row">
+														<td class="center">1</td>
+
+														<td>
+															<a href="#">app.com</a>
+														</td>
+														<td>$45</td>
+														<td class="hidden-480">3,330</td>
+														<td>Feb 12</td>
+
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														
+
+														<td class="hidden-480">
+															<span class="label label-sm label-warning">Expiring</span>
+														</td>
+
+
+															<!--  这里是写最后操作选项-->
+														<td>
+															<div class="hidden-sm hidden-xs action-buttons">
+																<a class="blue" href="#">
+																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">
+																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																</a>
+
+																<a class="red" href="#">
+																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="hidden-md hidden-lg">
+																<div class="inline pos-rel">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																		<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																		<li>
+																			<a data-original-title="View" href="#" class="tooltip-info" data-rel="tooltip" title="">
+																				<span class="blue">
+																					<i class="ace-icon fa fa-search-plus bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Edit" href="#" class="tooltip-success" data-rel="tooltip" title="">
+																				<span class="green">
+																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Delete" href="#" class="tooltip-error" data-rel="tooltip" title="">
+																				<span class="red">
+																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+						
+							<tr class="odd" role="row">
+														<td class="center">1</td>
+
+														<td>
+															<a href="#">app.com</a>
+														</td>
+														<td>$45</td>
+														<td class="hidden-480">3,330</td>
+														<td>Feb 12</td>
+
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														
+
+														<td class="hidden-480">
+															<span class="label label-sm label-warning">Expiring</span>
+														</td>
+
+
+															<!--  这里是写最后操作选项-->
+														<td>
+															<div class="hidden-sm hidden-xs action-buttons">
+																<a class="blue" href="#">
+																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">
+																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																</a>
+
+																<a class="red" href="#">
+																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="hidden-md hidden-lg">
+																<div class="inline pos-rel">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																		<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																		<li>
+																			<a data-original-title="View" href="#" class="tooltip-info" data-rel="tooltip" title="">
+																				<span class="blue">
+																					<i class="ace-icon fa fa-search-plus bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Edit" href="#" class="tooltip-success" data-rel="tooltip" title="">
+																				<span class="green">
+																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Delete" href="#" class="tooltip-error" data-rel="tooltip" title="">
+																				<span class="red">
+																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+						
+							<tr class="odd" role="row">
+														<td class="center">1</td>
+
+														<td>
+															<a href="#">app.com</a>
+														</td>
+														<td>$45</td>
+														<td class="hidden-480">3,330</td>
+														<td>Feb 12</td>
+
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														
+
+														<td class="hidden-480">
+															<span class="label label-sm label-warning">Expiring</span>
+														</td>
+
+
+															<!--  这里是写最后操作选项-->
+														<td>
+															<div class="hidden-sm hidden-xs action-buttons">
+																<a class="blue" href="#">
+																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">
+																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																</a>
+
+																<a class="red" href="#">
+																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="hidden-md hidden-lg">
+																<div class="inline pos-rel">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																		<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																		<li>
+																			<a data-original-title="View" href="#" class="tooltip-info" data-rel="tooltip" title="">
+																				<span class="blue">
+																					<i class="ace-icon fa fa-search-plus bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Edit" href="#" class="tooltip-success" data-rel="tooltip" title="">
+																				<span class="green">
+																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Delete" href="#" class="tooltip-error" data-rel="tooltip" title="">
+																				<span class="red">
+																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+						
+						
+							<tr class="odd" role="row">
+														<td class="center">1</td>
+
+														<td>
+															<a href="#">app.com</a>
+														</td>
+														<td>$45</td>
+														<td class="hidden-480">3,330</td>
+														<td>Feb 12</td>
+
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														<td>Feb 12</td>
+														
+
+														<td class="hidden-480">
+															<span class="label label-sm label-warning">Expiring</span>
+														</td>
+
+
+															<!--  这里是写最后操作选项-->
+														<td>
+															<div class="hidden-sm hidden-xs action-buttons">
+																<a class="blue" href="#">
+																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">
+																	<i class="ace-icon fa fa-pencil bigger-130"></i>
+																</a>
+
+																<a class="red" href="#">
+																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="hidden-md hidden-lg">
+																<div class="inline pos-rel">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																		<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																		<li>
+																			<a data-original-title="View" href="#" class="tooltip-info" data-rel="tooltip" title="">
+																				<span class="blue">
+																					<i class="ace-icon fa fa-search-plus bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Edit" href="#" class="tooltip-success" data-rel="tooltip" title="">
+																				<span class="green">
+																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a data-original-title="Delete" href="#" class="tooltip-error" data-rel="tooltip" title="">
+																				<span class="red">
+																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+
+
+
+					</thead>
+
+                  <tbody>
+				 				</tbody></table></div></div></div></div></div><div class="row"><div class="col-xs-6"></div><div class="col-xs-6"><div id="dynamic-table_paginate" class="dataTables_paginate paging_simple_numbers"><ul class="pagination"><li id="dynamic-table_previous" tabindex="0" aria-controls="dynamic-table" class="paginate_button previous disabled"><a href="#">上一页</a></li><li tabindex="0" aria-controls="dynamic-table" class="paginate_button active"><a href="#">1</a></li><li tabindex="0" aria-controls="dynamic-table" class="paginate_button "><a href="#">2</a></li><li tabindex="0" aria-controls="dynamic-table" class="paginate_button "><a href="#">3</a></li><li id="dynamic-table_next" tabindex="0" aria-controls="dynamic-table" class="paginate_button next"><a href="#">下一页</a></li></ul></div></div></div>
+			</div></div>
+			</div>

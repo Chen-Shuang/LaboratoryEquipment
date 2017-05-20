@@ -1,0 +1,79 @@
+<style type="text/css">
+.a{color:#666;float:left;margin-right:10px;padding:4px;}
+.a:hover{cursor:pointer;background-color:rgb(153,217,234);}
+</style>
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span class="glyphicon glyphicon-wrench">&nbsp;配件管理</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div> 
+<div class="col-xs-12" style="margin-top:10px;">
+	<div class="table-header">维护保养记录表</div>
+<div class="dataTables_wrapper form-inline no-footer">
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="dataTables_length">
+				<div class="a" onclick="F001(1)">添加备件</div>
+				<div class="a" onclick="a()">选中备件入库</div>
+				<div class="a">选中备件出库</div>
+				<div class="a">删除选中备件</div>
+				<div class="a">查看出入库明细</div>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<div class="dataTables_filter">
+				<input type="text" placeholder="离开文本框后自动查询" style="width:140px;"/>
+			</div>
+		</div>
+	</div>
+	<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" aria-describedby="dynamic-table_info" role="grid">
+		<thead>
+			<tr role="row">
+				<th class="center" style="width:50px;">
+					<label>
+						<input class="ace" type="checkbox"></input>
+						<span class="lbl"></span>
+					</label>
+				</th>
+				<th>详情</th>
+				<th>备件编号</th>
+				<th>备件名称</th>
+				<th>规格型号</th>
+				<th>备件类型</th>
+				<th>计量单位</th>
+				<th>库存上限</th>
+				<th>库存下限</th>
+				<th>参考价</th>
+				<th>库存总数</th>
+				<th>生产厂商</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+	</table>
+</div>
+</div>
+<script type="text/javascript">
+function F001(n) {
+	var t={"pageNumber":n};  
+	$.get("AAA/F001",t, function(data) {
+		  alert(data); 
+	});
+}
+function a(){				//测试案例代码   字符串转换
+	var a="0001";
+	var t="004我爱你";
+	alert(t.substr(3, t.length-1));		//取出第四位到后面的数字   并且弹出结果
+	var b=parseInt(a, 10);					//把a用10进制表示出来
+	alert(b);
+}
+</script>
+重新开始！！

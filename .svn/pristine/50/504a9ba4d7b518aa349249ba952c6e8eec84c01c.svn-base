@@ -1,0 +1,213 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+
+<<<<<<< .mine
+<!-- /section:basics/content.breadcrumbs -->
+<div class="page-content">
+=======
+<!-- /section:basics/content.breadcrumbs -->
+<div class="page-content" >
+>>>>>>> .r8011
+
+
+<<<<<<< .mine
+	<div class="row">
+		<div class="col-xs-12">
+			<form class="form-horizontal" role="form" method="post" action="/mes/lsgyxx/lsadd" >
+				<div class="table-header">流水工艺信息表</div>
+				<div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- PAGE CONTENT BEGINS -->
+
+							<!-- #section:elements.form -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-1"> 工艺编号 </label>
+
+								<div class="col-sm-6">
+									<input type="text" id="form-field-1" placeholder="请输入工艺编号"
+										class="col-xs-10 col-sm-5" name="scgygl_lsgyxx.gybh" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-1"> 工艺名称 </label>
+
+								<div class="col-sm-6">
+									<input type="text" id="form-field-1" placeholder="请输入工艺名称"
+										class="col-xs-10 col-sm-5" name="scgygl_lsgyxx.gymc" />
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-1"> 产品编号</label>
+
+								<div class="col-sm-6">
+									<input type="text" id="form-field-1" placeholder="请输入产品编号"
+										class="col-xs-10 col-sm-5" name="scgygl_lsgyxx.cpbh" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-2">版本号</label>
+
+								<div class="col-sm-6">
+
+									<input class="col-xs-6" type="text" id="form-field-5"
+										placeholder="请输入版本号" name="scgygl_lsgyxx.bbh" />
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-2">状态</label>
+
+								<div class="col-sm-6">
+									<div class="clearfix">
+										<input class="col-xs-6" type="text" id="form-field-5"
+											placeholder="请输入状态信息" name="scgygl_lsgyxx.zt" />
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="clearfix form-actions">
+								<div class="col-md-offset-3 col-md-9">
+									<button class="btn btn-info" type="submit">
+										<i class="ace-icon fa fa-check bigger-110"></i> 提交
+									</button>
+									&nbsp; &nbsp; &nbsp;
+									<button class="btn" type="reset">
+										<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+=======
+	<div class="row">
+		<div class="col-xs-12">
+			<form action="/mes/bcpxlbzzjl/updater"  class="_p" method="post" align="center">
+			<p>
+				<input type="hidden" name="bcpxlbzzjl.id"
+					value="${(bcpxlbzzjl.id)!}" maxlength="20 size="50">
+			</p>
+			<p>
+				计划数量<input type="text" name="bcpxlbzzjl.jihuashuliang"
+					value="${bcpxlbzzjl.jihuashuliang}" maxlength="20 size="50">
+			</p>
+			
+			<p>
+				计划日期<input type="date" name="bcpxlbzzjl.jihuariqi"
+					value="${bcpxlbzzjl.jihuariqi}" maxlength="50 size="50">
+			</p>
+			<p>
+				完成数量：<input type="text" name="bcpxlbzzjl.wanchengshuliang"
+					value="${bcpxlbzzjl.wanchengshuliang}" maxlength="20 size="50">
+			</p>
+			
+				<p>
+				未完成数量<input type="text" name="bcpxlbzzjl.weiwanchengshuliang"
+					value="${bcpxlbzzjl.weiwanchengshuliang}" maxlength="20 size="50">
+			</p>
+			<p>
+				计划数量<input type="text" name="bcpxlbzzjl.jihuashuliang"
+					value="${bcpxlbzzjl.jihuashuliang}" maxlength="20 size="50">
+			</p>
+			<p>
+				未完成原因<input type="text" name="bcpxlbzzjl.weiwanchengyuanyin"
+					value="${bcpxlbzzjl.weiwanchengyuanyin}" maxlength="50 size="50">
+			</p>
+			<p>
+				最终完成日期<input type="date" name="bcpxlbzzjl.zuizhongwanchengriqi"
+					value="${bcpxlbzzjl.zuizhongwanchengriqi}" maxlength="20 size="50">
+			</p>
+			
+				<p>
+				上次寄存数量<input type="text" name="bcpxlbzzjl.shangcijicunshuliang"
+					value="${bcpxlbzzjl.shangcijicunshuliang}" maxlength="20 size="50">
+			</p>
+			<p>
+				现有数量<input type="text" name="bcpxlbzzjl.xianyoushuliang"
+					value="${bcpxlbzzjl.xianyoushuliang}" maxlength="50 size="50">
+			</p>
+			<p>
+				领取数量<input type="text" name="bcpxlbzzjl.lingqushuliang"
+					value="${bcpxlbzzjl.lingqushuliang}" maxlength="20 size="50">
+			</p>
+			
+			<p>
+				发放人<input type="text" name="bcpxlbzzjl.fafangren"
+					value="${bcpxlbzzjl.fafangren}" maxlength="50 size="50">
+			</p>
+			<p>
+				领取人<input type="text" name="bcpxlbzzjl.lingquren"
+					value="${bcpxlbzzjl.lingquren}" maxlength="20 size="50">
+			</p>
+			
+				<p>
+				领取日期<input type="date" name="bcpxlbzzjl.lingquriqi"
+					value="${bcpxlbzzjl.lingquriqi}" maxlength="20 size="50">
+			</p>
+			<p>
+				剩余数量<input type="text" name="bcpxlbzzjl.shengyushuliang"
+					value="${bcpxlbzzjl.shengyushuliang}" maxlength="50 size="50">
+			</p>
+			<p>
+				备注<input type="text" name="bcpxlbzzjl.beizhu"
+					value="${bcpxlbzzjl.beizhu}" maxlength="20 size="50">
+			</p>
+			<p><input type="submit" class="_p" id="b" value="保存">  <input type="reset" name="button" value="重置" /></p>
+>>>>>>> .r8011
+			</form>
+<<<<<<< .mine
+		</div>
+		<!-- /.page-content -->
+
+
+
+=======
+		<!-- /.page-content -->
+
+ </div>
+
+>>>>>>> .r8011
+	</div>
+</div>
+<<<<<<< .mine
+
+
+<!-- /.main-content -->
+
+<script>
+	
+</script>=======
+
+
+<!-- /.main-content -->
+
+<script>
+	
+</script> >>>>>>> .r8011

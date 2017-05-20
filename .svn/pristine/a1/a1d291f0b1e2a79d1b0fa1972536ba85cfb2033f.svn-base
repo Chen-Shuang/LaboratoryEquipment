@@ -1,0 +1,40 @@
+ <div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span>设备基本信息</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div> 
+  <body>
+    <table border="1">
+    
+   	<tr>
+   		<td>流水编号</td>
+   		<td>设备编号</td>
+   		<td>维护内容</td>
+   		<td>记录时间</td>
+   		<td>记录人员</td>
+   		<td>附件</td>
+   	</tr>
+   	<#list equipmentMaintenanceslist as equipmentMaintenance>
+   	<tr>
+   		<td>${equipmentMaintenance.eFlowNO}</td>
+   		<td>${equipmentMaintenance.eNo}</td>
+   		<td>${equipmentMaintenance.eMeContents}</td>
+   		<td>${equipmentMaintenance.eRecordTime}</td>
+   		<td>${equipmentMaintenance.eRecorder}</td>
+   		<td>${equipmentMaintenance.eAccessory}</td>
+   	</tr>
+  </#list>
+     </table>
+     <a href="/mes/equipmentMaintenances" >返回</a>
+  
+  </body>
+</html>

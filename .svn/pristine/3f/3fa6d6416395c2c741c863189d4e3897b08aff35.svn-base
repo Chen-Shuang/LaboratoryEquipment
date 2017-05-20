@@ -1,0 +1,21 @@
+package scgygl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class ScgcgxController extends Controller {
+	
+	public void index (){
+		List<Scgcgx> scgygl_scgcgylc = Scgcgx.me.find("select*from scgygl_scgcgylc");
+		setAttr("scgygl_scgcgylc", scgygl_scgcgylc);
+		System.out.println("得到数据" + scgygl_scgcgylc.size() + "个");
+		System.out.println("ssssssssssssssssss");
+		
+		render("/scgygl/scgcgylc.html");
+	}
+    public void del(){
+    	Scgcgx.me.deleteById(getPara(0));
+             redirect("/#scgcgylc");    
+    }
+}

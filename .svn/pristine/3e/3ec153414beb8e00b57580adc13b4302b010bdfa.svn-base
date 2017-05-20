@@ -1,0 +1,33 @@
+package config;
+
+
+import scsjgl.Bcpxlbzzjl;
+import scsjgl.Bmtzgcjc;
+import scsjgl.Gwqxjl;
+import scsjgl.Ltwdcsjl;
+import scsjgl.Pqcxcjl;
+import scsjgl.Scgcgx;
+import scsjgl.Scgcgxnr;
+import scsjgl.Tzhljl;
+import scsjgl.Wldbd;
+import scsjgl.Xgffsygl;
+
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+
+
+public class scsjgl {
+	public static void addMap(ActiveRecordPlugin arp1){
+		arp1.addMapping("scgygl_bcpxlbzzjl", "id", Bcpxlbzzjl.class);
+		arp1.addMapping("scsjgl_scgcgx","gxkbh",Scgcgx.class );
+		arp1.addMapping("scsjgl_scgcgxlzknr","gxkbh" ,Scgcgxnr.class);
+		arp1.addMapping("scsjgl_wldbd",Wldbd.class);//物料调拨单
+		arp1.addMapping("scsjgl_xgffsygl", Xgffsygl.class);//锡膏发放使用管理
+		arp1.addMapping("scsjgl_gwqxjl", Gwqxjl.class);//钢网清洗记录
+		arp1.addMapping("scsjgl_tzhljl", Tzhljl.class);//贴装换料记录
+		//arp1.addMapping("scsjgl_pqcxcjl", Pqcxcjl.class);//PQC巡查记录
+		//arp1.addMapping("scsjgl_ltwdcs", Ltwdcsjl.class);//烙铁温度测试记录
+		//arp1.addMapping("scsjgl_bmtzgcjc", Bmtzgcjc.class);//表面贴装过程检查
+		//arp1.addMapping("scsjgl_qzdfbjgcjc", Qzdfbjgcjc.class);//全自动分板机过程检查
+		//arp1.addMapping("scsjgl_", .class);//波峰焊插装焊接过程检查
+	}
+} 

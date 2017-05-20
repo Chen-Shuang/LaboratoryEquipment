@@ -1,0 +1,10 @@
+package scgygl;
+
+import com.jfinal.core.Controller;
+
+public class ScgcgylcController extends Controller {
+	public void index(){
+		render("/scsjgl/scgcgx.html");
+	}
+
+}

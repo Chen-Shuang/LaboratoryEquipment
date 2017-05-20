@@ -1,0 +1,35 @@
+package xcckgl;
+
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
+
+public class Xcccpxx extends Model<Xcccpxx> {
+	public static final Xcccpxx me = new Xcccpxx();
+
+	
+public Page<Xcccpxx> paginate( int pageNumber, int pageSize){
+		
+		return Xcccpxx.me.paginate(pageNumber, pageSize,"select *","from xcc_cpxx order by id asc");
+ 
+}
+	
+	
+	//根据id查询
+	public Page<Xcccpxx> paginateid( int pageNumber, int pageSize ,String ID ){
+	 
+		return Xcccpxx.me.paginate(pageNumber, pageSize,"select *","from xcc_cpxx where (id like'%"+ID+"%')"
+				+ " or (cpmc like'%"+ID+"%') "
+				+ "or (sczld like'%"+ID+"%') "
+						+ " or (bz like'%" + ID + "%') "
+						+ "	or (khddh like'%" + ID + "%') "
+						+ " or (scpc like'%" + ID + "%') "
+						+ "	or (sl like'%" + ID + "%') "
+						+ " or (rqsj like'%" + ID + "%') "
+					 
+						
+						+ "order by id");
+ 
+}
+	
+	
+}

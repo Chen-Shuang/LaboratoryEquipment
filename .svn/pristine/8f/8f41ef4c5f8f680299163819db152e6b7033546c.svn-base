@@ -1,0 +1,52 @@
+package scjhgl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import scjhgl.Order;
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+
+public class scjhglController extends Controller {
+	public void index(){
+		List<Order> list = Order.dao.find("select * from order_info");
+		setAttr("iteration", list);
+		renderFreeMarker("ddxi_latest.html");
+	}
+	
+	public void getMenuList() {	
+		List dataList = Db.find("select * from ac_act");
+		Map<String, Object> resp=new HashMap<String, Object>();
+		resp.put("code", 0);
+		resp.put("content", dataList);
+		renderJson(resp);
+	}
+	public void console() {
+		//renderFreeMarker("console.html");
+		renderFreeMarker("console.html");
+	}
+	
+	
+	public void c() {		//增
+		getModel(Order.class).save();		
+		redirect("/#scjhgl/index");
+	}
+	public void r(){			//查
+		Object[] paramArr = { "%"+ getPara("searchValue") + "%" };// 存取paramArr
+				if (paramArr.equals("") || paramArr.equals(null)) {
+				} else {
+					List<Order> list = Order.dao.find("select * from order_info where cus_name like ?", paramArr);
+					setAttr("iteration", list);
+					renderFreeMarker("ddxi.html");
+				}
+	}
+	public void u() {		//改
+		getModel(Order.class).update();		
+		redirect("/#scjhgl/index");
+	}
+	public void d() {		//删
+		Order.dao.deleteById(getPara(0));
+		redirect("/#scjhgl/index");
+	}
+}

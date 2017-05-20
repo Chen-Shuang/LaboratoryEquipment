@@ -1,0 +1,14 @@
+package xtgl;
+
+import xtgl.Log;
+
+import com.jfinal.core.Controller;
+
+public class LogController extends Controller {
+
+	public void index() {
+		setAttr("list", Log.dao.getlogs());
+		render("/xtgl/rzgl.html");
+	}
+
+}

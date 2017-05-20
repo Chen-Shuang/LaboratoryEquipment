@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>操作成功页面</title>
+    <meta name="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div style="text-align:center;font-size:40px;color:#123">操作成功！</div>
+  </body>
+</html>

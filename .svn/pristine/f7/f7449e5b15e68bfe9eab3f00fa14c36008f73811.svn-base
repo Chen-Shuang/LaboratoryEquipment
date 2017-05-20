@@ -1,0 +1,204 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+  
+    
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#" class="_p">现场仓库管理</a>
+		</li>
+
+		<li><span>现场库管理</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+	<script type="text/javascript">
+		function search(){
+		
+		 	var ID = $("#id").val();
+		    /* alert(ID); */
+			$.post("xcckgl/search/",
+				{
+					ID : ID,
+				},
+				function(data){
+					if(data=="flase"){
+						alert("无结果！");
+						window.location = "#xcckgl/";
+					}
+					else{
+
+						window.location = data + ID;
+					}
+				}
+				
+			);
+		}
+	</script>	
+	
+	
+		<script type="text/javascript">
+		function query(){
+		
+		 	var CMPC = $("#cpmc").val();
+		  /*   alert(CMPC); */
+		  	$.post("xcckgl/mhquery",
+			 
+				{
+					CMPC : CMPC,
+				},
+				function(data){
+					if(data=="flase"){
+						alert("无结果！");
+						window.location = "#xcckgl/";
+					}
+					else{
+
+						window.location = data + CMPC;
+					}
+				}
+				
+			);
+		}
+	</script>
+	
+
+		<script type="text/javascript">
+		function newday(){
+		
+		 	var cplx = $("#newday").val();
+		  /*   alert(CMPC); */
+		  	$.post("xcckgl/newday",
+			 
+				{
+					cplx : cplx,
+				},
+				function(data){
+					if(data=="flase"){
+						alert("无结果！");
+						window.location = "#xcckgl/";
+					}
+					else{
+
+						window.location = data + cplx;
+					}
+				}
+				
+			);
+		}
+	</script>
+
+
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+
+			<div class="table-header">现场库管理记录表</div>
+			<div class="row">
+				<div class="col-xs-6">
+				
+				
+				
+					<div id="dynamic-table_length" class="dataTables_length">
+						  <div>
+						   <select  id="newday"  >
+								<option value="原材料">原材料</option>
+								<option value="半成品">半成品</option>
+								<option value="成品">成品</option>
+								 
+							</select>
+							<button type="button" class="btn btn-info" onclick="newday();">查询今日信息</button>
+							 
+						  </div><div hidden="hidden">
+							  <input type="search" id="id"   placeholder="输入 查询id" aria-controls="dynamic-table"/>
+							 <button type="button" class="btn btn-info" onclick="search();">查询</button>
+							 
+							  <input type="search" id="cpmc"   placeholder="输入 产品名称" aria-controls="dynamic-table"/>
+							 <button type="button" class="btn btn-info" onclick="query();">模糊查询</button>
+							 
+                                </div>
+						 
+					</div>
+				
+				
+				
+				
+				</div>
+
+
+
+			</div>
+
+			<div class="table-responsive">
+
+				<table id="sample-table-2"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+
+ 
+
+						<tr>
+							<th>序 号</th>
+							<th>产品编号</th>
+							<th>产品名称</th>
+							
+							<!-- <th>生产指令单</th>
+							<th>班组</th>
+							<th>零件号</th> -->
+							<th>客户订单号</th>
+							<th>生产批次号</th>
+							
+							
+							<!-- <th>工艺编号</th> -->
+							<th>数量</th>
+							<th>不合格数量</th>
+							<th>合格总量</th>
+							<th>产品类型</th>
+							<th>时间日期</th>
+						</tr>
+					</thead>
+					<tbody>
+						<#list xcckgl.getList() as q>
+						<tr>
+							<td>${q.id!}</td>
+							
+							<td>${q.cpbh!}</td>
+							<td>${q.cpmc!}</td>
+							
+							<!-- <td>${q.sczld!}</td>
+							<td>${q.bz!}</td>
+							<td>${q.ljh!}</td> -->
+							<td>${q.khddh!}</td>
+							<td>${q.scpch!}</td>
+							
+							
+							<!-- <td>${q.gybh!}</td> -->
+							<td>${q.sl!}</td>
+							<td>${q.bhgsl!}</td>
+							<td>${q.hgzl!}</td>
+							<td>${q.cplx!}</td>
+							 <td>${q.rqsj!}</td>
+
+
+						</tr>
+						</#list>
+					</tbody>
+				</table>
+			</div>
+					<div class="text-right">
+						<#include "/WEB-INF/common/_paginate.html" />
+						<@paginate currentPage=xcckgl.pageNumber totalPage=xcckgl.totalPage actionUrl="#xcckgl/" />
+						<!--  actionUrl 示例方法写在index中，未配置路由因此不填，若配置路由分页调用的action不在index方法中，应为“路由/方法名/” 如：teacher/toThesisList/  -->
+					</div>
+				<div hidden="hidden">
+			 <h3>test</h3>
+			 <a href="xcckgl/ScgcgxController" class="_p"> ScgcgxController</a>
+			 <a class="red"   href="/mes/xcckgl/scsjgl" class="_p">测试添加页面  </a>
+		</div>
+	</div>
+					
+					
+		</div></div>
+ 

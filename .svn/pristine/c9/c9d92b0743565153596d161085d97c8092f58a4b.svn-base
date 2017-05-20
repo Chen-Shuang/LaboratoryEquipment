@@ -1,0 +1,7 @@
+package sbgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class sbgl_bjlx extends Model<sbgl_bjlx> {
+	public static final sbgl_bjlx dao = new sbgl_bjlx();
+}

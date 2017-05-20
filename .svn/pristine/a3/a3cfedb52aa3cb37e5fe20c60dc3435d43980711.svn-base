@@ -1,0 +1,23 @@
+package xcckgl;
+
+ 
+ 
+import java.util.List;
+
+import com.jfinal.core.Controller;
+  
+ 
+
+
+public class XcccpxxController extends Controller {
+	public void  index(){
+		List<Xcccpxx> xcc_cpxx = Xcccpxx.me.find("select*from xcc_cpxx");
+		setAttr("xcc_cpxx", xcc_cpxx);
+		System.out.println("############");
+		render("/xcckgl/Xcccpxx_main.html");
+		 
+		 
+	}
+
+	
+}

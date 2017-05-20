@@ -1,0 +1,786 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+
+			<div class="clearfix"></div>
+			<div class="table-header">用户管理</div>
+
+			<!-- div.table-responsive -->
+
+			<!-- div.dataTables_borderWrap -->
+			<div>
+				<div id="dynamic-table_wrapper"
+					class="dataTables_wrapper form-inline no-footer">
+					<form method="post" action="users/allUser" id="main">
+						<div class="row">
+							<div class="col-xs-6">
+
+								<input type="text" placeholder="空查询显示所有用户" class="form-control" name="str" /> <select
+									name="type">
+									<option value="username">用户名</option>
+									<option value="name">姓名</option>
+									<option value="dept">所属部门</option>
+									<option value="position">职位</option>
+									<option value="role">角色</option>
+								</select> <a class="btn btn-sm btn-primary" id="submi">查询</a>
+							</div>
+						</div>
+					</form>
+					<script type="text/javascript" src="js/laypage.js"></script>
+					<script type="text/javascript">
+					/* 填充表格 */
+function trList(data) {
+	
+	var dataStr = "";
+	$.each(data, function(i, a) {
+	
+	        $.each(a.users.list, function(i, v) {//遍历users
+	            //alert(v.id);  //弹出对话框
+	            dataStr += '<tr role="row" class="even">';
+	            dataStr += '<td>'+v.username+'</td>';
+	            dataStr += '<td>'+v.name+'</td>';
+	            dataStr += '<td>';
+	        	$.each(a.depts, function(i, m) {//遍历depts
+	            	if(m.dept_id==v.dept_id) dataStr += m.dept_name;
+	        	}); 
+	            
+	            dataStr +='</td>';
+	            dataStr += '<td>'+v.position+'</td>';
+	            dataStr += '<td>';
+	        	$.each(a.roles, function(i, m) {//遍历roles
+	            	if(m.role_id==v.role_id) dataStr += m.role_name;
+	        	}); 
+	        
+	            
+	            dataStr +='</td>';
+	            dataStr +='<td class="hidden-480">';
+	            if(v.status==true){
+	            	
+	            	dataStr += '<span class="label label-sm label-success">';
+	            	dataStr +='在职';
+	            	dataStr +='</span>';
+	            	
+	            }else{
+	            	dataStr += '<span class="label label-sm label-inverse arrowed-in">离职</span>';
+	            }
+	            dataStr +='</td>';
+	            dataStr += '<td><div class="hidden-sm hidden-xs action-buttons"><a href="';
+	            dataStr +='javascript:allInf('+v.id+',\''+v.username+'\',\''+v.name+'\',\''+v.gender+'\','+v.age+',\'';
+	            if(v.dept_id==null){
+	            	dataStr += '无';
+	            }else{
+	            $.each(a.depts, function(i, m) {//遍历depts
+	            if(m.dept_id==v.dept_id) dataStr += m.dept_name;
+	        		});
+	        	}
+	            dataStr +='\',\''+v.position+'\',\''+v.education+'\',\''+v.hiredate+'\','+v.seniority+',\''+v.email+'\',\''+v.regist_date+'\',\'';
+	            if(v.role==null){
+	            	dataStr += '无';
+	            }else{
+	            $.each(a.roles, function(i, m) {//遍历roles
+	            	if(m.role_id==v.role_id) dataStr += m.role_name;
+	        	});}
+	            
+	            dataStr +='\',\'';
+	            if(v.status==true){
+	            	dataStr +='在职';
+	            }else{
+	            	dataStr += '离职';
+	            }
+	            dataStr +='\')" class="blue"> <i class="ace-icon fa fa-search-plus bigger-130"></i> </a> ';
+	    		dataStr += '<a href="javascript:updateUser('+v.id+',\''+v.username+'\',\''+v.name+'\',\''+v.position+'\',\''+v.email+'\',\''+v.hiredate+'\')"';
+				dataStr += ' class="green "><i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="users/delete?id='+v.id+'" class="red"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a></div> </td></tr>';
+	        });
+	        
+	       /*  $.each(v.depts, function(i, v) {//遍历users
+	            dataStr += '<td>'+v.dept_id+'</td>';
+	        });
+	        
+	        $.each(v.roles, function(i, v) {//遍历users
+	        }); */
+
+	    
+	    
+	    /* $.each(v.depts, function(i, v) {
+	    
+	    })
+	    $.each(v.roles, function(i, v) {
+	    
+	    })  */
+
+	    
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#tbody").html(dataStr);
+
+}
+
+					
+					
+					
+					
+					$("#submi").click(function(){
+					$.post("users/allUser",$("#main").serialize(),function(data){
+					pageChange(1);
+					});
+					});
+					
+
+
+function trPost(data){
+	var dataStr = "";
+	if(data.pageNumber==1)
+	{
+		dataStr +='<li class="paginate_button previous disabled" ';
+		dataStr +='aria-controls="dynamic-table" tabindex="0">';
+		dataStr +='<a href="javascript:pageChange(1)">首页</a></li>';
+	}else
+	{
+		dataStr +='<li class="paginate_button previous" aria-controls="dynamic-table" tabindex="0"';
+		dataStr +='id="dynamic-table_previous"><a href="javascript:pageChange(1)">首页</a></li>';
+	}
+	
+	for(var i=1;i<=data.totalPage;i++){
+		if(i==data.pageNumber){
+			dataStr +='<li class="paginate_button active">';
+			dataStr +='<a href="javascript:pageChange('+i+')">'+i+'</a></li>';
+		}else{
+			dataStr +='<li class="paginate_button"><a href="javascript:pageChange('+i+')">'+i+'</a></li>';
+		}
+	}
+	if(data.totalPage==data.pageNumber){
+		dataStr +='<li class="paginate_button next disabled" aria-controls="dynamic-table" tabindex="0">';
+		dataStr +='<a href="javascript:pageChange('+data.totalPage+')">尾页</a></li>';
+	}else{
+		dataStr +='<li class="paginate_button next" aria-controls="dynamic-table" tabindex="0">';
+		dataStr +='<a href="javascript:pageChange('+data.totalPage+')">尾页</a></li>';
+	}
+	
+	
+	
+	
+	
+	$("#fanye").html(dataStr);
+}
+
+
+function pageChange(curr) {
+	$.get("users/allUser", {"pageNumber": curr}, function(data) {
+		trList(data); //调用上面trList()方法，填充表格数据
+		trPost(data[0].users);
+		laypage({
+		    cont: $('#pages'), //容器。值支持id名、原生dom对象，jquery对象,
+		    pages: data[0].users.totalPage, //总页数
+		    skip: true, //是否开启跳页
+		    skin: 'molv',//设置信息流模式样式
+		    last:  data[0].users.totalPage, //总页数，将尾页显示为总页数
+		    curr: data[0].users.pageNumber,//当前页
+		    groups: 3, //连续显示分页数
+		    jump: function(obj, first) {
+			if(!first){ //一定要加此判断，否则初始时会无限刷新
+				pageChange(obj.curr);
+			}
+			
+			
+		    }
+		});
+		
+		
+	});
+}
+
+
+function infNumber(curr) {
+	$.post("users/allUser", {"infNumber": curr}, function() {
+		pageChange(1);
+	});
+}
+
+
+
+pageChange(1);
+
+
+</script>
+
+
+					<table
+						class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
+						id="dynamic-table" role="grid"
+						aria-describedby="dynamic-table_info">
+						<thead>
+							<tr role="row">
+								<th>用户名</th>
+								<th>姓名</th>
+								<th>所属部门</th>
+								<th>职位</th>
+								<th>角色</th>
+								<th rowspan="1" colspan="1" aria-label="">状态</th>
+								<th><a class="btn btn-sm btn-primary"
+									href="javascript:addUser()">添加用户</a></th>
+
+
+							</tr>
+						</thead>
+						<tbody id="tbody">
+
+						</tbody>
+
+					</table>
+
+					<div class="row">
+						<div class="col-xs-6">
+							<!-- <div class="dataTables_info" id="dynamic-table_info"
+								role="status" aria-live="polite">Showing 1 to 10 of 23
+								entries</div> -->
+
+
+						</div>
+						<div class="col-xs-6">
+
+							<div class="dataTables_paginate paging_simple_numbers"
+								id="dynamic-table_paginate">
+								<label>显示
+								<!-- <select name="dynamic-table_length"
+									aria-controls="dynamic-table" class="form-control input-sm">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+
+								</select>-->
+								<div class="btn-group">
+
+												<#if infNumber==5>
+												<button type="button" class="label"
+													data-toggle="dropdown">
+													5<span class="caret"></span>
+												</button>
+												</#if> <#if infNumber==10>
+												<button type="button"
+													class="label"
+													data-toggle="dropdown">
+													10 <span class="caret"></span>
+												</button>
+												</#if>
+												<ul class="dropdown-menu" role="menu">
+													<li><a href="javascript:infNumber(5)" id = "fanye1">5</a>
+													</li>
+													<li><a href="javascript:infNumber(10)" id="fanye2">10</a>
+													</li>
+												</ul>
+											</div>条</label>
+								<ul class="pagination" id="fanye">
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 更新用户 -->
+<div class="hidden" id="up">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8">
+		<form id="uup" action="users/update" method="post">
+			<input type="hidden" name="role.role_id">
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">原用户编号</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="id" id="user_id"
+						value='' />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">用户名</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="username"
+						id="user_username" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">姓名</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="name" id="user_name"
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">性别</label>
+				<div>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="男"
+						checked />男 <input type="radio" name="gender" value="女" />女
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">年龄</label>
+				<div class="col-sm-9">
+					<select name="age"> <#list 16..65 as n>
+						<option value="${n}">${n}</option> </#list>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">部门与角色</label>
+				<div class="col-sm-9">
+					<select name="dept_id" id="areaid"
+						onChange="setTown('areaid','townid')">
+						<option value="">请选部门</option> <#list depts as d>
+						<option value="${d.dept_id!}">${d.dept_name!}</option> </#list>
+					</select> <select name="role_id" id="townid">
+						<option value="">请选角色</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">职位</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="position"
+						id="user_position" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">学历</label>
+				<div class="col-sm-9">
+					<select name="education">
+						<option value="null">请输入学历</option>
+						<option value="初中">初中</option>
+						<option value="高中">高中</option>
+						<option value="专科">专科</option>
+						<option value="本科">本科</option>
+						<option value="硕士">硕士</option>
+						<option value="博士">博士</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">参加工作日期</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="hiredate"
+						id="user_hiredate" onClick="WdatePicker()" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">邮箱地址</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="email"
+						id="user_email" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">状态</label>
+				<div class="col-sm-9">
+					<input type="radio" name="status" value="1" checked />在职&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="status" value="0" />离职
+				</div>
+			</div>
+
+
+		</form>
+	</div>
+	<div class="col-xs-2"></div>
+</div>
+
+<!-- 添加用户 -->
+<div class="hide" id="add">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8">
+		<form id="pform" action="users/addUser" method="post">
+			<!-- <input type="hidden" name="role.role_id"> -->
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">用户名</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="u.username" id="str2"
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">密码</label>
+				<div class="col-sm-9">
+					<input type="password" class="form-control" name="u.password"
+						id="str2" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">姓名</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="u.name" id="str2"
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">性别</label>
+				<div>
+					&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="u.gender"
+						value="男" checked />男 <input type="radio" name="u.gender"
+						value="女" />女
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">年龄</label>
+				<div class="col-sm-9">
+					<select name="u.age"> <#list 16..65 as n>
+						<option value="${n}">${n}</option> </#list>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">部门与角色</label>
+				<div class="col-sm-9">
+					<select name="u.dept_id" id="areaid1"
+						onChange="setTown('areaid1','townid1')">
+						<option value="">请选部门</option> <#list depts as d>
+						<option value="${d.dept_id!}">${d.dept_name!}</option> </#list>
+					</select> <select name="role_id" id="townid1">
+						<option value="">请选角色</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">职位</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="u.position" id="str2"
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">学历</label>
+				<div class="col-sm-9">
+					<select name="u.education">
+						<option value="初中">初中</option>
+						<option value="高中">高中</option>
+						<option value="专科">专科</option>
+						<option value="本科">本科</option>
+						<option value="硕士">硕士</option>
+						<option value="博士">博士</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">参加工作日期</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="u.hiredate"
+						onClick="WdatePicker()" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">邮箱地址</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="u.email" id="str2"
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">状态</label>
+				<div class="col-sm-9">
+					<input type="radio" name="u.status" value="1" checked />在职&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="u.status" value="0" />离职
+				</div>
+			</div>
+
+
+		</form>
+	</div>
+	<div class="col-xs-2"></div>
+</div>
+<!-- 显示用户信息 -->
+<div class="hide" id="sh">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8">
+		<form id="show" method="post">
+			<!-- <input type="hidden" name="role.role_id"> -->
+
+
+
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">用户编号</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_id1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">用户名</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_username1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">姓名</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_name1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">性别</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_gender1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">年龄</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_age1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">部门</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_dept1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">职位</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_position1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">学历</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_education1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">工作日期</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_hiredate1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">工龄</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_seniority1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">注册日期</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_regist_date1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">邮箱地址</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_email1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">角色</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_role1" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">状态</label>
+				<div class="col-sm-9">
+					<input class="form-control" id="user_status1" />
+				</div>
+			</div>
+
+
+
+
+		</form>
+	</div>
+	<div class="col-xs-2"></div>
+</div>
+<!-- 显示用户信息 -->
+<script type="text/javascript">
+	function allInf(id,username,name,gender,age,dept,position,education,hiredate,seniority,email,regist_date,role,status) {
+		document.getElementById("show").reset();
+		$("#user_id1").val(id);
+		$("#user_username1").val(username);
+		$("#user_name1").val(name);
+		$("#user_gender1").val(gender);
+		$("#user_age1").val(age);
+		$("#user_dept1").val(dept);
+		$("#user_position1").val(position);
+		$("#user_education1").val(education);
+		$("#user_hiredate1").val(hiredate);
+		$("#user_seniority1").val(seniority);
+		$("#user_email1").val(email);
+		$("#user_regist_date1").val(regist_date);
+		$("#user_role1").val(role);
+		$("#user_status1").val(status);
+		$('#sh').removeClass("hide");
+		userModel = layer.open({
+			type : 1,
+			shade : [ 0.5 ],
+			title : '角色详细信息', //不显示标题
+			area : [ '40%', '80%' ], //显示空间
+			content : $('#sh'), //捕获的元素
+			btn : [  '关闭' ],
+			yes : function(index, layero) { //或者使用btn1
+				$.post("sh", $("#show").serialize(), function(data) {
+
+					layer.close(index);
+					$('#sh').addClass("hide");
+					document.getElementById("show").submit();
+				});
+			},
+			cancel : function(index) {
+				layer.close(index);
+				$('#sh').addClass("hide"); //取消继续隐藏
+			},
+		});
+	};
+</script>
+<!-- 添加用户 -->
+<script type="text/javascript">
+	function addUser() {
+		document.getElementById("pform").reset();
+		$('#add').removeClass("hide");
+		userModel = layer.open({
+			type : 1,
+			shade : [ 0.5 ],
+			title : '角色添加', //不显示标题
+			area : [ '40%', '80%' ], //显示空间
+			content : $('#add'), //捕获的元素
+			btn : [ '添加', '取消' ],
+			yes : function(index, layero) { //或者使用btn1
+				$.post("add", $("#pform").serialize(), function(data) {
+
+					layer.close(index);
+					$('#add').addClass("hide");
+					document.getElementById("pform").submit();
+				});
+			},
+			cancel : function(index) {
+				layer.close(index);
+				$('#add').addClass("hide"); //取消继续隐藏
+			},
+		});
+	};
+</script>
+<!-- 更新用户 -->
+<script type="text/javascript">
+	function updateUser(id,uname,name,position,email,hiredate) {
+		document.getElementById("uup").reset();
+		$("#user_id").val(id);
+		$("#user_username").val(uname);
+		$("#user_name").val(name);
+		$("#user_position").val(position);
+		$("#user_email").val(email);
+		$("#user_hiredate").val(hiredate);
+		$('#up').removeClass("hidden");
+		userModel = layer.open({
+			type : 1,
+			shade : [ 0.5 ],
+			title : '角色更新', //不显示标题
+			area : [ '40%', '60%' ], //显示空间
+			content : $('#up'), //捕获的元素
+			btn : [ '更新', '取消' ],
+			yes : function(index, layero) { //或者使用btn1
+				$.post("up", $("#uup").serialize(), function(data) {
+
+					layer.close(index);
+					$('#up').addClass("hidden");
+					document.getElementById("uup").submit();
+				});
+			},
+			cancel : function(index) {
+				layer.close(index);
+				$('#up').addClass("hidden"); //取消继续隐藏
+			},
+		});
+	};
+</script>
+
+
+<script type="text/javascript">
+
+	var areaArray = new Array();
+	<#list depts as d>
+	areaArray[areaArray.length] = new Array("${d.dept_id!}", "${d.dept_name!}");
+	</#list>
+	var townArray = new Array();
+	<#list roles as r>
+	townArray[townArray.length] = new Array("${r.dept_id!}", "${r.role_id!}",
+			"${r.role_name!}");
+	</#list>
+	function setTown(obj1ID, obj2ID) {
+		var objArea = document.getElementById(obj1ID);
+		var objTown = document.getElementById(obj2ID);
+		var i;
+		var itemArray = null;
+		if (objArea.value.length > 0) {
+			itemArray = new Array();
+			for (i = 0; i < townArray.length; i++) {
+				if (townArray[i][0] == objArea.value) {
+					itemArray[itemArray.length] = new Array(townArray[i][1],
+							townArray[i][2]);
+				}
+			}
+		}
+		for (i = objTown.options.length; i >= 0; i--) {
+			objTown.options[i] = null;
+		}
+		objTown.options[0] = new Option("请选角色");
+		objTown.options[0].value = "";
+
+		if (itemArray != null) {
+			for (i = 0; i < itemArray.length; i++) {
+				objTown.options[i + 1] = new Option(itemArray[i][1]);
+				if (itemArray[i][0] != null) {
+					objTown.options[i].value = itemArray[i][0];
+				}
+			}
+		}
+	}
+</script>
+
+

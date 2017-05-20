@@ -1,0 +1,60 @@
+package scsjgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class QzdfbjscgcjcController extends Controller {
+	public void index(){
+		
+	  	List<Qzdfbjscgcjc> qzdfbjsc = Qzdfbjscgcjc.me.find("select*from qzdfbjsc");
+		setAttr("qzdfbjsc", qzdfbjsc);
+		System.out.println("得到数据" + qzdfbjsc.size() + "个");
+		System.out.println("ssssssssssssssssss"); 
+		render("/scsjgl/qzdfbjsc_main.html");
+	}
+ 	
+	public void qzddel() {
+		Qzdfbjscgcjc.me.deleteById(getPara("gybh"));
+		 
+	 
+		// render("/scsjgl/qzdfbjsc_main.html");
+		 redirect("/#qzdfbjsc/index");
+	}
+
+	public void qzdgetid() {
+		Qzdfbjscgcjc.me.getInt(getPara(0));
+		 
+		 System.out.println("qzdgetid_________________");
+		// render("/scsjgl/qzdfbjsc_main.html");
+		 render("/scsjgl/qzdfbjsc_from.html");
+	}
+
+	public void qzdadd() {
+		Qzdfbjscgcjc  qzd=getModel(Qzdfbjscgcjc.class,"qzdfbjsc");
+		  qzd.save();
+		 
+		 redirect("/#qzdfbjsc/index");
+	}
+	
+	public void qzdedit() {
+		Integer id = getParaToInt(0);
+		if (id != null && id > 0) {
+			setAttr("qzdfbjsc", Qzdfbjscgcjc.me.findById(id));
+		}
+		
+		 render("/scsjgl/qzdfbjsc_form.html");
+	
+	}
+	
+	public void qzdupdate() {
+	// qzdfbjsc = Qzdfbjsc.dao.find("select*from qzdfbjsc");
+		Qzdfbjscgcjc  qzd=getModel(Qzdfbjscgcjc.class,"qzdfbjsc");
+		Qzdfbjscgcjc q = Qzdfbjscgcjc.me.findById(qzd.getInt("id"));
+		  q=qzd;
+		  q.update();
+		 System.out.println("________id____");
+		 redirect("/#qzdfbjsc/index");
+	}
+	
+}

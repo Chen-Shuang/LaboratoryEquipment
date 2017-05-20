@@ -1,0 +1,7 @@
+package scjhgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Kcxx extends Model <Kcxx> {
+	public static final Kcxx dao =new Kcxx();
+}

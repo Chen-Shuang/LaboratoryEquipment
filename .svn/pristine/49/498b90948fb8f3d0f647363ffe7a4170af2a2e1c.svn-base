@@ -1,0 +1,357 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">现场仓库管理</a>
+		</li>
+
+		<li><span>现场仓半成品信息</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+
+
+
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+
+			<div class="clearfix"></div>
+
+
+			<div class="tabbable">
+
+				<!-- Only required for left/right tabs -->
+				<ul class="nav nav-tabs">
+					<li id="jr"  class="active"><a href="#tab1" data-toggle="tab">今日入库记录</a></li>
+					<li id="ls" ><a href="#tab2" data-toggle="tab">历史入库记录</a></li>
+				</ul>
+			</div>
+			<br/>
+
+
+			<div class="table-header">现场仓半成品信息记录表</div>
+
+
+			<div class="tab-content">
+
+				<!-- 今日入库记录 -->
+
+				<div id="tab1" class="tab-pane active">
+
+					<div>
+						<div>
+						<input type="search" id="id1" placeholder="输入 产品编号" aria-controls="dynamic-table" />
+						<button type="button"  class="btn btn-info" onclick="search3();">通过产品编号查询</button>
+					</div>
+					</div>
+
+					<table id="sample-table-2"
+						class="table table-striped table-bordered table-hover">
+						<thead>
+
+							<tr>
+								<th class="checkboxs"></th>
+								<th>序 号</th>
+								<th>产品编号</th>
+								<th>产品名称</th>
+								<th>生产指令单</th>
+								<th>班组</th>
+								<th>零件号</th>
+								<th>来源处</th>
+								<th>去向处</th>
+								<th>客户订单号</th>
+								<th>生产批次号</th>
+								<th>数量</th>
+								<th>不合格数量</th>
+								<th>合格总量</th>
+								<th>日期时间</th>
+							</tr>
+						</thead>
+						<tbody id="table_1">
+
+						</tbody>
+					</table>
+						<div class="breadcrumbs" id="breadcrumbs">    		 <!-- 分页 -->
+							<div class="text-right">
+								<ul id="pagefoot1" class="pagination">
+									
+								</ul>
+							</div>
+						</div>
+
+				</div>
+
+
+
+				<!-- 历史入库记录 -->
+				
+<div id="tab2" class="tab-pane">
+
+					<div>
+						<input type="search" id="id2" placeholder="输入 需要查询信息" aria-controls="dynamic-table" />
+						<button type="button"  class="btn btn-info" onclick="search();">通过任意信息查询</button>
+					</div>
+
+					<table id="sample-table-2"
+						class="table table-striped table-bordered table-hover">
+						<thead>
+
+							<tr>
+								<th class="checkboxs"></th>
+								<th>序 号</th>
+								<th>产品编号</th>
+								<th>产品名称</th>
+								<th>生产指令单</th>
+								<th>班组</th>
+								<th>零件号</th>
+								<th>来源处</th>
+								<th>去向处</th>
+								<th>客户订单号</th>
+								<th>生产批次号</th>
+								<th>数量</th>
+								<th>不合格数量</th>
+								<th>合格总量</th>
+								<th>日期时间</th>
+							</tr>
+						</thead>
+						<tbody id="table_2">
+
+						</tbody>
+					</table>
+						<div class="breadcrumbs" id="breadcrumbs">    		 <!-- 分页 -->
+							<div class="text-right">
+								<ul id="pagefoot2" class="pagination">
+									
+								</ul>
+							</div>
+						</div>
+
+				</div>
+
+
+
+</div>
+
+</div></div></div>
+
+
+ 
+
+
+
+            <!--     tab1 -->
+<script type="text/javascript">
+
+
+	   	function search3() {
+
+		var require = $("#id1").val();
+		 
+
+		search1(1, require);
+	}
+	   
+
+ 
+		function search1(curr,require){
+		
+		
+		
+		
+			$.post("xccbcpxx/search1",{"pageNumber": curr,"require":require},function(data) {
+				trList1(data.list); //调用trList()方法，填充表格数据
+				PageFoot1(data); //调用下面的writePageFoot方法，循环输出页码连接  
+			});
+		}
+
+
+
+	function stringBuilder(v) {
+		var dataStr = "";
+		dataStr += '<tr id="biaoshi' + v.id + '">';
+		dataStr += '<td><input class="ace" name="checkboxs" id="checkboxs" type="checkbox" value="'+v.id+'"> <span class="lbl"></span></td>'; 
+		dataStr += '<td>' + v.id + '</td>';
+		dataStr += '<td>' + v.cpbh + '</td>';
+		dataStr += '<td>' + v.cpmc + '</td>';
+		dataStr += '<td>' + v.sczld + '</td>';
+		dataStr += '<td>' + v.bz + '</td>';
+		dataStr += '<td>' + v.ljh + '</td>';
+		dataStr += '<td>' + v.lyc + '</td>';
+		dataStr += '<td>' + v.qxc + '</td>';
+		dataStr += '<td>' + v.khddh + '</td>';
+		dataStr += '<td>' + v.scpch + '</td>';
+		dataStr += '<td>' + v.sl + '</td>';
+		dataStr += '<td>' + v.bhgsl + '</td>';
+		dataStr += '<td>' + v.hgsl + '</td>';
+		dataStr += '<td>' + v.rqsj + '</td>';
+		dataStr += '</tr>';
+		return dataStr;
+	}
+
+	//获取分页数据列表并显示
+	function showPage1(curr) {
+		$.get("xccbcpxx/Tbody_list1", {
+			"pageNumber" : curr
+		}, function(data) {
+			trList1(data.list); //调用trList()方法，填充表格数据
+			PageFoot1(data); //调用的PageFoot方法，循环输出页码连接  
+		});
+	}
+	showPage1(1); //~暂不理解 ,应该是刚进入页面为第一页，列出第一页数据和页脚
+
+	function trList1(data) {
+		var dataStr = "";
+		$.each(data, function(i, v) {
+			dataStr += stringBuilder(v);
+		});
+		// 把拼接好的表格内容填充到指定位置
+		$("#table_1").html(dataStr);
+	}
+ 
+	
+	function PageFoot1(data) {
+		var n = "";
+		var backword = "上一页";
+		var forword = "下一页";
+		var x = data.PageNumber; //当前页
+		var back; //前一页
+		var next; //后一页
+		if (x = 1) { //对上一页的判断		
+			back = 1;
+		} else {
+			back = x - 1;
+		}
+		if (x < data.totalPage) { //对下一页判断
+			next = x + 1;
+		} else {
+			next = data.totalPage;
+		}
+
+		n += "<li onclick=\"showPage1(" + back + ")\"><a>" + backword
+				+ "</a></li>&nbsp;&nbsp;";
+		for (var a = 1; a <= data.totalPage; a++) {
+			if (a == data.PageNumber) {
+				n += "<li class=\"active\" onclick=\"showPage1(" + a
+						+ ")\"><a>" + a + "</a></li>&nbsp;&nbsp;";
+			} else {
+				n += "<li onclick=\"showPage1(" + a + ")\"><a>" + a
+						+ "</a></li>&nbsp;&nbsp;";
+			}
+			;
+		}
+		n += "<li onclick=\"showPage1(" + next + ")\"><a>" + forword
+				+ "</a></li>&nbsp;&nbsp;";
+
+		$("#pagefoot1").html(n); //把循环好的页码给替换掉
+	};
+
+	 
+  
+</script>
+
+
+            <!--     tab2 -->
+<script type="text/javascript">	
+
+
+	   	function search() {
+
+		var require = $("#id2").val();
+		 
+
+		search2(1, require);
+	}
+	   
+	 
+ 
+		function search2(curr,require){
+		
+		
+		
+		
+			$.post("xccbcpxx/search2",{"pageNumber": curr,"require":require},function(data) {
+				trList2(data.list); //调用trList()方法，填充表格数据
+				PageFoot2(data); //调用下面的writePageFoot方法，循环输出页码连接  
+			});
+		}
+		
+		function YPC(v) {				//已排产
+			var dataStr = "";
+			dataStr += '<tr>';				
+			dataStr += '<td><input id="checkboxs2" class="ace" type="checkbox" value="'+v.id+'"/> <span class="lbl"></span></td>';  	//<form name="pc1" action="scjhgl/PC1" method="post"></form>
+		dataStr += '<td>' + v.id + '</td>';
+		dataStr += '<td>' + v.cpbh + '</td>';
+		dataStr += '<td>' + v.cpmc + '</td>';
+		dataStr += '<td>' + v.sczld + '</td>';
+		dataStr += '<td>' + v.bz + '</td>';
+		dataStr += '<td>' + v.ljh + '</td>';
+		dataStr += '<td>' + v.lyc + '</td>';
+		dataStr += '<td>' + v.qxc + '</td>';
+		dataStr += '<td>' + v.khddh + '</td>';
+		dataStr += '<td>' + v.scpch + '</td>';
+		dataStr += '<td>' + v.sl + '</td>';
+		dataStr += '<td>' + v.bhgsl + '</td>';
+		dataStr += '<td>' + v.hgsl + '</td>';
+		dataStr += '<td>' + v.rqsj + '</td>';
+		dataStr += '</tr>';
+			return dataStr;
+		}
+		
+		$("#rks").blur( function () {   	
+		 	 //document.getElementById("rks").submit();
+		 	 $("form[name='rks']").submit(); 
+		} ); 
+			//获取分页数据列表并显示
+		function showPage2(curr) {  
+		$.get("xccbcpxx/Tbody_list2", 
+			 {"pageNumber": curr}, function(data) {
+				trList2(data.list); //调用trList()方法，填充表格数据
+				PageFoot2(data); //调用的PageFoot方法，循环输出页码连接  
+			});
+		}
+		showPage2(1);   		//~暂不理解 ,应该是刚进入页面为第一页，列出第一页数据和页脚
+		
+		function trList2(data) {
+			var dataStr = "";
+			$.each(data, function(i, v) {
+				dataStr += YPC(v);
+			});
+			// 把拼接好的表格内容填充到指定位置
+			$("#table_2").html(dataStr);
+		}
+		function PageFoot2(data){
+			var n="";
+			var backword="上一页";
+			var forword="下一页";
+			var x=data.PageNumber; //当前页
+			var back;		//前一页
+			var next;       //后一页
+			if(x=1){            	//对上一页的判断		
+				back =1; 
+			}else{
+				back=x-1; 		
+			}
+			if(x<data.totalPage){   //对下一页判断
+				next=x+1;
+			}else{
+				next=data.totalPage;			
+			}
+			
+			n+="<li onclick=\"showPage2("+back+")\"><a>"+backword+"</a></li>&nbsp;&nbsp;";
+			for(var a=1;a<=data.totalPage;a++){
+				if(a==data.PageNumber){
+					n +="<li class=\"active\" onclick=\"showPage2("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				}else{
+					n +="<li onclick=\"showPage2("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				};
+			}
+			n+="<li onclick=\"showPage2("+next+")\"><a>"+forword+"</a></li>&nbsp;&nbsp;";
+			
+			$("#pagefoot2").html(n);       //把循环好的页码给替换掉
+		};
+</script>		
+		

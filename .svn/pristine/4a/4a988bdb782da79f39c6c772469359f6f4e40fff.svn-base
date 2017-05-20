@@ -1,0 +1,28 @@
+package config;
+
+
+import pdm.pdm_bomlbgl;
+import pdm.pdm_bomwlqd;
+import pdm.pdm_cpgl;
+import pdm.pdm_cplbgl;
+import pdm.pdm_gygl;
+import pdm.pdm_gylcpzgl;
+import pdm.pdm_lbjgl;
+import pdm.pdm_lbjlbgl;
+
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+
+public class PdmMapping {
+	
+	public static void mapping(ActiveRecordPlugin arp){
+		arp.addMapping("pdm_bomlbgl", pdm_bomlbgl.class);
+		arp.addMapping("pdm_bomwlqd", pdm_bomwlqd.class);
+		arp.addMapping("pdm_cpgl", pdm_cpgl.class);
+		arp.addMapping("pdm_cplbgl", pdm_cplbgl.class);
+		arp.addMapping("pdm_gygl", pdm_gygl.class);
+		arp.addMapping("pdm_gylcpzgl", pdm_gylcpzgl.class);
+		arp.addMapping("pdm_lbjlbgl", pdm_lbjlbgl.class);
+		arp.addMapping("pdm_lbjgl", pdm_lbjgl.class);
+	}
+	
+}

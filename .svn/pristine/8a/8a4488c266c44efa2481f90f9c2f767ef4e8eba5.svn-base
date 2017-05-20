@@ -1,0 +1,14 @@
+package gzgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Mold extends Model<Mold> {
+	public static final Mold dao=new Mold();
+
+//	public void setRecordTime(java.sql.Timestamp recordTime){
+//		set("recordTime",recordTime);
+//	}
+//	public java.sql.Timestamp getRecordTime(){
+//		return get("recordTime");
+//	}
+}

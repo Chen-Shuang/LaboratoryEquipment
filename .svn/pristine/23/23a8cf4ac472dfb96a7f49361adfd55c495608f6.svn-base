@@ -1,0 +1,105 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">现场仓库管理</a>
+		</li>
+
+		<li><span>现场仓原料信息</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+<script type="text/javascript">
+		function search(){
+		
+		 	var ID = $("#id").val();
+		    /* alert(ID); */
+			$.post("xccylxx/search/",
+				{
+					ID : ID,
+				},
+				function(data){
+					if(data=="flase"){
+						alert("无结果！");
+						window.location = "#xccylxx/";
+					}
+					else{
+
+						window.location = data + ID;
+					}
+				}
+				
+			);
+		}
+	</script>
+
+
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+
+			<div class="table-header">现场仓原料信息记录表</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<div id="dynamic-table_length" class="dataTables_length">
+						<input type="search" id="id"   placeholder="输入..." />
+						<button onclick="search();">Go</button>
+						
+					</div>
+					
+				</div>
+
+
+
+			</div>
+
+			<div class="table-responsive">
+
+				<table id="sample-table-2"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+
+
+
+						<tr>
+							<th>序 号</th>
+							<th>产品名称</th>
+							<th>生产指令单</th>
+							<th>班组</th>
+							<th>零件号</th>
+							<th>数量</th>
+							<th>客户订单号</th>
+							<th>生产批次</th>
+							<th>时间日期</th>
+						</tr>
+					</thead>
+					<tbody>
+						<#list xccylxx as q>
+						<tr>
+							<td>${q.id!}</td>
+							<td>${q.cpmc!}</td>
+							<td>${q.sczld!}</td>
+							<td>${q.bz!}</td>
+							<td>${q.ljh!}</td>
+							<td>${q.sl!}</td>
+							<td>${q.khddh!}</td>
+							<td>${q.scpc!}</td>
+							<td>${q.rqsj!}</td>
+
+
+						</tr>
+						</#list>
+					</tbody>
+				</table>
+			</div>
+			<div class="dataTables_paginate paging_simple_numbers">
+								<ul class="pagination">${(m)}
+								</ul>
+								
+			</div>
+		</div>
+	</div>
+</div>
+

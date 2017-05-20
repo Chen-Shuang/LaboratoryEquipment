@@ -1,0 +1,15 @@
+package sbgl;
+
+import java.util.Iterator;
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class MoldInfoController extends Controller{
+	public void index(){
+		List<MoldInfo> list = MoldInfo.dao.find("select * from moldInfo");
+		setAttr("moldInfolist",list);
+		render("/sbgl/moldInfo.html");
+		
+	}
+}

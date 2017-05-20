@@ -1,0 +1,109 @@
+package xcckgl;
+
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+public class XccbcpxxController extends Controller {
+	public void index() {
+ 			System.out.println("index");
+			render("/xcckgl/Xccbcpxx_main.html");
+		}
+		public void activityList(){
+			//获取当前页号，每页显示2行数据
+			Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM xcc_bcpxx");
+			renderJson(dataPage);
+			System.out.println("activityList="+dataPage); 
+		}
+	
+	
+		
+		public void Tbody_list1(){
+			Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 5, "select * ","FROM xcc_bcpxx where rqsj >=date(now()) and  rqsj<DATE_ADD(date(now()),INTERVAL 1 DAY) order by id desc");   //未排产
+			renderJson(dataPage);
+			System.out.println("Tbody_list1="+dataPage);
+		}
+		public void Tbody_list2(){
+			Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 5,  "SELECT *","FROM xcc_bcpxx order by id desc");    
+			
+			renderJson(dataPage);
+			System.out.println("Tbody_list2="+dataPage.getList()+"条信息");
+		}
+	
+		
+		public void search1() throws UnsupportedEncodingException{     		// search for 未排产
+			String ID =getPara("require","");  	//得到result的值  默认值问"" 
+			Page<?> dataPage=Db.paginate(getParaToInt("pageNumer",1), 5, "select *", "from  xcc_bcpxx where rqsj >=date(now()) and"
+					+ "  rqsj<DATE_ADD(date(now()),INTERVAL 1 DAY)and id='" + ID + "'"
+					+ "order by id desc" );
+			renderJson(dataPage);
+		}
+	
+	
+		public void search2() throws UnsupportedEncodingException{     		// search for 未排产
+			String ID =getPara("require","");  	//得到result的值  默认值问"" 
+			Page<?> dataPage=Db.paginate(getParaToInt("pageNumer",1), 5, "select *", "from xcc_bcpxx where (id like'%" + ID + "%')"
+					+ " or (cpbh like'%" + ID + "%') " 
+					+ "or (cpmc like'%"+ID + "%') " 
+					+ " or (sczld like'%" + ID + "%') "
+					+ "	or (bz like'%" + ID + "%') "
+					+ " or (ljh like'%" + ID + "%') " 
+					+ "	or (lyc like'%"+ ID + "%') "
+					+ " or (qxc like'%" + ID + "%') " 
+					+ "or (khddh like'%"+ID + "%') " 
+					+ " or (scpch like'%" + ID + "%') "
+					+ "	or (sl like'%" + ID + "%') "
+					+ " or (bhgsl like'%" + ID + "%') " 
+					+ "	or (hgsl like'%"+ ID + "%') "
+					+ " or (rqsj like'%" + ID + "%') "
+
+					+ "order by id");
+			renderJson(dataPage);
+		}
+		
+		
+	 
+ 
+ 
+		
+		
+		
+	
+	
+	public void search() {
+
+		String ID = getPara("ID");
+		System.out.println("执行*666*" + ID);
+
+		List<Xccbcpxx> list = Xccbcpxx.me
+				.find("select * from xcc_bcpxx where (id like'%" + ID + "%')"
+						+ " or (gxbz like'%" + ID + "%') "
+						+ "	or (scpc like'%" + ID + "%') "
+						+ " or (gxxh like'%" + ID + "%') "
+						+ "	or (gxmc like'%" + ID + "%') "
+						+ " or (pzwlmc like'%" + ID + "%') "
+						+ "	or (sl like'%" + ID + "%') "
+						+ " or (wlpc like'%" + ID + "%') "
+						+ "	or (czy like'%" + ID + "%') "
+						
+						
+						
+ 
+								+ "order by id");
+
+		if (list.size() > 0) {
+			renderText("#xccbcpxx/aa/");
+		} else {
+			renderText("flase");
+		}
+	}
+
+ 
+	
+	
+	
+
+}

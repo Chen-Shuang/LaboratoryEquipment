@@ -1,0 +1,138 @@
+package sbgl;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
+
+public class sbgl_bjkController extends Controller{
+	public void index(){
+		List<sbgl_bjk> x=sbgl_gys.dao.find("select * from sbgl_gysb"); 
+		Page<?> bjk_a= Db.paginate(getParaToInt("pageNumber", 1), 8, "SELECT *","FROM sbgl_bjk");
+		List<?> donghaoceshi=bjk_a.getList();
+		setAttr("qq",donghaoceshi);
+		setAttr("x",x);
+		render("/sbgl/sbgl_bjk.html");
+	}
+	public void activityList(){
+		//获取当前页号，每页显示8行数据
+		Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 8, "SELECT *","FROM sbgl_gysb");
+		renderJson(dataPage);
+		System.out.println(dataPage);
+	}
+	public void find() throws UnsupportedEncodingException{
+
+		String a=getPara("aaa","");  //得到aaa的值  如果得不到的话 就给他一个默认值问""在查找中是模糊查询 因此直接查到就行
+		URLDecoder.decode(a,"UTF-8");   //设置输入的内容的编码模式
+		Page<?> dataPage=Db.paginate(getParaToInt("pageNumer",1), 8, "select *", "from sbgl_gysb where t_gysmc like '%"+a+"%'");
+		if(dataPage.getList().isEmpty()){               //第一层开始
+				dataPage=Db.paginate(getParaToInt("pageNumer",1), 8, "select *", "from sbgl_gysb where t_lxr like '%"+a+"%'");
+					if(dataPage.getList().isEmpty()){           //第二层开始
+						if(dataPage.getList().isEmpty()){     //第三层开始
+							dataPage=Db.paginate(getParaToInt("pageNumer",1), 8, "select *", "from sbgl_gysb where t_lxdh like '%"+a+"%'");
+						}else{dataPage=Db.paginate(getParaToInt("pageNumer",1), 8, "select *", "from sbgl_gysb");}  //第三层结束
+					}else{}               //第二层结束
+	}else{}     //第一层结束
+		
+		renderJson(dataPage);
+	}
+	public void find_one(){
+		String a=getPara("a");
+		Page<?> dataPage=Db.paginate(getParaToInt("b",1), 8, "select *", "from sbgl_bjk where t_bjmc like '%"+a+"%'");
+		renderJson(dataPage);
+	}
+	public void add_bj(){
+		sbgl_bjk a = getModel(sbgl_bjk.class);
+		String t=a.get("t_bjbh");		//从表单中拿到备件编号
+		List<sbgl_bjk> tt=sbgl_bjk.dao.find( "select * from sbgl_bjk where t_bjbh = '"+t+"'");
+		if(tt.isEmpty()){a.save();}else{a.update();}		//通过查到的是否为空判断是更新数据还是保存数据
+		System.out.println("我爱你！！！");
+		this.index();
+	}
+	public void bjk_fenye(){
+		int n=getParaToInt("pageNumber");
+		Page<sbgl_bjk> list =sbgl_bjk.dao.paginate(n, 8, "select *", "from sbgl_bjk");
+		renderJson(list);
+	}
+	public void caocao_find(){
+		String a=getPara("a");
+		List<sbgl_crkb> list=sbgl_crkb.dao.find("select * from sbgl_crkb where t_dh = '"+a+"'");
+		renderJson(list);
+	}
+	public void caocao_delete(){
+		String a=getPara("a");
+		String b=getPara("b");
+		List<sbgl_crkb> list =sbgl_crkb.dao.find("select * from sbgl_crkb where t_dh = '"+a+"' and t_bjbh = '"+b+"'");		//先查到当前单子
+		sbgl_crkb aa=list.get(0);			//得到得到查询到的唯一的一条记录
+		int ax=aa.get("t_sl");			//得到数量 用字符串接收
+		Db.update("update sbgl_bjk set t_cskc = t_cskc - ? where t_bjbh ='"+b+"'",ax);		//依据备件编号和数量 再减回去
+		aa.delete();					//再表中删除掉该数据
+		System.out.println(ax);
+		renderJson(aa);	 //先把aa给发送到前台
+	}
+	/**
+	 * 此方法负责生成当天的单号
+	 */
+	public void bjk_dingdanshuliang(){			
+		String riqi=getPara("riqi");		//从页面中得到日期信息
+		List<sbgl_crkb> list =sbgl_crkb.dao.find("select * from sbgl_crkb where t_dh like '%"+riqi+"%'");   //从表中得到当天的单子的数量   并且倒序排列
+		int t=1;
+		if(list.isEmpty()){t=1;}else{ 
+			String p=list.get(list.size()-1).getStr("t_dh");
+			p=p.replaceAll(riqi,"");           //将得到的字符串替换掉
+			t=Integer.parseInt(p)+1;			//再将后面转换成数字 然后加一生成现有流水单号 
+		};	//将查到的条数返回给t从而发送到前台
+		String riqil=String.valueOf(t);
+		renderText(riqil);
+	}
+	public void bjk_ruku(){		//单子进行入库时候所需要调用的方法
+		sbgl_crkb a=new sbgl_crkb();			//实例化一个对象 然后把前台传的参数保存到数据库中
+		String dh=getPara("dh");
+		String bjbh=getPara("bjbh");
+		Integer rksl=getParaToInt("rksl");
+		String dj=getPara("dj");
+		a.set("t_dh",dh);
+		a.set("t_bjbh",bjbh);
+		a.set("t_sl",rksl);
+		a.set("t_dj",dj);
+		Db.update("update sbgl_bjk set t_cskc = t_cskc + ? where t_bjbh = '"+bjbh+"'",rksl);		//这里修改备件表中库存数量的数值  因为只有加 所以就不用其他的值
+		a.save();
+		renderText("666");
+	}
+	public void form_nn(){
+		sbgl_crksjb a=getModel(sbgl_crksjb.class);		//从表单中获取数据
+		System.out.println("生活");
+		a.save();
+		renderText("爱你！");
+	}
+	public void jj(){
+		String jj=getPara("jj");   //得到jj值
+		List<sbgl_bjk> list =sbgl_bjk.dao.find("select * from sbgl_bjk where t_bjbh = '"+jj+"'");   //根据jj值来得到列表
+		sbgl_bjk x=list.get(0);
+		renderJson(x);
+	}
+	public void RRR_ruku(){
+		int n=getParaToInt("pageNumber");	//得到页面得来的参数
+		Page<sbgl_crksjb> list =sbgl_crksjb.dao.paginate(n, 10, "select *", "from sbgl_crksjb where t_fx = '入库' order by t_dh desc");		//得到检索入库表，得到page对象  一页十个数据
+		renderJson(list);	//将数据发送到前台
+	}
+	public void RRR_ruku_delate(){
+		String a=getPara("a");
+		System.out.println(a);
+		List<sbgl_crksjb> t=sbgl_crksjb.dao.find("select * from sbgl_crksjb where t_dh ='"+a+"'");		//现通过单号找到相关的出入库信息表中的内容  可能是一个列表
+		for(int i = 0; i < t.size(); i++)  			//遍历列表中所有匹配元素，直接删除掉表中内容
+        {  
+            t.get(i).delete(); 
+        } 
+		List<sbgl_crkb> q=sbgl_crkb.dao.find("select * from sbgl_crkb where t_dh ='"+a+"'");		//现通过单号找到相关的出入库表中的内容  可能是一个列表
+		for(int i = 0; i < q.size(); i++)  			//遍历列表中所有匹配元素，直接删除掉表中内容
+        {  
+            q.get(i).delete(); 
+        } 
+		renderText(a);
+	}
+}

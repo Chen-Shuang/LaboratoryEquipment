@@ -1,0 +1,207 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span>
+		</li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+
+<!-- /section:basics/content.breadcrumbs -->
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+			<form class="form-horizontal" role="form"
+				action="/mes/wldbd/update">
+				<div class="table-header">物料调拨</div>
+
+
+				<div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- PAGE CONTENT BEGINS -->
+
+							<!-- #section:elements.form -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-1"> 物料编号</label>
+
+								<div class="col-sm-9">
+									<input type="text" id="form-field-1" placeholder="请输入物料编号"
+										class="col-xs-10 col-sm-5" name="scsjgl_wldbd.wlbh"
+										value="${scsjgl_wldbd.wlbh}" />    
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-1-1"> 物料名称</label>
+
+								<div class="col-sm-9">
+									<input type="text" id="form-field-1-1" placeholder="请输入物料名称"
+										class="col-xs-10 col-sm-5" name="scsjgl_wldbd.wlmc"
+										value="${scsjgl_wldbd.wlmc}" />
+								</div>
+							</div>
+
+
+							<div class="space-4"></div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-2"> 数量</label>
+
+								<div class="col-xs-3">
+									<input type="text" id="form-field-2"
+										placeholder="请输入数量" class="col-xs-10 col-sm-5"
+										name="scsjgl_wldbd.sl"
+										value="${scsjgl_wldbd.sl}" /> </span>
+								</div>
+							</div>
+
+							<div class="space-4"></div>
+
+ 
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-2">单位</label>
+
+								<div class="col-sm-9">
+									<div class="clearfix">
+										<input class="col-xs-1" type="text" id="form-field-5"
+											placeholder="请输入单位" name="scsjgl_wldbd.dw"
+											value="${scsjgl_wldbd.dw}" />
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+
+
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-2">发出地</label>
+
+								<div class="col-sm-9">
+									<div class="clearfix">
+										<input class="col-xs-1" type="text" id="form-field-5"
+											placeholder="发出地" name="scsjgl_fcd.lbjbh"
+											value="${scsjgl_wldbd.fcd}" />
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-2">发出人</label>
+
+								<div class="col-sm-9">
+									<div class="clearfix">
+										<input class="col-xs-1" type="text" id="form-field-5"
+											placeholder="请输入发出人" name="scsjgl_wldbd.fcr"
+											value="${scsjgl_wldbd.fcr}" />
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-2">接收地</label>
+
+								<div class="col-sm-9">
+									<div class="clearfix">
+										<input class="col-xs-1" type="text" id="form-field-5"
+											placeholder="请输入接收地" name="scsjgl_wldbd.jsd"
+											value="${scsjgl_wldbd.jsd}" />
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-2">接收时间</label>
+
+								<div class="col-sm-9">
+									<div class="clearfix">
+										<input class="col-xs-1" type="text" id="form-field-5"
+											placeholder="请输入接收时间" name="scsjgl_wldbd.jssj"
+											value="${scsjgl_wldbd.jssj}" />
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-2">备注</label>
+
+								<div class="col-sm-9">
+									<div class="clearfix">
+										<input class="col-xs-1" type="text" id="form-field-5"
+											placeholder="请输入备注" name="scsjgl_wldbd.bz"
+											value="${scsjgl_wldbd.bz}" />
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+						
+							
+							
+							
+								
+						
+						
+							<div class="clearfix form-actions">
+								<div class="col-md-offset-3 col-md-9">
+									<button class="btn btn-info" type="submit">
+										<i class="ace-icon fa fa-check bigger-110"></i> 提交
+									</button>
+
+									&nbsp; &nbsp; &nbsp;
+									<button class="btn" type="reset">
+										<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+			</form>
+		</div>
+		<!-- /.page-content -->
+
+
+
+	</div>
+</div>
+
+
+<!-- /.main-content -->
+
+<script>
+	
+</script>

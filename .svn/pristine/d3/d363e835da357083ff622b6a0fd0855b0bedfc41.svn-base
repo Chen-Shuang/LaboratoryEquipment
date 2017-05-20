@@ -1,0 +1,8 @@
+package scgygl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Lsgyxx extends Model<Lsgyxx> {
+	public static final Lsgyxx me = new Lsgyxx();
+
+}

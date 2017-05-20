@@ -1,0 +1,7 @@
+package scjhgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Xsdd extends Model<Xsdd> {
+	public static final Xsdd dao = new Xsdd(); 
+}

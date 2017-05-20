@@ -1,0 +1,22 @@
+package config;
+
+import xtgl.Deptcontroller;
+import xtgl.LogController;
+import xtgl.PrivilegeController;
+import xtgl.RoleController;
+
+import com.jfinal.config.Routes;
+
+public class XtglRoute extends Routes {
+
+	@Override
+	public void config() {
+		// TODO Auto-generated method stub
+		
+		add("/log",LogController.class);
+		add("/role", RoleController.class);
+		add("/privilege", PrivilegeController.class);
+		add("/dept", Deptcontroller.class);
+	}
+
+}

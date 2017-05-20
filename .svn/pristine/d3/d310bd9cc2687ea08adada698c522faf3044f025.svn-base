@@ -1,0 +1,9 @@
+package sbgl;
+
+import com.jfinal.core.Controller;
+
+public class A_wh_dh extends Controller{
+	public void index(){
+		render("/sbgl/A_wh_dh.html");
+	}
+}

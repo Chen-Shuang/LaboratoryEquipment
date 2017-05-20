@@ -1,0 +1,945 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+</div>
+
+
+<div class="page-content">
+ <div class="row"> 
+<div class="col-xs-12"> 
+
+ <div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">生产计划</a></li>
+    <li><a href="#tab2" data-toggle="tab">计划监控</a></li>
+  </ul>
+  <div class="tab-content">
+     <div class="tab-pane fade in  active" id="tab1">
+	  <div class="table-header">自制品日生产计划</div>
+		 <form name="###" id="selefrom"  action="zzprscjh/sele1" method="post">
+						<div class="col-xs-12"></div>
+						
+			             	<div >
+			             	<input type="search"  placeholder="请输入订单号"  name="ddh"   style="width:150px;height:31px">
+			             	<input type="search" placeholder="请输入子件编码"  name="zjbm"  style="width:150px;height:31px">
+                            <button id="selectfromsb" class="_p btn btn-info btn-sm">查询</button>
+
+									<div class="pull-right">
+									<a href="zzprscjh/doplan" class="btn btn-mini btn-primary"style="width:100px;height:31px">下达计划</a> 
+									</div>							
+							</div>	
+					</form> 
+					
+			
+					
+					
+					<table class="table table-striped table-bordered table-hover"
+						id="tablelsw">
+						<thead>
+						    <tr>
+						    <th colspan="13">日生产计划编号：${rscjhbh!''} </th>
+						    </tr>
+
+							<tr>
+								<th class="hidden-480"><span>生产班组</span></th>
+								<th class="hidden-480"><span>执行编号</span></th>
+								<th class="hidden-480"><span>客户简称</span></th>
+								<th class="hidden-480"><span>订单号</span></th>
+								<th class="hidden-480"><span>子件编码</span></th>
+								<th class="hidden-480"><span>子件名称</span></th>
+								<th class="hidden-480"><span>子件规格</span></th>
+								<th class="hidden-480"><span>计量</span></th>
+								<th class="hidden-480"><span>生产数量</span></th>
+								<th class="hidden-480"><span>排产数量</span></th>
+								<th class="hidden-480"><span>计划单状态</span></th>
+								<th class="hidden-480"><span>操作</span></th>
+							</tr>
+						</thead>
+       
+						<tbody id="table_1"> </tbody>		
+					</table>
+					<a href="javascript:addForm()" class=" btn btn-mini btn-primary">添加数据</a>
+					<div class="breadcrumbs" id="breadcrumbs">    		 <!-- 分页 -->
+							<div class="text-right">
+								<ul id="pagefoot1" class="pagination">
+									
+								</ul>
+							</div>
+						</div>
+			</div>
+		
+
+		  	<div class="tab-pane  fade" id="tab2">
+	  			 <div class="table-header ">计划监控</div>
+	      <form name="###" id="selefrom2"  action="zzprscjh/sele2" method="post">
+						<div class="col-xs-12"></div>
+						
+			             	<div >
+                               <input type="search"  placeholder="请输入订单号"  name="ddh"   style="width:150px;height:31px">
+			             	<input type="search" placeholder="请输入子件编码"  name="zjbm"  style="width:150px;height:31px">
+                             <button id="selectfromsb2" class="_p btn btn-info btn-sm">查询</button>
+							
+							</div>	
+					</form>
+	    <table class="table table-striped table-bordered table-hover"
+						id="tablelsw">
+						<thead>
+						    <tr>
+						    <th colspan="14">日生产计划编号：${rscjhbh!''}  </th>
+						    </tr>
+						    <tr>
+								<th class="hidden-480"><span>生产班组</span></th>
+								<th class="hidden-480"><span>执行编号</span></th>
+								<th class="hidden-480"><span>客户简称</span></th>
+								<th class="hidden-480"><span>订单号</span></th>
+								<th class="hidden-480"><span>子件编码</span></th>
+								<th class="hidden-480"><span>子件名称</span></th>
+								<th class="hidden-480"><span>子件规格</span></th>
+								<th class="hidden-480"><span>计量</span></th>
+								<th class="hidden-480"><span>排产数量</span></th>
+								<th class="hidden-480"><span>完成日期</span></th>
+								<th class="hidden-480"><span>已完工数</span></th>
+								<th class="hidden-480"><span>未完工数</span></th>
+								<th class="hidden-480"><span>录入</span></th>
+                                <th class="hidden-480"><span>操作</span></th>
+
+							</tr>
+						
+						</thead>
+						<tbody id="table_2"> </tbody>
+					</table>
+					<div class="breadcrumbs" id="breadcrumbs">    		 <!-- 分页 -->
+							<div class="text-right">
+								<ul id="pagefoot2" class="pagination">
+									
+								</ul>
+							</div>
+						</div>
+			       </div>
+</div>
+</div>														
+</div>
+</div>
+</div>
+<script type="text/javascript">
+
+
+
+$("#selectfromsb").click(function(){
+					$.post("zzprscjh/sele1",$("#selefrom").serialize(),function(data){
+					PC_Plan(data);
+				/* PageFoot1(data[0].paginate); */
+					});
+					return false;
+					});
+
+function PC_Plan(data) {				//排产计划
+			var dataStr = "";
+			$.each(data, function(i, a) {
+				$.each(a.paginate.list, function(i, v) {  //v. _ rscjh表数据   a.paginate.list -->v
+					dataStr += '<tr>';	
+					
+					
+					    dataStr += '<td>'+v.scbz+'</td>';
+						dataStr += '<td>' + v.zxbh + '</td>';   //执行编号
+						
+					dataStr += '<td>';
+					$.each(a.xsdd, function(i, m) {       // m. _xsdd表数据  a.xsdd --> m
+						if(m.ddh==v.ddh) dataStr += m.khjc;   	 //客户简称
+					});
+					dataStr += '</td>';
+					
+					dataStr += '<td>'+v.ddh+'</td>';
+					dataStr += '<td>' + v.zjbm + '</td>';
+					
+					dataStr += '<td>';
+					$.each(a.zzpscdd, function(i, m) {       // m. _xsdd表数据  a.bom --> m
+						if(m.zjbm==v.zjbm) dataStr += m.zjmc;   	 //客户简称
+					});
+					dataStr += '</td>';
+					
+					dataStr += '<td>';
+					$.each(a.zzpscdd, function(i, m) {       // m. _xsdd表数据  a.bom --> m
+						if(m.zjbm==v.zjbm) dataStr += m.zjgg;   	 //客户简称
+					});
+					dataStr += '</td>';
+					
+					
+					dataStr += '<td>';
+					$.each(a.zzpscdd, function(i, m) {       // m. _xsdd表数据  a.bom --> m
+						if(m.zjbm==v.zjbm) dataStr += m.jl;   	 //客户简称
+					});
+					dataStr += '</td>';
+					
+					dataStr += '<td>';
+					$.each(a.zzpscdd, function(i, m) {       // m. _xsdd表数据  a.bom --> m
+						if(m.zjbm==v.zjbm) dataStr += m.scsl;   	 //客户简称
+					});
+					dataStr += '</td>';
+
+						dataStr += '<td>' + v.pcsl + '</td>';    //排产数量
+						dataStr += '<td>' + v.jhdzt + '</td>';		//计划单状态  
+						dataStr += '<td><div class="hidden-sm hidden-xs action-buttons"><a class="green" href="javascript:updateForm('+v.id+',\''+v.pcsl+'\',\''+v.jhdzt+'\')"> <i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="javascript:Delete('+v.id+')" class="red"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a></div><div class="hidden-md hidden-lg"><div class="inline pos-rel"><button data-position="auto" data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle"><i class="ace-icon fa fa-caret-down icon-only bigger-120"></i></button><ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close"><li><a href="xxprsvjh/toUpdateUser?id='+v.id+'" class="tooltip-success" data-rel="tooltip" title=""> <span class="green"> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span> </a></li><li><a title="" data-rel="tooltip" class="tooltip-error" href="zzprscjh/delete/'+v.id+'" data-original-title="Delete"> <span class="red"> <i class="ace-icon fa fa-trash-o bigger-120"></i> </span> </a></li></ul></div></div></td>';
+					dataStr += '</tr>';
+				});
+			});
+			//return dataStr;
+			$("#table_1").html(dataStr);
+		}
+		
+		
+function Delete(id) {
+        	 		if(id!=null){
+	                layer.confirm("确定删除？", function () {
+	                     $.updateByUrl("zzprscjh/delete/"+id);
+	                });
+	               }else{
+	               	layer.alert("请选择要删除的数据！");
+	              }
+	        }
+	        
+
+function updateForm(id,pcsl) {
+
+						document.getElementById("updateForm").reset();
+						$("#id").val(id);//字段一一对应，必须填写id
+						$("#pcsl").val(pcsl);
+						$('#update2').removeClass("hide");
+						userModel = layer.open({
+							type : 1,
+							shade : [ 0.5 ],
+							title: "<div class='widget-header widget-header-small' style='background:#307ECC'><h4 class='smaller white'>修改生产计划信息</div>",
+							area : [ '30%', '200px' ], //显示空间
+							content : $('#update2'), //捕获的元素
+							btn : [ '添加', '取消' ],
+							yes : function(index, layero) { //或者使用btn1
+								$.post("update2", $("#updateForm").serialize(),
+										function(data) {
+
+											layer.close(index);
+											$('#update2').addClass("hide");
+											document.getElementById("updateForm")
+													.submit();
+										});
+							},
+							cancel : function(index) {
+								layer.close(index);
+								$('#add').addClass("hide"); //取消继续隐藏
+							},
+						});
+					};
+				
+				
+				
+
+
+
+
+
+	        
+ function edit1(id){	        									//edit for weipaichan
+		$.post( "cpjh/ReturnJson?id="+id,function(data) {
+												$("#id").val(data.id);//字段一一对应，必须填写id
+												$("#pcsl").val(data.pcsl);
+												$("#jhdzt").val(data.jhdzt);
+												var dialog = $("#update2")
+														.removeClass('hide')
+														.dialog(
+																{
+																	modal : true,
+																	width : '500', 
+																	title : "<div class='widget-header widget-header-small' style='background:#307ECC'><h4 class='smaller white'><i class='ace-icon fa fa-check'></i>修改生产计划</div>", 
+																	title_html : true,
+																	buttons : [
+																			{
+																				text : "取消",
+																				"class" : "btn",
+																				click : function() {
+																					$(this).dialog("close");
+																				}
+																			},
+																			{
+																				text : "确认",
+																				"class" : "btn btn-primary",
+																				click : function() {
+																					document.getElementById("updateForm").submit();
+																					$(his).remove();
+																					return false;
+																				}
+																			} ]
+																});
+											}, "json");
+						};
+function PageFoot1(data){
+			var n="";
+			var backword="上一页";
+			var forword="下一页";
+			var x=data.PageNumber; //当前页
+			var back;		//前一页
+			var next;       //后一页
+			if(x=1){            	//对上一页的判断		
+				back =1;
+			}else{
+				back=x-1;   		
+			}
+			if(x<data.totalPage){   //对下一页判断
+				next=x+1;
+			}else{
+				next=data.totalPage;		
+			}
+			
+			n+="<li onclick=\"showPage1("+back+")\"><a>"+backword+"</a></li>&nbsp;&nbsp;";
+			for(var a=1;a<=data.totalPage;a++){
+				if(a==data.PageNumber){
+					n +="<li class=\"active\" onclick=\"showPage1("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				}else{
+					n +="<li onclick=\"showPage1("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				};
+			}
+			n+="<li onclick=\"showPage1("+next+")\"><a>"+forword+"</a></li>&nbsp;&nbsp;";
+			
+			$("#pagefoot1").html(n);       //把循环好的页码给替换掉
+		};
+		
+		function showPage1(curr) {  
+			$.get("zzprscjh/Tbody_list1", {"pageNumber": curr}, function(data) {
+				//trList1(data.list); //调用trList()方法，填充表格数据
+				PC_Plan(data);
+				PageFoot1(data[0].paginate); 		   //调用的PageFoot方法，循环输出页码连接  
+			});
+		}
+		showPage1(1);   		//刚进入页面为第一页，列出第一页数据和页脚
+			        
+  
+		
+		
+		
+		
+		
+
+
+$("#selectfromsb2").click(function(){
+					$.post("zzprscjh/sele2",$("#selefrom2").serialize(),function(data){
+					PC_Plan2(data);
+				/* PageFoot1(data[0].paginate); */
+					});
+					return false;
+					});
+
+
+function PC_Plan2(data) {				//
+			var dataStr = "";
+			$.each(data, function(i, a) {
+				$.each(a.paginate.list, function(i, v) {  //v. _ zzpscdd表数据   a.paginate.list -->v
+					dataStr += '<tr>';	
+					
+					    dataStr += '<td>'+v.scbz+'</td>';
+						dataStr += '<td>' + v.zxbh + '</td>';   //执行编号
+						
+					dataStr += '<td>';
+					$.each(a.xsdd, function(i, m) {       // m. _xsdd表数据  a.xsdd --> m
+						if(m.ddh==v.ddh) dataStr += m.khjc;   	 //客户简称
+					});
+					dataStr += '</td>';
+					
+					dataStr += '<td>'+v.ddh+'</td>';
+					dataStr += '<td>' + v.zjbm + '</td>';
+					
+					dataStr += '<td>';
+					$.each(a.zzpscdd, function(i, n) {       // n. _zzpscdd表数据  a.zzpscdd --> n
+						if(v.zjbm==n.zjbm) dataStr += n.zjmc;   	 
+					});
+					dataStr += '</td>';
+					
+					dataStr += '<td>';
+					$.each(a.zzpscdd, function(i, n) {       
+						if(v.zjbm==n.zjbm) dataStr += n.zjgg;   	 
+					});
+					dataStr += '</td>';
+					
+					
+					dataStr += '<td>';
+					$.each(a.zzpscdd, function(i, n) {       
+						if(n.zjbm==v.zjbm) dataStr += n.jl;   	 
+					});
+					dataStr += '</td>';
+					
+	            	dataStr += '<td>'+v.pcsl+'</td>';
+	            	
+	            	
+					dataStr += '<td><div class="col-sm-11"><input type="hidden" value="'+v.id+'" /><input name="wcrq" type="date" class="form-control" id="zzzz_wcrq'+v.id+'" value="'+v.wcrq+'" /></div></td>';
+			     //完成日期					               
+			        dataStr += '<td><div class="col-sm-13"><input name="ywgs" type="text" class="form-control" id="zzzz_ywgs'+v.id+'" value="'+v.ywgs+'" /></div></td>';
+			      //已完工数			
+		            dataStr += '<td><div class="col-sm-13"><input name="wwgs" type="text" class="form-control"  value="'+v.wwgs+'" /></div></td>';
+			      //未完工数			
+			         dataStr += '<td><a class="btn btn-mini btn-primary" href="javascript:PC_12('+v.id+')">录入</a></td>';
+			      //操作			
+			        dataStr += '<td><form  action="zzprscjh/donext?id='+v.id+'" method="post"><select name="selevalue"  class="form-control " style="width:100px;height:31px"><option value="仪表组" >仪表组</option><option value="电器盒组" >电器盒组</option><option value="电子组" >电子组</option><option value="电瓶仓组" >电瓶仓组</option><option value="开关组"  >开关组</option></select><input name="rscjhbh" type="date" class="form-control" style="width:100px;height:31px" /><input class="btn btn-sm btn-primary" onclick="go()" type="submit"  value="排产" /></form></td>';
+			       //下一班组和日期		
+			      
+			       dataStr += '</tr>';
+				});
+			});
+			$("#table_2").html(dataStr);
+		}
+
+function PageFoot2(data){
+			var n="";
+			var backword="上一页";
+			var forword="下一页";
+			var x=data.PageNumber; //当前页
+			var back;		//前一页
+			var next;       //后一页
+			if(x=1){            	//对上一页的判断		
+				back =1;
+			}else{
+				back=x-1;   		
+			}
+			if(x<data.totalPage){   //对下一页判断
+				next=x+1;
+			}else{
+				next=data.totalPage;		
+			}
+			
+			n+="<li onclick=\"showPage2("+back+")\"><a>"+backword+"</a></li>&nbsp;&nbsp;";
+			for(var a=1;a<=data.totalPage;a++){
+				if(a==data.PageNumber){
+					n +="<li class=\"active\" onclick=\"showPage2("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				}else{
+					n +="<li onclick=\"showPage2("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+				};
+			}
+			n+="<li onclick=\"showPage2("+next+")\"><a>"+forword+"</a></li>&nbsp;&nbsp;";
+			
+			$("#pagefoot2").html(n);       //把循环好的页码给替换掉
+		};
+		
+		function showPage2(curr) {  
+			$.get("zzprscjh/Tbody_list2", {"pageNumber": curr}, function(data) {
+				PC_Plan2(data);
+				PageFoot2(data[0].paginate); 		   //调用的PageFoot方法，循环输出页码连接  
+			});
+		}
+		showPage2(1);   		//刚进入页面为第一页，列出第一页数据和页脚		
+		
+</script>
+
+
+
+
+<div class="hide" id="add">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8">
+
+		<form id="pform" action="zzprscjh/add" method="post">
+			 <input type="hidden" name="scjhgl_zzprscjh.id">
+             
+            
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">生产班组：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" placeholder="请输入生产班组"  name="scjhgl_zzprscjh.scbz"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">执行编号：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" placeholder="请输入执行序号"  name="scjhgl_zzprscjh.zxbh"/>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">订单号：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2"  placeholder="请输入订单号" name="scjhgl_zzprscjh.ddh"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">子件编码：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2" placeholder="请输入子件编码"  name="scjhgl_zzprscjh.zjbm"/>
+				</div>
+			</div>
+
+            
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">排产数量：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control"  placeholder="请输入排产数量" name="scjhgl_zzprscjh.pcsl" />
+				</div>
+			</div>
+
+		</form>
+	</div>
+</div>
+<div class="hide" id="add2">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8">
+
+		<form id="pform2" action="zzprscjh/add" method="post">
+		<input type="hidden" name="scjhgl_zzprscjh.id">
+             
+            
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">生产班组：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" placeholder="请输入生产班组"  name="scjhgl_zzprscjh.scbz"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">执行编号：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" placeholder="请输入执行序号"  name="scjhgl_zzprscjh.zxbh"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">客户简称：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2"  placeholder="请输入客户名称" name="scjhgl_zzprscjh.khjc"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">订单号：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2"  placeholder="请输入订单号" name="scjhgl_zzprscjh.ddh"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">子件编码：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2" placeholder="请输入子件编码"  name="scjhgl_zzprscjh.zjbm"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">子件名称：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2" placeholder="请输入子件名称"  name="scjhgl_zzprscjh.zjmc"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">子件规格：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2" placeholder="请输入子件规格"  name="scjhgl_zzprscjh.zjgg"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">计量：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2" placeholder="请输入计量"  name="scjhgl_zzprscjh.jl" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">生产数量：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2"  placeholder="请输入生产数量" name="scjhgl_zzprscjh.xql"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">入库数：</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="str2"  placeholder="请输入入库数" name="scjhgl_zzprscjh.xql"/>
+				</div>
+			</div>
+            
+   
+
+		</form>
+	</div>
+</div>
+
+
+<div class="hide" id="update2">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8">
+
+		<form id="updateForm" action="zzprscjh/update" method="post">
+			<table>
+			<input type="text" name="scjhgl_zzprscjh.id" type="hidden" id="id" class="hide">
+			
+			
+			<tr>
+				<td>排产数量:</td>
+				<td><input type="text" name="scjhgl_zzprscjh.pcsl"
+					placeholder="生产数量" id="pcsl"></td>
+			</tr>
+			</tr>
+		</table>
+
+		</form>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	function addForm() {
+		document.getElementById("pform").reset();
+		$('#add').removeClass("hide");
+		userModel = layer.open({
+			type : 1,
+			shade : [ 0.5 ],
+			title : "<div class='widget-header widget-header-small' style='background:#307ECC'><h4 class='smaller white'><i class='ace-icon fa fa-check'></i>增加自制品日生产计划</div>",
+			area : [ '60%', '500px' ], //显示空间
+			content : $('#add'), //捕获的元素
+			btn : [ '添加', '取消' ],
+			yes : function(index, layero) { //或者使用btn1
+				$.post("add", $("#pform").serialize(), function(data) {
+
+					layer.close(index);
+					$('#add').addClass("hide");
+					document.getElementById("pform").submit();
+				});
+			},
+			cancel : function(index) {
+				layer.close(index);
+				$('#add').addClass("hide"); //取消继续隐藏
+			},
+		});
+	};
+	
+	
+	function PC_12(q) {
+						var t="zzzz_wcrq"+q;
+						var p="zzzz_ywgs"+q;
+						var x=document.getElementById(t).value;
+						var y=document.getElementById(p).value;
+						alert('录入成功');
+                        $.post("zzprscjh/luru",{"wcrq":x,"ywgs":y,"id":q},function(data){//data表示接收后台传递的参数,"wwgs":z,
+							layer.msg(data);
+						
+					});
+                  
+        }
+	
+	function addForm2() {
+		document.getElementById("pform2").reset();
+		$('#add2').removeClass("hide");
+		userModel = layer.open({
+			type : 1,
+			shade : [ 0.5 ],
+			title : "<center><div class='widget-header widget-header-small' style='background:#307ECC'><h4 class='smaller white'>增加自制品日生产计划</div></center>",
+			area : [ '60%', '500px' ], //显示空间
+			content : $('#add2'), //捕获的元素
+			btn : [ '添加', '取消' ],
+			yes : function(index, layero) { //或者使用btn1
+				$.post("add2", $("#pform2").serialize(), function(data) {
+
+					layer.close(index);
+					$('#add2').addClass("hide");
+					document.getElementById("pform2").submit();
+				});
+			},
+			cancel : function(index) {
+				layer.close(index);
+				$('#add2').addClass("hide"); //取消继续隐藏
+			},
+		});
+	};
+	
+	
+	
+	//编辑并传递参数
+	$( ".editButton" ).on('click', function(e) {
+			e.preventDefault();
+			$.get($(this).attr("href"), function(data) {
+				$("#id").val(data.id);//字段一一对应，必须填写id
+				$("#pcsl").val(data.pcsl);
+				var dialog = $( "#update2" ).removeClass('hide').dialog({//update 表示前边div的id
+				modal: true,
+				width: '500',
+				title: "<div class='widget-header widget-header-small' style='background:#307ECC'><h4 class='smaller white'><i class='ace-icon fa fa-check'></i>修改生产计划信息</div>",
+				title_html: true,
+				buttons: [ 
+					{
+						text: "取消",
+						"class" : "btn btn-minier",
+						click: function() {
+							$( this ).dialog( "close" ); 
+						} 
+					},
+					{
+						text: "确认",
+						"class" : "btn btn-primary btn-minier",
+						click: function() {
+							document.getElementById("updateForm").submit();//updateForm与前边表单的id一一对应
+							$( this ).remove();
+							return false;
+						} 
+					}
+				]
+	
+			/**
+			dialog.data( "uiDialog" )._title = function(title) {
+				title.html( this.options.title );
+			};
+			**/
+		});
+			}, "json");
+	});
+</script>
+<script>/*需要引用的js固定方法  */
+	jQuery(function($) {
+		$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+					_title: function(title) {
+						var $title = this.options.title || '&nbsp;'
+						if( ("title_html" in this.options) && this.options.title_html == true )
+							title.html($title);
+						else title.text($title);
+					}
+				}));
+		//initiate dataTables plugin
+		var oTable1 = 
+		$('#dynamic-table')
+		//.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
+		.dataTable( {
+			bAutoWidth: false,
+			"aoColumns": [
+			  null, null,null, null, null,null,
+			  { "bSortable": false }
+			],
+			"aaSorting": [],
+	
+			//,
+			//"sScrollY": "200px",
+			//"bPaginate": false,
+	
+			//"sScrollX": "100%",
+			//"sScrollXInner": "120%",
+			//"bScrollCollapse": true,
+			//Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
+			//you may want to wrap the table inside a "div.dataTables_borderWrap" element
+	
+			//"iDisplayLength": 50
+	    } );
+		//oTable1.fnAdjustColumnSizing();
+	
+	
+		//TableTools settings
+		TableTools.classes.container = "btn-group btn-overlap";
+		TableTools.classes.print = {
+			"body": "DTTT_Print",
+			"info": "tableTools-alert gritter-item-wrapper gritter-info gritter-center white",
+			"message": "tableTools-print-navbar"
+		}
+	
+		//initiate TableTools extension
+		var tableTools_obj = new $.fn.dataTable.TableTools( oTable1, {
+			"sSwfPath": "plugins/ace/assets/js/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf", //in Ace demo plugins/ace/assets will be replaced by correct assets path
+			
+			"sRowSelector": "td:not(:last-child)",
+			"sRowSelect": "multi",
+			"fnRowSelected": function(row) {
+				//check checkbox when row is selected
+				try { $(row).find('input[type=checkbox]').get(0).checked = true }
+				catch(e) {}
+			},
+			"fnRowDeselected": function(row) {
+				//uncheck checkbox
+				try { $(row).find('input[type=checkbox]').get(0).checked = false }
+				catch(e) {}
+			},
+	
+			"sSelectedClass": "success",
+	        "aButtons": [
+				{
+					"sExtends": "copy",
+					"sToolTip": "复制到剪贴板",
+					"sButtonClass": "btn btn-white btn-primary btn-bold",
+					"sButtonText": "<i class='fa fa-copy bigger-110 pink'></i>",
+					"fnComplete": function() {
+						this.fnInfo( '<h3 class="no-margin-top smaller">表格已复制</h3>\
+							<p>已复制 '+(oTable1.fnSettings().fnRecordsTotal())+' 行数据到剪贴板.</p>',
+							1500
+						);
+					}
+				},
+				
+				{
+					"sExtends": "csv",
+					"sToolTip": "导出成 CSV",
+					"sButtonClass": "btn btn-white btn-primary  btn-bold",
+					"sButtonText": "<i class='fa fa-file-excel-o bigger-110 green'></i>"
+				},
+				
+				{
+					"sExtends": "pdf",
+					"sToolTip": "导出成 PDF",
+					"sButtonClass": "btn btn-white btn-primary  btn-bold",
+					"sButtonText": "<i class='fa fa-file-pdf-o bigger-110 red'></i>"
+				},
+				
+				{
+					"sExtends": "print",
+					"sToolTip": "打印页面",
+					"sButtonClass": "btn btn-white btn-primary  btn-bold",
+					"sButtonText": "<i class='fa fa-print bigger-110 grey'></i>",
+					
+					"sMessage": "<div class='navbar navbar-default'><div class='navbar-header pull-left'><a class='navbar-brand' href='#'><small>可选导航栏 &amp; 文本</small></a></div></div>",
+					
+					"sInfo": "<h3 class='no-margin-top'>打印页面</h3>\
+							  <p>请用您的浏览器打印功能打印这个表格 \
+							  <br />请打印完成关闭此页面</p>",
+				}
+	        ]
+	    } );
+		//we put a container before our table and append TableTools element to it
+	    /* $(tableTools_obj.fnContainer()).appendTo($('.tableTools-container')); */
+		
+		//also add tooltips to table tools buttons
+		//addding tooltips directly to "A" buttons results in buttons disappearing (weired! don't know why!)
+		//so we add tooltips to the "DIV" child after it becomes inserted
+		//flash objects inside table tools buttons are inserted with some delay (100ms) (for some reason)
+		setTimeout(function() {
+			$(tableTools_obj.fnContainer()).find('a.DTTT_button').each(function() {
+				var div = $(this).find('> div');
+				if(div.length > 0) div.tooltip({container: 'body'});
+				else $(this).tooltip({container: 'body'});
+			});
+		}, 200);
+		
+		
+		
+		//ColVis extension
+		var colvis = new $.fn.dataTable.ColVis( oTable1, {
+			"buttonText": "<i class='fa fa-search'></i>",
+			"aiExclude": [0, 6],
+			"bShowAll": true,
+			//"bRestore": true,
+			"sAlign": "right",
+			"fnLabel": function(i, title, th) {
+				return $(th).text();//remove icons, etc
+			}
+			
+		}); 
+		
+		//style it
+		$(colvis.button()).addClass('btn-group').find('button').addClass('btn btn-white btn-info btn-bold')
+		
+		//and append it to our table tools btn-group, also add tooltip
+		$(colvis.button())
+		.prependTo('.tableTools-container .btn-group')
+		.attr('title', '显示/隐藏 数据列').tooltip({container: 'body'});
+		
+		//and make the list, buttons and checkboxed Ace-like
+		$(colvis.dom.collection)
+		.addClass('dropdown-menu dropdown-light dropdown-caret dropdown-caret-right')
+		.find('li').wrapInner('<a href="javascript:void(0)" />') //'A' tag is required for better styling
+		.find('input[type=checkbox]').addClass('ace').next().addClass('lbl padding-8');
+	
+	
+		
+		/////////////////////////////////
+		//table checkboxes
+		$('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
+		
+		//select/deselect all rows according to table header checkbox
+		$('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
+			var th_checked = this.checked;//checkbox inside "TH" table header
+			
+			$(this).closest('table').find('tbody > tr').each(function(){
+				var row = this;
+				if(th_checked) tableTools_obj.fnSelect(row);
+				else tableTools_obj.fnDeselect(row);
+			});
+		});
+		
+		//select/deselect a row when the checkbox is checked/unchecked
+		$('#dynamic-table').on('click', 'td input[type=checkbox]' , function(){
+			var row = $(this).closest('tr').get(0);
+			if(!this.checked) tableTools_obj.fnSelect(row);
+			else tableTools_obj.fnDeselect($(this).closest('tr').get(0));
+		});
+		
+	
+		
+		
+			$(document).on('click', '#dynamic-table .dropdown-toggle', function(e) {
+			e.stopImmediatePropagation();
+			e.stopPropagation();
+			e.preventDefault();
+		});
+		
+		
+		//And for the first simple table, which doesn't have TableTools or dataTables
+		//select/deselect all rows according to table header checkbox
+		var active_class = 'active';
+		$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
+			var th_checked = this.checked;//checkbox inside "TH" table header
+			
+			$(this).closest('table').find('tbody > tr').each(function(){
+				var row = this;
+				if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+				else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+			});
+		});
+		
+		//select/deselect a row when the checkbox is checked/unchecked
+		$('#simple-table').on('click', 'td input[type=checkbox]' , function(){
+			var $row = $(this).closest('tr');
+			if(this.checked) $row.addClass(active_class);
+			else $row.removeClass(active_class);
+		});
+	
+		
+	
+		/********************************/
+		//add tooltip for small view action buttons in dropdown menu
+		$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+		
+		//tooltip placement on right or left
+		function tooltip_placement(context, source) {
+			var $source = $(source);
+			var $parent = $source.closest('table')
+			var off1 = $parent.offset();
+			var w1 = $parent.width();
+	
+			var off2 = $source.offset();
+			//var w2 = $source.width();
+	
+			if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+			return 'left';
+		}
+	
+	})
+	
+</script>
+
+
+
+

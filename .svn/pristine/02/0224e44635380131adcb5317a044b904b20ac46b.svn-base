@@ -1,0 +1,8 @@
+package scjhgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Bom extends Model <Bom>{
+	public static final Bom dao =new Bom();
+
+}

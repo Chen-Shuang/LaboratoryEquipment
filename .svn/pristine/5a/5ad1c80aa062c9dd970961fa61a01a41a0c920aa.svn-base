@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+ <link href="build/bootstrap.min.css" rel="stylesheet">
+	<script src="build/jquery.min.js"></script>
+	<script src="build/bootstrap.min.js"></script>
+	<style type="text/css">
+		@font-face{
+	font-family: font-family: "Microsoft YaHei" ! important;
+}
+
+	</style>
+</head>
+<body style="background-image: url(build/2.jpg);background-size: 100% 100%;background-repeat: repeat-x;;width: 100%;">
+	<div class="navbar-inverse navbar-fixed-top" style="background-color: #438eb9;height: 60px;">
+		<div style="float: left;margin: 10px 0 0 4%;font-size: 30px;color: #fff;">跃博MES</div>
+	</div>
+	<div style="height: 800px;width: 100%;">
+		<div style="float: left;margin: 230px 0 0 15%;height: 60px;width: 30%;font-size: 50px;color: #fff;text-align: center;font-family: font-family: "Microsoft YaHei" ! important;">
+			超越现在<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;共赢未来
+		</div>
+		<div style="float: left;margin: 190px 0 0 15%;width: 21%;height: auto;background-color: #fff;padding: 20px 40px 20px 40px;border-radius: 8px;">
+			<div class="login-content">
+
+			<div class="form-login-error" style="text-align: center;">
+				<h3 >用户登录</h3>
+			</div>
+
+			<form action="" id="form_login" role="form" method="post">
+
+				<div class="form-group">
+
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="fa fa-user"></i><span id="transmark" style="display: none; width: 0px; height: 0px;"></span>
+						</div>
+
+						<input id="username" type="text" autocomplete="off" placeholder="用户名" name="username" class="form-control" >
+					</div>
+
+				</div>
+
+				<div class="form-group">
+
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="fa fa-key"></i>
+						</div>
+
+						<input id="password" type="password" autocomplete="off" placeholder="密码" name="password" class="form-control">
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<button id="submitbtn" class="btn btn-primary btn-block btn-login" type="button">
+						<i class="fa fa-sign-in"></i>
+						登录
+					</button>
+				</div>
+
+				<!-- Implemented in v1.1.4 			<div class="form-group">
+					<em>- or -</em>
+				</div>-->	
+				<!-- 
+
+				You can also use other social network buttons
+				<div class="form-group">
+
+					<button type="button" class="btn btn-default btn-lg btn-block btn-icon icon-left twitter-button">
+						Login with Twitter
+						<i class="entypo-twitter"></i>
+					<tton>
+
+				</div>
+
+				<div class="form-group">
+
+					<button type="button" class="btn btn-default btn-lg btn-block btn-icon icon-left google-button">
+						Login with Google+
+						<i class="entypo-gplus"></i>
+					<tton>
+
+				</div> -->				
+			</form>
+
+			<div style="text-align:center;clear:both;">
+
+</div>
+
+		</div>
+		</div>
+	</div>
+</body>
+<script src="js/jquery-1.8.3.js"></script> 
+<script src="js/jquery.myLayout.js"></script> 
+<script src="plugins/layer/layer.js"></script> 
+<script type="text/javascript">
+ document.onkeydown = function (e) {
+            if (!e) e = window.event; //火狐中是 window.event
+            if ((e.keyCode || e.which) == 13) {
+                var submitbtn = document.getElementById("submitbtn");
+                submitbtn.focus();
+                submitbtn.click();
+            }
+        }
+
+$("#submitbtn").click(function(){
+	var username = $("#username").val();
+	var password = $("#password").val();
+	if(username == ""){
+		$("#username").focus();
+		layer.msg("用户名不能为空!");
+	}else if(password == ""){
+		$("#password").focus();
+		layer.msg("密码不能为空！");
+	}else{
+		$.post("login/main",$("#form_login").serialize(),function(data){
+			if(data=='success'){
+				window.location.href="index";
+			}
+			if(data=='error'){
+				layer.msg("用户名或密码不正确!!");
+			}
+			if(data=='nostatus'){
+				layer.msg("此用户未启用！！");
+		}
+	});
+	}
+});
+</script>
+</html>

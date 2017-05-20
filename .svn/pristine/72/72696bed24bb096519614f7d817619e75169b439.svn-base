@@ -1,0 +1,146 @@
+package xtgl;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+public class RoleController extends Controller {
+
+	// 跳转jsgl.html
+	public void index() {
+		List<Department> deptlist = Department.dao.find("select * from dept");
+		setAttr("rp", Role_Privilege.dao.find("select * from role_privilege"));
+		setAttr("dept", deptlist);
+		setAttr("list", Role.dao.getRoles());
+		setAttr("privilege", Privilege.dao.getPrivilege());
+
+		List<Map<String, Object>> deptmapList = new ArrayList<Map<String, Object>>();
+		for (int i = 0; i < deptlist.size(); i++) {
+			Map<String, Object> deptmap = new LinkedHashMap<String, Object>();
+			deptmap.put("id", deptlist.get(i).getInt("dept_id"));
+			deptmap.put("pid", deptlist.get(i).getInt("prent_id"));
+			deptmap.put("name", deptlist.get(i).get("dept_name"));
+			if (deptlist.get(i).getInt("prent_id").equals(0))
+				deptmap.put("isParent", true);
+			deptmap.put("click",
+					"democlick(" + deptlist.get(i).getInt("dept_id") + ")");
+			deptmapList.add(deptmap);
+		}
+
+		Gson gson = new Gson();
+		String strList = gson.toJson(deptmapList);
+		strList = strList.replaceAll("\"id\"", "id");
+		strList = strList.replaceAll("\"pid\"", "pId");
+		strList = strList.replaceAll("\"name\"", "name");
+		strList = strList.replaceAll("\"click\"", "click");
+		setAttr("strList", strList);
+		renderFreeMarker("/xtgl/jsgl.html");
+	}
+
+	// ͨ删除角色
+	public void delerolebyid() {
+		Role_Privilege.dao.deleteDeptPrivilegeByRoleId(getParaToInt("role_id")); // 根据roleId删除角色的权限
+		Dept_Role.dao.deleteDeptRole(getParaToInt("role_id")); // 根据roleId在部门中删除角色
+		Role.dao.deleteRole(getParaToInt("role_id")); // 根据roleId删除角色
+		redirect("/#role");
+	}
+
+	// 角色查询
+	public void sele() {
+//		setAttr("privilege", Privilege.dao.getPrivilege());
+//		setAttr("rp", Role_Privilege.dao.find("select * from role_privilege"));
+//		setAttr("dept", Department.dao.find("select * from dept"));
+		
+		int n = getParaToInt("pageNumber", 1);
+		if (getPara("selevalue").equals("")){
+			Page<Role> list = Role.dao.paginate(n, 10,"select *", "from role");
+			renderJson(list);
+		}
+		if (getPara("seletype").equals("status")) {
+			if (getPara("selevalue").equals("启用")) {
+				Page<Role> list = Role.dao.paginate(n, 10,"select *", "from role where status=true");
+				renderJson(list);
+			} else if (getPara("selevalue").equals("停用")) {
+				Page<Role> list = Role.dao.paginate(n, 10,"select *", "from role where status=false");
+				renderJson(list);
+			} 
+		}
+		if (!getPara("selevalue").equals("")
+				&& !getPara("seletype").equals("status")) {
+			Page<Role> list = Role.dao.paginate(n, 10,"select *", "from role where " + getPara("seletype") + " = '" + getPara("selevalue") + "'");
+			renderJson(list);
+		}
+
+	}
+
+	// 添加角色
+	public void addrole() {
+		Role role = getModel(Role.class, "role");
+		role.save();
+		Dept_Role dept_role = new Dept_Role();
+		dept_role.set("dept_id", role.getInt("dept_id"));
+		dept_role.set("role_id", role.getInt("role_id"));
+		dept_role.save();
+		Integer roleId = role.getInt("role_id");
+		Integer[] check = getParaValuesToInt("privi");
+		Role_Privilege.dao.updateDeptPrivilege(roleId, check);
+		redirect("/#role");
+
+	}
+
+	public void toUpdaterole() {
+		renderJson(Role.dao.findById(getParaToInt("role_id")));// 获取前端传递的id
+	}
+
+	// 更改角色
+	public void update() {
+		Role role = getModel(Role.class);
+		role.update();
+		Db.update("delete from dept_role where role_id="
+				+ role.getInt("role_id"));
+		Dept_Role dept_role = new Dept_Role();
+		dept_role.set("dept_id", role.getInt("dept_id"));
+		dept_role.set("role_id", role.getInt("role_id"));
+		dept_role.save();
+		redirect("/#role");
+	}
+
+	// 添加权限
+	public void addprivilege() {
+
+		Integer roleId = getParaToInt("role.role_id");
+		Integer[] check = getParaValuesToInt("privi");
+		Role_Privilege.dao.updateDeptPrivilege(roleId, check);
+		redirect("/#role");
+
+	}
+	
+	//分页
+	public void pagedemo(){
+		int n = getParaToInt("pageNumber");
+		Page<Role> list = Role.dao.paginate(n, 10, "select *",
+				"from role");
+		renderJson(list);
+	}
+
+	// 将状态设为停用
+	public void changestatus0() {
+		int id = getParaToInt(0);
+		Role.dao.findById(id).set("status", false).update();
+		redirect("/#role");
+	}
+
+	// 将状态设为启用
+	public void changestatus1() {
+		int id = getParaToInt(0);
+		Role.dao.findById(id).set("status", true).update();
+		redirect("/#role");
+	}
+
+}

@@ -1,0 +1,9 @@
+package pdm;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class pdm_bomwlqd extends Model<pdm_bomwlqd> {
+	
+	public static final pdm_bomwlqd dao=new pdm_bomwlqd();
+	
+}

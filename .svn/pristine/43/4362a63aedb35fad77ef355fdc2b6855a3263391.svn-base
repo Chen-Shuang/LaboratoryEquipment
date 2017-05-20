@@ -1,0 +1,96 @@
+package config;
+
+import gzgl.Mold;
+import gzgl.gzglConfigRoute;
+import sbgl.SbglConfigRoute;
+import sbgl.sbgl_MappingKit;
+import scjhgl.Order;
+import xtgl.Department;
+import xtgl.User;
+import xtgl.UserController;
+import xtgl.Role;
+import model.Act;
+
+import com.jfinal.config.Constants;
+import com.jfinal.config.Handlers;
+import com.jfinal.config.Interceptors;
+import com.jfinal.config.JFinalConfig;
+import com.jfinal.config.Plugins;
+import com.jfinal.config.Routes;
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.c3p0.C3p0Plugin;
+
+
+
+
+
+
+
+
+
+
+import controller.ActController;
+import controller.TestController;
+
+
+
+public class MainConfig extends JFinalConfig {
+
+	@Override
+	public void configConstant(Constants arg0) {
+		loadPropertyFile("dbConfig.txt");
+		arg0.setDevMode(getPropertyToBoolean("devMode"));
+		
+	}
+
+	@Override
+	public void configHandler(Handlers arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void configInterceptor(Interceptors arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void configPlugin(Plugins arg0) {
+		C3p0Plugin c3p0Plugin = new C3p0Plugin(getProperty("jdbcUrl"),
+				getProperty("user"), getProperty("password"));
+		arg0.add(c3p0Plugin);
+		ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
+		arg0.add(arp);
+		arp.addMapping("ac_act", Act.class);
+		arp.addMapping("user", "id",User.class);//用户数据库连接
+		arp.addMapping("dept", "dept_id",Department.class);//部门数据库连接
+		arp.addMapping("role","role_id", Role.class);    //角色数据库连接
+		arp.addMapping("scjhgl_xsdd", Order.class);  //订单管理数据库连接
+		
+		arp.setShowSql(true);
+		arp.addMapping("moldinfoo","moldNo", Mold.class);  //添加工装管理模块儿的数据库配置信息
+	
+		sbgl_MappingKit.mapping(arp);   //设备管理
+		scgygl.addMap(arp);  	//工艺管理
+		scsjgl.addMap(arp);		//数据管理
+		XtglMapping.mapping(arp);//系统管理
+	}
+
+	@Override
+	public void configRoute(Routes arg0) {
+		arg0.add("/", TestController.class);
+		arg0.add("/act", ActController.class);
+		arg0.add("/user", TestController.class);
+		arg0.add("/users", UserController.class);//用户管理
+		arg0.add(new SbglConfigRoute());  //配置设备管理模块儿的分路由信息
+		arg0.add(new gzglConfigRoute());  //配置工装刮泥模块儿的分路由信息
+		arg0.add(new scsjhlConfig()); 	//生产数据管理路由信息
+		arg0.add(new scgyglConfig());   //生产工艺管理
+		arg0.add(new scjhglConfig());   //生产计划管理
+		arg0.add(new XtglRoute()); //系统管理
+		arg0.add(new sczlglConfig()); //生产质量管理s
+
+		
+	}
+}

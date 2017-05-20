@@ -1,0 +1,8 @@
+package sbgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Sbbf extends Model<Sbbf> {
+	public static final Sbbf dao = new Sbbf();
+
+}

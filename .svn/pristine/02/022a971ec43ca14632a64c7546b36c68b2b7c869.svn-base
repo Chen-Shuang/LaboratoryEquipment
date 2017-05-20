@@ -1,0 +1,18 @@
+package xtgl;
+
+import java.util.List;
+
+import com.jfinal.plugin.activerecord.Model;
+
+
+public class Privilege extends Model<Privilege> {
+
+	private static final long serialVersionUID = 1L;
+	public static final Privilege dao=new Privilege();
+	
+	public List<Privilege> getPrivilege(){
+		List<Privilege> list = Privilege.dao.find("select * from privilege");
+		return list;
+	}
+
+}

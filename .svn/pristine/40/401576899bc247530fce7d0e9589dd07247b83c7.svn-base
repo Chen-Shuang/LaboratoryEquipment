@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>selectEquipmentSpotCheck.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+   <table border="1">
+    
+   	<tr>
+   		<td>点检编号</td>
+   		<td>设备编号</td>
+   		<td>点检内容</td>
+   		<td>记录时间</td>
+   		<td>记录人员</td>
+   		<td>附件</td>
+   	</tr>
+   	<#list equipmentSpotChecklist as equipmentSpotCheck>
+   	<tr>
+   		<td>${equipmentSpotCheck.eSpotNo}</td>
+   		<td>${equipmentSpotCheck.eNo}</td>
+   		<td>${equipmentSpotCheck.eSpotContents}</td>
+   		<td>${equipmentSpotCheck.eSpotRecordTime}</td>
+   		<td>${equipmentSpotCheck.eSpotRecorder}</td>
+   		<td>${equipmentSpotCheck.eSpotAccessory}</td>
+   	</tr>
+  </#list>
+     </table>
+     <a href="/mes/equipmentSpotChecks" >返回</a>
+  
+  </body>
+</html>
