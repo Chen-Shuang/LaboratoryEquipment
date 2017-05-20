@@ -1,0 +1,55 @@
+package xcckgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class XccbcpxxController extends Controller {
+	public void index() {
+
+		setAttr("xccbcpxx", Xccbcpxx.me.paginate(getParaToInt(0, 1), 5));
+		render("/xcckgl/Xccbcpxx_main.html");
+
+	}
+
+	public void search() {
+
+		String ID = getPara("ID");
+		System.out.println("执行*666*" + ID);
+
+		List<Xccbcpxx> list = Xccbcpxx.me
+				.find("select * from xcc_bcpxx where (id like'%" + ID + "%')"
+						+ " or (gxbz like'%" + ID + "%') "
+						+ "	or (scpc like'%" + ID + "%') "
+						+ " or (gxxh like'%" + ID + "%') "
+						+ "	or (gxmc like'%" + ID + "%') "
+						+ " or (pzwlmc like'%" + ID + "%') "
+						+ "	or (sl like'%" + ID + "%') "
+						+ " or (wlpc like'%" + ID + "%') "
+						+ "	or (czy like'%" + ID + "%') "
+						
+						
+						
+ 
+								+ "order by id");
+
+		if (list.size() > 0) {
+			renderText("#xccbcpxx/aa/");
+		} else {
+			renderText("flase");
+		}
+	}
+
+	public void aa() {
+		String ID = getPara(0);
+		System.out.println("执行*668**" + ID);
+
+		Page<Xccbcpxx> pjb = Xccbcpxx.me.paginateid(1, 5, ID);
+		System.out.println("Page<Xccbcpxx> pjb" + pjb.getList());
+		setAttr("xccbcpxx", pjb);
+
+		render("/xcckgl/Xccbcpxx_main.html");
+	}
+
+}

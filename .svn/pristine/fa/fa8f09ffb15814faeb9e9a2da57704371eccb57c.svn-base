@@ -1,0 +1,66 @@
+ <div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span>设备日保点检</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div> 
+   <form action="/mes/equipmentSpotChecks/update" method="post" name="addForm" class="form-horizontal">
+		<fieldset class="solid">
+		<div id="col-xs-12">
+		<div class="page-header">
+					<h1>
+						设备日保点检修改表单 <i class="ace-icon fa fa-angle-double-right"></i>
+					</h1>
+			</div>
+		<input type="hidden" name="equipmentSpotCheck.eSpotNo" value="${(equipmentSpotCheck.eSpotNo)!}" />
+		</div>
+		
+		
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">设备编号</label>
+		<div class="col-sm-9">
+		<input type="text" class="col-xs-10 col-sm-5" name="equipmentSpotCheck.eNo" value="${(equipmentSpotCheck.eNo)!}" />
+		</div>
+	</div>
+	
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">维护内容</label>
+		<div class="col-sm-9">
+		<textarea class="col-xs-10 col-sm-5" name="equipmentSpotCheck.eSpotContents" cols="80" rows="10">${(equipmentSpotCheck.eSpotContents)!}</textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">记录时间</label>
+		<div class="col-sm-9">
+		<input class="col-xs-10 col-sm-5" type="text" name="equipmentSpotCheck.eSpotRecordTime" value="${(equipmentSpotCheck.eSpotRecordTime)!}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">记录人员</label>
+		<div class="col-sm-9">
+		<input class="col-xs-10 col-sm-5" type="text" name="equipmentSpotCheck.eSpotRecorder" value="${(equipmentSpotCheck.eSpotRecorder)!}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">附件</label>
+		<div class="col-sm-9">
+		<input class="col-xs-10 col-sm-5" type="text" name="equipmentSpotCheck.eSpotAccessory" value="${(equipmentSpotCheck.eSpotAccessory)!}" />
+		</div>
+	</div>
+	<div class="col-md-offset-4 col-md-9">
+		<label>&nbsp;</label>
+		<input value="确定" type="submit" class="btn btn-info"/>
+	</div>
+</fieldset>
+	</form>
+  </body>
+</html>

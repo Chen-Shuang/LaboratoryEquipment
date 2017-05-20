@@ -1,0 +1,10 @@
+package sczlgl;
+
+import com.jfinal.core.Controller;
+
+public class BcpbhgcxController extends Controller {
+	public void index(){
+		render("/sczlgl/bcpbhgtj.html");
+	}
+
+}

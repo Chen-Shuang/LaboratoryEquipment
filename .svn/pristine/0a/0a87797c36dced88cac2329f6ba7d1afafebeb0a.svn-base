@@ -1,0 +1,365 @@
+package xcckgl;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Date;
+import java.util.List;
+
+import pdm.pdm_gygl;
+import pdm.pdm_gylcpzgl;
+import scsjgl.Scgcgx;
+import scsjgl.Scgcgxnr;
+import scsjgl.Scgxgl_rscjh;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+public class XcckglController extends Controller {
+
+	
+	public void  index(){
+		 
+		setAttr("xcckgl",Xcckgl.me.paginate(getParaToInt(0, 1), 10));
+		render("/xcckgl/Xcckgl_main.html");
+		
+ 	}
+	 
+	public void search(){
+		int ID = getParaToInt("ID");
+		    System.out.println("执行search"+ID);
+		    List<Xcckgl> list =  Xcckgl.me.find("select * from xcckgl where id= '"+ ID+"'");
+		    System.out.println("serch查询到数据有"+list.size());
+			if (list.size() <= 0){
+				renderText("flase");
+			}
+			else{
+				renderText("#xcckgl/aa/");
+			}
+	}
+	
+	public void aa() {
+		int ID = getParaToInt(0);
+		// List<Xcckgl> a=Xcckgl.me.find("select * from xcckgl where id= '"+ ID+"'");
+		
+		//int g=a.size();
+		//System.out.println("数据有--"+g);
+		Page<Xcckgl> pjb=Xcckgl.me.paginateid(1, 10, ID);
+		System.out.println("Page<Xcckgl> pjb"+pjb.getList());
+ 	 	setAttr("xcckgl",pjb);
+		//setAttr("xcckgl",a);
+		 /*int n[]=this.fenye();  //接收分页参数
+			Page<Xcckgl> pjb=Xcckgl.me.paginate(n[0],n[1],"select *","from xcckgl where id= '"+ ID+"'");
+			int z=pjb.getTotalPage();  //得到页面的总数
+			int p=pjb.getTotalRow();   //得到总条数
+			String m=this.fenye(z, n[1],n[0]);
+			setAttr("x",n[0]);
+			setAttr("m",m);
+			List<Xcckgl> a=pjb.getList();
+			setAttr("xcckgl",a);		*/
+//		setAttr("xcckgl",Xcckgl.me.paginate(getParaToInt(0, 1), 2));
+			render("/xcckgl/Xcckgl_main.html");
+
+	}
+	
+ 
+		public void mhquery(){
+	  	   String mc = getPara("CMPC");
+	 
+		    List<Xcckgl> list =  Xcckgl.me.find("select * from xcckgl where cpmc like '%"+mc+"%'");
+		    System.out.println("得到查询结过mhquery"+list.size());
+			if (list.size() <= 0){
+				renderText("flase");
+			}
+			else{
+				renderText("#xcckgl/bb/");
+			}
+	}
+	
+	public void bb() {
+		String mc = getPara(0);
+		
+		setAttr("xcckgl",Xcckgl.me.paginatemh(1, 10, mc));
+		
+		 /*int n[]=this.fenye();  //接收分页参数
+		 System.out.println("执行bb"+mc);
+			Page<Xcckgl> pjb=Xcckgl.me.paginate(n[0],n[1],"select *","from xcckgl where cpmc like '%"+ mc +"%'");
+			  System.out.println("得到查询结过bb"+pjb.getList());
+			int z=pjb.getTotalPage();  //得到页面的总数
+			int p=pjb.getTotalRow();   //得到总条数
+			String m=this.fenye(z, n[1],n[0]);
+			setAttr("x",n[0]);
+			setAttr("m",m);
+			List<Xcckgl> a=pjb.getList();
+			setAttr("xcckgl",a);	*/	
+			render("/xcckgl/Xcckgl_main.html");
+
+	}
+	 
+	 
+ 
+	
+	public void newday(){
+	  	 
+	  	 String cplx = getPara("cplx");
+	  	 System.out.println("newday方法"+cplx);
+		    List<Xcckgl> list =  Xcckgl.me.find("select * FROM xcckgl where rqsj >=date(now()) and"
+		    		+ " rqsj<DATE_ADD(date(now()),INTERVAL 1 DAY) and cplx='"+cplx+"'");
+		    
+		    
+		    
+		    System.out.println("得到查询结过mhquery"+list.size());
+			if (list.size() <= 0){
+				renderText("flase");
+			}
+			else{
+				renderText("#xcckgl/cc/");
+			}
+	}
+	
+	public void cc() {
+		
+		 
+
+		
+		String cplx = getPara(0);
+		System.out.println("cplx="+cplx);
+		 
+		try {
+			cplx = URLDecoder.decode(cplx, "UTF-8");
+		
+		//	cplx=new String(cplx.getBytes("UTF-8")); 
+		
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("cplx="+cplx);
+		setAttr("xcckgl",Xcckgl.me.paginatenewday(1, 10, cplx));
+		
+ 	
+			render("/xcckgl/Xcckgl_main.html");
+
+	}
+/*	 
+	public void add(){
+		 try {
+				Scgcgx scgc = getModel(Scgcgx.class,"scsjgl_scgcgxzu");
+				Xcckgl xc=getModel(Xcckgl.class);
+	     		xc.set("cpmc",scgc.get("cpmc"));
+				xc.set("sczld", scgc.get("sczld"));
+				xc.set("bz",scgc.get("bz"));
+				xc.set("ljh", scgc.get("ljh"));
+				xc.set("khddh",scgc.get("khddh"));
+				xc.set("scpch",scgc.get("scpch"));
+				xc.set("rqsj", new Date());
+				xc.save();
+				
+				
+//				1、根据【生产计划单scjhgl_xsdd】查询【产品编码】（同存货编码chbm）
+
+				String ddh3 =getPara("scsjgl_scgcgxzu.khddh");
+				//Integer ddh2=Integer.valueOf(ddh3);
+				Integer	ddh2=Integer.valueOf(ddh3).intValue();
+				System.out.println("从scsjgl_scgcgxzu获取客户订单号khddh="+ddh2);
+				  //去pdm_gylcpzgl表中有工艺id进行查询
+			 	Scgxgl_rscjh  get_order=Scgxgl_rscjh.me.findFirst("select ddh aa,chbm bb from scjhgl_cprscjh where ddh="+ddh2);
+				
+			 	Object chbm = get_order.get("bb");
+				System.out.println("存货编码="+chbm);   
+				
+//				2、根据【存货编码chbm】查询【工艺管理pdm_gygl】，得到【工艺编码gy_id】
+				pdm_gygl  get_gy=pdm_gygl.dao.findFirst("select * from pdm_gygl where cp_id="+chbm);
+				System.out.println("【【工艺管理pdm_gygl=】"+get_gy);
+				Integer gy_id2=get_gy.getInt("gy_id");
+				
+			    System.out.println("【工艺编码gy_id】"+gy_id2);
+//				3、根据【工艺编码gy_id】，查询【工艺流程配置管理pdm_gylcpzgl(无主键)】
+//				，可以得到【所有的工序】（即工艺流程），找到排序最大的一个
+			    pdm_gylcpzgl  get_gyxh=pdm_gylcpzgl.dao.findFirst("select gylc_id aa from pdm_gylcpzgl where gy_id="+gy_id2+" order by gylc_id desc limit 1;");
+				System.out.println("工艺流程配置管理pdm_gylcpzgl="+get_gyxh);
+			    Integer gylc_id=get_gyxh.getInt("aa");
+			    System.out.println("工艺编码即最后一个工序="+gylc_id);
+//				4、判断当前工序是否与最后一个工序一致				
+				
+				
+				String khddh=scgc.get("khddh");
+				
+		          Scgcgx su = Scgcgxnr.me.findFirst("select scsjgl_scgcgxzu.khddh aa, scsjgl_scgcgxzi.sl bb, scsjgl_scgcgxzi.bhgsl cc , scsjgl_scgcgxzi.gy_id dd "
+		            		+ "from scsjgl_scgcgxzu inner join scsjgl_scgcgxzi on scsjgl_scgcgxzu.khddh = scsjgl_scgcgxzi.khddh"
+		            		+ " where  scsjgl_scgcgxzi.gy_id=" +gylc_id+" and scsjgl_scgcgxzi.khddh='" +khddh+"'");
+		         		   System.out.println("查询数据    :客户订单号"+khddh  +"///查询数据"+su);
+		           
+						Integer sl=su.getInt("bb");
+						Integer bhgsl=su.getInt("cc");
+						 Integer gy_id=su.get("dd");
+						
+						 int hgzl=sl-bhgsl;
+						 
+						 String cplx=String.valueOf(gy_id);
+						  
+					 	 if (cplx==null) {
+					 		cplx="0";
+							}
+						  System.out.println(cplx);
+					 	 switch (cplx){ 
+						 case "0" : cplx="原料"; break; 
+						 case "1" : cplx="半成品"; break; 
+						 case "2" :  cplx="半成品"; break; 
+						 case "3" : cplx="半成品"; break; 
+						 case "4":  cplx="成品"; break; 
+						 default :  cplx="原料"; break; 
+						 } 
+		         		 
+					 	Db.update("update xcckgl set sl= "+sl+" , bhgsl= "+bhgsl+" , hgzl= "+hgzl+" , cplx= '"+cplx+"' where khddh='"+khddh+"'");
+							
+			} catch (Exception e) {
+				System.out.println("现场仓单表添加异常");
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		
+		
+	}
+	
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/*	
+	
+	
+	
+	public void scsjgl() {
+	 System.out.println("/////xcckgl 的ScgcgxController方法");
+ 	List<Scgcgx> bf = Scgcgx.me.find("select*from scsjgl_scgcgxzu");
+	setAttr("scsjgl", bf);
+	System.out.println("得到数据" + bf.size() + "个");
+	render("/scsjgl/Scgcgxtest.html"); 
+	
+}
+	
+ 
+	
+	 
+	  public void scadd(){
+		  System.out.println("///执行scadd");
+		Scgcgx bf=getModel(Scgcgx.class,"scsjgl_scgcgxzu");
+          bf.save();
+          
+          
+        //添加他表内容
+          
+           Xcckgl xc=getModel(Xcckgl.class);
+          String cpmc =getPara("scsjgl_scgcgxzu.cpmc");
+          String sczld =getPara("scsjgl_scgcgxzu.sczld");
+          String bz =getPara("scsjgl_scgcgxzu.bz");
+          String ljh =getPara("scsjgl_scgcgxzu.ljh");
+          String khddh =getPara("scsjgl_scgcgxzu.khddh");
+          String scpch =getPara("scsjgl_scgcgxzu.scpch");
+          
+          String cpbh =getPara("scsjgl_scgcgxzu.cpbh");
+          String gybh =getPara("scsjgl_scgcgxzu.gybh");
+        
+             Date  rqsj =new Date();
+     
+          xc.set("cpmc", cpmc);
+          xc.set("sczld", sczld);
+          xc.set("bz", bz);
+          xc.set("ljh", ljh);
+          xc.set("khddh", khddh);
+          xc.set("scpch", scpch);
+          xc.set("cpbh", cpbh);
+          xc.set("gybh", gybh);
+          数量	sl
+          不合格数量	bhgsl
+          合格总量	hgzl
+          产品类型	cplx
+             
+          xc.set("rqsj", rqsj);
+          
+         //  Db.queryInt(sql);
+          
+          Scgcgx su = Scgcgxnr.me.findFirst("select scsjgl_scgcgxzu.gybh aa, scsjgl_scgcgxzi.sl bb, scsjgl_scgcgxzi.bhgsl cc , scsjgl_scgcgxzi.gy_id dd "
+          		+ "from scsjgl_scgcgxzu inner join scsjgl_scgcgxzi on scsjgl_scgcgxzu.gybh = scsjgl_scgcgxzi.glzb"
+          		+ " where scsjgl_scgcgxzi.glzb='" +gybh+"'");
+//       		List<Scgcgxnr> su = Db.query("select scsjgl_scgcgxzu.gybh, scsjgl_scgcgxzi.sl , scsjgl_scgcgxzi.bhgsl "
+//       				+ "from scsjgl_scgcgxzu inner join scsjgl_scgcgxzi on  scsjgl_scgcgxzu.gybh = scsjgl_scgcgxzi.glzb "
+//       				+ "where scsjgl_scgcgxzi.glzb='" +gybh+"'"); 
+       		 System.out.println("查询数据    :工艺编号"+gybh  +"///查询数据"+su);
+      
+          xc.save();
+          
+          
+             try {
+				String xcgybh=su.get("aa");
+				Integer sl=su.getInt("bb");
+				Integer bhgsl=su.getInt("cc");
+				String gy_id=su.get("dd");
+				 int hgzl=sl-bhgsl;
+				 
+				 
+				 
+			 	 if (gxxh==null) {
+					gxxh="原料";
+				}else {
+					if (gxxh=="4") {
+						gxxh="成品";
+					}
+					gxxh="半成品";
+				} 
+				 
+			 	 if (gy_id==null) {
+			 		gy_id="0";
+					}
+				  System.out.println(gy_id);
+			 	 switch (gy_id){ 
+				 case "0" : gy_id="原料"; break; 
+				 case "1" : gy_id="半成品"; break; 
+				 case "2" :  gy_id="半成品"; break; 
+				 case "3" : gy_id="半成品"; break; 
+				 case "4":  gy_id="成品"; break; 
+				 
+				 default :  gy_id="原料"; break; 
+				 }  
+				 
+				  System.out.println("1=========////" +"=========////"+sl+"=========////"+bhgsl+"=========////gxxh"+gy_id);
+				  
+				  
+				  
+          
+					Db.update("update xcckgl set sl= "+sl+" , bhgsl= "+bhgsl+" , hgzl= "+hgzl+" , cplx= '"+gy_id+"' where gybh='"+xcgybh+"'");
+					
+					
+					
+					
+					
+					
+					
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+             
+			  
+          redirect("/#xcckgl/scsjgl");
+          
+          
+}
+	
+	*/
+	
+}

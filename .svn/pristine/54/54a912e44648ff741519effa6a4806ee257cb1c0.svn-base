@@ -1,0 +1,14 @@
+package sbgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class MoldInfo extends Model<MoldInfo>{
+	public static final MoldInfo dao = new MoldInfo();
+	public void setMoldNo(java.lang.String moldNo) {
+		set("moldNo", moldNo);
+	}
+
+	public java.lang.String getMoldNo() {
+		return get("moldNo");
+	}
+}

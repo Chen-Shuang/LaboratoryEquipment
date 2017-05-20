@@ -1,0 +1,20 @@
+package config;
+
+import scjhgl.CprscjhController;
+import scjhgl.ZzprscjhController;
+import scjhgl.ZzpscddController;
+import scjhgl.XsddController;
+
+import com.jfinal.config.Routes;
+
+public class scjhglConfig extends Routes{
+	public void config() {
+		add("/scjhgl",XsddController.class);
+		
+		add("/cpjh", CprscjhController.class);
+		
+		add("/zzpscdd",ZzpscddController.class);
+		add("/zzprscjh",ZzprscjhController.class );
+
+	}
+}

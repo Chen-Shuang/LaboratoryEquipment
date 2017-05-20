@@ -1,0 +1,55 @@
+package sbgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class EquipmentSpotCheck extends Model<EquipmentSpotCheck>{
+	public static final EquipmentSpotCheck dao = new EquipmentSpotCheck();
+	
+	public void seteSpotNo(java.lang.Integer eSpotNo) {
+		set("eSpotNo", eSpotNo);
+	}
+
+	public java.lang.Integer geteSpotNo() {
+		return get("eSpotNo");
+	}
+
+	public void setENo(java.lang.Integer eNo) {
+		set("eNo", eNo);
+	}
+
+	public java.lang.Integer getENo() {
+		return get("eNo");
+	}
+	public void setESpotContents(java.lang.String eSpotContents) {
+		set("eSpotContents", eSpotContents);
+	}
+
+	public java.lang.String getESpotContents() {
+		return get("eSpotContents");
+	}
+	public void setESpotRecordTime(java.sql.Timestamp eSpotRecordTime) {
+		set("eSpotRecordTime", eSpotRecordTime);
+	}
+
+	public java.sql.Timestamp getESpotRecordTime() {
+		return get("eSpotRecordTime");
+	}
+	
+	public void setESpotRecorder(java.lang.Integer eSpotRecorder) {
+		set("eSpotRecorder", eSpotRecorder);
+	}
+
+	public java.lang.Integer getESpotRecorder() {
+		return get("eSpotRecorder");
+	}
+	
+	public void setESpotAccessory(java.lang.String eSpotAccessory) {
+		set("eSpotAccessory", eSpotAccessory);
+	}
+
+	public java.lang.String getESpotAccessory() {
+		return get("eSpotAccessory");
+	}
+	
+	
+}

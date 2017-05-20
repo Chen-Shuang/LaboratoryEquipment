@@ -1,0 +1,840 @@
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<a class="glyphicon glyphicon-wrench">&nbsp;维护保养记录</a>
+		</li>
+	</ul>
+</div> 
+ <div class="col-xs-12" style="margin-top:10px;">
+   <div class="table-header" >设备鉴定记录表</div>
+<div class="dataTables_wrapper form-inline no-footer">
+	<div class="row">
+ 		<input type="text" placeholder="请输入设备编号" id="seebyebye"class="nav-search-input"  autocomplete="off" name="t_sbbh" value="">
+<script type="text/javascript">
+	$('#seebyebye').blur(function(){
+		var x=$('#seebyebye').val();			//得到文本框的值
+		$.post("JD/seebyebye",{"x":x},function(data){															//&&&&&&&&&&&&&&&&&&&&
+			A001_trList(data.list); 			//此方法用于填充表格
+			A001_writePageFoot(data);			//此方法用于页脚的填充
+		}); 
+	});
+</script>
+		<div class="pull-right">
+				<button class="btn btn-sm btn-primary" style="display:none;" style="margin-right:30px;" onclick="I001();">sss添加鉴定记录</button>
+				<button class="btn btn-sm btn-primary" style="margin-right:30px;" onclick="A002();">添加鉴定记录</button>
+		</div>
+   	    	</div>
+   </div>
+  
+   
+   	<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" aria-describedby="dynamic-table_info" role="grid">
+		<thead>
+			<tr role="row">
+  	 	<td style="width:50px">序号</td>
+		<td>设备编号</td>
+   		<td>设备名称</td>
+   		<td>使用部门</td>
+   		<td>鉴定日期</td>
+   		<td>编制人</td>
+   		<td>审批人</td>
+   		<td>鉴定人</td>
+   		<td>确认人</td>
+   		<td>操作</td>
+   	</tr>
+   			</thead>
+   		<tbody id="A_001_body"></tbody>
+   	</table>
+   	<div class="breadcrumbs" id="breadcrumbs" style="height:38px;">
+		<div class="pull-right"><ul id="A001_foot" class="pagination" style="margin-top:5px">123</ul></div>
+	</div>
+   	</div>
+   	
+   	
+   <!-- 从这里分界，后面的内容都是隐藏的内容   -->	
+    <!-- 从这里分界，后面的内容都是隐藏的内容   -->	
+     <!-- 从这里分界，后面的内容都是隐藏的内容   -->	
+      <!-- 从这里分界，后面的内容都是隐藏的内容   -->	
+<div id="A00Z" style="display:none;">
+      <form  class="form-horizontal" id="Bform">
+        <fieldset class="solid" style="padding-right:20px;">
+        	<div class="form-group" style="margin-top:20px" >
+				<label class="col-sm-2 control-label no-padding-right" >设备编号</label>
+				<div class="col-sm-4">
+					<input type="hidden" name="sbgl_sbjd.id" class="col-xs-12 col-sm-12" id="A4_id"/>
+					<input type="text" name="sbgl_sbjd.t_sbbh" class="col-xs-12 col-sm-12" id="A4_sbbh"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">设备名称</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_sbmc" class="col-xs-12 col-sm-12" id="A4_sbmc"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label no-padding-right" >使用部门</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_sybm" class="col-xs-12 col-sm-12" id="A4_sybm"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">鉴定日期</label>
+				<div class="col-sm-4">
+					<input type="date" name="sbgl_sbjd.t_jdrq" class="col-xs-12 col-sm-12" id="A4_jdrq"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label no-padding-right" >编制人</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_bzr" class="col-xs-12 col-sm-12" id="A4_bzr"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">审批人</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_spr" class="col-xs-12 col-sm-12" id="A4_spr"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label no-padding-right" >鉴定人</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_jdr" class="col-xs-12 col-sm-12" id="A4_jdr"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">确认人</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_qrr" class="col-xs-12 col-sm-12" id="A4_qrr"/>
+				</div>
+			</div>
+            </fieldset>
+            <div class="col-sm-12" style="margin-top:30px;">
+				<button class="btn btn-info" type="button" onclick="H003()" style="margin-left:150px;">
+					<i class="ace-icon fa fa-check bigger-110"></i>
+					提交
+				</button>
+				<button class="btn" type="reset" style="margin-left:100px;">
+					<i class="ace-icon fa fa-check bigger-110"></i>
+					重置
+				</button>
+			</div>
+		  
+</form>
+</div>
+<script type="text/javascript">
+  function H003(){
+  	if(H003_jy()){
+  	$.post("JD/H00F",$("#Bform").serialize(),function(data){	
+		layer.close(X001);		//关闭弹窗                             												////////////////////////////////
+		A001(1);				//刷新页面
+	});
+  	}else{}
+  }
+  function H003_jy(){
+				var a=document.getElementById("A4_sbbh").value;
+				var b=document.getElementById("A4_sbmc").value;
+				var c=document.getElementById("A4_sybm").value;
+				var d=document.getElementById("A4_jdrq").value;
+				var e=document.getElementById("A4_bzr").value;
+				var f=document.getElementById("A4_spr").value;
+				var g=document.getElementById("A4_jdr").value;
+				var h=document.getElementById("A4_qrr").value;
+				if((a&&b&&c&&d&&e&&f&&g&&h)==""){layer.msg("有空值哦！"); return false; }else{return true;}
+			}
+</script>
+  <div id="A002"  style="display:none;">
+<form  class="form-horizontal" id="Aform">
+        <fieldset class="solid" style="padding-right:20px;">
+        	<div class="form-group" >
+        	<div class="col-md-offset-0 col-md-12">
+					<button type="button" class="btn btn-info" onclick="A003()" style="float:left;">
+						选择设备
+					</button>
+				</div>
+		    </div>
+        	<div class="form-group" style="margin-top:20px" >
+				<label class="col-sm-2 control-label no-padding-right" >设备编号</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_sbbh" class="col-xs-12 col-sm-12" id="A3_sbbh"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">设备名称</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_sbmc" class="col-xs-12 col-sm-12" id="A3_sbmc"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label no-padding-right" >使用部门</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_sybm" class="col-xs-12 col-sm-12" id="A3_sybm"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">鉴定日期</label>
+				<div class="col-sm-4">
+					<input type="date" name="sbgl_sbjd.t_jdrq" class="col-xs-12 col-sm-12" id="A3_jdrq"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label no-padding-right" >编制人</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_bzr" class="col-xs-12 col-sm-12" id="A3_bzr"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">审批人</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_spr" class="col-xs-12 col-sm-12" id="A3_spr"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label no-padding-right" >鉴定人</label>
+				<div class="col-sm-4">
+					<input type="text" name="sbgl_sbjd.t_jdr" class="col-xs-12 col-sm-12" id="A3_jdr"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">确认人</label>
+				<div class="col-sm-4">
+					<input type="date" name="sbgl_sbjd.t_qrr" class="col-xs-12 col-sm-12" id="A3_qrr"/>
+				</div>
+			</div>
+            </fieldset>
+            <div class="col-sm-12" style="margin-top:30px;">
+				<button class="btn btn-info" type="button" onclick="H002()" style="margin-left:150px;">
+					<i class="ace-icon fa fa-check bigger-110"></i>
+					提交
+				</button>
+				<button class="btn" type="reset" style="margin-left:100px;">
+					<i class="ace-icon fa fa-check bigger-110"></i>
+					重置
+				</button>
+			</div>
+		  
+</form>
+  </div>
+<script type="text/javascript">//表单的提交
+			function H002(){
+				if(H002_jy()){
+	$.post("JD/H00H",$("#Aform").serialize(),function(data){			
+		layer.close(X001);		//关闭弹窗
+		A001(1);				//刷新页面
+	});
+				}else{}
+			}
+			function H002_jy(){
+				var a=document.getElementById("A3_sbbh").value;
+				var b=document.getElementById("A3_sbmc").value;
+				var c=document.getElementById("A3_sybm").value;
+				var d=document.getElementById("A3_jdrq").value;
+				var e=document.getElementById("A3_bzr").value;
+				var f=document.getElementById("A3_spr").value;
+				var g=document.getElementById("A3_jdr").value;
+				var h=document.getElementById("A3_qrr").value;
+				if((a&&b&&c&&d&&e&&f&&g&&h)==""){layer.msg("有空值哦！"); return !true; }else{return true;}
+			}
+
+
+</script>
+
+
+ 	
+<div id="B_003"style="width:600px; height:300px;margin:20px;display:none;overflow:hidden;">
+    <div class="table-header">设备信息简表</div>
+    <div class="breadcrumbs">
+    	<div class="pull-left" style="margin-left:10px;" >查询
+    		<input style="height:30px;" id="C001" type="text" placeholder="离开文本框后自动查询"/>
+    	</div>
+    </div>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" aria-describedby="dynamic-table_info" role="grid">
+		<thead>
+			<tr role="row">
+				<th style="width:50px">序号</th>
+				<th>设备编号</th>
+				<th>设备名称</th>
+				<th>设备类型</th>
+				<th>规格型号</th>
+				<th>使用部门</th>
+			</tr>
+		</thead>
+		<tbody id="B_001_body"></tbody>
+	</table>
+<div class="breadcrumbs" id="breadcrumbs" style="height:38px;">
+		<div class="text-center"><ul id="B001_foot" class="pagination" style="margin-top:5px">123</ul></div>
+</div>
+</div> 	
+   	
+<script>
+
+
+ C002(1);		//这个是页面的初始化~~~~~~
+ function C002(n){		//这里回调后台的数据，因此我用B来表示  所有的页码用参数n来表示出来
+ 	$.post("WH/B001",{"n":n},function(data){
+ 		B001_trList(data.list); //此方法用于填充表格
+		B001_writePageFoot(data); //此方法用于填充页脚
+ 	});
+ };
+function B001_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += B001_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#B_001_body").html(dataStr);						//这里是正式填充的语句！！！！！
+
+};
+function B001_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr onclick="B001_click(\''+v.t_sbbh+'\',\''+v.t_sbmc+'\',\''+v.t_sblx+'\',\''+v.t_ggxh+'\',\''+v.t_sybm+'\')">';
+	dataStr += '<td>' + i + '</td>';
+	dataStr += '<td>' + v.t_sbbh + '</td>';
+	dataStr += '<td>' + v.t_sbmc + '</td>';
+	dataStr += '<td>' + v.t_sblx + '</td>';
+	dataStr += '<td>' + v.t_ggxh + '</td>';
+	dataStr += '<td>' + v.t_sybm + '</td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+
+function B001_click(a,b,c,d,e){
+	layer.close(A_003);
+	document.getElementById("A3_sbbh").value=a;
+	document.getElementById("A3_sbmc").value=b;
+	document.getElementById("A3_sybm").value=e;
+};
+function B001_writePageFoot(data){   //填充页码部分的内容！！！！
+  	var n="";
+  	var x=data.PageNumber;			
+  	if(x=1){x=1;}else{x-=1;}			//此时x为前一页
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.PageNumber){
+			n +="<li class=\"active\" onclick=\"B001_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"B001_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	$("#B001_foot").html(n);       									//替换的语句
+  };
+  function B001_pageChange(n) {  
+	$.post("WH/B001",{"n": n},function(data){
+		B001_trList(data.list); //此方法用于填充表格
+		B001_writePageFoot(data); //此方法用于填充页脚
+	});
+};
+  $("#C001").blur(			//查询框儿失去焦点就运行下面的函数
+	function(){
+		var x=document.getElementById("C001").value;
+		$.post("WH/C001",{"n":1,"x":x},function(data){		//最初为是第一页
+ 		B001_trList(data.list); //此方法用于填充表格
+		B001_writePageFoot(data); //此方法用于填充页脚
+		});	
+	});	
+var A_003="";
+function A003(){
+  A_003=layer.open({
+ 	 	type: 1,
+  		title: '请选择设备', //不显示标题
+  		content:$('#B_003'),
+  		area: ['640px', '400px'],
+  		scrollbar: false
+  		});
+}
+
+
+
+var X001="";
+function A002(){
+		X001=layer.open({
+		 	 	type: 1,
+		  		title: '添加鉴定记录', //不显示标题
+		  		content:$('#A002'),
+		  		area: ['600px', '400px']
+		  		});
+};
+A001(1);
+function A001(n){                                                             //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$.post("JD/A001",{"n":n},function(data){
+			A001_trList(data.list); //此方法用于填充表格
+			A001_writePageFoot(data);	//此方法用于页脚的填充
+	});
+}
+function A001_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += A001_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#A_001_body").html(dataStr);						//这里是正式填充的语句！！！！！
+
+};
+function A001_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + i + '</td>';
+	dataStr += '<td>' + v.t_sbbh + '</td>';
+	dataStr += '<td>' + v.t_sbmc + '</td>';
+	dataStr += '<td>' + v.t_sybm + '</td>';
+	dataStr += '<td>' + v.t_jdrq + '</td>';
+	dataStr += '<td>' + v.t_bzr + '</td>';
+	dataStr += '<td>' + v.t_spr + '</td>';
+	dataStr += '<td>' + v.t_jdr + '</td>';
+	dataStr += '<td>' + v.t_qrr + '</td>';
+	dataStr += '<td><a class="blue" href="javascript:B001(\''+v.id+'\',\''+v.t_sbbh+'\',\''+v.t_sbmc+'\',\''+v.t_sybm+'\',\''+v.t_jdrq+'\')"><i class="ace-icon fa fa-search-plus bigger-130"></i></a>';
+	dataStr += '&nbsp;<a class="blue" href="javascript:Z00B(\''+v.id+'\')"><i class="ace-icon glyphicon glyphicon-search bigger-130"></i></a>';
+	dataStr += '&nbsp;<a class="red" href="javascript:Z00A(\''+v.id+'\',\''+v.t_sbbh+'\',\''+v.t_sbmc+'\',\''+v.t_sybm+'\',\''+v.t_jdrq+'\',\''+v.t_bzr+'\',\''+v.t_spr+'\',\''+v.t_jdr+'\',\''+v.t_qrr+'\')"><i class="ace-icon glyphicon glyphicon-pencil bigger-130"></i></a>';
+	dataStr += '<a class="red" href="javascript:Z00C(\''+v.id+'\')"><i class="ace-icon fa fa-trash-o bigger-130" style="margin-left:10px;"></i></a></td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+function Z00C(x){
+	$.post("JD/Z00C",{"x":x},function(data){				//删除数据库相关表的内容
+				A001(1);											//这里是更新项目          *********************
+	});
+};
+var X001="";
+function Z00B(x){		//填充zb
+	$.post("JD/Z00B",{"x":x},function(data){
+		$("#zba").html(data.t_sbmc); 
+		$("#zbb").html(data.t_sbbh); 
+		$("#zbc").html(data.t_sybm); 
+		$("#zbd").html(data.t_jdrq); 
+		$("#zbe").html(data.t_bzr); 
+		$("#zbf").html(data.t_spr); 
+		$("#zbg").html(data.t_jdr); 
+		$("#zbh").html(data.t_qrr); 
+	});
+	Z00Ba(x);
+	Z00Bb(x);
+	X001=layer.open({
+		 	 	type: 1,
+		  		title: '设备鉴定记录表', //不显示标题
+		  		content:$('#Z00B'),
+		  		area: ['900px', '500px']
+		  		});
+};
+
+function Z00Ba(x){       //参数为外键的id                                                      //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$.post("JD/Z00Ba",{"x":x},function(data){    //需要返回一个list对象
+			Z00Ba_trList(data);
+	});
+}
+function Z00Ba_trList(data) { 
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += Z00Ba_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#Z00Ba").html(dataStr);						//这里是正式填充的语句！！！！！
+};
+function Z00Ba_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td colspan="6" style="text-align:center;" >' + v.t_zyjdxm + '</td>';
+	dataStr += '<td colspan="3" style="text-align:center;">' + v.t_yc + '</td>';
+	dataStr += '<td colspan="3" style="text-align:center;">' + v.t_sc + '</td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+
+
+function Z00Bb(x){       //参数为外键的id                                                      //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$.post("JD/Z00Bb",{"x":x},function(data){    //需要返回一个list对象
+			Z00Bb_trList(data);
+	});
+}
+function Z00Bb_trList(data) { 
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += Z00Bb_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#Z00Bb").html(dataStr);						//这里是正式填充的语句！！！！！
+};
+function Z00Bb_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td colspan="4" style="text-align:center;" >' + v.t_sjjc + '</td>';
+	dataStr += '<td colspan="4" style="text-align:center;">' + v.t_sjyqbz + '</td>';
+	dataStr += '<td colspan="4" style="text-align:center;">' + v.t_sjyzjg + '</td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+</script>
+<div id="Z00B" style="display:none;">
+<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" style="overflow:hidden;">	
+			<tbody>
+				<tr role="row">
+					<td colspan="1"style="width:7.5%">设备名称</td>
+					<td colspan="2" style="width:15%" id="zba"></td>
+					<td colspan="1" style="width:7.5%">设备编号</td>
+					<td colspan="2" style="width:15%" id="zbb"></td>
+					<td colspan="1" style="width:7.5%">使用部门</td>
+					<td colspan="2" style="width:15%" id="zbc"></td>
+					<td colspan="1" style="width:7.5%">鉴定日期</td>
+					<td colspan="2" style="width:15%" id="zbd"></td>
+				</tr>
+				<tr role="row">
+					<td colspan="12" style="text-align:center;width:100%">设备精度检查记录</td>
+				</tr>
+				<tr role="row">
+					<td colspan="6" style="text-align:center;">主要精度项目</td>
+					<td colspan="3" style="text-align:center;">允差</td>
+					<td colspan="3" style="text-align:center;">实测</td>
+				</tr>
+			</tbody>
+			<tbody id="Z00Ba"></tbody>
+			<tbody>
+				<tr role="row">
+					<td colspan="4" style="text-align:center;">试件检查</td>
+					<td colspan="4" style="text-align:center;">试件要求标准</td>
+					<td colspan="4" style="text-align:center;">试件验证结果</td>
+				</tr>
+			</tbody>
+			<tbody id="Z00Bb"></tbody>
+</table>
+<div style="margin-top:20px;">
+<div style="float:left;margin-left:50px;">编制：</div><div style="float:left;width:150px;" id="zbe">&nbsp;</div>
+<div style="float:left;margin-left:30px;">审批：</div><div style="float:left;width:150px;" id="zbf">&nbsp;</div>
+<div style="float:left;margin-left:30px;">鉴定：</div><div style="float:left;width:150px;" id="zbg">&nbsp;</div>
+<div style="float:left;margin-left:30px;">确认：</div><div style="float:left;width:150px;" id="zbh">&nbsp;</div>
+</div>
+</div>
+<script type="text/javascript">
+function Z00A(a,b,c,d,e,f,g,h,i){
+	document.getElementById("A4_id").value=a;
+	document.getElementById("A4_sbbh").value=b;
+	document.getElementById("A4_sbmc").value=c;
+	document.getElementById("A4_sybm").value=d;
+	document.getElementById("A4_jdrq").value=e;
+	document.getElementById("A4_bzr").value=f;
+	document.getElementById("A4_spr").value=g;
+	document.getElementById("A4_jdr").value=h;
+	document.getElementById("A4_qrr").value=i;
+	X001=layer.open({
+		 	 	type: 1,
+		  		title: '修改鉴定记录', //不显示标题
+		  		content:$('#A00Z'),
+		  		area: ['600px', '400px']
+		  		});
+}
+
+
+
+function A001_writePageFoot(data){   //填充页码部分的内容！！！！
+  	var n="";
+    var x=data.pageNumber;
+    if(x==1){x=1;}else{x=x-1;};				//x为上一页
+    var y=data.pageNumber+1;
+    if(y>data.totalPage){y=data.totalPage;}else{};		//y为下一页
+    n +="<li onclick=\"A001_pageChange("+x+")\"><a>"+"上一页"+"</a></li>&nbsp;&nbsp;";
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.pageNumber){
+			n +="<li class=\"active\" onclick=\"A001_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"A001_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	n +="<li onclick=\"A001_pageChange("+y+")\"><a>"+"下一页"+"</a></li>&nbsp;&nbsp;";
+	$("#A001_foot").html(n);       									//替换的语句
+  };
+function A001_pageChange(n) {  
+	$.post("JD/A001",{"n": n},function(data){
+		A001_trList(data.list); //此方法用于填充表格
+		A001_writePageFoot(data); //此方法用于填充页脚
+	});
+};
+
+
+
+
+
+var a="";
+function B001(x,a,b,c,d){
+	document.getElementById("Aid").value=x;
+	a=layer.open({
+ 	 	type: 1,
+  		title: '设备鉴定记录详细', //不显示标题
+  		content:$('#B_001'),
+  		area: ['1000px', '600px']
+  		});
+  		C001(1,x);//这里写加载信息
+  		D001(1,x);//加载另一块儿的内容
+}
+
+
+
+
+function C001(n,m){                                                             //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$.post("JD/C001",{"n":n,"m":m},function(data){
+			C001_trList(data); //此方法用于填充表格
+	});
+}
+function C001_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += C001_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#C_001_body").html(dataStr);						//这里是正式填充的语句！！！！！
+
+};
+function C001_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + i + '</td>';
+	dataStr += '<td>' + v.t_zyjdxm + '</td>';
+	dataStr += '<td>' + v.t_yc + '</td>';
+	dataStr += '<td>' + v.t_sc + '</td>';
+	dataStr += '<td>';
+	dataStr += '<a class="red" href="javascript:E001(\''+v.id+'\')"><i class="ace-icon fa fa-trash-o bigger-130" style="margin-left:10px;"></i></a></td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+
+
+
+function D001(n,m){                                                             //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$.post("JD/D001",{"n":n,"m":m},function(data){
+			D001_trList(data); //此方法用于填充表格
+	});
+}
+function D001_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += D001_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#D_001_body").html(dataStr);						//这里是正式填充的语句！！！！！
+
+};
+function D001_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + i + '</td>';
+	dataStr += '<td>' + v.t_sjjc + '</td>';
+	dataStr += '<td>' + v.t_sjyqbz + '</td>';
+	dataStr += '<td>' + v.t_sjyzjg + '</td>';
+	dataStr += '<td>';
+	dataStr += '<a class="red" href="javascript:F001(\''+v.id+'\')"><i class="ace-icon fa fa-trash-o bigger-130" style="margin-left:10px;"></i></a></td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+function E001(x){
+	$.post("JD/E001",{"x":x},function(data){
+		C001(1,data);//这里面返回这一条的外键的tId值来进行刷新
+	});
+};
+function F001(x){
+	$.post("JD/F001",{"x":x},function(data){
+		D001(1,data);//这里面返回这一条的外键的tId值来进行刷新
+	});
+};
+function G001(d){
+	
+	var a=document.getElementById("Ajd").value;
+	var b=document.getElementById("Ayc").value;
+	var c=document.getElementById("Asc").value;
+	var d=document.getElementById("Aid").value;
+	if(a==""||b==""||c==""){layer.msg("有空值哦！");}else{
+		$.post("JD/G001",{"sbgl_s_jdjc.t_id":d,"sbgl_s_jdjc.t_zyjdxm":a,"sbgl_s_jdjc.t_yc":b,"sbgl_s_jdjc.t_sc":c},function(data){
+			C001(1,d);//这里面返回这一条的外键的tId值来进行刷新
+		});
+	}	
+};
+function H001(d){
+	
+	var a=document.getElementById("Asjjc").value;
+	var b=document.getElementById("Asjyq").value;
+	var c=document.getElementById("Asjyz").value;
+	var d=document.getElementById("Aid").value;
+	if(a==""||b==""||c==""){layer.msg("有空值哦！");}else{
+		$.post("JD/H001",{"sbgl_s_sjjc.t_id":d,"sbgl_s_sjjc.t_sjjc":a,"sbgl_s_sjjc.t_sjyqbz":b,"sbgl_s_sjjc.t_sjyzjg":c},function(data){
+			D001(1,d);//这里面返回这一条的外键的tId值来进行刷新
+		});
+	}	
+};
+var b="";
+function I001(){
+	b=layer.open({
+		 	 	type: 1,
+		  		title: '添加鉴定记录', //不显示标题
+		  		content:$('#I_001'),
+		  		area: ['1000px', '700px']
+		  		});
+}
+J001(1);
+function J001(n){                                                             //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$.post("JD/J001",{"n":n},function(data){
+			J001_trList(data); //此方法用于填充表格
+	});
+}
+function J001_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += J001_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#J_001_body").html(dataStr);						//这里是正式填充的语句！！！！！
+
+};
+function J001_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr onclick="K001_click(\''+v.t_sbbh+'\',\''+v.t_sbmc+'\',\''+v.t_sybm+'\')">';
+	dataStr += '<td>' + i + '</td>';
+	dataStr += '<td>' + v.t_sbbh + '</td>';
+	dataStr += '<td>' + v.t_sbmc + '</td>';
+	dataStr += '<td>' + v.t_sybm + '</td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+function K001_click(a,b,c){
+	document.getElementById("A2_sbbh").value=a;
+	document.getElementById("A2_sbmc").value=b;
+	document.getElementById("A2_sybm").value=c;
+};
+function L001(){
+	var a=document.getElementById("A2_sbbh").value;
+	var b=document.getElementById("A2_sbmc").value;
+	var c=document.getElementById("A2_sybm").value;
+	var d=document.getElementById("A2_jdrq").value;
+	var e=document.getElementById("A2_bzr").value;
+	var f=document.getElementById("A2_spr").value;
+	var g=document.getElementById("A2_jdr").value;
+	var h=document.getElementById("A2_qrr").value;
+	if(a==""||b==""||c==""||d==""||e==""||f==""||g==""||h==""){layer.msg("有空值哦！");}else{
+		$.post("JD/H001",{"sbgl_s_sjjc.t_id":d,"sbgl_s_sjjc.t_sjjc":a,"sbgl_s_sjjc.t_sjyqbz":b,"sbgl_s_sjjc.t_sjyzjg":c},function(data){
+			D001(1,d);//这里面返回这一条的外键的tId值来进行刷新
+		});
+	}
+}
+</script>
+
+<div id="B_001" style="display:none;">
+<div class="dataTables_wrapper form-inline no-footer">
+	<div class="row">
+		<input type="hidden" class="nav-search-input"  autocomplete="off" id="Aid" value="">
+ 		主要精度项目<input type="text" class="nav-search-input"  autocomplete="off" id="Ajd" value="">
+ 		允差<input type="text"  class="nav-search-input"  autocomplete="off" id="Ayc" value="">
+ 		实测<input type="text"  class="nav-search-input"  autocomplete="off" id="Asc" value="">
+		<div class="pull-right">
+				<button class="btn btn-sm btn-primary" style="margin-right:30px;" onclick="G001();">添加精度检查记录</button>
+		</div>
+   	</div>
+<div style="height:200px;overflow:auto;">
+<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" style="overflow:hidden;">	
+			<thead>
+				<tr role="row">
+					<th style="width:50px">序号</th>
+					<th>主要精度项目</th>
+					<th>允差</th>
+					<th>实测</th>
+					<th style="width:50px">操作</th>
+				</tr>
+			</thead>
+			<tbody id="C_001_body"></tbody>
+</table>
+</div>
+</div>
+<div class="dataTables_wrapper form-inline no-footer">
+	<div class="row">
+ 		试件检查<input type="text" class="nav-search-input"  autocomplete="off" id="Asjjc" value="">
+ 	          试件要求标准<input type="text"  class="nav-search-input"  autocomplete="off" id="Asjyq" value="">
+ 		试件验证结果<input type="text"  class="nav-search-input"  autocomplete="off" id="Asjyz" value="">
+		<div class="pull-right">
+				<button class="btn btn-sm btn-primary" style="margin-right:30px;" onclick="H001();">添加试件记录</button>
+		</div>
+   	</div>
+<div style="height:200px;overflow:auto;">
+<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" style="overflow:hidden;">	
+			<thead>
+				<tr role="row">
+					<th style="width:50px">序号</th>
+					<th>试件检查</th>
+					<th>试件要求标准</th>
+					<th>试件验证结果</th>
+					<th style="width:50px">操作</th>
+				</tr>
+			</thead>
+			<tbody id="D_001_body"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<div id="I_001" style="display:none;">
+<div class="table-header">设备信息简表</div>
+    <div class="breadcrumbs">
+    	<div class="pull-left" style="margin-left:10px;" >查询
+    		<input style="height:30px;" id="J001" type="text" placeholder="离开文本框后自动查询"/>
+    	</div>
+    </div>
+    <table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" aria-describedby="dynamic-table_info" role="grid">
+		<thead>
+			<tr role="row">
+				<th style="width:50px">序号</th>
+				<th>设备编号</th>
+				<th>设备名称</th>
+				<th>使用部门</th>
+			</tr>
+		</thead>
+		<tbody id="J_001_body"></tbody>
+	</table>
+<form  class="form-horizontal">
+        <fieldset class="solid" style="margin:15px;border:1px #c0c0c0 solid;padding:20px;">
+        	<div class="form-group">
+				<label class="col-sm-1 control-label no-padding-right" >设备编号</label>
+				<div class="col-sm-5">
+					<input type="text" class="col-xs-12 col-sm-12" id="A2_sbbh"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right">设备名称</label>
+				<div class="col-sm-5">
+					<input type="text" class="col-xs-12 col-sm-12" id="A2_sbmc"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label no-padding-right" >使用部门</label>
+				<div class="col-sm-5">
+					<input type="text" class="col-xs-12 col-sm-12" id="A2_sybm"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right">鉴定日期</label>
+				<div class="col-sm-5">
+					<input type="date" class="col-xs-12 col-sm-12" id="A2_jdrq"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label no-padding-right" >编制人</label>
+				<div class="col-sm-5">
+					<input type="text" class="col-xs-12 col-sm-12" id="A2_bzr"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right">审批人</label>
+				<div class="col-sm-5">
+					<input type="text" class="col-xs-12 col-sm-12" id="A2_spr"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label no-padding-right" >鉴定人</label>
+				<div class="col-sm-5">
+					<input type="text" class="col-xs-12 col-sm-12" id="A2_jdr"/>
+				</div>
+				<label class="col-sm-1 control-label no-padding-right">确认人</label>
+				<div class="col-sm-5">
+					<input type="date" class="col-xs-12 col-sm-12" id="A2_qrr"/>
+				</div>
+			</div>
+            </fieldset>
+            <div class="col-sm-12">
+				<button class="btn btn-info" onclick="L001()">
+					<i class="ace-icon fa fa-check bigger-110"></i>
+					提交
+				</button>
+				<button class="btn" type="reset">
+					<i class="ace-icon fa fa-check bigger-110"></i>
+					重置
+				</button>
+			</div>
+		    </div>
+</form>
+</div>

@@ -1,0 +1,135 @@
+package scsjgl;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import pdm.pdm_gygl;
+import pdm.pdm_gylcpzgl;
+import xcckgl.Xccylxx;
+import xtgl.Role;
+import xtgl.User;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.generator.DataDictionaryGenerator;
+import com.jfinal.render.Render;
+import com.mysql.jdbc.DatabaseMetaData;
+
+public class ScgcgxController extends Controller {
+	private Integer bzzz;
+	private Integer czy_bh;
+	private Integer jjy_bh;
+	private Integer bz;
+	private String username;
+
+	public void index() {
+		// 先判断是角色 首先要获取角色编号
+		List<Role> get_bzzz = Role.dao
+				.find("select * from role where role_name=?","班组组长");// 获取班组组长角色编号
+		Role getbzzz = get_bzzz.get(0);
+		bzzz = getbzzz.get("role_id");
+		System.out.println("返回部门组长角色ID "+bzzz);
+		List<Role> get_bzczy = Role.dao
+				.find("select * from role where role_name=?","操作员");// 获取班组操作员角色编号
+		Role getczz = get_bzczy.get(0);
+		czy_bh = getczz.get("role_id");
+		System.out.println("返回操作员角色ID "+czy_bh);
+		List<Role> get_bzjyy = Role.dao
+				.find("select * from role where role_name=?","检验员");// 获取班组检验员角色编号
+		Role getjjy = get_bzjyy.get(0);
+		jjy_bh = getjjy.get("role_id");
+		System.out.println("返回检验员角色ID "+jjy_bh);
+		
+		User user = (User) getSession().getAttribute("user");// 获取用户登录信息
+
+		user.get("role_id");// 获取角色编号
+		bz=user.get("dept_id");// 获取部门编号
+		System.out.println("返回登陆人部门ID   "+bz);
+		System.out.println("返回登陆人角色ID   "+user.get("role_id"));
+		user.get("username");// 获取登陆人用户名 在操作员和检验员可直接加入
+		if ((user.get("role_id")).equals(bzzz)) {
+			List<Scgxgl_rscjh> scgxgl_rscjhs = Scgxgl_rscjh.me
+					.find("select * FROM scjhgl_cprscjh where jhqrxdsj >=date(now()) and jhqrxdsj<DATE_ADD(date(now()),INTERVAL 1 DAY) and scbzbh="
+							+ bz);
+			setAttr("scgxgl_rscjhs", scgxgl_rscjhs);
+			System.out.println(scgxgl_rscjhs);
+			render("/scsjgl/scgcgx.html");
+		}//查询日生产计划订单，生成
+		else if((user.get("role_id")).equals(czy_bh)) {
+			render("/scsjgl/scgcgx.html");
+		}
+		else if((user.get("role_id")).equals(jjy_bh)) {
+			render("/scsjgl/scgcgx.html");
+		}
+	}
+
+	// 执行查找添加方法
+	public void add_select() {
+		System.out.println("############");
+		// 查询人员
+		List<User> get_czy = User.dao.find("select * from user where dept_id="
+				+ bz + " and role_id=" + czy_bh);
+		List<User> get_jyy = User.dao.find("select * from user where dept_id="
+				+ bz + " and role_id=" + jjy_bh);
+
+		// 这个暂时没时间就先不写了
+		List<Scgxgl_rscjh> get_order = Scgxgl_rscjh.me
+				.find("select * from scjhgl_cprscjh where ddh="
+						+ getPara("ddh"));
+		Scgxgl_rscjh get_today = get_order.get(0);
+
+		String chmc = get_today.get("chmc");// 获取产品名称
+		System.out.println("产品名称是  " + chmc);
+		long chbm = get_today.get("chbm");// 获取产品编码
+
+		Date jhqrxdsj = get_today.getDate("jhqrxdsj");
+		String scpch = bz + "-" + chbm + "-" + jhqrxdsj;
+		get_today.put("scpch", scpch);
+
+		Object get_shangbiao = get_today;
+		// 去pdm_gygl表中由产品名称进行查询工艺编号
+		List<pdm_gygl> get_gy_id = pdm_gygl.dao
+				.find("select * from pdm_gygl where cp_id=" + chbm);
+		System.out.println(get_gy_id);
+		pdm_gygl get_need_gy_id = get_gy_id.get(0);
+		int get_gy_id1 = get_need_gy_id.getInt("gy_id");
+
+		// 去pdm_gylcpzgl表中有工艺id进行查询
+		List<pdm_gylcpzgl> get_gy = pdm_gylcpzgl.dao
+				.find("select * from pdm_gylcpzgl where gy_id=" + get_gy_id1);
+
+		// 添加到一个map里面，然后json返回
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("shangbiao", get_shangbiao);
+		System.out.println(get_today);
+		map.put("xiabiao", get_gy);
+		map.put("czy", get_czy);
+		map.put("jyy", get_jyy);
+
+		renderJson(map);// 这里面要添加这个返回值
+		System.out.println("传到前台上表数据数据是   " + map);
+		System.out.println("-----------------------");
+	}
+	// 像生产过程流转卡添加数据
+	public void save_order() throws UnsupportedEncodingException {
+		Scgcgx scgcgx = getModel(Scgcgx.class, "scsjgl_scgcgxzu");
+		scgcgx.save();
+		String ddh = getPara("scsjgl_scgcgxzu.khddh");
+		System.out.println(ddh);
+		int num = getParaToInt("num");
+		System.out.println(num);
+		for (int i = 0; i < num; i++) {
+			String name = "scsjgl_scgcgxzi" + i;
+			Scgcgxnr scgcgxnr = getModel(Scgcgxnr.class, name);
+			scgcgxnr.set("khddh", ddh);
+			scgcgxnr.save();
+		}
+		redirect("/#scgcgx");
+	}
+
+}

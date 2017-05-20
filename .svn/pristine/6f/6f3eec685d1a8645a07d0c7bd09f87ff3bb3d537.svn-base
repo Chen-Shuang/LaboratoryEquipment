@@ -1,0 +1,77 @@
+package xtgl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
+import xtgl.Privilege;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class PrivilegeController extends Controller {
+
+	// ��תqxgl.html
+	public void index() {
+		setAttr("list", Privilege.dao.getPrivilege());
+		render("/xtgl/qxgl.html");
+	}
+
+	public void sele() {
+		List<Object> listpri=new ArrayList<Object>();
+		Map<String, Object> map=new HashMap<String, Object>();
+		List<Privilege> privileges=Privilege.dao.find("select * from privilege");
+		int n = getParaToInt("pageNumber", 1);
+
+		if (getPara("seletype").equals("status")) {
+			if (getPara("selevalue").equals("启用")) {
+				Page<Privilege> list = Privilege.dao.paginate(n, 10,
+						"select *", "from privilege where status=true");
+				map.put("privileges", privileges);
+				map.put("list", list);
+				listpri.add(map);
+				renderJson(listpri);
+			} else if (getPara("selevalue").equals("停用")) {
+				Page<Privilege> list = Privilege.dao.paginate(n, 10,
+						"select *", "from privilege where status=false");
+				map.put("privileges", privileges);
+				map.put("list", list);
+				listpri.add(map);
+				renderJson(listpri);
+			} else {
+				Page<Privilege> list = Privilege.dao.paginate(n, 10,
+						"select *", "from privilege");
+				map.put("privileges", privileges);
+				map.put("list", list);
+				listpri.add(map);
+				renderJson(listpri);
+			}
+
+		} else {
+			Page<Privilege> list = Privilege.dao.paginate(n, 10, "select *",
+					"from privilege where " + getPara("seletype") +" like '%"+ getPara("selevalue")+"%' ");
+			map.put("privileges", privileges);
+			map.put("list", list);
+			listpri.add(map);
+			renderJson(listpri);
+		}
+		if (getPara("selevalue").equals("")) {
+			renderJson(listpri);
+		}
+
+	}
+
+	public void pagedemo() {
+		List<Object> listpri=new ArrayList<Object>();
+		Map<String, Object> map=new HashMap<String, Object>();
+		List<Privilege> privileges=Privilege.dao.find("select * from privilege");
+		int n = getParaToInt("pageNumber");
+		Page<Privilege> list = Privilege.dao.paginate(n, 10, "select *",
+				"from privilege");
+		map.put("privileges", privileges);
+		map.put("list", list);
+		listpri.add(map);
+		renderJson(listpri);
+	}
+}

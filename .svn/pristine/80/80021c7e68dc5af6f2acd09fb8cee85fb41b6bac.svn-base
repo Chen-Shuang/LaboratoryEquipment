@@ -1,0 +1,24 @@
+package xtgl;
+
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Model;
+
+public class Role_Privilege extends Model<Role_Privilege> {
+
+	public static final Role_Privilege dao = new Role_Privilege();
+
+	public int deleteDeptPrivilegeByRoleId(Integer roleId) {
+		return Db
+				.update("delete from role_privilege where role_id = ?", roleId);
+	}
+
+	public void updateDeptPrivilege(Integer roleId, Integer[] ids) {
+		deleteDeptPrivilegeByRoleId(roleId);
+		for (int i = 0; i < ids.length; i++) {
+			Role_Privilege rp = new Role_Privilege();
+			rp.set("role_id", roleId).set("privilege_id", ids[i]);
+			rp.save();
+		}
+	}
+
+}

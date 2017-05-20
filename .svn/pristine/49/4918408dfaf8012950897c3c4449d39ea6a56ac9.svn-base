@@ -1,0 +1,55 @@
+package sbgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class EquipmentMaintenance extends Model<EquipmentMaintenance>{
+	public static final EquipmentMaintenance dao = new EquipmentMaintenance();
+	
+	public void setEFlowNO(java.lang.Integer eFlowNO) {
+		set("eFlowNO", eFlowNO);
+	}
+
+	public java.lang.Integer getEFlowNO() {
+		return get("eFlowNO");
+	}
+
+	public void setENo(java.lang.Integer eNo) {
+		set("eNo", eNo);
+	}
+
+	public java.lang.Integer getENo() {
+		return get("eNo");
+	}
+	public void setEMeContents(java.lang.String eMeContents) {
+		set("eMeContents", eMeContents);
+	}
+
+	public java.lang.String getEMeContents() {
+		return get("eMeContents");
+	}
+	public void setErecordTime(java.sql.Timestamp eRecordTime) {
+		set("eRecordTime", eRecordTime);
+	}
+
+	public java.sql.Timestamp getERecordTime() {
+		return get("eRecordTime");
+	}
+	
+	public void setERecorder(java.lang.Integer eRecorder) {
+		set("eRecorder", eRecorder);
+	}
+
+	public java.lang.Integer getERecorder() {
+		return get("eRecorder");
+	}
+	
+	public void setEAccessory(java.lang.String eAccessory) {
+		set("eAccessory", eAccessory);
+	}
+
+	public java.lang.String getEAccessory() {
+		return get("eAccessory");
+	}
+	
+	
+}

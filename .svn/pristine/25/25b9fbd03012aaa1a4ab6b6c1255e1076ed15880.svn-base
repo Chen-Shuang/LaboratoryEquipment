@@ -1,0 +1,104 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">现场仓库管理</a>
+		</li>
+
+		<li><span>现场仓成品信息</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+	<script type="text/javascript">
+		function search(){
+		
+		 	var ID = $("#id").val();
+		    /* alert(ID); */
+			$.post("xcccpxx/search/",
+				{
+					ID : ID,
+				},
+				function(data){
+					if(data=="flase"){
+						alert("无结果！");
+						window.location = "#xcccpxx/";
+					}
+					else{
+
+						window.location = data + ID;
+					}
+				}
+				
+			);
+		}
+	</script>
+
+
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+
+			<div class="table-header">现场仓成品信息记录表</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<div id="dynamic-table_length" class="dataTables_length">
+				   <div >
+							  <input type="search" id="id"   placeholder="输入 查询信息" aria-controls="dynamic-table"/>
+							 <button type="button" class="btn btn-info" onclick="search();">模糊查询</button>
+							 
+							  
+                                </div>
+						 
+					</div>
+				</div>
+
+
+			</div>
+
+			<div class="table-responsive">
+
+				<table id="sample-table-2"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+
+
+
+						<tr>
+							<th>序 号</th>
+							<th>产品名称</th>
+							<th>生产指令单</th>
+							<th>班组</th>
+							<th>产品数量</th>
+							<th>客户订单号</th>
+							<th>生产批次</th>
+							<th>日期时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<#list xcccpxx.getList() as q>
+						<tr>
+							<td>${q.id!}</td>
+							<td>${q.cpmc!}</td>
+							<td>${q.sczld!}</td>
+							<td>${q.bz!}</td>
+							<td>${q.sl!}</td>
+							<td>${q.khddh!}</td>
+							<td>${q.scpc!}</td>
+							<td>${q.rqsj!}</td>
+						</tr>
+						</#list>
+					</tbody>
+				</table>
+			</div>
+			
+						<div class="text-right">
+						<#include "/WEB-INF/common/_paginate.html" />
+						<@paginate currentPage=xcccpxx.pageNumber totalPage=xcccpxx.totalPage actionUrl="#xcccpxx/" />
+						<!--  actionUrl 示例方法写在index中，未配置路由因此不填，若配置路由分页调用的action不在index方法中，应为“路由/方法名/” 如：teacher/toThesisList/  -->
+					</div>
+			
+		</div>
+	</div>
+</div>

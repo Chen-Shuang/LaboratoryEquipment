@@ -1,0 +1,147 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="gzgl" class="_p">工装管理</a>
+		</li>
+		<li>
+			<span>工装基本信息</span>
+		</li>		
+	</ul><!-- /.breadcrumb -->
+</div> 
+	<form action="gzgl/save" method="post" enctype="multipart/form-data" id="a" class="form-horizontal">
+	<fieldset class="solid">
+<div id="col-xs-12">
+
+
+	<div class="page-header">
+	<h1>
+		工装基本信息添加表单 <i class="ace-icon fa fa-angle-double-right"></i>
+	</h1>
+	</div>
+
+		   				<input type="hidden" name="mold.moldNo" value="newadd" required>
+			
+			
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">模具名称</label>
+		<div class="col-sm-9">			
+				<input type="text" class="col-xs-10 col-sm-5" name="mold.moldName" value="" required>
+		</div>
+	</div>
+	
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">模具材料类型</label>
+		<div class="col-sm-9">			
+				<select id="x_x" name="mold.moldMaterialType" class="col-xs-10 col-sm-5">
+					<option value="1">塑胶模具类</option>
+					<option value="2">五金模具类</option>
+					<option value="3">橡胶模具类</option>
+					<option value="4">压铸模具类</option>
+					<option value="0">其他</option>
+				</select>
+		</div>
+	</div>
+	
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">模具类别</label>
+		<div class="col-sm-9">			
+				<select id="x_x" name="mold.moldType" class="col-xs-10 col-sm-5">
+					<option value="1">塑料三版模</option>
+					<option value="2">塑胶二版模</option>
+					<option value="3">五金单冲模</option>
+					<option value="4">五金连续模</option>
+					<option value="0">其他</option>
+				</select>
+		</div>
+	</div>
+	
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">制作时间</label>
+		<div class="col-sm-9">			
+				<input type="text" class="col-xs-10 col-sm-5" name="mold.makeDate" value="" required onkeyup="this.value=value.replace(/[^0-9]/gi,'')" size="4" maxlength="4" >
+		</div>
+	</div>	
+	
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">设计顺序编号</label>
+		<div class="col-sm-9">			
+				<input type="text" class="col-xs-10 col-sm-5" name="mold.designNo" value="" required onkeyup="this.value=value.replace(/[^0-9]/gi,'')" size="2" maxlength="2" >
+		</div>
+	</div>
+	
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">创建时间:</label>
+		<div class="col-sm-9">
+		<label class="col-xs-10 col-sm-2 control-label">${.now}</label>
+		</div>
+	</div>
+	
+	
+	<input type="hidden" name="mold.createTime" value="${.now}" required>
+	
+	
+	<div class="form-group">
+		<lable class="col-sm-3 control-label no-padding-right">创建人:</lable>
+		<div class="col-sm-9">
+		<label class="control-label">41</label>
+		</div>
+	</div>
+	
+	
+	<input type="hidden" name="mold.creator" value="41" required>
+	
+	
+	<div class="form-group">
+		<lable class="col-sm-3 control-label no-padding-right">图纸上传</lable>
+		<div class="col-sm-9">
+		<input type="file" name="paper" class="col-xs-10 col-sm-2">
+		</div>
+	</div>
+	
+	
+		   
+	<div class="form-group">
+		<lable class="col-sm-3 control-label no-padding-right">模具状态</lable>
+		<div class="col-sm-9">
+		<div class="col-sm-1 control-label no-padding-left">
+		<input type="radio" class="ace" name="mold.moldStatus" value=1> 
+		<span class="lbl"> 启用</span>
+		</div>
+		<div class="col-sm-2 control-label no-padding-left">
+		<input type="radio" class="ace" name="mold.moldStatus" value=0>
+		<span class="lbl"> 禁用</span>
+		</div>
+		</div>
+	</div>	
+	
+			
+			<div class="col-md-offset-3 col-md-9">
+			<button class="btn btn-info" type="submit" id="b">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+					提交
+			</button>
+			&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+			<button class="btn" type="reset">
+				<i class="ace-icon fa fa-undo bigger-110"></i>
+					重置
+			</button>
+		</div>	
+				
+
+				
+
+			
+</div>
+	</fieldset>
+	</form>
+

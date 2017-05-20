@@ -1,0 +1,83 @@
+package scgygl;
+
+import java.util.List;
+
+ 
+import com.jfinal.core.Controller;
+  
+ 
+
+
+public class LsgyxxController extends Controller {
+	public void  index(){
+		
+		List<Lsgyxx> scgygl_lsgyxx = Lsgyxx.me.find("select*from scgygl_lsgyxx");
+		setAttr("scgygl_lsgyxx", scgygl_lsgyxx);
+		System.out.println("得到数据" + scgygl_lsgyxx.size() + "个");
+		render("/scgygl/lsgyxx_main.html");
+	}
+
+	public void lsdel() {
+		Lsgyxx.me.deleteById(getPara(0));
+		 System.out.println(getPara(0));
+	     redirect("/#lsgyxx/index");
+	}
+	
+	public void lsadd() {
+		System.out.println("执行增加方法");
+		Lsgyxx  scgygl_lsgyxx=getModel(Lsgyxx.class,"scgygl_lsgyxx");	 
+		scgygl_lsgyxx.save();
+		 redirect("/#lsgyxx/index");
+	}
+	
+	public void lsgetid() {
+	 
+		Lsgyxx scgygl_lsgyxx =Lsgyxx.me.findById(getPara(0));
+		
+		 
+		setAttr("scgygl_lsgyxx",scgygl_lsgyxx);	
+		 
+		 
+		//System.out.println(scgygl_lsgyxx.getStr("gybh"));
+		 render("/scgygl/lsgyxx_update.html");
+		//redirect("/scgygl/lsgyxx_query.html");
+		
+	}
+	
+	
+	public void lsquery() {
+		 
+	/*	Lsgyxx scgygl_lsgyxx =Lsgyxx.me.findById(getPara("scgygl_lsgyxx.gybh"));
+		
+		 
+		 setAttr("scgygl_lsgyxx",scgygl_lsgyxx);	
+		 
+		 
+		System.out.println(scgygl_lsgyxx.getStr("gybh"));
+		//render("/scgygl/lsgyxx_update.html");
+		redirect("/scgygl/lsgyxx_query.html");*/
+		
+		Lsgyxx scgygl_lsgyxx =Lsgyxx.me.findById(getPara(0));
+		
+		 System.out.println("	///////////////Lsgyxx scgygl_lsgyxx =Lsgyxx.me.findById(getPara(0));");
+		setAttr("scgygl_lsgyxx",scgygl_lsgyxx);	
+		 System.out.println("	/////////////setAttr( scgygl_lsgyxx ,scgygl_lsgyxx);	");
+		 
+		//System.out.println(scgygl_lsgyxx.getStr("gybh"));
+		//render("/scgygl/lsgyxx_update.html");
+		 render("/scgygl/lsgyxx_query.html");
+		
+		
+	}
+	
+	
+	
+	public void lsupdate() {
+		Lsgyxx  scgygl_lsgyxx=getModel(Lsgyxx.class,"scgygl_lsgyxx");
+		Lsgyxx   lsgyxx=getModel(Lsgyxx.class,"scgygl_lsgyxx");
+		scgygl_lsgyxx=lsgyxx;
+		scgygl_lsgyxx.update();
+		redirect("/#lsgyxx/index");
+		
+	}
+}

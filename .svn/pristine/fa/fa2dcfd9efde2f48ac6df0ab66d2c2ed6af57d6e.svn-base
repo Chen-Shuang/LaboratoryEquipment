@@ -1,0 +1,8 @@
+package scjhgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Rkd extends Model < Rkd> {
+	public static final Rkd dao =new Rkd();
+
+}

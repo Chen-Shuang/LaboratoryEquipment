@@ -1,0 +1,15 @@
+package xtgl;
+
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Model;
+
+public class Dept_Role extends Model<Dept_Role> {
+	
+	public static final Dept_Role dao=new Dept_Role();
+
+	//根据roleId删除dept_role
+	public void deleteDeptRole(Integer roleId){
+		Db.update("delete from dept_role where role_id=" + roleId);
+	}
+	
+}

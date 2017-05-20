@@ -1,0 +1,17 @@
+package config;
+
+
+import scsjgl.Bcpxlbzzjl;
+import scsjgl.Scgcgx;
+import scsjgl.Scgcgxnr;
+
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+
+
+public class scsjgl {
+	public static void addMap(ActiveRecordPlugin arp1){
+		arp1.addMapping("scgygl_bcpxlbzzjl", "id", Bcpxlbzzjl.class);
+		arp1.addMapping("scsjgl_scgcgx","gxkbh",Scgcgx.class );
+		arp1.addMapping("scsjgl_scgcgxlzknr","gxkbh" ,Scgcgxnr.class);
+	}
+} 

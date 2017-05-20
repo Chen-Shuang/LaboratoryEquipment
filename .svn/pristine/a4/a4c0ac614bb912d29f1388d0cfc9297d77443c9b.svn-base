@@ -1,0 +1,16 @@
+package scsjgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class GwqxjlController extends Controller {
+	public void index(){
+		List<Gwqxjl> qzdfbjsc = Gwqxjl.me.find("select*from scsjgl_gwqxjl");
+		setAttr("qzdfbjsc", qzdfbjsc);
+		System.out.println("得到数据" + qzdfbjsc.size() + "个");
+		  
+		renderFreeMarker("/scsjgl/gwqxjl.html");
+	}
+
+}

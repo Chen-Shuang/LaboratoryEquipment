@@ -1,0 +1,9 @@
+package pdm;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class pdm_gygl extends Model<pdm_gygl> {
+	
+	public static final pdm_gygl dao=new pdm_gygl();
+	
+}

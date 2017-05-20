@@ -1,0 +1,15 @@
+package config;
+
+
+import scgygl.Lsgyxx;
+import scgygl.Scgcgylc;
+
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+
+public class scgygl {
+	
+	public static void addMap(ActiveRecordPlugin arp){
+		arp.addMapping("scgygl_lsgyxx", "gybh", Lsgyxx.class);
+		arp.addMapping("scgygl_scgcgylc","gybh",Scgcgylc.class );
+	}
+}

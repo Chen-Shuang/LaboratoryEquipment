@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>updaterEquipmentSpotCheck.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script language = "JavaScript" src="/js/checkAddForm.js"></script>
+  </head>
+  
+  <body>
+   <form action="/mes/equipmentSpotChecks/update" method="post" name="addForm" >
+		<fieldset class="solid">
+	<legend>equipmentSpotCheck</legend>
+	<input type="hidden" name="equipmentSpotCheck.eSpotNo" value="${(equipmentSpotCheck.eSpotNo)!}" />
+	<div>
+		<label>设备编号</label>
+		<input type="text" name="equipmentSpotCheck.eNo" value="${(equipmentSpotCheck.eNo)!}" />
+	</div>
+	<div>
+		<label>维护内容</label>
+		<textarea name="equipmentSpotCheck.eSpotContents" cols="80" rows="10">${(equipmentSpotCheck.eSpotContents)!}</textarea>
+	</div>
+	<div>
+		<label>记录时间</label>
+		<input type="text" name="equipmentSpotCheck.eSpotRecordTime" value="${(equipmentSpotCheck.eSpotRecordTime)!}" />
+	</div>
+	<div>
+		<label>记录人员</label>
+		<input type="text" name="equipmentSpotCheck.eSpotRecorder" value="${(equipmentSpotCheck.eSpotRecorder)!}" />
+	</div>
+	<div>
+		<label>附件</label>
+		<input type="text" name="equipmentSpotCheck.eSpotAccessory" value="${(equipmentSpotCheck.eSpotAccessory)!}" />
+	</div>
+	<div>
+		<label>&nbsp;</label>
+		<input value="确定" type="submit" onClick="return checkAddForm()"/>
+	</div>
+</fieldset>
+	</form>
+  </body>
+</html>

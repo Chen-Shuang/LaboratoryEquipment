@@ -1,0 +1,334 @@
+package scjhgl;
+
+//import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import scjhgl.Xsdd;
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+public class ZzpscddController extends Controller {
+	
+	public void index(){
+		
+		Date date=new Date();//获取时间
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd ");//转换格式
+		SimpleDateFormat df2=new SimpleDateFormat("yyyyMMdd ");//转换格式
+		String dt=df.format(date);
+		String dt2=df2.format(date);
+		setAttr("shijian", dt);
+		setAttr("rscjhbh", dt2);
+		 render("/scjhgl/zzpscdd.html");
+	    }
+	
+	public void Tbody_list1(){
+		 Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","FROM scjhgl_zzpscdd where ddzt='未排产' && ypcs=0 ORDER BY ddh asc");   //未排产
+		 List<Xsdd> xsdd = Xsdd.dao.find("select * from scjhgl_xsdd");
+		 List<Kcxx> kcxx = Kcxx.dao.find("select * from scjhgl_kcxx");
+		 Map<String, Object> map1= new HashMap<String, Object>();
+			map1.put("paginate", dataPage);
+			map1.put("xsdd", xsdd);
+			map1.put("kcxx", kcxx);
+			List<Object> data = new ArrayList<Object>();
+			data.add(map1);
+			renderJson(data);
+	}
+	public void Tbody_list2(){
+		Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","FROM scjhgl_zzpscdd where ddzt='已排产' ORDER BY ddh asc");   //已排产
+		 List<Xsdd> xsdd = Xsdd.dao.find("select * from scjhgl_xsdd");
+		 List<Kcxx> kcxx = Kcxx.dao.find("select * from scjhgl_kcxx");
+		 Map<String, Object> map1= new HashMap<String, Object>();
+			map1.put("paginate", dataPage);
+			map1.put("xsdd", xsdd);
+			map1.put("kcxx", kcxx);
+			List<Object> data = new ArrayList<Object>();
+			data.add(map1);
+			renderJson(data);
+	}
+	public void Tbody_list3(){
+		Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","FROM scjhgl_zzpscdd where ddzt='已闭单' ORDER BY ddh asc");   //已闭单
+		List<Xsdd> xsdd = Xsdd.dao.find("select * from scjhgl_xsdd");
+		 List<Kcxx> kcxx = Kcxx.dao.find("select * from scjhgl_kcxx");
+		 Map<String, Object> map1= new HashMap<String, Object>();
+			map1.put("paginate", dataPage);
+			map1.put("xsdd", xsdd);
+			map1.put("kcxx", kcxx);
+			List<Object> data = new ArrayList<Object>();
+			data.add(map1);
+			renderJson(data);
+	}
+/*	public void getMenuList() {
+		List dataList = Db.find("select * from ac_act");
+		Map<String, Object> resp = new HashMap<String, Object>();
+		resp.put("code", 0);
+		resp.put("content", dataList);
+		renderJson(resp);
+	}
+
+	public void console() {
+		// renderFreeMarker("console.html");
+		renderFreeMarker("console.html");
+	}
+*/
+	public void ReturnJson() {
+		renderJson(Zzpscdd.dao.findById(getParaToInt("id")));
+	}
+	
+	public void c() { // 增
+		getModel(Zzpscdd.class).save();
+		redirect("/#zzpscdd/index");
+	}
+
+	public void u() { // 改1
+		Zzpscdd zzpscdd=getModel(Zzpscdd.class,"scjhgl_zzpscdd");
+		zzpscdd.update();
+		redirect("/#zzpscdd");
+	}
+	
+	public void u1() { // 改2	
+		Zzpscdd zzpscdd=getModel(Zzpscdd.class,"scjhgl_zzpscdd");
+		zzpscdd.update();
+		redirect("/#zzpscdd");
+	}
+
+	public void d() { // 删
+		Zzpscdd.dao.deleteById(getPara("id"));
+		renderText("success");
+	}
+
+	public void yrks(){    		//插入更新 已入库数
+		Integer id = getParaToInt(0);
+		Integer yrks = getParaToInt("yrks");
+		Zzpscdd.dao.findById(id).set("yrks",yrks).update();
+		redirect("/#zzpscdd/index");
+	}
+	
+	
+	public void PC1(){      					 //初次排产 待排产->已排产
+		
+		
+		
+        String idlist =getPara("idlist");
+		
+		System.out.println(idlist);
+		String ids[]=idlist.split(",");
+		
+		SimpleDateFormat ddd = new SimpleDateFormat("yyyy-MM-dd");
+		String dt=ddd.format(new Date());
+		List<Zzprscjh>ccpp=Zzprscjh.dao.find("select * from scjhgl_zzprscjh where rscjhbh='"+dt+"' and scbzbh=10 ");
+		int tt=ccpp.size();//先获得原有数据的条数
+		
+		for (int j = 0; j < ids.length; j++) {
+			int id=Integer.valueOf(ids[j]);
+			System.out.println(id);
+		Zzpscdd.dao.findById(id).set("ddzt","已排产").update();     			 //-----------------------------------更改订单状态
+		
+		Zzprscjh jh = new Zzprscjh();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Zzpscdd column1 =Zzpscdd.dao.findByIdLoadColumns (id, "ddh,zjbm,scsl"); 		//从自制品生产订单表中获取某一id行的数据
+		jh.set("zxbh",j+1+tt)//执行编号自动加1
+		  .set("ddh",column1.getLong("ddh"))    	 //取得数据
+		  .set("zjbm",column1.getLong("zjbm"))    //子件编码
+		  .set("rscjhbh",df.format(new Date()))            //插入 日生产计划表 中时的时间=日生产计划编号
+		  .set("pcsl",column1.getInt("scsl"));	     //默认为订单数量 _次排产数量
+		jh.save();         			 					 //----------------------------------------------向 自制品生产计划表 插入 数据
+	}
+		renderText("success");
+}
+	
+	public void PC2(){       // 已排产->已排产
+		
+		
+		
+       String idlist =getPara("idlist");
+		
+		System.out.println(idlist);
+		String ids[]=idlist.split(",");
+		
+		SimpleDateFormat ddd = new SimpleDateFormat("yyyy-MM-dd");
+		String dt=ddd.format(new Date());
+		List<Zzprscjh>ccpp=Zzprscjh.dao.find("select * from scjhgl_zzprscjh where rscjhbh='"+dt+"' and scbzbh=10 ");
+		int tt=ccpp.size();//先获得原有数据的条数
+		for (int j = 0; j < ids.length; j++) {
+			int id=Integer.valueOf(ids[j]);
+			System.out.println(id);
+		Zzprscjh jh = new Zzprscjh();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Zzpscdd column1 =Zzpscdd.dao.findByIdLoadColumns (id, "ddh,zjbm,scsl"); 		//从自制品生产订单表中获取某一id行的数据
+		jh.set("zxbh",j+1+tt)//执行编号自动加1
+		  .set("ddh",column1.getLong("ddh"))  
+		//取得数据
+		  .set("zjbm",column1.getLong("zjbm"))    //子件编码
+		  .set("rscjhbh",df.format(new Date()))            //插入 日生产计划表 中时的时间=日生产计划编号
+		  .set("pcsl",column1.getInt("scsl"));	     //默认为订单数量 _次排产数量
+		jh.save();         			 					 //----------------------------------------------向 自制品生产计划表 插入 数据
+		}	
+		renderText("success");
+		
+}
+	
+	public void BD(){
+		Integer id = getParaToInt(0);
+		Zzpscdd.dao.findById(id).set("ddzt","已闭单").set("bdrq",new Date()).update();
+		redirect("/#zzpscdd/index");
+	}
+	
+	public void sele1() {//未排产
+		String ddh=getPara("ddh");
+		String zjbm=getPara("zjbm");
+		String zjmc=getPara("zjmc");
+		Page<Zzpscdd> s = null;
+		if(ddh.equals("")&&zjbm.equals("")&&zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='未排产' ");
+		}else if(!ddh.equals("")&&zjbm.equals("")&&zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='未排产' and ddh='"+ddh+"' ");
+		}else if(ddh.equals("")&&!zjbm.equals("")&&zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='未排产' and zjbm='"+zjbm+"' ");
+		}else if(ddh.equals("")&&zjbm.equals("")&&!zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='未排产' and zjmc like '%"+zjmc+"%' ");
+		}
+		
+		
+	    List<Xsdd> or=Xsdd.dao.find("select * from scjhgl_xsdd");
+	    List<Kcxx> kc=Kcxx.dao.find("select * from scjhgl_kcxx");
+		Map<String, Object> map1= new HashMap<String, Object>();
+		map1.put("paginate", s);
+		map1.put("xsdd", or);
+		map1.put("kcxx", kc);
+		List<Object> data = new ArrayList<Object>();
+		data.add(map1);
+		renderJson(data);
+		
+
+	}
+	
+	public void sele2() {//已排产
+		String ddh=getPara("ddh");
+		String zjbm=getPara("zjbm");
+		String zjmc=getPara("zjmc");
+		Page<Zzpscdd> s = null;
+		if(ddh.equals("")&&zjbm.equals("")&&zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='已排产' ");
+		}else if(!ddh.equals("")&&zjbm.equals("")&&zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='已排产' and ddh='"+ddh+"' ");
+		}else if(ddh.equals("")&&!zjbm.equals("")&&zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='已排产' and zjbm='"+zjbm+"' ");
+		}else if(ddh.equals("")&&zjbm.equals("")&&!zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='已排产' and zjmc like '%"+zjmc+"%' ");
+		}
+		
+		
+	    List<Xsdd> or=Xsdd.dao.find("select * from scjhgl_xsdd");
+	    List<Kcxx> kc=Kcxx.dao.find("select * from scjhgl_kcxx");
+		Map<String, Object> map1= new HashMap<String, Object>();
+		map1.put("paginate", s);
+		map1.put("xsdd", or);
+		map1.put("kcxx", kc);
+		List<Object> data = new ArrayList<Object>();
+		data.add(map1);
+		renderJson(data);
+		
+
+	}	
+	
+	
+	public void sele3() {//已闭单
+		String ddh=getPara("ddh");
+		String zjbm=getPara("zjbm");
+		String zjmc=getPara("zjmc");
+		Page<Zzpscdd> s = null;
+		if(ddh.equals("")&&zjbm.equals("")&&zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='已闭单' ");
+		}else if(!ddh.equals("")&&zjbm.equals("")&&zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='已闭单' and ddh='"+ddh+"' ");
+		}else if(ddh.equals("")&&!zjbm.equals("")&&zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='已闭单' and zjbm='"+zjbm+"' ");
+		}else if(ddh.equals("")&&zjbm.equals("")&&!zjmc.equals("")){
+			s=Zzpscdd.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","from scjhgl_zzpscdd where ddzt='已闭单' and zjmc like '%"+zjmc+"%' ");
+		}
+		
+		
+	    List<Xsdd> or=Xsdd.dao.find("select * from scjhgl_xsdd");
+	    List<Kcxx> kc=Kcxx.dao.find("select * from scjhgl_kcxx");
+		Map<String, Object> map1= new HashMap<String, Object>();
+		map1.put("paginate", s);
+		map1.put("xsdd", or);
+		map1.put("kcxx", kc);
+		List<Object> data = new ArrayList<Object>();
+		data.add(map1);
+		renderJson(data);
+		
+
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+//	public void search1() throws UnsupportedEncodingException{     		// search for 未排产
+//		String require =getPara("require","");  	//得到result的值  默认值问"" 
+//		Page<?> dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd where ddzt='未排产' && ddh like '%"+require+"%' ORDER BY ddh asc");
+//		if(dataPage.getList().isEmpty()){               //第一次搜索为空
+//				dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd where ddzt='未排产' && zjbm like '%"+require+"%' ORDER BY ddh asc");
+//					if(dataPage.getList().isEmpty()){          //第二次搜索为空
+//						dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd where ddzt='未排产' && zjmc like '%"+require+"%' ORDER BY ddh asc");
+//						if(dataPage.getList().isEmpty()){         //如果第三个条件也为空
+//							dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd ddzt='未排产' ORDER BY ddh asc");
+//						}  
+//					}
+//				}              
+//		renderJson(dataPage);
+//	}
+//	public void search2() throws UnsupportedEncodingException{     		// search for 已排产
+//		String require =getPara("require","");  	//得到result的值  默认值问"" 
+//		Page<?> dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd where ddzt='已排产' && ddh like '%"+require+"%' ORDER BY ddh asc");
+//		if(dataPage.getList().isEmpty()){               //第一次搜索为空
+//				dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd where ddzt='已排产' && khjc like '%"+require+"%' ORDER BY ddh asc");
+//					if(dataPage.getList().isEmpty()){          //第二次搜索为空
+//						dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd where ddzt='已排产' && chbm like '%"+require+"%' ORDER BY ddh asc");
+//						if(dataPage.getList().isEmpty()){         //如果第三个条件也为空
+//							dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd ddzt='已排产' ORDER BY ddh asc");
+//						}  
+//					}
+//				}              
+//		renderJson(dataPage);
+//	}
+//	public void search3() throws UnsupportedEncodingException{     		// search for 已闭单
+//		String require =getPara("require","");  	//得到result的值  默认值问"" 
+//		Page<?> dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd where ddzt='已闭单' && ddh like '%"+require+"%' ORDER BY ddh asc");
+//		if(dataPage.getList().isEmpty()){               //第一次搜索为空
+//				dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd where ddzt='已闭单' && khjc like '%"+require+"%' ORDER BY ddh asc");
+//					if(dataPage.getList().isEmpty()){          //第二次搜索为空
+//						dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd where ddzt='已闭单' && chbm like '%"+require+"%' ORDER BY ddh asc");
+//						if(dataPage.getList().isEmpty()){         //如果第三个条件也为空
+//							dataPage=Db.paginate(getParaToInt("pageNumer",1), 4, "select *", "from scjhgl_zzpscdd ddzt='已闭单' ORDER BY ddh asc");
+//						}  
+//					}
+//				}              
+//		renderJson(dataPage);
+//	}
+	
+	
+ }
+	
+	
+	
+	
+	
+	
+	
+	
+
+

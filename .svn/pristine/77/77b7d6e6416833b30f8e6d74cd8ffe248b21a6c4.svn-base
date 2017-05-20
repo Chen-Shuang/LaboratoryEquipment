@@ -1,0 +1,25 @@
+package config;
+
+
+import scjhgl.Bom;
+import scjhgl.Kcxx;
+import scjhgl.Rkd;
+import scjhgl.Xsdd;
+import scjhgl.Zzprscjh;
+import scjhgl.Zzpscdd;
+
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+
+public class scjhgl {
+	public static void addMap(ActiveRecordPlugin arp){
+		arp.addMapping("scjhgl_zzprscjh",  Zzprscjh.class);
+		arp.addMapping("scjhgl_xsdd",  Xsdd.class);
+		arp.addMapping("scjhgl_bom",  Bom.class);
+		arp.addMapping("scjhgl_kcxx", Kcxx.class);
+		arp.addMapping("scjhgl_rkd", Rkd.class);
+		arp.addMapping("scjhgl_zzpscdd", Zzpscdd.class);
+
+		
+	}
+
+}

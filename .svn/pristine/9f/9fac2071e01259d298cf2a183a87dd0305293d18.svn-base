@@ -1,0 +1,57 @@
+package sbgl;
+
+import java.util.List;
+import java.util.regex.Pattern;
+
+import com.jfinal.core.Controller;
+
+public class EquipmentSpotCheckController extends Controller{
+	public void index(){
+		List<EquipmentSpotCheck> list = EquipmentSpotCheck.dao.find("select * from equipmentSpotCheck");
+		setAttr("equipmentSpotChecklist",list);
+		render("/sbgl/equipmentSpotCheck.html");
+	}
+	public void add(){
+		render("/sbgl/addViewEquipmentSpotCheck.html");
+	}
+	public void updater() {
+		setAttr("equipmentSpotCheck", EquipmentSpotCheck.dao.findById(getParaToInt()));
+		render("/sbgl/updaterEquipmentSpotCheck.html");
+	}
+	public void update(){
+		EquipmentSpotCheck equipmentSpotCheck = getModel(EquipmentSpotCheck.class);
+		equipmentSpotCheck.update();
+		redirect("/#equipmentSpotChecks/index");
+	}
+	public void select(){
+		String _id =(String)getPara("option");
+		if(_id!=null && !_id.equals("")){
+			if(isNumeric(_id)){
+				List<EquipmentSpotCheck> list = EquipmentSpotCheck.dao.find("select * from equipmentMaintenance where eFlowNO= "+_id);
+				setAttr("EquipmentSpotCheckslist",list);
+				render("/sbgl/selectEquipmentSpotCheck.html");
+			}else{
+				List<EquipmentInfo> li = EquipmentInfo.dao.find("select moldNo from equipmentInfo where eName like '%"+_id+"%'");
+				EquipmentInfo equipmentInfo =(EquipmentInfo)li.get(0);
+				System.out.println(equipmentInfo);
+				int in = (int) equipmentInfo.getENo();
+				System.out.println(in);
+				List<EquipmentSpotCheck> list =EquipmentSpotCheck.dao.find("select * from equipmentSpotCheck where eNo="+in);
+				setAttr("EquipmentSpotCheckslist",list);
+				render("/sbgl/selectEquipmentSpotCheck.html");
+		   }
+	   }else{
+			System.out.println("fdghjkl");
+			render("/sbgl/selectViewEquipmentSpotCheck.html");
+		 }
+	}
+	public void save(){
+		EquipmentSpotCheck equipmentSpotCheck = getModel(EquipmentSpotCheck.class);
+		equipmentSpotCheck.save();
+		redirect("/#equipmentSpotChecks/index");
+	}
+	public static boolean isNumeric(String str){ 
+	     Pattern pattern = Pattern.compile("[0-9]*"); 
+	     return pattern.matcher(str).matches();    
+	} 
+}

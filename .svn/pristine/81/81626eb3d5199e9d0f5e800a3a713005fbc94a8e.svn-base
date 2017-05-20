@@ -1,0 +1,759 @@
+
+<!-- /section:basics/sidebar -->
+<div class="main-content">									<!-- main_content -->
+	<div class="main-content-inner">
+		<!-- #section:basics/content.breadcrumbs -->
+		<div class="breadcrumbs" id="breadcrumbs">
+			<script type="text/javascript">
+				try {
+					ace.settings.check('breadcrumbs', 'fixed')
+				} catch (e) {
+				}
+			</script>
+
+			<ul class="breadcrumb">       					<!-- bread_crumb -->
+				<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a>
+				</li>
+
+				<li><a href="#">统计表</a></li>
+				<li class="#">管理</li>
+			</ul>
+			<!-- /.breadcrumb -->
+
+
+			<!-- #section:basics/content.searchbox -->
+			<!-- <div class="nav-search" id="nav-search">		search
+				//查找
+				<form class="form-search">
+					<span class="input-icon"> <input type="text"
+						placeholder="查找..." class="nav-search-input" id="nav-search-input"
+						autocomplete="off" /> <i
+						class="ace-icon fa fa-search nav-search-icon"></i> </span>
+				</form>
+			</div> -->
+			<!-- /.nav-search -->
+			
+
+			<!-- /section:basics/content.searchbox -->
+		</div>
+		
+		<!-- /section:basics/content.breadcrumbs -->
+		<div class="page-content">
+		<div class="pull-right">
+			<a href="#" class="btn btn-mini btn-primary">导入订单信息</a>
+			<a href="scjhgl/scjh.html" class="_p btn btn-mini btn-primary">下达生产计划</a>
+		</div>
+			<!-- //表格 -->
+			<div class="row">
+				<div class="col-xs-12">
+					<!-- PAGE CONTENT BEGINS -->
+					<table id="grid-table"></table>			<!--table-content  -->
+					<!-- //grid-table -->
+					<div id="grid-pager"></div>   			<!-- split_page -->
+					<!-- //grid-pager -->
+					
+					<!-- <script type="text/javascript">
+						var $path_base = "..";//in Ace demo this will be used for editurl parameter
+					</script> -->
+					
+					<!-- PAGE CONTENT ENDS -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.page-content -->
+
+
+	</div>
+</div>
+<!-- /.main-content -->
+
+<a href="#" id="btn-scroll-up"
+	class="btn-scroll-up btn btn-sm btn-inverse"> <i
+	class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i> </a>
+</div>
+<!-- /.main-container -->
+
+<!-- inline scripts related to this page -->
+<!-- //内联页面 -->
+<script type="text/javascript">
+	var grid_data = [ {
+		id: "m1", 
+		ddbh : "20160725001",
+		ddlx : "制造订单",
+		ddjb : "1级",
+		khbh : "000105",
+		khmc : "比亚迪",
+		khjb : "1级",
+		jfrq : "2016-8-15",
+		qsrq : "2016-7-26"
+	},
+	{
+		id: "m2", 
+		ddbh : "20160726001",
+		ddlx : "制造订单",
+		ddjb : "0级",
+		khbh : "000122",
+		khmc : "长城汽车",
+		khjb : "2级",
+		jfrq : "2016-8-08",
+		qsrq : "2016-7-28"
+	},
+	{	
+		id: "m3", 
+		ddbh : "20160728001",
+		ddlx : "制造订单",
+		ddjb : "1级",
+		khbh : "000102",
+		khmc : "宇通",
+		khjb : "0级",
+		jfrq : "2016-8-11",
+		qsrq : "2016-8-01"
+	}];
+
+
+
+	var subgrid_data = {
+	m3:[{  			//二级菜单
+		cpbh : "20401150106",     //订单3
+		cpmc : "产品1", 
+		cpxh : "m6",
+		cpgg : "m6*1 45",
+		cplx : "A类",
+		cpsl : 1000,
+		gy :"工艺1"
+	}], 
+	m1:[{  			
+		cpbh : "20401150106",     //订单1
+		cpmc : "产品1", 
+		cpxh : "m6",
+		cpgg : "m6*1 45",
+		cplx : "A类",
+		cpsl : 2000,
+		gy :"工艺1"
+	}, {  			
+		cpbh : "20401150207",
+		cpmc : "产品2", 
+		cpxh : "m8",
+		cpgg : "m8*1.25 45",
+		cplx : "A类",
+		cpsl : 2000,
+		gy :"工艺1"
+	}],
+	m2:[{  			
+		cpbh : "2040315038",    //订单2
+		cpmc : "产品3", 
+		cpxh : "m14",
+		cpgg : "m14*1 45",
+		cplx : "C类",
+		cpsl : 2000,
+		gy :"工艺1"
+	}]};
+
+	jQuery(function($) {
+		var grid_selector = "#grid-table";
+		var pager_selector = "#grid-pager";
+
+		//resize to fit page size 调整自动适应页面大小
+		$(window).on(
+				'resize.jqGrid',
+				function() {
+					$(grid_selector).jqGrid('setGridWidth',
+							$(".page-content").width());
+				})
+		//resize on sidebar collapse/expand  调整工具栏
+		var parent_column = $(grid_selector).closest('[class*="col-"]');
+		$(document).on(
+				'settings.ace.jqGrid',
+				function(ev, event_name, collapsed) {
+					if (event_name === 'sidebar_collapsed'
+							|| event_name === 'main_container_fixed') {
+						//setTimeout is for webkit only to give time for DOM changes and then redraw!!!
+						setTimeout(function() {
+							$(grid_selector).jqGrid('setGridWidth',
+									parent_column.width());
+						}, 0);
+					}
+				})
+
+		//if your grid is inside another element, for example a tab pane, you should use its parent's width:
+		/**
+		$(window).on('resize.jqGrid', function () {
+			var parent_width = $(grid_selector).closest('.tab-pane').width();
+			$(grid_selector).jqGrid( 'setGridWidth', parent_width );
+		})
+		//and also set width when tab pane becomes visible
+		$('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		  if($(e.target).attr('href') == '#mygrid') {
+			var parent_width = $(grid_selector).closest('.tab-pane').width();
+			$(grid_selector).jqGrid( 'setGridWidth', parent_width );
+		  }
+		})
+		 */
+
+		jQuery(grid_selector)   						 //grid_selector
+				.jqGrid(
+						{
+							//direction: "rtl",
+
+							//subgrid options
+							subGrid : true,							//当此项设为true的时候，Grid表格的最左边将会添加一列，里面有一个“+”图标，用于展开子格
+							//subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
+							//datatype: "xml",
+							subGridOptions : {
+								plusicon : "ace-icon fa fa-plus center bigger-110 blue",
+								minusicon : "ace-icon fa fa-minus center bigger-110 blue",
+								openicon : "ace-icon fa fa-chevron-right center orange"
+							},
+							//for this example we are using local data
+							subGridRowExpanded : function(subgridDivId, rowId) {    // (子表格的id,主表格中所要展开子表格的行的id)  当点击“+”展开子表格时，将触发此选项定义的事件方法；
+								var subgridTableId = subgridDivId + "_t";		//根据subgrid_id定义对应的子表格的table的id
+								var pager_id = "p_" + subgridTableId;
+								
+								$("#" + subgridDivId)
+										.html(
+												/* "<table id='" + subgridTableId + "'></table>" */
+												 "<table id='" + subgridTableId + "' class='scroll'></table><div id='" + pager_id + "' class='scroll'></div>"
+													
+												);
+												
+								$("#" + subgridTableId).jqGrid({  		//subgrid_data显示格式
+									datatype : 'local',
+									data : subgrid_data[rowId],      //rowId
+									/* caption : "产品信息表", */
+									
+									colNames : ['产品编号', '产品名称','产品型号', '产品规格', '产品类型', '产品数量', '工艺','操作'],
+									colModel : [{
+										name : 'cpbh',	//对应id
+										width : 110,    //数据显示宽度
+										sorttype : "int",
+										editable : true
+									}, {
+										name : 'cpmc',
+										width : 110 ,
+										editable : true,
+										editoptions : {
+											size : "20",
+											maxlength : "30"
+										}
+									}, {
+										name : 'cpxh',
+										width : 110 ,
+										editable : true,
+										edittype : "select",
+										editoptions : {
+											value : "FE:m6;IN:m8;TN:m14;AR:m16"
+										}
+									}, {
+										name : 'cpgg',
+										width : 110 ,
+										editable : true,
+										edittype : "select",
+										editoptions : {
+											value : "FE:m6*1 45;IN:m8*1.25 45;TN:m14*1 45;AR:m16*1 45"
+										}
+									}, {
+										name : 'cplx',
+										width : 110 ,
+										editable : true,
+										edittype : "select",
+										editoptions : {
+											value : "FE:A类;IN:B类;TN:C类;AR:D类"
+										}
+									}, {
+										name : 'cpsl',
+										width : 110 ,
+										sorttype : "int",
+										editable : true
+									}, {
+										name : 'gy',
+										width : 110,
+										editable : true,
+										edittype : "select",
+										editoptions : {
+											value : "FE:工艺1;IN:工艺2;TN:工艺3;AR:工艺4"
+										}
+									} ,{
+										name : 'myac',
+										index : '',
+										width : 80,
+										fixed : true,
+										sortable : false,
+										resize : false,
+										formatter : 'actions',
+										formatoptions : {
+											keys : true,
+											//delbutton: false,//disable delete button
+											delOptions : {
+												recreateForm : true,
+												beforeShowForm : beforeDeleteCallback
+											},
+										//editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+										}
+									}],
+									
+							rowNum : 5,
+							rowList : [ 1, 2, 3],
+							pager: pager_id,
+							altRows : true,
+							multiselect : true,
+							multiboxonly : true,
+							loadComplete : function() {
+								var table = this;
+								setTimeout(function() {
+									styleCheckbox(table);
+
+									updateActionIcons(table);
+									updatePagerIcons(table);
+									enableTooltips(table);
+								}, 0);
+							},
+									
+								});
+								
+								
+									jQuery("#" + subgridTableId).jqGrid('navGrid',            //二级表格底部功能
+						              "#" + pager_id, {
+						               		edit : false,
+											add : true,
+											addicon : 'ace-icon fa fa-plus-circle purple',
+											addtitle: "增加新产品",
+											search : true,
+											searchicon : 'ace-icon fa fa-search orange',
+											refresh : true,
+											refreshicon : 'ace-icon fa fa-refresh green',
+						              },
+										{
+											//new record form
+											//width: 700,
+											closeAfterAdd : true,
+											recreateForm : true,
+											viewPagerButtons : false,
+											beforeShowForm : function(e) {
+												var form = $(e[0]);
+												form.closest('.ui-jqdialog').find(
+														'.ui-jqdialog-titlebar').wrapInner(
+														'<div class="widget-header" />')
+												style_edit_form(form);
+											}
+										},
+										{
+											//delete record form
+											recreateForm : true,
+											beforeShowForm : function(e) {
+												var form = $(e[0]);
+												if (form.data('styled'))
+													return false;
+						
+												form.closest('.ui-jqdialog').find(
+														'.ui-jqdialog-titlebar').wrapInner(
+														'<div class="widget-header" />')
+												style_delete_form(form);
+						
+												form.data('styled', true);
+											},
+											onClick : function(e) {
+												//alert(1);
+											}
+										});
+        
+								
+							},
+
+							data : grid_data,
+							datatype : "local",
+							height : 350,
+							colNames : [ '订单编号', '订单类型', '订单级别', '客户编号','客户名称',
+									'客户级别', '交付日期' ,'交付日期',' 操作'], 
+							colModel : [
+									{
+										name : 'ddbh',
+										index : 'ddbh',
+										  width : 110,  
+										sorttype : "int",
+										editable : true
+									},
+									{
+										name : 'ddlx',
+										index : 'ddlx',
+										editable : true,
+										edittype : "select",
+										editoptions : {
+											value : "FE:制作订单"   /* ;IN:VIP订单;TN:黄金VIP订单;AR:钻石VIP订单 */
+										}
+									},
+										{
+										name : 'ddjb',
+										index : 'ddjb',
+										editable : true,
+										edittype : "select",
+										editoptions : {
+											value : "FE:1级;IN:0级(加急)"
+										}
+									},
+									{
+										name : 'khbh',
+										index : 'khbh',
+										sorttype : "int",
+										editable : true
+									},
+									{
+										name : 'khmc',
+										index : 'khmc',
+										editable : true,
+										editoptions : {
+											size : "20",
+											maxlength : "30"
+										}
+									},
+									{
+										name : 'khjb',
+										index : 'khjb',
+										editable : true,
+										edittype : "select",
+										editoptions : {
+											value : "FE:0级;IN:1级;TN:2级;AR:3级"
+										}
+									} ,{
+										name : 'jfrq',
+										index : 'jfrq',
+										editable : true,
+										sorttype : "date",
+										unformat : pickDate
+									},{
+										name : 'qsrq',
+										index : 'qsrq',
+										editable : true,
+										sorttype : "date",
+										unformat : pickDate
+									},{
+										name : 'myac',
+										index : '',
+										width : 80,
+										fixed : true,
+										sortable : false,
+										resize : false,
+										formatter : 'actions',
+										formatoptions : {
+											keys : true,
+											//delbutton: false,//disable delete button
+
+											delOptions : {
+												recreateForm : true,
+												beforeShowForm : beforeDeleteCallback
+											},
+										//editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+										}
+									}],
+
+							viewrecords : true,
+							rowNum : 10,
+							rowList : [ 10, 20, 30 ],
+							pager : pager_selector,
+							altRows : true,
+							//toppager: true,
+
+							multiselect : true,
+							//multikey: "ctrlKey",
+							multiboxonly : true,
+
+							loadComplete : function() {
+								var table = this;
+								setTimeout(function() {
+									styleCheckbox(table);
+
+									updateActionIcons(table);
+									updatePagerIcons(table);
+									enableTooltips(table);
+								}, 0);
+							},
+
+							/* editurl : "/dummy.html",//nothing is saved */
+							caption : "订单信息表"
+
+						//,autowidth: true,
+
+						/**
+						,
+						grouping:true, 
+						groupingView : { 
+							 groupField : ['name'],
+							 groupDataSorted : true,
+							 plusicon : 'fa fa-chevron-down bigger-110',
+							 minusicon : 'fa fa-chevron-up bigger-110'
+						},
+						caption: "Grouping"
+						 */
+
+						});
+		$(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
+
+		//enable search/filter toolbar
+		//jQuery(grid_selector).jqGrid('filterToolbar',{defaultSearch:true,stringResult:true})
+		//jQuery(grid_selector).filterToolbar({});
+
+		//switch element when editing inline
+		function aceSwitch(cellvalue, options, cell) {
+			setTimeout(function() {						//复选框
+				$(cell).find('input[type=checkbox]').addClass(
+						'ace ace-switch ace-switch-5').after(
+						'<span class="lbl"></span>');
+			}, 0);
+		}
+		//enable datepicker
+		function pickDate(cellvalue, options, cell) {     //日期格式
+			setTimeout(function() {
+				$(cell).find('input[type=text]').datepicker({
+					format : 'yyyy-mm-dd',
+					autoclose : true
+				});
+			}, 0);
+		}
+
+		//navButtons    页尾按钮
+		jQuery(grid_selector).jqGrid(   
+				'navGrid',
+				pager_selector,
+				{ //navbar options
+					 edit : false,
+					/* editicon : 'ace-icon fa fa-pencil blue', */
+					add : true,
+					addicon : 'ace-icon fa fa-plus-circle purple',
+					del : true,
+					delicon : 'ace-icon fa fa-trash-o red',
+					search : true,
+					searchicon : 'ace-icon fa fa-search orange',
+					refresh : true,
+					refreshicon : 'ace-icon fa fa-refresh green',
+					/* view : true,
+					viewicon : 'ace-icon fa fa-search-plus grey', */
+				},
+				{
+																//edit record form
+					//closeAfterEdit: true,
+					//width: 700,
+					recreateForm : true,
+					beforeShowForm : function(e) {
+						var form = $(e[0]);
+						form.closest('.ui-jqdialog').find(
+								'.ui-jqdialog-titlebar').wrapInner(
+								'<div class="widget-header" />')
+						style_edit_form(form);
+					}
+				},
+				{
+					//new record form
+					//width: 700,
+					closeAfterAdd : true,
+					recreateForm : true,
+					viewPagerButtons : false,
+					beforeShowForm : function(e) {
+						var form = $(e[0]);
+						form.closest('.ui-jqdialog').find(
+								'.ui-jqdialog-titlebar').wrapInner(
+								'<div class="widget-header" />')
+						style_edit_form(form);
+					}
+				},
+				{
+					//delete record form
+					recreateForm : true,
+					beforeShowForm : function(e) {
+						var form = $(e[0]);
+						if (form.data('styled'))
+							return false;
+
+						form.closest('.ui-jqdialog').find(
+								'.ui-jqdialog-titlebar').wrapInner(
+								'<div class="widget-header" />')
+						style_delete_form(form);
+
+						form.data('styled', true);
+					},
+					onClick : function(e) {
+						//alert(1);
+					}
+				},
+				{
+					//search form
+					recreateForm : true,
+					afterShowSearch : function(e) {
+						var form = $(e[0]);
+						form.closest('.ui-jqdialog').find('.ui-jqdialog-title')
+								.wrap('<div class="widget-header" />')
+						style_search_form(form);
+					},
+					afterRedraw : function() {
+						style_search_filters($(this));
+					},
+					multipleSearch : true,
+				/**
+				multipleGroup:true,
+				showQuery: true
+				 */
+				},
+				{
+					//view record form
+					recreateForm : true,
+					beforeShowForm : function(e) {
+						var form = $(e[0]);
+						form.closest('.ui-jqdialog').find('.ui-jqdialog-title')
+								.wrap('<div class="widget-header" />')
+					}
+				})
+
+		function style_edit_form(form) {
+			//enable datepicker on "sdate" field and switches for "stock" field   //已改
+			form.find('input[name=jfrq]').datepicker({
+				format : 'yyyy-mm-dd',
+				autoclose : true
+			})
+			form.find('input[name=qsrq]').datepicker({
+				format : 'yyyy-mm-dd',
+				autoclose : true
+			})
+
+			form.find('input[name=stock]').addClass(
+					'ace ace-switch ace-switch-5').after(
+					'<span class="lbl"></span>');
+			//don't wrap inside a label element, the checkbox value won't be submitted (POST'ed)
+			//.addClass('ace ace-switch ace-switch-5').wrap('<label class="inline" />').after('<span class="lbl"></span>');
+
+			//update buttons classes
+			var buttons = form.next().find('.EditButton .fm-button');
+			buttons.addClass('btn btn-sm').find('[class*="-icon"]').hide();//ui-icon, s-icon
+			buttons.eq(0).addClass('btn-primary').prepend(
+					'<i class="ace-icon fa fa-check"></i>');
+			buttons.eq(1).prepend('<i class="ace-icon fa fa-times"></i>')
+
+			buttons = form.next().find('.navButton a');
+			buttons.find('.ui-icon').hide();
+			buttons.eq(0).append('<i class="ace-icon fa fa-chevron-left"></i>');
+			buttons.eq(1)
+					.append('<i class="ace-icon fa fa-chevron-right"></i>');
+		}
+
+		function style_delete_form(form) {
+			var buttons = form.next().find('.EditButton .fm-button');
+			buttons.addClass('btn btn-sm btn-white btn-round').find(
+					'[class*="-icon"]').hide();//ui-icon, s-icon
+			buttons.eq(0).addClass('btn-danger').prepend(
+					'<i class="ace-icon fa fa-trash-o"></i>');
+			buttons.eq(1).addClass('btn-default').prepend(
+					'<i class="ace-icon fa fa-times"></i>')
+		}
+
+		function style_search_filters(form) {
+			form.find('.delete-rule').val('X');
+			form.find('.add-rule').addClass('btn btn-xs btn-primary');
+			form.find('.add-group').addClass('btn btn-xs btn-success');
+			form.find('.delete-group').addClass('btn btn-xs btn-danger');
+		}
+		function style_search_form(form) {
+			var dialog = form.closest('.ui-jqdialog');
+			var buttons = dialog.find('.EditTable')
+			buttons.find('.EditButton a[id*="_reset"]').addClass(
+					'btn btn-sm btn-info').find('.ui-icon').attr('class',
+					'ace-icon fa fa-retweet');
+			buttons.find('.EditButton a[id*="_query"]').addClass(
+					'btn btn-sm btn-inverse').find('.ui-icon').attr('class',
+					'ace-icon fa fa-comment-o');
+			buttons.find('.EditButton a[id*="_search"]').addClass(
+					'btn btn-sm btn-purple').find('.ui-icon').attr('class',
+					'ace-icon fa fa-search');
+		}
+
+		function beforeDeleteCallback(e) {
+			var form = $(e[0]);
+			if (form.data('styled'))
+				return false;
+
+			form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
+					.wrapInner('<div class="widget-header" />')
+			style_delete_form(form);
+
+			form.data('styled', true);
+		}
+
+		function beforeEditCallback(e) {
+			var form = $(e[0]);
+			form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
+					.wrapInner('<div class="widget-header" />')
+			style_edit_form(form);
+		}
+
+		//it causes some flicker when reloading or navigating grid
+		//it may be possible to have some custom formatter to do this as the grid is being created to prevent this
+		//or go back to default browser checkbox styles for the grid
+		function styleCheckbox(table) {             //
+			/**
+				$(table).find('input:checkbox').addClass('ace')
+				.wrap('<label />')
+				.after('<span class="lbl align-top" />')
+			
+			
+				$('.ui-jqgrid-labels th[id*="_cb"]:first-child')
+				.find('input.cbox[type=checkbox]').addClass('ace')
+				.wrap('<label />').after('<span class="lbl align-top" />');
+			 */
+		}
+
+		//unlike navButtons icons, action icons in rows seem to be hard-coded
+		//you can change them like this in here if you want
+		function updateActionIcons(table) {
+			/**
+			var replacement = 
+			{
+				'ui-ace-icon fa fa-pencil' : 'ace-icon fa fa-pencil blue',
+				'ui-ace-icon fa fa-trash-o' : 'ace-icon fa fa-trash-o red',
+				'ui-icon-disk' : 'ace-icon fa fa-check green',
+				'ui-icon-cancel' : 'ace-icon fa fa-times red'
+			};
+			$(table).find('.ui-pg-div span.ui-icon').each(function(){
+				var icon = $(this);
+				var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+				if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+			})
+			 */
+		}
+
+		//replace icons with FontAwesome icons like above
+		function updatePagerIcons(table) {
+			var replacement = {
+				'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
+				'ui-icon-seek-prev' : 'ace-icon fa fa-angle-left bigger-140',
+				'ui-icon-seek-next' : 'ace-icon fa fa-angle-right bigger-140',
+				'ui-icon-seek-end' : 'ace-icon fa fa-angle-double-right bigger-140'
+			};
+			$(
+					'.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon')
+					.each(
+							function() {
+								var icon = $(this);
+								var $class = $.trim(icon.attr('class').replace(
+										'ui-icon', ''));
+
+								if ($class in replacement)
+									icon.attr('class', 'ui-icon '
+											+ replacement[$class]);
+							})
+		}
+
+		function enableTooltips(table) {
+			$('.navtable .ui-pg-button').tooltip({
+				container : 'body'
+			});
+			$(table).find('.ui-pg-div').tooltip({
+				container : 'body'
+			});
+		}
+
+		//var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+
+		$(document).one('ajaxloadstart.page', function(e) {
+			$(grid_selector).jqGrid('GridUnload');
+			$('.ui-jqdialog').remove();
+		});
+	});
+</script>

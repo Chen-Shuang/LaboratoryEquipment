@@ -1,0 +1,8 @@
+package scsjgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Qzdfbjscgcjc extends Model<Qzdfbjscgcjc> {
+	public static final Qzdfbjscgcjc me = new Qzdfbjscgcjc();
+
+}

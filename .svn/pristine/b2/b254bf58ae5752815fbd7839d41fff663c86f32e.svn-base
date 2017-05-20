@@ -1,0 +1,40 @@
+package sbgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class ESpotContentsTable extends Model<ESpotContentsTable>{
+	public static final ESpotContentsTable dao = new ESpotContentsTable();
+	
+	public void setEContentsNo(java.lang.Integer eContentsNo) {
+		set("eContentsNo", eContentsNo);
+	}
+
+	public java.lang.Integer getEContentsNo() {
+		return get("eContentsNo");
+	}
+
+	public void setESpotNo(java.lang.Integer eSpotNo) {
+		set("eSpotNo", eSpotNo);
+	}
+
+	public java.lang.Integer getESpotNo() {
+		return get("eSpotNo");
+	}
+	
+	public void setESpotItem(java.lang.String eSpotItem) {
+		set("eSpotItem", eSpotItem);
+	}
+
+	public java.lang.String getESpotItem() {
+		return get("eSpotItem");
+	}
+	
+	public void setESpotResult(java.lang.String eSpotResult) {
+		set("eSpotResult", eSpotResult);
+	}
+
+	public java.lang.String getESpotResult() {
+		return get("eSpotResult");
+	}
+	
+}

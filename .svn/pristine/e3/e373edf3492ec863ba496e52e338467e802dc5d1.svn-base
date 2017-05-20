@@ -1,0 +1,74 @@
+ <div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span>设备日保检点</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div> 
+   <form action="/mes/equipmentSpotChecks/save" method="post" name="addForm" class="form-horizontal">
+		<fieldset class="solid">
+			<div id="col-xs-12">
+	<div class="page-header">
+	<h1>
+		设备日点检信息添加表单 <i class="ace-icon fa fa-angle-double-right"></i>
+	</h1>
+	</div>
+	<input type="hidden" name="equipmentSpotCheck.eSpotNo" value="${(equipmentSpotCheck.eSpotNo)!}" />
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">设备编号</label>
+		<div class="col-sm-9">
+		<input class="col-xs-10 col-sm-5" type="text" name="equipmentSpotCheck.eNo" value="${(equipmentSpotCheck.eNo)!}" />
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">维护内容</label>
+		<div class="col-sm-9">
+		<textarea class="col-xs-10 col-sm-5" name="equipmentSpotCheck.eSpotContents" cols="80" rows="10">${(equipmentSpotCheck.eSpotContents)!}</textarea>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">记录时间</label>
+		<div class="col-sm-9">
+		<input class="col-xs-10 col-sm-5" type="text" name="equipmentSpotCheck.eSpotRecordTime" value="${(equipmentSpotCheck.eSpotRecordTime)!}" />
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">记录人员</label>
+		<div class="col-sm-9">
+		<input class="col-xs-10 col-sm-5" type="text" name="equipmentSpotCheck.eSpotRecorder" value="${(equipmentSpotCheck.eSpotRecorder)!}" />
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">附件</label>
+		<div class="col-sm-9">
+		<input class="col-xs-10 col-sm-5" type="text" name="equipmentSpotCheck.eSpotAccessory" value="${(equipmentSpotCheck.eSpotAccessory)!}" />
+		</div>
+	</div>
+	<div class="col-md-offset-4 col-md-9">
+			<button class="btn btn-info" type="button" id="b">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+					提交
+			</button>
+			&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+			<button class="btn" type="reset">
+				<i class="ace-icon fa fa-undo bigger-110"></i>
+					重置
+			</button>
+		</div>
+			</div>
+</fieldset>
+	</form>
+  </body>
+</html>

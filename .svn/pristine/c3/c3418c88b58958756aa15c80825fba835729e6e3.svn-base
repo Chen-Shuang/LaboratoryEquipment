@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>updaterESpotContentsTable.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script language = "JavaScript" src="/js/checkAddForm.js"></script>
+  </head>
+  
+  <body>
+     <form action="/mes/eSpotContentsTables/update" method="post" name="addForm" >
+		<fieldset class="solid">
+	<legend>eSpotContentsTable</legend>
+	<input type="hidden" name="eSpotContentsTable.eContentsNo" value="${(eSpotContentsTable.eContentsNo)!}" />
+	<div>
+		<label>点检编号</label>
+		<input type="text" name="eSpotContentsTable.eSpotNo" value="${(eSpotContentsTable.eSpotNo)!}" />
+	</div>
+	<div>
+		<label>点检项目</label>
+		<textarea name="eSpotContentsTable.eSpotItem" cols="40" rows="6">${(eSpotContentsTable.eSpotItem)!}</textarea>
+	</div>
+	<div>
+		<label>点检结果</label>
+		<input type="text" name="eSpotContentsTable.eSpotResult" value="${(eSpotContentsTable.eSpotResult)!}" />
+	</div>
+	<div>
+		<label>&nbsp;</label>
+		<input value="确定" type="submit" onClick="return checkAddForm()"/>
+	</div>
+</fieldset>
+	</form>
+  </body>
+</html>

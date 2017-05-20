@@ -1,0 +1,9 @@
+package xtgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class User_Role extends Model<User_Role> {
+	
+	public static final User_Role dao=new User_Role();
+
+}

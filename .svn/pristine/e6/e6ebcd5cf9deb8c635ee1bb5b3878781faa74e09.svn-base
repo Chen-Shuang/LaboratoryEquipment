@@ -1,0 +1,67 @@
+package scsjgl;
+
+import java.util.List;
+
+import scgygl.Scgcgylc;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+public class WldbdController extends Controller {
+	
+	public void index(){
+		List<Wldbd> scsjgl_wldbd =Wldbd.me.find("select * from scsjgl_wldbd");
+		
+		
+		setAttr("scsjgl_wldbd",scsjgl_wldbd);
+		
+		render("/scsjgl/wldbd.html");
+	}
+	public void del() {
+		Wldbd.me.deleteById(getPara(0));
+		 System.out.println(getPara(0));
+	     redirect("/#wldbd/index");
+	}
+	public void add() {
+		System.out.println("执行增加方法");
+		Wldbd  scsjgl_wldbd=getModel(Wldbd.class,"scsjgl_wldbd");	 
+		List<Wldbd> scsjgl_wldbd1 =Wldbd.me.find("select * from scsjgl_wldbd");
+		setAttr("scsjgl_wldbd",scsjgl_wldbd1);
+	
+		System.out.println("456");
+		scsjgl_wldbd.save();
+		//redirect("/wldbd/index");
+		render("/scsjgl/wldbd_fswl.html");
+	}
+public void getid() {
+	 
+	Wldbd  scsjgl_wldbd =Wldbd .me.findById(getPara(0));
+	
+	 
+	setAttr("scsjgl_wldbd",scsjgl_wldbd);	
+	 
+	 
+	//System.out.println(scgygl_lsgyxx.getStr("gybh"));
+	//render("/wldbd/index");
+	//redirect("/wldbd/wldbd_update.html");
+	render("/scsjgl/wldbd_update.html");	
+	
+}
+
+public void update() {
+	Wldbd  scsjgl_wldbd=getModel(	Wldbd.class,"scsjgl_wldbd");
+	Wldbd   wldbd=getModel(	Wldbd.class,"scsjgl_wldbd");
+	scsjgl_wldbd=wldbd;
+	scsjgl_wldbd.update();
+	 redirect("/#wldbd/index");
+} 
+public void activityList(){
+	//获取当前页号，每页显示2行数据
+	Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","scsjgl_wldbd");
+	renderJson(dataPage);
+	System.out.println(dataPage);
+}
+
+
+}

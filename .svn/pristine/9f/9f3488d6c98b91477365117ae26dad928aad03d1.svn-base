@@ -1,0 +1,9 @@
+package sbgl;
+
+import com.jfinal.core.Controller;
+
+public class sbgl_bjkController extends Controller{
+	public void index(){
+		
+	}
+}

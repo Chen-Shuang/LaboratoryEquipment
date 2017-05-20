@@ -1,0 +1,45 @@
+package xcckgl;
+ 
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
+
+public class Xccbcpxx extends Model<Xccbcpxx> {
+	public static final Xccbcpxx me = new Xccbcpxx();
+	
+	
+	
+	public Page<Xccbcpxx> paginate( int pageNumber, int pageSize){
+		
+		return Xccbcpxx.me.paginate(pageNumber, pageSize,"select *","from xcc_bcpxx order by id asc");
+ 
+}
+	
+	
+	//根据id查询
+	public Page<Xccbcpxx> paginateid( int pageNumber, int pageSize ,String ID ){
+	 
+		return Xccbcpxx.me.paginate(pageNumber, pageSize,"select *","from xcc_bcpxx where (id like'%"+ID+"%')"
+				+ " or (gxbz like'%"+ID+"%') "
+				+ "or (scpc like'%"+ID+"%') "
+						+ " or (gxxh like'%" + ID + "%') "
+						+ "	or (gxmc like'%" + ID + "%') "
+						+ " or (pzwlmc like'%" + ID + "%') "
+						+ "	or (sl like'%" + ID + "%') "
+						+ " or (wlpc like'%" + ID + "%') "
+						+ "	or (czy like'%" + ID + "%') "
+						
+						+ "order by id");
+ 
+}
+	
+	
+	//根据今日时间和产品类型查询
+	public Page<Xccbcpxx> paginatenewday( int pageNumber, int pageSize ){
+		 
+		return Xccbcpxx.me.paginate(pageNumber, pageSize,"select *","from xcc_bcpxx where rqsj >=date(now()) and"
+	    		+ " rqsj<DATE_ADD(date(now()),INTERVAL 1 DAY) ");
+    }
+	
+	
+	
+}

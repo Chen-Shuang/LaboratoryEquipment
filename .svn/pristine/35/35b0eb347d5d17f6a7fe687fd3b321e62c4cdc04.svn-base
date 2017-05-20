@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>select.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+    <table border="1">
+    
+   	<tr>
+   		<td>流水编号</td>
+   		<td>模具编号</td>
+   		<td>维护内容</td>
+   		<td>记录时间</td>
+        <td>记录人员</td>
+   	</tr>
+   	<#list moldMaintenanceslist as moldMaintenance>
+   	<tr>
+   		<td>${moldMaintenance.flowNo}</td>
+   		<td>${moldMaintenance.moldNo}</td>
+   		<td>${moldMaintenance.maintenanceContents}</td>
+   		<td>${moldMaintenance.recordTime}</td>
+        <td>${moldMaintenance.recorder}</td>
+   	</tr>
+  </#list>
+     </table>
+     <a href="/mes/moldMaintenances" >返回</a>
+  </body>
+</html>

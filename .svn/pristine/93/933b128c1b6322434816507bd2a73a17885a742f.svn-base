@@ -1,0 +1,785 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">生产计划管理</a>
+		</li>
+		<li><span>订单信息</span>
+		</li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+<div class="page-content">
+	<div class="row">
+		 <div class="col-xs-12">						<!-- 66666 -->
+			<!-- <div class="clearfix"></div> -->
+			<div class="tabbable">
+				<!-- Only required for left/right tabs -->
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab1" data-toggle="tab">待排产</a></li>
+					<li><a href="#tab2" data-toggle="tab">已排产</a></li>
+					<li><a href="#tab3" data-toggle="tab">已闭单</a></li>
+					<li><a href="#tab4" data-toggle="tab">所有订单</a></li>
+				</ul>
+				<br>
+				<div class="table-header">订单信息表</div>
+				<div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline no-footer">
+					<div class="row">
+						<div class="col-xs-12">
+							<form class="form-search" action="scjhgl/r" method="post">
+								<div id="dynamic-table_filter" class="col-xs-6">
+									<label>Search:<input name="searchValue" type="search" class="form-control input-sm" placeholder="输入信息进行模糊查询~" aria-controls="dynamic-table"> </label>
+								</div>
+								<div class="pull-right">
+									<a href="#" class="btn btn-mini btn-primary">导入订单信息</a> <a href="scjhgl/scjh.html" class="_p btn btn-mini btn-primary">下达生产计划</a> <a href="#" class="btn btn-mini btn-primary">闭单</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-content">
+					<!-- 不同的内容 -->
+					<div class="tab-pane active" id="tab1">			<!-- 待排产 -->
+						<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" id="dynamic-table" role="grid" aria-describedby="dynamic-table_info">
+							<thead>
+								<tr role="row">
+									<th class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label></th>
+									<th>订单号</th>
+									<th>客户简称</th>
+									<th>存货编码</th>
+									<th>存货名称</th>
+									<th>规格型号</th>
+									<th>单位</th>
+									<th>数量</th>
+									<th>发货日期</th>
+									<th>备注</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#list iteration as u>
+								<tr role="row" class="odd">
+									<td class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label>
+									</td>
+									<td>${(u.ddh)?default("")}</td>
+									<td>${(u.khjc)?default("")}</td>
+									<td>${(u.chbm)?default("")}</td>
+									<td>${(u.chmc)?default("")}</td>
+									<td>${(u.ggxh)?default("")}</td>
+									<td>${(u.dw)?default("")}</td>
+									<td>${(u.sl)?default("")}</td>
+									<td>${(u.fhrq)?default("")}</td>
+									<td>${(u.bz)?default("")}</td>
+									<td>
+										<div class="hidden-sm hidden-xs action-buttons">
+											<a class="editButton green" href="scjhgl/toUpdateUser?id=${u.id }"> <!-- 修改 --> <i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="scjhgl/d/${u.id }" onclick="retrun confirm('确定删除吗？');" class="red"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a>
+										</div>
+										<div class="hidden-md hidden-lg">
+											<div class="inline pos-rel">
+												<button data-position="auto" data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+													<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+												</button>
+												<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+													<li><a href="scjhgl/toUpdateUser?id=${u.id }" class="tooltip-success" data-rel="tooltip" title="修改"> <span class="green"> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span> </a>
+													</li>
+													<li><a title="" data-rel="tooltip" class="tooltip-error" href="scjhgl/d/${u.id }" data-original-title="Delete"> <span class="red"> <i class="ace-icon fa fa-trash-o bigger-120"></i> </span> </a>
+													</li>
+												</ul>
+											</div>
+										</div></td>
+								</tr>
+								</#list>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="tab-pane" id="tab2">		<!--已排产  -->
+						<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" id="dynamic-table" role="grid" aria-describedby="dynamic-table_info">
+							<thead>
+								<tr role="row">
+									<th class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label></th>
+									<th>订单号</th>
+									<th>客户简称</th>
+									<th>存货编码</th>
+									<th>存货名称</th>
+									<th>规格型号</th>
+									<th>单位</th>
+									<th>数量</th>
+									<th>发货日期</th>
+									<th>备注</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#list iteration2 as u2>
+								<tr role="row" class="odd">
+									<td class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label>
+									</td>
+									<td>${(u2.ddh)?default("")}</td>
+									<td>${(u2.khjc)?default("")}</td>
+									<td>${(u2.chbm)?default("")}</td>
+									<td>${(u2.chmc)?default("")}</td>
+									<td>${(u2.ggxh)?default("")}</td>
+									<td>${(u2.dw)?default("")}</td>
+									<td>${(u2.sl)?default("")}</td>
+									<td>${(u2.fhrq)?default("")}</td>
+									<td>${(u2.bz)?default("")}</td>
+									<td>
+										<div class="hidden-sm hidden-xs action-buttons">
+											<a class="editButton green" href="scjhgl/toUpdateUser?id=${u2.id }"> <!-- 修改 --> <i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="scjhgl/d/${u2.id }" onclick="retrun confirm('确定删除吗？');" class="red"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a>
+										</div>
+										<div class="hidden-md hidden-lg">
+											<div class="inline pos-rel">
+												<button data-position="auto" data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+													<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+												</button>
+												<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+													<li><a href="scjhgl/toUpdateUser?id=${u2.id }" class="tooltip-success" data-rel="tooltip" title="修改"> <span class="green"> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span> </a>
+													</li>
+													<li><a title="" data-rel="tooltip" class="tooltip-error" href="scjhgl/d/${u2.id }" data-original-title="Delete"> <span class="red"> <i class="ace-icon fa fa-trash-o bigger-120"></i> </span> </a>
+													</li>
+												</ul>
+											</div>
+										</div></td>
+								</tr>
+								</#list>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="tab-pane" id="tab3">		<!-- 已闭单 -->
+						<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" id="dynamic-table" role="grid" aria-describedby="dynamic-table_info">
+							<thead>
+								<tr role="row">
+									<th class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label></th>
+									<th>订单号</th>
+									<th>客户简称</th>
+									<th>存货编码</th>
+									<th>存货名称</th>
+									<th>规格型号</th>
+									<th>单位</th>
+									<th>数量</th>
+									<th>发货日期</th>
+									<th>备注</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#list iteration3 as u3>
+								<tr role="row" class="odd">
+									<td class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label>
+									</td>
+									<td>${(u3.ddh)?default("")}</td>
+									<td>${(u3.khjc)?default("")}</td>
+									<td>${(u3.chbm)?default("")}</td>
+									<td>${(u3.chmc)?default("")}</td>
+									<td>${(u3.ggxh)?default("")}</td>
+									<td>${(u3.dw)?default("")}</td>
+									<td>${(u3.sl)?default("")}</td>
+									<td>${(u3.fhrq)?default("")}</td>
+									<td>${(u3.bz)?default("")}</td>
+									<td>
+										<div class="hidden-sm hidden-xs action-buttons">
+											<a class="editButton green" href="scjhgl/toUpdateUser?id=${u3.id }"> <!-- 修改 --> <i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="scjhgl/d/${u3.id }" onclick="retrun confirm('确定删除吗？');" class="red"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a>
+										</div>
+										<div class="hidden-md hidden-lg">
+											<div class="inline pos-rel">
+												<button data-position="auto" data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+													<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+												</button>
+												<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+													<li><a href="scjhgl/toUpdateUser?id=${u3.id }" class="tooltip-success" data-rel="tooltip" title="修改"> <span class="green"> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span> </a>
+													</li>
+													<li><a title="" data-rel="tooltip" class="tooltip-error" href="scjhgl/d/${u3.id }" data-original-title="Delete"> <span class="red"> <i class="ace-icon fa fa-trash-o bigger-120"></i> </span> </a>
+													</li>
+												</ul>
+											</div>
+										</div></td>
+								</tr>
+								</#list>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="tab-pane" id="tab4">		<!-- 所有订单 -->
+						<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" id="dynamic-table" role="grid" aria-describedby="dynamic-table_info">
+							<thead>
+								<tr role="row">
+									<th class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label></th>
+									<th>订单号</th>
+									<th>客户简称</th>
+									<th>存货编码</th>
+									<th>存货名称</th>
+									<th>规格型号</th>
+									<th>单位</th>
+									<th>数量</th>
+									<th>发货日期</th>
+									<th>备注</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#list iteration4.list as u4>          <!-- iteration4是分页paginate产生的对象 -->
+								<tr role="row" class="odd">
+									<td class="center"><label> <input type="checkbox" class="ace" /> <span class="lbl"></span> </label>
+									</td>
+									<td>${(u4.ddh)?default("")}</td>
+									<td>${(u4.khjc)?default("")}</td>
+									<td>${(u4.chbm)?default("")}</td>
+									<td>${(u4.chmc)?default("")}</td>
+									<td>${(u4.ggxh)?default("")}</td>
+									<td>${(u4.dw)?default("")}</td>
+									<td>${(u4.sl)?default("")}</td>
+									<td>${(u4.fhrq)?default("")}</td>
+									<td>${(u4.bz)?default("")}</td>
+									<td>
+										<div class="hidden-sm hidden-xs action-buttons">
+											<a class="editButton green" href="scjhgl/toUpdateUser?id=${u4.id }"> <!-- 修改 --> <i class="ace-icon fa fa-pencil bigger-130"></i> </a> <a href="scjhgl/d/${u4.id }" onclick="retrun confirm('确定删除吗？');" class="red"> <i class="ace-icon fa fa-trash-o bigger-130"></i> </a>
+										</div>
+										<div class="hidden-md hidden-lg">
+											<div class="inline pos-rel">
+												<button data-position="auto" data-toggle="dropdown" class="btn btn-minier btn-yellow dropdown-toggle">
+													<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+												</button>
+												<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+													<li><a href="scjhgl/toUpdateUser?id=${u4.id }" class="tooltip-success" data-rel="tooltip" title="修改"> <span class="green"> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span> </a>
+													</li>
+													<li><a title="" data-rel="tooltip" class="tooltip-error" href="scjhgl/d/${u4.id }" data-original-title="Delete"> <span class="red"> <i class="ace-icon fa fa-trash-o bigger-120"></i> </span> </a>
+													</li>
+												</ul>
+											</div>
+										</div></td>
+								</tr>
+								</#list>
+							</tbody>
+						</table>
+					</div>
+					
+					
+				</div>
+
+
+				<div class="row">
+					<div class="col-xs-7">
+						<!-- <div class="dataTables_info" id="dynamic-table_info"
+								role="status" aria-live="polite">Showing 1 to 10 of 23
+								entries</div> -->
+						<a href="javascript:addForm()" class="btn btn-mini btn-primary">添加新订单</a>
+					</div>
+					<div class="pull-left">
+						<div class="dataTables_length" id="dynamic-table_length">
+							<label>显示 <select name="dynamic-table_length" aria-controls="dynamic-table" class="form-control input-sm inline">
+									<option value="10">10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+									<option value="100">100</option>
+							</select>条记录</label>
+						</div>
+					</div>
+					
+					<div class="pull-right">
+						<div class="dataTables_paginate paging_simple_numbers" id="dynamic-table_paginate">
+							<ul class="pagination">
+								<li><a href="scjhgl/index?pn=${pn}>1?${pn}-1:1">上一页</a></li>
+										<li>${skip}</li>
+								<li><a href="scjhgl/index?pn=${pn}<${TotalPage}?${pn}+1:${TotalPage}">下一页</a></li>
+							</ul>
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="hide" id="add">
+		<form id="pform" action="scjhgl/c" method="post">
+			<input type="hidden" name="order.id">
+			<!-- 在div中隐藏 -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入订单号</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" value="" name="order.ddh" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入客户简称</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.khjc" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入存货编码</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.chbm" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入存货名称</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.chmc" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入规格型号</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.ggxh" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入单位</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.dw" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入数量</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.sl" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入发货日期</label>
+				<div class="col-sm-9">
+					<input type="date" class="form-control" name="order.fhrq" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入备注</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.bz" value="" />
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="hide" id="update2">
+		<!--index页面修改密码id为update  -->
+		<!-- 修改订单 -->
+		<form id="updateForm" action="scjhgl/u" method="post">
+			<input name="order.id" id="id">
+			<!--js中通过id来显示表单数据  -->
+			<!--在js中隐藏  -->
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入订单号</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.ddh" id="ddh" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入客户简称</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.khjc" id="khjc" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入存货编码</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.chbm" id="chbm" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入存货名称</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.chmc" id="chmc" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入规格型号</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.ggxh" id="ggxh" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入单位</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.dw" id="dw" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入数量</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.sl" id="sl" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入发货日期</label>
+				<div class="col-sm-9">
+					<input type="date" class="form-control" name="order.fhrq" id="fhrq" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">请输入备注</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="order.bz" id="bz" />
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+
+	<script type="text/javascript">
+		function addForm() {
+			document.getElementById("pform").reset();
+			$('#add').removeClass("hide");
+			userModel = layer.open({
+				type : 1,
+				shade : [ 0.5 ],
+				title : '增加订单',  //不显示标题
+				area : [ '40%', '500px' ], //显示空间
+				content : $('#add'), //捕获的元素
+				btn : [ '提交', '取消' ],
+				yes : function(index, layero) { //或者使用btn1
+					$.post("add", $("#pform").serialize(), function(data) {
+
+						layer.close(index);
+						$('#add').addClass("hide");
+						document.getElementById("pform").submit();
+					});
+				},
+				cancel : function(index) {
+					layer.close(index);
+					$('#add').addClass("hide"); //取消继续隐藏
+				},
+			});
+		};
+		/* function updateForm() {
+			document.getElementById("pform2").reset();
+			$('#update').removeClass("hide");
+			userModel = layer.open({
+				type : 1,
+				shade : [ 0.5 ],
+				title : '修改订单', //不显示标题
+				area : [ '40%', '500px' ],  //显示空间
+				content : $('#update'), //捕获的元素
+				btn : [ '提交', '取消' ],
+				yes : function(index, layero) { //或者使用btn1
+					$.post("update", $("#pform2").serialize(), function(data) {
+					
+						layer.close(index);
+							$('#update').addClass("hide");
+							document.getElementById("pform2").submit();
+					});
+				},
+				cancel : function(index) {
+					layer.close(index);
+					$('#update').addClass("hide");  //取消继续隐藏
+				},
+			});
+		}; */
+	</script>
+
+	<script>
+		$(".editButton")
+				.on(
+						'click',
+						function(e) { //class editButton
+							e.preventDefault();
+							$
+									.get(
+											$(this).attr("href"),
+											function(data) {
+												$("#id").val(data.id).hide();
+												$("#ddh").val(data.ddh);
+												$("#khjc").val(data.khjc);
+												$("#chbm").val(data.chbm);
+												$("#chmc").val(data.chmc);
+												$("#ggxh").val(data.ggxh);
+												$("#dw").val(data.dw);
+												$("#sl").val(data.sl);
+												$("#fhrq").val(data.fhrq);
+												$("#bz").val(data.bz);
+
+												var dialog = $("#update2")
+														.removeClass('hide')
+														.dialog(
+																{
+																	modal : true,
+																	width : '500', 
+																	title : "<div class='widget-header widget-header-small' style='background:#307ECC'><h4 class='smaller white'><i class='ace-icon fa fa-check'></i>修改订单信息</div>", 
+																	title_html : true,
+																	buttons : [
+																			{
+																				text : "取消",
+																				"class" : "btn",
+																				click : function() {
+																					$(this).dialog("close");
+																				}
+																			},
+																			{
+																				text : "确认",
+																				"class" : "btn btn-primary",
+																				click : function() {
+																					document.getElementById("updateForm").submit();
+																					$(his).remove();
+																					return false;
+																				}
+																			} ]
+
+																});
+											}, "json");
+						});
+	</script>
+
+	<script type="text/javascript">
+		jQuery(function($) {
+			$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+				_title : function(title) {
+					var $title = this.options.title || '&nbsp;'
+					if (("title_html" in this.options)
+							&& this.options.title_html == true)
+						title.html($title);
+					else
+						title.text($title);
+				}
+			}));
+			//initiate dataTables plugin
+			var oTable1 = $('#dynamic-table')
+			//.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
+			.dataTable({
+				bAutoWidth : false,
+				"aoColumns" : [ null, null, null, null, null, null, {
+					"bSortable" : false
+				} ],
+				"aaSorting" : [],
+
+			});
+			//oTable1.fnAdjustColumnSizing();
+
+			//TableTools settings
+			TableTools.classes.container = "btn-group btn-overlap";
+			TableTools.classes.print = {
+				"body" : "DTTT_Print",
+				"info" : "tableTools-alert gritter-item-wrapper gritter-info gritter-center white",
+				"message" : "tableTools-print-navbar"
+			}
+
+			//initiate TableTools extension
+			var tableTools_obj = new $.fn.dataTable.TableTools(
+					oTable1,
+					{
+						"sSwfPath" : "plugins/ace/assets/js/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf", //in Ace demo plugins/ace/assets will be replaced by correct assets path
+
+						"sRowSelector" : "td:not(:last-child)",
+						"sRowSelect" : "multi",
+						"fnRowSelected" : function(row) {
+							//check checkbox when row is selected
+							try {
+								$(row).find('input[type=checkbox]').get(0).checked = true
+							} catch (e) {
+							}
+						},
+						"fnRowDeselected" : function(row) {
+							//uncheck checkbox
+							try {
+								$(row).find('input[type=checkbox]').get(0).checked = false
+							} catch (e) {
+							}
+						},
+
+						"sSelectedClass" : "success",
+						"aButtons" : [
+								{
+									"sExtends" : "copy",
+									"sToolTip" : "复制到剪贴板",
+									"sButtonClass" : "btn btn-white btn-primary btn-bold",
+									"sButtonText" : "<i class='fa fa-copy bigger-110 pink'></i>",
+									"fnComplete" : function() {
+										this
+												.fnInfo(
+														'<h3 class="no-margin-top smaller">表格已复制</h3>\
+							<p>已复制 '
+																+ (oTable1
+																		.fnSettings()
+																		.fnRecordsTotal())
+																+ ' 行数据到剪贴板.</p>',
+														1500);
+									}
+								},
+
+								{
+									"sExtends" : "csv",
+									"sToolTip" : "导出成 CSV",
+									"sButtonClass" : "btn btn-white btn-primary  btn-bold",
+									"sButtonText" : "<i class='fa fa-file-excel-o bigger-110 green'></i>"
+								},
+
+								{
+									"sExtends" : "pdf",
+									"sToolTip" : "导出成 PDF",
+									"sButtonClass" : "btn btn-white btn-primary  btn-bold",
+									"sButtonText" : "<i class='fa fa-file-pdf-o bigger-110 red'></i>"
+								},
+
+								{
+									"sExtends" : "print",
+									"sToolTip" : "打印页面",
+									"sButtonClass" : "btn btn-white btn-primary  btn-bold",
+									"sButtonText" : "<i class='fa fa-print bigger-110 grey'></i>",
+
+									"sMessage" : "<div class='navbar navbar-default'><div class='navbar-header pull-left'><a class='navbar-brand' href='#'><small>可选导航栏 &amp; 文本</small></a></div></div>",
+
+									"sInfo" : "<h3 class='no-margin-top'>打印页面</h3>\
+							  <p>请用您的浏览器打印功能打印这个表格 \
+							  <br />请打印完成关闭此页面</p>",
+								} ]
+					});
+
+			//we put a container before our table and append TableTools element to it
+			$(tableTools_obj.fnContainer())
+					.appendTo($('.tableTools-container'));
+
+			//also add tooltips to table tools buttons
+			//addding tooltips directly to "A" buttons results in buttons disappearing (weired! don't know why!)
+			//so we add tooltips to the "DIV" child after it becomes inserted
+			//flash objects inside table tools buttons are inserted with some delay (100ms) (for some reason)
+			setTimeout(function() {
+				$(tableTools_obj.fnContainer()).find('a.DTTT_button').each(
+						function() {
+							var div = $(this).find('> div');
+							if (div.length > 0)
+								div.tooltip({
+									container : 'body'
+								});
+							else
+								$(this).tooltip({
+									container : 'body'
+								});
+						});
+			}, 200);
+
+			//ColVis extension
+			var colvis = new $.fn.dataTable.ColVis(oTable1, {
+				"buttonText" : "<i class='fa fa-search'></i>",
+				"aiExclude" : [ 0, 6 ],
+				"bShowAll" : true,
+				//"bRestore": true,
+				"sAlign" : "right",
+				"fnLabel" : function(i, title, th) {
+					return $(th).text();//remove icons, etc
+				}
+
+			});
+
+			//style it
+			$(colvis.button()).addClass('btn-group').find('button').addClass(
+					'btn btn-white btn-info btn-bold')
+
+			//and append it to our table tools btn-group, also add tooltip
+			$(colvis.button()).prependTo('.tableTools-container .btn-group')
+					.attr('title', '显示/隐藏 数据列').tooltip({
+						container : 'body'
+					});
+
+			//and make the list, buttons and checkboxed Ace-like
+			$(colvis.dom.collection)
+					.addClass(
+							'dropdown-menu dropdown-light dropdown-caret dropdown-caret-right')
+					.find('li').wrapInner('<a href="javascript:void(0)" />') //'A' tag is required for better styling
+					.find('input[type=checkbox]').addClass('ace').next()
+					.addClass('lbl padding-8');
+
+			//table checkboxes
+			$('th input[type=checkbox], td input[type=checkbox]').prop(
+					'checked', false);
+
+			//select/deselect all rows according to table header checkbox
+			$('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0)
+					.on(
+							'click',
+							function() {
+								var th_checked = this.checked;//checkbox inside "TH" table header
+
+								$(this).closest('table').find('tbody > tr')
+										.each(function() {
+											var row = this;
+											if (th_checked)
+												tableTools_obj.fnSelect(row);
+											else
+												tableTools_obj.fnDeselect(row);
+										});
+							});
+
+			//select/deselect a row when the checkbox is checked/unchecked
+			$('#dynamic-table').on(
+					'click',
+					'td input[type=checkbox]',
+					function() {
+						var row = $(this).closest('tr').get(0);
+						if (!this.checked)
+							tableTools_obj.fnSelect(row);
+						else
+							tableTools_obj.fnDeselect($(this).closest('tr')
+									.get(0));
+					});
+
+			$(document).on('click', '#dynamic-table .dropdown-toggle',
+					function(e) {
+						e.stopImmediatePropagation();
+						e.stopPropagation();
+						e.preventDefault();
+					});
+
+			//And for the first simple table, which doesn't have TableTools or dataTables
+			//select/deselect all rows according to table header checkbox
+			var active_class = 'active';
+			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on(
+					'click',
+					function() {
+						var th_checked = this.checked;//checkbox inside "TH" table header
+
+						$(this).closest('table').find('tbody > tr').each(
+								function() {
+									var row = this;
+									if (th_checked)
+										$(row).addClass(active_class).find(
+												'input[type=checkbox]').eq(0)
+												.prop('checked', true);
+									else
+										$(row).removeClass(active_class).find(
+												'input[type=checkbox]').eq(0)
+												.prop('checked', false);
+								});
+					});
+
+			//select/deselect a row when the checkbox is checked/unchecked
+			$('#simple-table').on('click', 'td input[type=checkbox]',
+					function() {
+						var $row = $(this).closest('tr');
+						if (this.checked)
+							$row.addClass(active_class);
+						else
+							$row.removeClass(active_class);
+					});
+
+			/********************************/
+			//add tooltip for small view action buttons in dropdown menu
+			$('[data-rel="tooltip"]').tooltip({
+				placement : tooltip_placement
+			});
+
+			//tooltip placement on right or left
+			function tooltip_placement(context, source) {
+				var $source = $(source);
+				var $parent = $source.closest('table')
+				var off1 = $parent.offset();
+				var w1 = $parent.width();
+
+				var off2 = $source.offset();
+				//var w2 = $source.width();
+
+				if (parseInt(off2.left) < parseInt(off1.left)
+						+ parseInt(w1 / 2))
+					return 'right';
+				return 'left';
+			}
+
+		})
+	</script>

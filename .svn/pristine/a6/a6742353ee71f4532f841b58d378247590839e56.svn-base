@@ -1,0 +1,28 @@
+package scsjgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.render.Render;
+
+public class ScgcgxController extends Controller {
+	String bz = "101";
+
+	public void index() {
+		List<Scgxgl_rscjh> scgxgl_rscjhs = Scgxgl_rscjh.me
+				.find("select * FROM scjhgl_cprscjh where jhqrxdsj >=date(now()) and jhqrxdsj<DATE_ADD(date(now()),INTERVAL 1 DAY) and scbzbh="
+						+ bz);
+		setAttr("scgxgl_rscjhs", scgxgl_rscjhs);
+		render("/scsjgl/scgcgx.html");
+	}
+
+	public void add_select(){
+		List<Scgxgl_rscjh> get_order=Scgxgl_rscjh.me.find("select * from scjhgl_cprscjh where ddh="+getPara("ddh"));
+		renderJson(get_order);
+		System.out.println(get_order);
+		System.out.println("已返回数据");
+	    
+		/*	List<Scgxgl_rscjh> get_add_result = Scgxgl_rscjh.me.find("select * FROM scjhgl_cprscjh where ddh=");
+		setAttr("get_add_result", get_add_result);*/
+	}
+}

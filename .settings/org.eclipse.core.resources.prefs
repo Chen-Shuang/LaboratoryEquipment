@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/page/all.html=UTF-8
+encoding//WebRoot/WEB-INF/page/audit.html=UTF-8
+encoding//WebRoot/WEB-INF/page/need.html=UTF-8
+encoding//WebRoot/WEB-INF/page/new.html=UTF-8
+encoding//WebRoot/WEB-INF/page/repair.html=UTF-8
+encoding//WebRoot/WEB-INF/page/scrap.html=UTF-8
+encoding//WebRoot/WEB-INF/page/user.html=UTF-8
+encoding//WebRoot/js/jquery.myLayout.js=UTF-8
+encoding//WebRoot/js/jquery.myTree.js=UTF-8
+encoding//WebRoot/js/jquery.page.js=UTF-8
+encoding//WebRoot/js/laypage.js=UTF-8
+encoding//src/excel/ReadExcelFile.java=UTF-8
+encoding//src/mail/SendMail.java=UTF-8
+encoding//src/word/PrintWord.java=UTF-8
+encoding//src/word/needItems.ftl=UTF-8
+encoding/\u7CFB\u7EDF\u6846\u67B6\u7B80\u8FF0.txt=UTF-8

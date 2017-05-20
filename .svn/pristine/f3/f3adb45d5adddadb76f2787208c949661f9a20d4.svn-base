@@ -1,0 +1,53 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="gzgl" class="_p">工装管理</a>
+		</li>
+		<li>
+			<span>工装基本信息</span>
+		</li>		
+	</ul><!-- /.breadcrumb -->
+</div>   
+  <body>
+	<form action="gzgl/update/" method="post" enctype="multipart/form-data">
+	<fieldset class="solid">
+<div class="page-header">
+<h1>
+	工装基本信息修改表单 <i class="ace-icon fa fa-angle-double-right"></i>
+</h1>
+</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">模具编号:</label>
+		<div class="col-sm-9">
+		<label class="col-xs-10 col-sm-2 control-label">${(mold.moldNo)!''}</label>
+		</div>
+	</div>
+		   模具编号<input type="hidden" name="mold.moldNo" value="${(mold.moldNo)!''}" required />
+		${(mold.moldNo)!''}
+		模具名称
+		<input type="text" name="mold.moldName" value="${(mold.moldName)!''}" required>
+		模具材料类型${(mold.moldMaterialType)!''}
+		模具类别${ (mold.moldType)!''}
+		制作年月${(mold.makeDate)!''}
+		设计顺序编号${(mold.designNo)!''}
+		创建时间${ (mold.createTime)!''}
+		创建人${ (mold.creator)!''}
+		图纸路径${ (mold.paperUrl)!''}
+		<input type="file" name="paper">
+ 		模具状态
+			    <#if mold.moldStatus=1>
+				<input type="radio" name="mold.moldStatus" value=1  checked> 启用
+				<input type="radio" name="mold.moldStatus" value=0> 禁用
+				<#elseif mold.moldStatus=0>
+				<input type="radio" name="mold.moldStatus" value=1  > 启用
+				<input type="radio" name="mold.moldStatus" value=0 checked> 禁用
+				</#if>
+				<input type="submit" value="提交">
+		</fieldset>
+	</form>
+

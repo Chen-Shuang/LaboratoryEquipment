@@ -1,0 +1,58 @@
+package xcckgl;
+
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+public class XcccpxxController extends Controller {
+	public void index() {
+		
+		  System.out.println("index");
+			render("/xcckgl/Xcccpxx_main.html");
+	}
+	public void activityList(){
+		//获取当前页号，每页显示2行数据
+		Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM xcc_cpxx");
+		renderJson(dataPage);
+		System.out.println("activityList="+dataPage); 
+	}
+
+
+	
+	public void Tbody_list1(){
+		Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 5, "select * ","FROM xcc_cpxx where rqsj >=date(now()) and  rqsj<DATE_ADD(date(now()),INTERVAL 1 DAY)");   //未排产
+		renderJson(dataPage);
+		System.out.println("Tbody_list1="+dataPage);
+	}
+	public void Tbody_list2(){
+		Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 5,  "SELECT *","FROM xcc_cpxx");    
+		
+		renderJson(dataPage);
+		System.out.println("Tbody_list2="+dataPage.getList()+"条信息");
+	}
+
+
+
+	public void search2() throws UnsupportedEncodingException{     		// search for 历史
+		String ID =getPara("require","");  	//得到result的值  默认值问"" 
+		Page<?> dataPage=Db.paginate(getParaToInt("pageNumer",1), 5, "select *", " from xcc_cpxx where (id like'%" + ID + "%')"
+						+ " or (cpmc like'%" + ID + "%') " + "or (sczld like'%"
+						+ ID + "%') " + " or (bz like'%" + ID + "%') "
+						+ "	or (khddh like'%" + ID + "%') "
+						+ " or (scpc like'%" + ID + "%') " + "	or (sl like'%"
+						+ ID + "%') " + " or (rqsj like'%" + ID + "%') "
+
+						+ "order by id");
+		renderJson(dataPage);
+	}
+	
+	
+		
+		
+ 
+ 
+
+}

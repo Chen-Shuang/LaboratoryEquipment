@@ -1,0 +1,167 @@
+package sbgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class A_WH extends Controller{
+	public void index(){
+		render("/sbgl/A_WH.html");	//这里所有的备件管理模块儿的东西全部都放在这个里面处理，页面为AAA  处理的类为AAA
+	}
+	public void B001(){
+		int n=getParaToInt("n");
+		System.out.println(n);
+		Page<sbgl_sbtz> list =sbgl_sbtz.dao.paginate(n, 4, "select *", "from sbgl_sbtz");	//从设备台账表中得到page对象
+		renderJson(list);		//将台账的列表信息展示到前台
+	}
+	public void C001(){
+		int n=getParaToInt("n");	//展示的页数
+		String x=getPara("x");		//查询的文本框儿内容
+		Page<sbgl_sbtz> list =sbgl_sbtz.dao.paginate(n, 4, "select *", "from sbgl_sbtz where t_sbmc like '%"+x+"%'");	//从设备台账表中得到page对象
+		renderJson(list);		//将台账的列表信息展示到前台
+	}
+	public void D001(){
+		String x=getPara("x");
+		String y=getPara("y");
+		int z=1;
+		List<sbgl_whbyjlb> list =sbgl_whbyjlb.dao.find("select * from sbgl_whbyjlb order by t_id desc");	//得到保养维护记录表里面的内容
+		if(list.isEmpty()){z=1;}else{z=list.get(0).getInt("t_id")+1;}               //运算出即将生成的单子的id值
+		
+		
+		sbgl_whjgb a=new sbgl_whjgb();		//将传过来的值直接保存到数据库中
+		a.set("t_tid", z);
+		a.set("t_whmc",x);
+		a.set("t_whjg",y);
+		a.save();		//将数据保存到数据库中
+		
+		List<sbgl_whjgb> n=sbgl_whjgb.dao.find("select * from sbgl_whjgb where t_tid = "+String.valueOf(z));	//查询表中的所有和这个外键关联的其他的项目名称和结果信息
+		
+		renderJson(n);	//把结果返回到前台
+	}
+	public void E001(){
+		String i=getPara("i");	//得到i的值
+		List<sbgl_whjgb> x=sbgl_whjgb.dao.find("select * from sbgl_whjgb where t_id = "+i);						//查到id为i的对象  我知道 删除一个对象需要id就可以了  但是这里需要刷新内容  需要一个list对象，因此需要获取到他的tid的值
+		sbgl_whjgb y=x.get(0);			//得到这个对象
+		int z=y.getInt("t_tid");		//得到tid的值
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+String.valueOf(z));
+		y.delete();						//将获取的值删除掉
+		
+		List<sbgl_whjgb> n=sbgl_whjgb.dao.find("select * from sbgl_whjgb where t_tid = "+String.valueOf(z));
+		
+		renderJson(n);	//把需要的结果返回给前台
+	}
+	public void F001(){
+		String a=getPara("a");
+		String b=getPara("b");
+		String c=getPara("c");
+		String d=getPara("d");
+		String e=getPara("e");
+		String f=getPara("f");
+		String g=getPara("g");
+		String h=getPara("h");
+		String i=getPara("i");
+		String j=getPara("j");
+		String k=getPara("k");
+		sbgl_whbyjlb x=new sbgl_whbyjlb();
+		x.set("t_sbbh", a);
+		x.set("t_sbmc", b);
+		x.set("t_sblx", c);
+		x.set("t_sbxh", d);
+		x.set("t_sybm", e);
+		x.set("t_sbbj", f);
+		x.set("t_wbbm", g);
+		x.set("t_whrq", h);
+		x.set("t_whr", i);
+		x.set("t_qrr", j);
+		x.set("t_sybm", k);
+		x.save();
+		renderText("内容已保存！");
+	}
+	public void A002(){
+		int n=getParaToInt("n");
+		Page<sbgl_whbyjlb> list =sbgl_whbyjlb.dao.paginate(n, 10, "select *", "from sbgl_whbyjlb");	//从维护保养记录表中得到page对象
+		renderJson(list);		//将维护保养记录表的列表信息展示到前台
+	}
+	public void C002(){
+		int x=getParaToInt("x");
+		sbgl_whbyjlb.dao.findById(x).delete();   //删除数据库的对象
+		List<sbgl_whjgb> a=sbgl_whjgb.dao.find("select * from sbgl_whjgb where t_tid = "+String.valueOf(x));
+		if (a.isEmpty()){}else{
+			for(int t=0;t<a.size();t++){
+				a.get(t).delete();			//删除所有查询到的内容
+			}
+		}
+		renderText("删除成功！");
+	}
+	public void D002(){
+		sbgl_whjgb n=getModel(sbgl_whjgb.class);	//得到对象
+		n.save();									//保存对象
+		renderText("添加成功！");						//随便发一行文字给前台，然而并前台并没有接收
+	}
+	public void E002(){
+		int x=getParaToInt("x");		//接收参数对象
+		List<sbgl_whjgb> a=sbgl_whjgb.dao.find("select * from sbgl_whjgb where t_tid = "+String.valueOf(x));	//从数据库得到list对象
+		renderJson(a);					//发送到前台
+	}
+	public void F002(){					//删除数据的代码
+		sbgl_whjgb.dao.findById(getParaToInt("x")).delete();			//根据前台发送过来的参数删除数据库响应内容
+		renderText("删除成功");
+	}
+	public void H002(){
+		String x=getPara("x");
+		Page<sbgl_whbyjlb> n=sbgl_whbyjlb.dao.paginate(1, 10, "select *", "from sbgl_whbyjlb where t_sbmc like '%"+x+"%'"); 
+		renderJson(n);
+	}
+	/**
+	 * 获取维护数据信息
+	 */
+	public void getWHJL(){
+		sbgl_whbyjlb whbyjlb =getModel(sbgl_whbyjlb.class);
+		if(whbyjlb!=null){
+			whbyjlb.save();
+		}
+		int num=getParaToInt("num");
+		for (int i = 0; i < num; i++) {
+			String name="sbgl_whjgb"+i;
+			sbgl_whjgb whjgb= getModel(sbgl_whjgb.class,name);
+			if(whjgb!=null){
+				whjgb.set("pid", "123");
+				whjgb.save();
+			}
+		}
+		renderText("success");
+		
+	}
+	public void A00B(){
+		sbgl_whbyjlb whbyjlb =getModel(sbgl_whbyjlb.class);
+		if(whbyjlb!=null){whbyjlb.save();}	   //保存数据
+		renderText("success");
+	}
+	public void A00D(){
+		sbgl_whbyjlb whbyjlb =getModel(sbgl_whbyjlb.class);
+		if(whbyjlb!=null){whbyjlb.update();}	   //更新数据
+		renderText("success");
+	}
+	public void A00E(){
+		int x=getParaToInt("x");		//前台得到参数
+		sbgl_whbyjlb n=sbgl_whbyjlb.dao.findById(x);
+		renderJson(n);
+	}
+	public void A00Ea(){			//用于展示的内容暂时还没写完
+		String x=getPara("x");
+		List<sbgl_whjgb> n=sbgl_whjgb.dao.find("select * from sbgl_whjgb where t_tid = "+x);		//在从表中查询到相关的内容
+		renderJson(n);			//把list对象发送到前台
+	}
+	public void B00A_a(){
+		int x=getParaToInt("x");
+		sbgl_whjgb n=sbgl_whjgb.dao.findById(x);			//找到对应的内容
+		renderJson(n); 		//发送mode对象
+	}
+	public void B00A_x(){
+		sbgl_whjgb n=getModel(sbgl_whjgb.class);
+		if(n!=null){n.update();}		//更新数据
+		int m=n.get("t_tid");
+		renderJson(String.valueOf(m));
+	}
+}

@@ -1,0 +1,33 @@
+package scsjgl;
+
+import com.jfinal.core.Controller;
+
+ 
+public class BcpxlbzzjlController extends Controller {
+	
+	public void index(){
+		String sql = "from scgygl_bcpxlbzzjl order by id desc";
+		int pageNum=getParaToInt("pagenNum",1);
+		setAttr("pageNum", pageNum);
+		setAttr("objectlist", Bcpxlbzzjl.me.paginate(pageNum, 10, "select *", sql));
+		render("/scsjgl/bcpxlbzzjl.html");
+	}
+	public void save(){		
+		getModel(Bcpxlbzzjl.class,"bcpxlbzzjl").save();
+		redirect("/#bcpxlbzzjl/index");
+	}
+	public void edit(){
+		setAttr("bcpxlbzzjl", Bcpxlbzzjl.me.findById(getParaToInt(0)));
+		render("/scsjgl/bcpxlbzzjl_add.html");		
+	}
+	public void delete(){
+		Bcpxlbzzjl.me.deleteById(getPara(0));
+		redirect("/#bcpxlbzzjl/index");
+	}
+	public void updater() {  
+		  Bcpxlbzzjl bcpxlbzzjl =  getModel(Bcpxlbzzjl.class);  
+		  bcpxlbzzjl.update();
+		  redirect("/#bcpxlbzzjl/index");
+	}
+
+}

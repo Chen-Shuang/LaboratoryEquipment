@@ -1,0 +1,65 @@
+package scsjgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+import config.scsjgl;
+
+public class XgffsyglController extends Controller {
+	 public void index(){
+		 List<Xgffsygl> scsjgl_xgffsygl =Xgffsygl.me.find("select * from scsjgl_xgffsygl");
+			
+			
+			setAttr("scsjgl_xgffsygl",scsjgl_xgffsygl);
+			
+			render("/scsjgl/xgffsyjl.html");
+	 }
+//	 public void activityList(){
+//			//获取当前页号，每页显示2行数据
+//			Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM scsjgl_xgffsygl");
+//	
+//		 //Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM scsjgl_xgffsygl");
+//			renderJson(dataPage);
+//			System.out.println(dataPage);
+//		}
+
+	 public void add() {
+			System.out.println("执行增加方法");
+			Xgffsygl scsjgl_xgffsygl=getModel(Xgffsygl.class,"scsjgl_xgffsygl");	 
+			
+			
+		
+			System.out.println("456");
+			scsjgl_xgffsygl.save();
+			
+			 redirect("/#xgffsyjl/index");
+		}
+	 public void del() {
+		     Xgffsygl.me.deleteById(getPara(0));
+			 System.out.println(getPara(0));
+		     //redirect("/#xgffsyjl/index");
+			 index();
+		}
+	 public void getid() {
+		 
+		 Xgffsygl  scsjgl_xgffsygl =Xgffsygl .me.findById(getPara(0));
+			
+			 
+			setAttr("scsjgl_xgffsygl",scsjgl_xgffsygl);	
+			 
+			 
+			
+			render("/scsjgl/xgffsyjl_update.html");	
+			
+		}
+	 public void update() {
+		 Xgffsygl  scsjgl_xgffsygl=getModel(	Xgffsygl.class,"scsjgl_xgffsygl");
+		 Xgffsygl   xgffsygl=getModel(Xgffsygl.class,"scsjgl_xgffsygl");
+		 scsjgl_xgffsygl=xgffsygl;
+		 scsjgl_xgffsygl.update();
+			 redirect("/xgffsygl/index");
+		} 
+}

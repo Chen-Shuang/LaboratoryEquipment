@@ -1,0 +1,258 @@
+<div class="main-content">
+				<div id="main-content-inner"><div class="main-content">
+				<div id="main-content-inner"><meta charset="utf-8">
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+
+<!-- /section:basics/content.breadcrumbs -->
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+			<form class="form-horizontal" role="form" method="post" action="/mes/xgffsyjl/add">
+				<div class="table-header">添加</div>
+				<div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- PAGE CONTENT BEGINS -->
+
+							<!-- #section:elements.form -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 序号 </label>
+
+								<div class="col-sm-6">
+									<input type="text" id="form-field-1" placeholder="请输入序号" class="col-xs-10 col-sm-5" name="scsjgl_xgffsygl.xh">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 牌号 </label>
+
+								<div class="col-sm-6">
+									<input type="text" id="form-field-1" placeholder="请输入牌号" class="col-xs-10 col-sm-5" name="scsjgl_xgffsygl.ph">
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 日期</label>
+
+								<div class="col-sm-6">
+									<input type="date" id="form-field-1" placeholder="请输入日期" class="col-xs-10 col-sm-5" name="scsjgl_xgffsygl.rq">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">数量</label>
+
+								<div class="col-sm-6">
+
+									<input type="text" class="col-xs-6" id="form-field-5" placeholder="请输入数量" name="scsjgl_xgffsygl.sl">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+									<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">批次号</label>
+
+								<div class="col-sm-6">
+
+									<input type="text" class="col-xs-6" id="form-field-5" placeholder="请输入批次号" name="scsjgl_xgffsygl.pch">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+									<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">编号</label>
+
+								<div class="col-sm-6">
+
+									<input type="text" class="col-xs-6" id="form-field-5" placeholder="请输入编号" name="scsjgl_xgffsygl.bh">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							
+  
+  
+							             <div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">取出时间</label>
+
+								<div class="col-sm-6">
+
+									<input type="text" class="col-xs-6" id="form-field-5" placeholder="请输入取出时间" name="scsjgl_xgffsygl.qcsj">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+                                        <div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">环境温度</label>
+
+								<div class="col-sm-6">
+
+									<input type="text" class="col-xs-6" id="form-field-5" placeholder="请输入环境温度" name="scsjgl_xgffsygl.hjwd">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">环境湿度</label>
+
+								<div class="col-sm-6">
+
+									<input type="text" class="col-xs-6" id="form-field-5" placeholder="请输入环境湿度" name="scsjgl_xgffsygl.hjsd">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">取出人</label>
+
+								<div class="col-sm-6">
+
+									<input type="text" class="col-xs-6" id="form-field-5" placeholder="请输入取出人" name="scsjgl_xgffsygl.qcr">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">回温时间</label>
+
+								<div class="col-sm-6">
+
+									<input type="date" class="col-xs-6" id="form-field-5" placeholder="请输入回温时间" name="scsjgl_xgffsygl.hwsj">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">使用时间</label>
+
+								<div class="col-sm-6">
+
+									<input type="date" class="col-xs-6" id="form-field-5" placeholder="请输入使用时间" name="scsjgl_xgffsygl.sysj">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">放入时间</label>
+
+								<div class="col-sm-6">
+
+									<input type="date" class="col-xs-6" id="form-field-5" placeholder="请输入放入时间" name="scsjgl_xgffsygl.frsj">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">用完时间</label>
+
+								<div class="col-sm-6">
+
+									<input type="date" class="col-xs-6" id="form-field-5" placeholder="请输入用完时间" name="scsjgl_xgffsygl.ywsj">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">是否混装</label>
+
+								<div class="col-sm-6">
+
+									<input type="text" class="col-xs-6" id="form-field-5" placeholder="请输入是否混装" name="scsjgl_xgffsygl.sfhz">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-2">备注</label>
+
+								<div class="col-sm-6">
+
+									<input type="text" class="col-xs-6" id="form-field-5" placeholder="请输入备注" name="scsjgl_xgffsygl.bz">
+
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+                  
+                  
+
+									<div class="space-2"></div>
+
+									<div class="help-block" id="input-span-slider"></div>
+								</div>
+							</div>
+							<div class="clearfix form-actions">
+								<div class="col-md-offset-3 col-md-9">
+									<button class="btn btn-info" type="submit">
+										<i class="ace-icon fa fa-check bigger-110"></i> 提交
+									</button>
+									&nbsp; &nbsp; &nbsp;
+									<button class="btn" type="reset">
+										<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- /.page-content -->
+
+	</div>
+</div>
+<!-- /.main-content -->
+</div>
+			</div></div>
+			</div>

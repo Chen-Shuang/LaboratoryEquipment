@@ -1,0 +1,71 @@
+package scsjgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class QzdfbjscgcjcController extends Controller {
+	public void index(){
+
+		 
+
+		
+	  	List<Qzdfbjscgcjc> qzdfbjsc = Qzdfbjscgcjc.me.find("select*from scsjgl_qzdfbjscgcjc");
+		setAttr("qzdfbjsc", qzdfbjsc);
+		System.out.println("得到数据" + qzdfbjsc.size() + "个");
+		 
+		render("/scsjgl/qzdfbjsc_main.html");
+	}
+ 	
+	public void qzddel() {
+		
+		Qzdfbjscgcjc.me.deleteById(getParaToInt(0));
+		 System.out.println(getPara(0));
+	   redirect("/#qzdfbjscgcjc/index");
+	}
+
+	public void qzdgetid() {
+		
+		renderJson(Qzdfbjscgcjc.me.findById(getParaToInt("id")));//获取 前端传递的id
+		 
+		 
+		 System.out.println("qzdgetid_________________"+getPara(0));
+		 
+	                                            }
+                   //增加
+	public void qzdadd() {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+		Qzdfbjscgcjc  qzd=getModel(Qzdfbjscgcjc.class,"scsjgl_qzdfbjscgcjc");
+		  qzd.save();
+		 System.out.println("////add");
+		 redirect("/#qzdfbjscgcjc/index");
+	}
+	
+	public void qzdupdate() {
+ 
+		Qzdfbjscgcjc  qzd=getModel(Qzdfbjscgcjc.class,"scsjgl_qzdfbjscgcjc");
+		 setAttr("id", qzd);
+	 
+		  qzd.update();
+	 	  System.out.println("//////bfupdate/////"+getPara(0));
+		 redirect("/#qzdfbjscgcjc/index");
+	 
+		 
+		 
+		 
+		 
+		 
+		 
+	}
+	public void qzdedit() {
+		Integer id = getParaToInt(0);
+		if (id != null && id > 0) {
+			setAttr("qzdfbjsc", Qzdfbjscgcjc.me.findById(id));
+		}
+		
+		 render("/scsjgl/qzdfbjsc_form.html");
+	
+	}
+	
+
+	
+}

@@ -1,0 +1,284 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+
+<!-- /section:basics/content.breadcrumbs -->
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+			<form class="form-horizontal" role="form"
+				action="/mes/scgcgylc/add">
+				<div class="table-header">生产过程工艺流程</div>
+
+
+				<div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- PAGE CONTENT BEGINS -->
+						 
+								<!-- #section:elements.form -->
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-1"> 工艺编号 </label>
+
+									<div class="col-sm-9">
+										<input type="text" id="form-field-1" placeholder="请输入工艺编号"
+											class="col-xs-10 col-sm-5" name="scgygl_scgcgylc.gybh"  />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-1-1"> 工艺流程编号</label>
+
+									<div class="col-sm-9">
+										<input type="text" id="form-field-1-1" placeholder="请输入工艺流程编号"
+											class="col-xs-10 col-sm-5" name="scgygl_scgcgylc.gylcbh"  />
+									</div>
+								</div>
+
+
+								<div class="space-4"></div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2"> 工艺流程名称</label>
+
+									<div class="col-xs-3">
+										<input type="password" id="form-field-2" placeholder="请输入工艺流程名称"
+											class="col-xs-10 col-sm-5" name="scgygl_scgcgylc.gylcmc"
+											 /> </span>
+									</div>
+								</div>
+
+								<div class="space-4"></div>
+
+
+
+
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">工作区域</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入工作区域" name="scgygl_scgcgylc.gzqy"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+
+
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">零部件编号</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="零部件编号" name="scgygl_scgcgylc.lbjbh"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+                                 <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">工艺图纸</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入工艺图纸" name="scgygl_scgcgylc.gytz"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+                                <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">零部件BOM编号</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入零部件BOM编号" name="scgygl_scgcgylc.lbjbombh"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+                                      <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">编制人编号</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入编制人编号" name="scgygl_scgcgylc.bzrbh" />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+                                       <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">使用设备及工具</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入使用设备及工具" name="scgygl_scgcgylc.sysbjgj"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+                                  <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">操作步骤</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入操作步骤" name="scgygl_scgcgylc.czbz"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>        
+                                  <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">操作要点</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入操作要点" name="scgygl_scgcgylc.czyd"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+                                   <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">IPQC</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入IPQC" name="scgygl_scgcgylc.ipqc"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+								 <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">注意事项</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入注意事项" name="scgygl_scgcgylc.zysx" />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+								 <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">排序</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入排序" name="scgygl_scgcgylc.px"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+								 <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+										for="form-field-2">备注</label>
+
+									<div class="col-sm-9">
+										<div class="clearfix">
+											<input class="col-xs-1" type="text" id="form-field-5"
+												placeholder="请输入备注" name="scgygl_scgcgylc.bz"  />
+										</div>
+
+										<div class="space-2"></div>
+
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-3 col-md-9">
+						<button class="btn btn-info"   type="submit" >
+							<i class="ace-icon fa fa-check bigger-110"></i> 提交
+						</button>
+
+						&nbsp; &nbsp; &nbsp;
+						<button class="btn" type="reset">
+							<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+						</button>
+					</div>
+				</div>
+</div>
+				</div>
+
+			</form>
+		</div>
+		<!-- /.page-content -->
+
+ 
+
+	</div>
+</div>
+
+
+<!-- /.main-content -->
+
+<script>
+	
+</script>

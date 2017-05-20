@@ -1,0 +1,54 @@
+package xtgl;
+
+import xtgl.Privilege;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class PrivilegeController extends Controller {
+
+	// ��תqxgl.html
+	public void index() {
+		setAttr("list", Privilege.dao.getPrivilege());
+		render("/xtgl/qxgl.html");
+	}
+
+	public void sele() {
+		int n = getParaToInt("pageNumber", 1);
+
+		if (getPara("seletype").equals("status")) {
+			if (getPara("selevalue").equals("启用")) {
+				Page<Privilege> list = Privilege.dao.paginate(n, 10,
+						"select *", "from privilege where status=true");
+				renderJson(list);
+			} else if (getPara("selevalue").equals("停用")) {
+				Page<Privilege> list = Privilege.dao.paginate(n, 10,
+						"select *", "from privilege where status=false");
+				renderJson(list);
+			} else {
+				Page<Privilege> list = Privilege.dao.paginate(n, 10,
+						"select *", "from privilege");
+				renderJson(list);
+			}
+
+		} else {
+			Page<Privilege> list = Privilege.dao.paginate(n, 10, "select *",
+					"from privilege where " + getPara("seletype") + " = '"
+							+ getPara("selevalue") + "'");
+			renderJson(list);
+		}
+		if (getPara("selevalue").equals("")) {
+			Page<Privilege> list = Privilege.dao.paginate(n, 10, "select *",
+					"from privilege");
+			renderJson(list);
+		}
+
+	}
+
+	public void pagedemo() {
+		int n = getParaToInt("pageNumber");
+		Page<Privilege> list = Privilege.dao.paginate(n, 10, "select *",
+				"from privilege");
+		renderJson(list);
+	}
+}

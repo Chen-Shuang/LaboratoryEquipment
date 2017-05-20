@@ -1,0 +1,637 @@
+﻿
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+
+ 
+
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+						
+
+						<div class="row">
+									<div class="col-xs-12">
+										
+										<div class="table-header">
+											烙铁温度测试记录
+										</div>
+
+										<div class="table-responsive">
+											<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+												<thead>
+								 
+									        <tr>
+									 		<th  colspan="6" class="hidden-480">生产班超：</th>
+											<th colspan="4"  class="hidden-480">设备编号：</th>
+											<th colspan="4" class="hidden-480">编号：ZYB M W 6.2-1.01 F-29</th>
+											</tr>
+											 
+												
+												
+													<tr>
+														<th class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</th>
+														<th>序 号</th>
+														<th>烙铁编号</th>
+														<th >时间</th>
+														<th>设定温度</th>
+														<th >标准温度</th>
+														<th>实际温度一</th>
+														<th>实际温度二</th>
+														<th>实际温度三</th>
+														<th>测试人</th>
+														<th>备注</th>
+														<th>组长</th>
+														<th>IPQC</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													
+
+													
+
+												
+
+													<tr>
+														<td class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</td>
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td >8:00</td>
+														<td>800°</td>
+													  <td >800°</td>
+													 <td >800°</td>
+													 <td>800°</td>
+													<td>800°</td>
+													<td>王烙铁</td>
+													<td>一切正常</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+													
+												 
+											          <td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a  class="blue" href="#">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+												
+
+					<tr>
+							                          <td class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</td>
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td >8.15</td>
+														<td>800°</td>
+													  <td >800°</td>
+													 <td >800°</td>
+													 <td>800°</td>
+													<td>800°</td>
+													<td>YES	</td>
+													<td>一切正常</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+	
+
+
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a  class="blue" href="#">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+
+ 
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr><tr>
+						                               	<td class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</td>
+
+														<td>001	</td>
+														<td>天空一号 </td>
+														<td >8.15</td>
+														<td>800°</td>
+													  <td >800°</td>
+													 <td >800°</td>
+													 <td>800°</td>
+													<td>800°</td>
+													<td>NO	</td>
+													<td>出问题了，该修理了</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																	<a  class="blue" href="#">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+													<tr>
+	                                             	<td class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</td>
+
+														<td>003	</td>
+														<td>天空二号 </td>
+														<td >8.15</td>
+														<td>800°</td>
+													  <td >800°</td>
+													 <td >800°</td>
+													 <td>800°</td>
+													<td>800°</td>
+													<td>XXX</td>
+													<td>有问题</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a  class="blue" href="#">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+												
+													</tr>
+<tr>
+	                                             	<td class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</td>
+
+														<td>003	</td>
+														<td>天空二号 </td>
+														<td >8.15</td>
+														<td>800°</td>
+													  <td >800°</td>
+													 <td >800°</td>
+													 <td>800°</td>
+													<td>800°</td>
+													<td>XXX</td>
+													<td>有问题</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+														<td>															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a  class="blue" href="#">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+	                                             	<td class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</td>
+
+														<td>003	</td>
+														<td>天空二号 </td>
+														<td >8.15</td>
+														<td>800°</td>
+													  <td >800°</td>
+													 <td >800°</td>
+													 <td>800°</td>
+													<td>800°</td>
+													<td>XXX</td>
+													<td>有问题</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a  class="blue" href="#">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+													<tr>
+	                                             	<td class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</td>
+
+														<td>003	</td>
+														<td>天空二号 </td>
+														<td >8.15</td>
+														<td>800°</td>
+													  <td >800°</td>
+													 <td >800°</td>
+													 <td>800°</td>
+													<td>800°</td>
+													<td>XXX</td>
+													<td>有问题</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a  class="blue" href="#">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+
+													<tr>
+	                                             	<td class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</td>
+
+														<td>003	</td>
+														<td>天空二号 </td>
+														<td >8.15</td>
+														<td>800°</td>
+													  <td >800°</td>
+													 <td >800°</td>
+													 <td>800°</td>
+													<td>800°</td>
+													<td>XXX</td>
+													<td>有问题</td>
+													<td>张大显</td>
+													<td>刘大圣</td>
+														<td>
+															<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+																<a  class="blue" href="#">修改
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a>
+
+																<a class="green" href="#">删除
+																	<i class="icon-pencil bigger-130"></i>
+																</a>
+
+																<a class="red" href="#">
+																	<i class="icon-trash bigger-130"></i>
+																</a>
+															</div>
+
+															<div class="visible-xs visible-sm hidden-md hidden-lg">
+																<div class="inline position-relative">
+																	<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+																		<i class="icon-caret-down icon-only bigger-120"></i>
+																	</button>
+
+																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+																		<li>
+																			<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																				<span class="blue">
+																					<i class="icon-zoom-in bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																				<span class="green">
+																					<i class="icon-edit bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+
+																		<li>
+																			<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																				<span class="red">
+																					<i class="icon-trash bigger-120"></i>
+																				</span>
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+														<div class="col-xs-12">	<a  class="red" href="#">添加数据
+																	<i class="icon-zoom-in bigger-130"></i>
+																</a></div>
+					</div><!-- /.page-content -->
+					
+					<h4>注：</h4><h5> 1.生产过程中组长和 IPQC 每两小时巡检 1 次，抽检 5 只；</h5><h5>
+					 2.根据公司质量要求和工艺文件检查表中各生产工序（无表中生产工序的不检查）， 符合要求打“√”， 不符合要
+                                                            求打“×”，备注栏请注明原因和解决方法；</h5><h5>
+            3.巡检过程中发现不良时，需立即停止生产， 并监督改正； </h5><h5>
+          4.设备故障请及时通知设备科， 制程和工艺问题请告知工艺工程师；</h5>
+				</div>
+			</div><!-- /.main-content -->
+
+		
+		<!-- /.page-content -->
+<script>
+	
+</script>

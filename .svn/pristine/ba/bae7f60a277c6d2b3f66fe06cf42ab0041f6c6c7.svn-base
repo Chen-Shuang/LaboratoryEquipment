@@ -1,0 +1,8 @@
+package scjhgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Cprscjh extends Model<Cprscjh> {
+	public static final Cprscjh dao=new Cprscjh();
+
+}

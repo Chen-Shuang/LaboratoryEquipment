@@ -1,0 +1,16 @@
+package config;
+
+import scjhgl.ZzprscjhController;
+import scjhgl.ZzpscddController;
+import scjhgl.scjhglController;
+
+import com.jfinal.config.Routes;
+
+public class scjhglConfig extends Routes{
+	public void config() {
+		add("/scjhgl",scjhglController.class);
+		add("/zzpscdd",ZzpscddController.class);
+		add("/zzprscjh",ZzprscjhController.class );
+
+	}
+}

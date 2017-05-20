@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<script src="js/jquery-3.0.0.js"></script>
+		<script src="js/jquery-3.0.0.min.js"></script>
+		<title>实验室设备管理系统</title>
+
+		<meta name="description" content="User login page" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<link rel="shortcut icon" href="plugins/images/favicon.ico" type="image/x-icon" />
+		
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="plugins/ace/assets/css/bootstrap.css" />
+		<link rel="stylesheet" href="plugins/ace/assets/css/font-awesome.css" />
+
+		<!-- text fonts -->
+		<link rel="stylesheet" href="plugins/ace/assets/css/ace-fonts.css" />
+
+		<!-- ace styles -->
+		<link rel="stylesheet" href="plugins/ace/assets/css/ace.css" />
+
+		<link rel="stylesheet" href="plugins/ace/assets/css/ace-rtl.css" />
+		
+		<script src="js/jquery-3.0.0.js"></script>
+		<script src="js/jquery-3.0.0.min.js"></script>
+		
+		<link rel="stylesheet" href="plugins/layer/skin/layer.css">
+		<link rel="stylesheet" href="plugins/layer/skin/layer.ext.css">
+		<script src="plugins/layer/layer.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 登录
+		$("#login_btn").click(function(){   // 点击确定按钮提交信息
+			
+			// 验证数据是否为空
+			window.location.href="loginIndex";
+		 
+		});
+		
+		// 回车事件
+		$("body").keydown(function() {
+           if (event.keyCode == "13") { //keyCode=13是回车键
+              $("#login_btn").click();
+           } 
+        });
+}); 
+	
+</script>
+	
+	</head>
+
+	<body class="login-layout light-login">
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container">
+							<div class="center">
+							<h4 class="blue" id="id-company-text">&nbsp;</h4>
+								<h1>
+									<!-- <i class="ace-icon fa fa-leaf green"></i> -->
+									<span style="float: left"><img alt="LOGO" style="height: 43px;" src="plugins/images/minlogo.png"></span>
+									<span class="red">实验室设备管理系统</span>
+									<!-- <span class="white" id="id-text2">实验室设备管理系统</span> -->
+								</h1>
+								<h4 class="blue" id="id-company-text">&nbsp;</h4>
+							</div>
+
+							<div class="space-6"></div>
+
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header blue lighter bigger">
+												<i class="ace-icon fa fa-coffee green"></i>
+												请输入你的账户信息
+											</h4>
+											<div class="space-6"></div>
+
+											<form>
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" placeholder="账号" id="user"/>
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" placeholder="密码" id="password" />
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+													</label>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input id="emailCode" type="text" style="width: 68%;float: left;" class="form-control" placeholder="邮箱验证码" />
+															<!-- <i class="ace-icon fa fa-envelope"></i>  -->
+															<button id="sendEmail_btn" type="button" style="width: 32%" class="width-18 pull-right btn btn-sm btn-primary">
+															<span class="bigger-110">发送验证码</span>
+														</button>
+														</span>
+													</label> 
+
+													<div class="space"></div>
+
+													<div class="clearfix">
+														
+														<button id="login_btn" type="button" class="width-35 pull-right btn btn-sm btn-primary">
+															<i class="ace-icon fa fa-key"></i>
+															<span class="bigger-110">登录</span>
+														</button>
+													</div>
+													<div class="space-4"></div>
+												</fieldset>
+											</form>
+
+											 <div class="social-or-login center">
+												<span class="bigger-110"></span>
+											</div> 
+											
+										</div><!-- /.widget-main -->
+
+									</div><!-- /.widget-body -->
+								</div><!-- /.login-box -->
+
+							</div><!-- /.position-relative -->
+
+							<div class="navbar-fixed-top align-right">
+								<br />
+								&nbsp;
+								<a id="btn-login-dark" href="#">黑色</a>
+								&nbsp;
+								<span class="blue">/</span>
+								&nbsp;
+								<a id="btn-login-blur" href="#">蓝色</a>
+								&nbsp;
+								<span class="blue">/</span>
+								&nbsp;
+								<a id="btn-login-light" href="#">浅色</a>
+								&nbsp; &nbsp; &nbsp;
+							</div>
+						</div>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			</div><!-- /.main-content -->
+		</div><!-- /.main-container -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='plugins/ace/assets/js/jquery.js'>"+"<"+"/script>");
+		</script>
+
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='plugins/ace/assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			jQuery(function($) {
+			 $(document).on('click', '.toolbar a[data-target]', function(e) {
+				e.preventDefault();
+				var target = $(this).data('target');
+				$('.widget-box.visible').removeClass('visible');//hide others
+				$(target).addClass('visible');//show target
+			 });
+			});
+			
+			
+			//you don't need this, just used for changing background
+			jQuery(function($) {
+			 $('#btn-login-dark').on('click', function(e) {
+				$('body').attr('class', 'login-layout');
+				$('#id-text2').attr('class', 'white');
+				$('#id-company-text').attr('class', 'blue');
+				
+				e.preventDefault();
+			 });
+			 $('#btn-login-light').on('click', function(e) {
+				$('body').attr('class', 'login-layout light-login');
+				$('#id-text2').attr('class', 'grey');
+				$('#id-company-text').attr('class', 'blue');
+				
+				e.preventDefault();
+			 });
+			 $('#btn-login-blur').on('click', function(e) {
+				$('body').attr('class', 'login-layout blur-login');
+				$('#id-text2').attr('class', 'white');
+				$('#id-company-text').attr('class', 'light-blue');
+				
+				e.preventDefault();
+			 });
+			 
+			});
+		</script>
+	</body>
+</html>
+		

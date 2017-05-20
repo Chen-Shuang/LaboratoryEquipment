@@ -1,0 +1,70 @@
+package sbgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class YsyjController extends Controller{
+	public void index(){
+		render("/sbgl/ysyj.html");
+	}
+	 public void indexm(){
+			int n=getParaToInt("n");
+			Page<Ysyj> list =Ysyj.dao.paginate(n, 10, "select *", "from sbgl_ysyj");	//从表中得到page对象
+			renderJson(list);		//将表的列表信息展示到前台
+		}
+	    
+	 	/**************************子表详细功能*********************************/
+	 
+	 
+	 
+	 
+		/**************************主表详细功能*********************************/
+	    public void detail(){
+			String x=getPara("x");		//前台得到参数
+			Ysyj n=Ysyj.dao.findById(x);
+			renderJson(n);
+		}
+		
+	    /**************************添加功能*********************************/
+		public void addModel(){
+			Ysyj ysyj =getModel(Ysyj.class);
+			if(ysyj!=null){ysyj.save();}	   //保存数据
+			renderText("success");
+		}
+		/**************************修改功能*********************************/
+		
+		public void update(){
+			Ysyj ysyj =getModel(Ysyj.class);
+			if(ysyj!=null){ysyj.update();}	   //更新数据
+			renderText("success");
+		}
+		
+		
+		public void getAll(){
+			String x=getPara("x");
+			Ysyj s = Ysyj.dao.findById(x);
+			renderJson(s);
+		}
+		/**************************删除功能*********************************/
+		
+		public void deleteModel(){
+			String x=getPara("x");
+			Ysyj.dao.findById(x).delete();   //删除数据库的对象
+			List<Wd> a=Wd.dao.find("select * from sbgl_wd where t_sbyjdh ="+String.valueOf(x));
+			if (a.isEmpty()){}else{
+				for(int t=0;t<a.size();t++){
+					a.get(t).delete();			//删除所有查询到的内容
+				}
+			}
+			renderText("删除成功！");
+		}
+		
+		/**************************查找功能*********************************/
+		public void select(){
+			String x=getPara("x");
+			Page<Ysyj> n=Ysyj.dao.paginate(1, 10, "select *", "from sbgl_ysyj where t_sbyjdh ='"+x+"'"); 			
+			renderJson(n);
+		}
+}

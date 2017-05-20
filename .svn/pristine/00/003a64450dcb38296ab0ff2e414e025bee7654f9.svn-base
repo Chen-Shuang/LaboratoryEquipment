@@ -1,0 +1,103 @@
+package sbgl;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.jfinal.core.Controller;
+
+public class sbgl_bjlxController extends Controller{
+	public void index(){
+		List<sbgl_bjlx> list =sbgl_bjlx.dao.find("select * from sbgl_bjlx");   //得到表中数据
+		List<Map<String,Object>> mapList=new ArrayList<Map<String, Object>>();  //创建一个maplist对象用来作为树形表的数据
+		int a = 0;
+		int b = 0;
+		String ax="";
+		String bx="";
+		String c="";
+		for(int i=0;i<list.size();i++){                                           //遍历讲表中数据依次插入符合条件的maplist对象中
+			Map<String,Object> hashmap = new LinkedHashMap<String, Object>();            //一个map对象  用于装键值对儿
+			ax=list.get(i).get("t_id");         //得到参数
+			bx=list.get(i).get("t_pid");
+			a=new Integer(ax);                  //把参数改成数值型
+			b=new Integer(bx);
+			c=list.get(i).get("t_lxmc");
+			hashmap.put("id", a);
+			hashmap.put("pId", b);
+			hashmap.put("name", c);
+			hashmap.put("isParent", "true");
+			hashmap.put("click", "tree_return("+a+",'"+c+"')");
+			mapList.add(hashmap);                                                 //一组数据装入后 ，存入maplist中
+		}	
+		Gson gson = new Gson();                                                       //构建一个gson对象
+		String strList = gson.toJson(mapList); //转换成json的字符串对象
+		strList=strList.replaceAll("\"id\"", "id");     //去除引号
+		strList=strList.replaceAll("\"pId\"","pId");
+		strList=strList.replaceAll("\"name\"","name");
+		strList=strList.replaceAll("\"isParent\"","isParent");
+		strList=strList.replaceAll("\"true\"","true");
+		strList=strList.replaceAll("\"click\"","click");
+		System.out.println(strList);
+		renderText(strList);  //将数据发送至前台
+	}	
+	public void add(){
+		String a=getPara("a");  //从页面中得到参数值
+		String b=getPara("ax");		//这个是文字值啦！
+		List<sbgl_bjlx> list =sbgl_bjlx.dao.find("select * from sbgl_bjlx where t_pid = '"+a+"'");   //从数据库中差父亲节点的儿子有多少个
+		int c =list.size()+1;
+		String cc=String.valueOf(c);
+		String id=a+"1"+cc;   //得到自编号的规则：父级别编号+1+父亲编号的现有儿子总数加1的连缀   小螺号编号规则
+		sbgl_bjlx n=new sbgl_bjlx();
+		n.set("t_pid", a);
+		n.set("t_lxmc", b);
+		n.set("t_id", id);
+		n.save();        //将数据保存到数据库中
+		renderText("");  //返回到处理页面中
+	}
+	public void tree_two(){
+		List<sbgl_bjlx> list =sbgl_bjlx.dao.find("select * from sbgl_bjlx");   //得到表中数据
+		List<Map<String,Object>> mapList=new ArrayList<Map<String, Object>>();  //创建一个maplist对象用来作为树形表的数据
+		int a = 0;
+		int b = 0;
+		String ax="";
+		String bx="";
+		String c="";
+		
+		
+		for(int i=0;i<list.size();i++){                                           //遍历讲表中数据依次插入符合条件的maplist对象中
+			Map<String,Object> hashmap = new LinkedHashMap<String, Object>();            //一个map对象  用于装键值对儿
+			ax=list.get(i).get("t_id");         //得到参数
+			bx=list.get(i).get("t_pid");
+			a=new Integer(ax);                  //把参数改成数值型
+			b=new Integer(bx);
+			c=list.get(i).get("t_lxmc");
+			hashmap.put("id", a);
+			hashmap.put("pId", b);
+			hashmap.put("name", c);
+			hashmap.put("isParent", "true");
+			hashmap.put("open", "true");
+			hashmap.put("click", "get_tree_name('"+c+"')");
+			mapList.add(hashmap);                                                 //一组数据装入后 ，存入maplist中
+		}	
+		
+		
+		Gson gson = new Gson();                                                       //构建一个gson对象
+		String strList = gson.toJson(mapList); //转换成json的字符串对象
+		
+		//字符串替换拼接的代码
+		strList=strList.replaceAll("\"id\"", "id");     //去除引号
+		strList=strList.replaceAll("\"pId\"","pId");
+		strList=strList.replaceAll("\"name\"","name");
+		strList=strList.replaceAll("\"isParent\"","isParent");
+		strList=strList.replaceAll("\"true\"","true");
+		strList=strList.replaceAll("\"click\"","click");
+		strList=strList.replaceAll("\"open\"","open");
+		
+		System.out.println("我爱你");
+		renderText(strList);
+	}
+	
+}

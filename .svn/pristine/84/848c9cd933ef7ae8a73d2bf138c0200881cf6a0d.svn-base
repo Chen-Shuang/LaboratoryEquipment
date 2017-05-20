@@ -1,0 +1,11 @@
+package scsjgl;
+
+import com.jfinal.core.Controller;
+
+public class XgffsyglController extends Controller {
+	 public void index(){
+		 renderFreeMarker("/scsjgl/xgffsyjl.html");
+		 System.out.println("##666");
+	 }
+
+}

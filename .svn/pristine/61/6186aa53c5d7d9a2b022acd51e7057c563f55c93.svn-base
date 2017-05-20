@@ -1,0 +1,466 @@
+<style type="text/css">
+.a{color:#666;float:left;margin-right:10px;padding:4px;}
+.a:hover{cursor:pointer;background-color:rgb(153,217,234);}
+#x:hover{cursor:pointer;}
+</style>
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span class="glyphicon glyphicon-wrench">&nbsp;采购申请</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div> 
+<div class="col-xs-12" style="margin-top:10px;">
+	<div class="table-header">采购申请列表</div>
+<div class="dataTables_wrapper form-inline no-footer">
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="dataTables_length">
+				<label>
+				查询
+				<input id="select" class="form-control input-sm" aria-controls="dynamic-table" type="text" placeholder="离开文本框后自动查询"/>
+				</label>
+			</div>
+		</div>
+		<div class="pull-right">
+
+				<button class="btn btn-sm btn-primary" style="margin-right:30px;" onclick="add();">添加采购申请</button>
+		</div>
+	</div>
+	<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" aria-describedby="dynamic-table_info" role="grid">
+		<thead>
+			<tr role="row">
+				<th style="width:50px">序号</th>
+           		 <th>申请内容</th>
+        		 <th>申请人</th>
+       			 <th>申请日期</th>
+        		 <th>审批内容</th>
+        		 <th>领导审批</th>
+        		 <th>审批日期</th>
+        		 <th>备注</th>
+				 <th style="width:150px">操作</th>
+			</tr>
+		</thead>
+		<tbody id="indexn_body"></tbody>                           <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+	</table>
+	<div class="breadcrumbs" id="breadcrumbs" style="height:38px;">
+		<div class="pull-right"><ul id="indexm_foot" class="pagination" style="margin-top:5px">123</ul></div>
+	</div>
+</div>
+</div>
+
+
+<script>
+/****
+
+本JavaScript目的：展示主页面
+每两个script之间用两空行分开，以示区别
+
+****/
+indexm(1);				//初始化页面信息时候用的
+function indexm(n){      //
+	$.post("sbgl_c/indexm",{"n":n},function(data){
+			indexm_trList(data.list); //此方法用于填充表格
+			indexm_writePageFoot(data);	//此方法用于页脚的填充
+	});
+};
+
+
+function indexm_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += indexm_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#indexn_body").html(dataStr);	//这里是正式填充的语句！！！！！
+
+};
+
+
+function indexm_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + i + '</td>';
+	dataStr += '<td>' + v.t_sqnr + '</td>';
+	dataStr += '<td>' + v.t_sqr + '</td>';
+	dataStr += '<td>' + v.t_sqrq + '</td>';
+	dataStr += '<td>' + v.t_spnr + '</td>';
+	dataStr += '<td>' + v.t_ldsp + '</td>';
+	dataStr += '<td>' + v.t_sprq + '</td>';
+	dataStr += '<td>' + v.t_bz + '</td>';
+	dataStr += '<td><a class="blue" href="javascript:detail(\''+v.t_id+'\')"><i class="glyphicon glyphicon-search bigger-150" style="margin-left:10px; rgb(255, 140, 60);"></i></a>';
+	dataStr += '<a class="green" href="javascript:updater(\''+v.t_id+'\',\''+v.t_sqnr+'\',\''+v.t_sqr+'\',\''+v.t_sqrq+'\',\''+v.t_spnr+'\',\''+v.t_ldsp+'\',\''+v.t_sprq+'\',\''+v.t_bz+'\')"><i class="glyphicon glyphicon-pencil bigger-150" style="margin-left:10px;"></i></a>';
+	dataStr += '<a class="red" href="javascript:deletee(\''+v.t_id+'\')"><i class="ace-icon fa fa-trash-o bigger-150" style="margin-left:10px;"></i></a></td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+
+
+function indexm_writePageFoot(data){   //填充页码部分的内容！！！！
+  	var n="";
+    var x=data.pageNumber;
+    if(x==1){x=1;}else{x=x-1;};				//x为上一页
+    var y=x+2;
+    if(y>data.totalPage){y=data.totalPage;}else{};		//y为下一页
+    n +="<li onclick=\"indexm_pageChange("+x+")\"><a>"+"上一页"+"</a></li>&nbsp;&nbsp;";
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.pageNumber){
+			n +="<li class=\"active\" onclick=\"indexm_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"indexm_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	n +="<li onclick=\"indexm_pageChange("+y+")\"><a>"+"下一页"+"</a></li>&nbsp;&nbsp;";
+	$("#indexm_foot").html(n);       									//替换的语句
+  };
+  
+  
+function indexm_pageChange(n) {  
+	$.post("sbgl_c/indexm",{"n": n},function(data){
+		indexm_trList(data.list); //此方法用于填充表格
+		indexm_writePageFoot(data); //此方法用于填充页脚
+	});
+};
+
+
+/****
+
+本JavaScript目的：展示"添加"功能页面
+每两个script之间用两空行分开，以示区别
+
+****/
+var ad="";
+function add(){
+   $("#addform input").val("");
+	ad=layer.open({
+ 	 	type: 1,
+  		title: '添加采购申请', //不显示标题
+  		content:$('#addform'),
+  		area: ['600px', '380px']
+  		});
+};
+
+
+function addform2(){		
+	if(valide()){			//如果验证成功就提交表单
+			$.post("sbgl_c/addModel",$("#addform2").serialize(),function(data){
+				layer.close(ad);		//关闭弹窗
+				 indexm(1);				//初始化页面
+			});
+	}else{}
+};
+
+
+function valide(){				
+	var a=document.getElementById("add_sqnr").value;
+	var b=document.getElementById("add_sqr").value;
+	var c=document.getElementById("add_sqrq").value;
+	var d=document.getElementById("add_spnr").value;
+	var e=document.getElementById("add_ldsp").value;
+	var f=document.getElementById("add_sprq").value;
+	var g=document.getElementById("add_bz").value;
+	if((a&&b&&c&&d&&e&&f&&g)==""){layer.msg("有空值哦！"); return !true; }else{return true;}
+};
+/****
+
+本JavaScript目的：展示"添加子表"页面
+每两个script之间用两空行分开，以示区别
+
+****/
+
+
+/****
+
+本JavaScript目的：展示"主表详细"页面
+每两个script之间用两空行分开，以示区别
+
+****/
+function detail(x){
+	$.post("sbgl_c/detail",{"x":x},function(data){		                  //得到表单的值  data是mode对象
+		document.getElementById("d_sqnr").innerHTML=data.t_sqnr;
+		document.getElementById("d_sqr").innerHTML=data.t_sqr;
+		document.getElementById("d_sqrq").innerHTML=data.t_sqrq;
+		document.getElementById("d_spnr").innerHTML=data.t_spnr;
+		document.getElementById("d_ldsp").innerHTML=data.t_ldsp;
+		document.getElementById("d_sprq").innerHTML=data.t_sprq;		
+		document.getElementById("d_bz").innerHTML=data.t_bz;
+	});
+   // $.post("sbgl_c/details",{"x":x},function(data){						   //得到表单的值是list对象用于展示
+	//		detail_trList(data);																						//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   // });
+	ad=layer.open({
+ 	 	type: 1,
+  		title: !true, //不显示标题
+  		content:$('#detaildiv'),
+  		area: ['600px', '430px']
+  		});
+}
+/* function detail_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += detail_stringBuilder(v,i);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#x_body").html(dataStr);						//这里是正式填充的语句！！！！！
+
+};
+function detail_stringBuilder(v,i) {
+	i=i+1;
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td colspan="1" width="7.5%">' + i + '</td>';
+	dataStr += '<td colspan="2">' + v.t_whmc + '</td>';
+	dataStr += '<td colspan="9">' + v.t_whjg + '</td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+ */
+/****
+
+本JavaScript目的：展示"修改"功能页面
+每两个script之间用两空行分开，以示区别
+
+****/
+function updater(a,b,c,d,e,f,g,h){
+	document.getElementById("update_id").value=a;
+	document.getElementById("update_sqnr").value=b;
+	document.getElementById("update_sqr").value=c;
+	document.getElementById("update_sqrq").value=d;
+	document.getElementById("update_spnr").value=e;
+	document.getElementById("update_ldsp").value=f;
+	document.getElementById("update_sprq").value=g;
+	document.getElementById("update_bz").value=h;
+	ad=layer.open({
+ 	 	type: 1,
+  		title: '修改模块', //不显示标题
+  		content:$('#updaterdiv'),
+  		area: ['600px', '430px']
+  		});
+};
+function update(){
+	if(valideUpdate()){
+		$.post("sbgl_c/update",$("#updateform").serialize(),function(data){
+			layer.close(ad);		//关闭弹窗
+			indexm(1);				//初始化页面
+		});
+	}else{};
+};
+function valideUpdate(){				
+	var a=document.getElementById("update_sqnr").value;
+	var b=document.getElementById("update_sqr").value;
+	var c=document.getElementById("update_sqrq").value;
+	var d=document.getElementById("update_spnr").value;
+	var e=document.getElementById("update_ldsp").value;
+	var f=document.getElementById("update_sprq").value;
+	var g=document.getElementById("update_bz").value;
+	if((a&&b&&c&&d&&e&&f&&g)==""){layer.msg("有空值哦！"); return !true; }else{return true;}
+}
+
+
+
+
+/****
+
+本JavaScript目的：展示"删除"功能页面
+每两个script之间用两空行分开，以示区别
+
+****/
+function deletee(x){
+	$.post("sbgl_c/deleteModel",{"x":x},function(data){		//删除内容的函数
+		layer.msg(data);
+		indexm(1);						//重新初始化内容
+	});
+}
+
+/****
+
+本JavaScript目的：展示"查找"功能页面
+每两个script之间用两空行分开，以示区别
+
+****/
+$("#select").blur(
+  	function(){
+  		var x =document.getElementById("select").value;
+  		$.post("sbgl_c/select",{"x":x},function(data){				
+  			indexm_trList(data.list); //此方法用于填充表格
+			indexm_writePageFoot(data);	//此方法用于页脚的填充
+  		});
+  	}
+);
+
+
+
+</script>
+
+
+<!--**********************************各种div展示*********************************  -->
+<!-- 添加功能的div -->
+<div id="addform" style="display:none;">
+<form  class="form-horizontal" id="addform2" style="">
+        <fieldset class="solid" style="padding-right:20px;">
+        	
+        	<div class="form-group" style="margin-top:35px;">
+				<label class="col-sm-2 control-label no-padding-right" >申请内容</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_sqnr" class="col-xs-12 col-sm-12" id="add_sqnr"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">申请人</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_sqr" class="col-xs-12 col-sm-12" id="add_sqr"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">申请日期</label>
+				<div class="col-sm-4">
+					<input type="date" name="cgsq.t_sqrq" class="col-xs-12 col-sm-12" id="add_sqrq"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">审批内容</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_spnr" class="col-xs-12 col-sm-12" id="add_spnr"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">领导审批</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_ldsp" class="col-xs-12 col-sm-12" id="add_ldsp"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right" style="height:20px;">审批日期</label>
+				<div class="col-sm-4">
+					<input type="date" name="cgsq.t_sprq" class="col-xs-12 col-sm-12" style="height:36px;" id="add_sprq"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">备注</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_bz" class="col-xs-12 col-sm-12" id="add_bz"/>
+				</div>
+				
+			</div>
+		<div class="col-md-offset-3 col-md-6" style="margin-top:30px">
+		<button type="button" class="btn btn-info" onclick="addform2()">
+			<i class="ace-icon fa fa-check bigger-110"></i>
+			提交
+		</button>
+		<button class="btn" type="reset" style="margin-left:90px;">
+			<i class="ace-icon fa fa-check bigger-110"></i>
+			重置
+		</button>
+		</div>
+ 
+		</fieldset>
+</form>
+</div>
+
+
+<!--添加子表div  -->
+
+
+
+<!--主表详细div  -->
+<div id="detaildiv"style="display:none">
+<div class="table-header">设备维护记录表</div>
+<table class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable" aria-describedby="dynamic-table_info" role="grid">
+		<tbody>
+			<tr>
+  	 			<td colspan="12" style="width:100%">
+  	 				<div style="font-weight:bold;">申请内容：</div>
+  	 				<div id="d_sqnr" style="height:100px; margin-top:20px;text-indent:2em;"></div>
+  	 				<div style="float:left;margin-left:10px;font-weight:bold;">申请人</div>
+  	 				<div style="float:left;margin-left:10px;width:200px;text-indent:2em;" id="d_sqr"></div>
+  	 				<div style="float:left;margin-left:10px;font-weight:bold;">申请日期</div>
+  	 				<div style="float:left;margin-left:10px;width:200px;text-indent:2em;"id="d_sqrq"></div>
+  	 			</td>
+   			</tr>
+   			<tr>
+  	 			<td colspan="12" style="width:100%">
+  	 				<div style="font-weight:bold;">审批内容：</div>
+  	 				<div id="d_spnr" style="height:100px; margin-top:20px;text-indent:2em; "></div>
+  	 				<div style="float:left;margin-left:10px;font-weight:bold;">领导审批：</div>
+  	 				<div style="float:left;margin-left:10px;width:200px;text-indent:2em;" id="d_ldsp"></div>
+  	 				<div style="float:left;margin-left:10px;font-weight:bold;">审批日期：</div>
+  	 				<div style="float:left;margin-left:10px;width:200px;text-indent:2em;"id="d_sprq"></div>
+  	 			</td>
+   			</tr>
+   			<tr>
+  	 			<td colspan="12" style="width:100%">
+  	 				<div style="float:left;margin-left:10px;font-weight:bold;">备注：</div>
+  	 				<div style="float:left;margin-left:10px;text-indent:2em;" id="d_bz"></div>
+  	 			</td>
+   			</tr>
+   		</tbody>
+   		
+</table>			 			
+</div>
+
+
+<!--修改功能div  -->
+<div id="updaterdiv" style="display:none;">
+<form  class="form-horizontal" id="updateform" style="">
+        <fieldset class="solid" style="padding-right:20px;">
+        	<div class="form-group" style="margin-top:35px;">
+				<label class="col-sm-2 control-label no-padding-right" >申请内容</label>
+				<div class="col-sm-4">
+					<input type="hidden" name="cgsq.t_id" class="col-xs-12 col-sm-12" id="update_id"/>
+					<input type="text" name="cgsq.t_sqnr" class="col-xs-12 col-sm-12" id="update_sqnr"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">申请人</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_sqr" class="col-xs-12 col-sm-12" id="update_sqr"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">申请日期</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_sqrq" class="col-xs-12 col-sm-12" id="update_sqrq"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">审批内容</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_spnr" class="col-xs-12 col-sm-12" id="update_spnr"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">领导审批</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_ldsp" class="col-xs-12 col-sm-12" id="update_ldsp"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right" style="height:20px;">审批日期</label>
+				<div class="col-sm-4">
+					<input type="date" name="cgsq.t_sprq" class="col-xs-12 col-sm-12" style="height:36px;" id="update_sprq"/>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">备注</label>
+				<div class="col-sm-4">
+					<input type="text" name="cgsq.t_bz" class="col-xs-12 col-sm-12" id="update_bz"/>
+				</div>
+			</div>
+			<div class="col-md-offset-3 col-md-6" >
+			<button type="button" class="btn btn-info" onclick="update()">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+				提交
+			</button>
+			<button class="btn" type="reset" style="margin-left:90px;">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+				重置
+			</button>
+			</div>
+	 </fieldset>
+</form>
+</div>
+
+
+<!--删除功能div  -->
+
+
+
+<!--查找功能div  -->
+
+

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> -->
+		<meta charset="utf-8" />
+		<title>实验室设备管理系统</title>
+		
+		<meta name="description" content="overview &amp; stats" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<link rel="shortcut icon" href="plugins/images/favicon.ico" type="image/x-icon" />
+
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="plugins/ace/assets/css/bootstrap.css" />
+		<link rel="stylesheet" href="plugins/ace/assets/css/font-awesome.css" />
+		<link rel="stylesheet" href="plugins/ace/assets/css/jquery-ui.css" />
+		
+		<link rel="stylesheet" href="plugins/ace/assets/css/ui.jqgrid.css" />   
+
+		<!-- text fonts -->
+		<link rel="stylesheet" href="plugins/ace/assets/css/ace-fonts.css" />
+
+		<!-- 文件上传 -->
+		<link rel="stylesheet" href="plugins/ace/assets/css/dropzone.css" />
+		<link rel="stylesheet" href="plugins/ace/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+		<!-- ace styles -->
+		<link rel="stylesheet" href="plugins/ace/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+	<link rel="stylesheet" href="plugins/layer/skin/layer.css">
+	<link rel="stylesheet" href="plugins/layer/skin/layer.ext.css">
+	<!-- //zTree_v3 -->
+	<link rel="stylesheet" href="plugins/zTree_v3/css/metroStyle/metroStyle.css" type="text/css">
+	<link rel="stylesheet" href="plugins/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	
+	<link rel="stylesheet" href="plugins/ace/assets/css/ace.onpage-help.css" />
+	<!-- 日期 -->
+	<link rel="stylesheet" href="plugins/layui-master/build/css/layui.css"  media="all">
+	<script src="plugins/layui-master/build/layui.js" charset="utf-8"></script>
+	<!-- 分页 -->
+	<link rel="stylesheet" href="plugins/laypage/skin/laypage.css" type="text/css">
+	<script src="plugins/laypage/laypage.js"></script>
+	<!-- validate验证 -->
+	<script src="plugins/jquery-validation-1.14.0/lib/jquery.js"></script>
+	<script src="plugins/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+	<!-- 中文信息包 -->
+	<script src="plugins/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+	<style type="text/css">
+	.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+	</style>
+	
+		<script src="plugins/ace/assets/js/ace-extra.js"></script>
+		<script src="plugins/ace/assets/js/jquery1x.js"></script>
+		<script src="plugins/echart/echarts-all.js" type="text/javascript"></script>
+		
+		<style type="text/css">
+		.ztree span {
+			font-size: 15px;
+			height: 2em;
+		}
+		.ztree li {
+			margin-top: 5px;
+		}
+		</style>
+		
+	<!-- 引入layer -->
+	<link rel="stylesheet" href="layui/css/layui.css" type="text/css">
+	<script src="layui/layui.js" type="text/javascript"></script>
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+					<span class="sr-only"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				 
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="" class="navbar-brand" style="height: 45px;padding-top: 1px;">
+						<small >
+							<img alt="LOGO" style="height: 43px;" src="plugins/images/minlogo.png">
+							实验室设备管理系统
+						</small>
+					</a>
+
+				</div>
+
+				<!-- #section:basics/navbar.dropdown -->
+				<div class="navbar-buttons navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						<!-- #section:basics/navbar.user_menu -->
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<img class="nav-user-photo" src="plugins/ace/assets/avatars/user.jpg" alt="Jason's Photo" />
+								<span class="user-info">
+									<small>欢迎您</small>
+									<span id="usernametitle"></span>
+								</span>
+
+								<i class="ace-icon fa fa-caret-down"></i>
+							</a>
+
+							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li>
+									<a href="javascript:personInfo()">
+										<i class="ace-icon fa fa-user"></i>
+										个人资料
+									</a>
+								</li>
+								<li>	
+									<a href="javascript:updatePerson()">
+										<i class="ace-icon fa fa-cog"></i>
+										修改密码
+									</a>
+								</li>
+								<li class="divider"></li>
+
+								<li>
+									<a id="signout">
+										<i class="ace-icon fa fa-power-off"></i>
+										退出
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<!-- /section:basics/navbar.user_menu -->
+					</ul>
+				</div>
+				<!-- /section:basics/navbar.dropdown -->
+			</div><!-- /.navbar-container -->
+		</div>
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+			<div id="sidebar" class="sidebar responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+				<ul class="nav nav-list" id="topTree">
+					<li class="active">
+						<a href="#">
+							<i class="menu-icon fa fa-tachometer"></i>
+							<span class="menu-text"> 首页 </span>
+						</a>
+					</li>
+				</ul><!-- /.nav-list -->
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div id="main-content-inner">
+				</div>
+			</div><!-- /.main-content -->
+			<div class="footer">
+				<div class="footer-inner">
+					<!-- #section:basics/footer -->
+					<div class="footer-content">
+						<span class="bigger-120">
+							<span class="red">郑州大学</span>
+							 © Copyright 2017-2018 
+						</span>
+						&nbsp; &nbsp;
+					</div>
+				</div>
+			</div>
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+		<!-- basic scripts -->
+		<!--[if !IE]> -->
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='plugins/ace/assets/js/jquery.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='plugins/ace/assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+		</script>
+
+		<script src="plugins/ace/assets/js/bootstrap.js"></script>
+		<script src="plugins/ace/assets/js/jquery-ui.js"></script>
+		<script src="plugins/ace/assets/js/jquery.ui.touch-punch.js"></script>
+		
+		<!-- page specific plugin scripts -->
+		<script src="plugins/ace/assets/js/dataTables/jquery.dataTables.js"></script>
+		<script src="plugins/ace/assets/js/dataTables/jquery.dataTables.bootstrap.js"></script>
+		<script src="plugins/ace/assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js"></script>
+		<script src="plugins/ace/assets/js/dataTables/extensions/ColVis/js/dataTables.colVis.js"></script>
+
+		<!-- 文件上传 -->
+		<script src="plugins/ace/assets/js/dropzone.js"></script>
+		<!-- ace scripts -->
+		<script src="plugins/ace/assets/js/ace/elements.scroller.js"></script>
+		<script src="plugins/ace/assets/js/ace/elements.colorpicker.js"></script>
+		<script src="plugins/ace/assets/js/ace/elements.fileinput.js"></script>
+		<script src="plugins/ace/assets/js/ace/elements.typeahead.js"></script>
+		<script src="plugins/ace/assets/js/ace/elements.wysiwyg.js"></script>
+		<script src="plugins/ace/assets/js/ace/elements.spinner.js"></script>
+		<script src="plugins/ace/assets/js/ace/elements.treeview.js"></script>
+		<script src="plugins/ace/assets/js/ace/elements.wizard.js"></script>
+		<script src="plugins/ace/assets/js/ace/elements.aside.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.ajax-content.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.touch-drag.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.sidebar.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.sidebar-scroll-1.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.submenu-hover.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.widget-box.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.settings.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.settings-rtl.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.settings-skin.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.widget-on-reload.js"></script>
+		<script src="plugins/ace/assets/js/ace/ace.searchbox-autocomplete.js"></script>
+		
+		<script src="plugins/ace/assets/js/jqGrid/jquery.jqGrid.src.js"></script>    <!-- ~~ -->
+		<script src="plugins/ace/assets/js/jqGrid/i18n/grid.locale-cn.js"></script>  <!-- ~~ -->
+		
+		<script src="plugins/ace/assets/js/jquery.autosize.js"></script>
+
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		
+	    <script src="plugins/layer/layer.js"></script> 
+	    <script src="plugins/layer/extend/layer.ext.js"></script> 
+		<!-- <script type="text/javascript" src="plugins/layer/extend/layer.ext.js"></script>   -->
+		<script type="text/javascript" src="plugins/artDialog/jquery.artDialog.js?skin=twitter"></script>
+		<script type="text/javascript" src="plugins/artDialog/plugins/iframeTools.js"></script>
+		
+		<script type="text/javascript" src="plugins/echart/echarts.js"></script>
+		<script type="text/javascript" src="plugins/zTree_v3/js/jquery.ztree.core-3.5.js"></script>
+		<script type="text/javascript" src="plugins/zTree_v3/js/jquery.ztree.excheck-3.5.js"></script>
+		<script type="text/javascript" src="plugins/zTree_v3/js/jquery.ztree.exedit-3.5.js"></script>
+		
+		<script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
+		
+		<script src="js/jquery-form.js" type="text/javascript"></script>
+		<script src="js/jquery.myLayout.js"></script>
+		<script src="js/jquery.myTree.js"></script>
+		<div class="hide" id="update">
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" >原密码</label>
+					<div class="col-sm-10">
+						<input type="password" id="old_pwd" class="form-control" placeholder="请输入原密码" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" >新密码</label>
+					<div class="col-sm-10">
+						<input type="password" id="new_pwd" class="form-control"  placeholder="请输入新密码" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right">确认密码</label>
+					<div class="col-sm-10">
+						<input type="password" id="new_pwd1" class="form-control" placeholder="请输入新密码"/>
+					</div>
+				</div>
+		</div>
+		<!-- 个人信息 -->
+		<div class="hide" id="user_Info" style="text-align: center">
+			<div class="form-group" style="padding-top: 20px">
+				<label class="control-label no-padding-right" >用户名</label>
+				<input type="text" readonly="readonly" id="g_name"  placeholder="请输入用户名" />
+			</div>
+			<div class="form-group">
+				<label class="control-label no-padding-right">手机号</label>
+				<input type="text" readonly="readonly" id="g_phone"  placeholder="请输入新手机号" />
+			</div>
+			<div class="form-group" >
+				<label class="control-label no-padding-right">邮箱</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="text" readonly="readonly" id="g_mail"  placeholder="请输入新邮箱"/>
+			</div>
+			<div class="form-group">
+				<a id="g_btn" type="button" onclick="updateInfo()" >修改信息</a>
+			</div>
+		</div>
+		<script type="text/javascript">
+		var $url = window.location.hash;
+		$.get("act/getMenuList", function(data) {
+			$("#topTree").toTree(data.content, "0");
+			$.onHeaderClick();
+		}); 
+		/* $url = 'polls/listByPageAndPoliceId'; */
+		$.updateByUrl($url.substr(1));
+		window.onhashchange = function() {
+			$.updateByUrl(window.location.hash.substr(1));
+		};
+		</script>
+		<script type="text/javascript">
+			// 获取用户登录信息
+			$.post("userInfo",{},function(data){
+				$("#usernametitle").html(data.name);
+				$("#g_name").val(data.name);
+				$("#g_phone").val(data.phone);
+				$("#g_mail").val(data.mail);
+			});
+		</script>
+		<script type="text/javascript">
+			function updatePerson(){
+				$('#update').removeClass("hide");
+				userModel = layer.open({
+				    type: 1,
+				    shade: [0.5],
+				    title: '修改密码', //不显示标题
+				    area: ['35%', '250px'],
+				    content: $('#update'), //捕获的元素
+				    btn: [ '确认','取消'],
+				    yes: function(index, layero){ //或者使用btn1
+				    	var old = $("#old_pwd").val();
+				    	var str1 = $("#new_pwd").val();
+				    	var str2 = $("#new_pwd1").val();
+				    	if(str1!=str2||str1.length<6){
+				    		layer.msg("密码太短,或者是两次输入的密码不同,请重新输入!");
+				    		return;
+				    	}
+				    	$.post("updatePwd",{"oldPwd":old,"newPwd":str1},function(data){
+				    		if(data=='success'){
+				    			layer.msg("修改成功!请重新登陆!");
+								layer.close(index);
+								$('#update').addClass("hide");
+				    			window.location.href="logout";
+				    		}else{
+					    		layer.msg("密码错误!请重新输入.");
+					    		return;
+				    		}
+				    	});
+				    },
+				    cancel: function(index){
+				        layer.close(index);
+						$('#update').addClass("hide");
+				    },
+				});
+			};
+		</script>
+		<script type="text/javascript">
+		// 个人信息
+		function personInfo(){
+			$("#user_Info").removeClass("hide");
+			$("#g_btn").show();
+			$("#g_name").attr("readonly","readonly");
+			$("#g_phone").attr("readonly","readonly");
+			$("#g_mail").attr("readonly","readonly");
+			userModel = layer.open({
+			    type: 1,
+			    shade: [0.5],
+			    title: '个人信息', 
+			    area: ['20%', '300px'],
+			    content: $('#user_Info'), //捕获的元素
+			    btn: [ '确认','取消'],
+			    yes: function(index, layero){ 
+			    	if($("#g_name").attr("readonly")==false){
+			    		// 修改了信息,需要提交信息
+			    		$.post("",{},function(data){
+				    		if(data=='success'){
+				    			layer.msg("修改成功!");
+				    		}else{
+					    		layer.msg("修改失败，请重试!");
+					    		return;
+				    		}
+				    	});
+			    	}
+			    	layer.close(index);
+					$('#update').addClass("hide");
+			    },
+			    cancel: function(index){
+			        layer.close(index);
+					$('#update').addClass("hide");
+			    },
+			});
+		}
+		
+		// 修改用户信息按钮事件
+		function updateInfo(){
+			$("#g_btn").hide();
+			$("#g_name").removeAttr("readonly");
+			$("#g_phone").removeAttr("readonly");
+			$("#g_mail").removeAttr("readonly");
+		}
+		</script>
+		
+		
+<script type="text/javascript">
+	$("#signout").click(function(){
+		//询问框
+		layer.confirm('确定是否退出？', {
+		  btn: ['确定','取消'] //按钮
+		}, function(){
+			window.location.href="logout";
+		}, function(){
+			 layer.msg("已取消");
+		});
+	});
+	$("#flush").click(function(){
+		window.location.reload(true);
+	});
+</script>
+
+	</body>
+</html>

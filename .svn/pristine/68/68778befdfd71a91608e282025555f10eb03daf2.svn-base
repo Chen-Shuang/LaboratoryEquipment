@@ -1,0 +1,10 @@
+package scsjgl;
+
+import com.jfinal.core.Controller;
+
+public class GwqxjlController extends Controller {
+	public void index(){
+		renderFreeMarker("/scsjgl/gwqxjl.html");
+	}
+
+}

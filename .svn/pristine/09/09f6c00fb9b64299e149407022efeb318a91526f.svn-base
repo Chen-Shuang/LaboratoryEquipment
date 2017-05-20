@@ -1,0 +1,1308 @@
+<meta name="content-type" content="text/html; charset=UTF-8">
+<!-- 这里我尽力的在做一些代码注释，因为怕一些人看不懂，因此我就把就近的把相关的js代码写到调用他的前面或者后面了 因此，这里面的js代码和调用的是很乱的，
+但那是至少能让人看到一些js代码是用到什么地方的  毕竟有些用法蛮奇特的  个人这样认为的 我很努力的在攻一些页面特效，因为确实很多东西之前没有接触过，也没有人
+好好教，所以也只能自己去攻克了，基本的前后调用已经没有太大的问题了希望看到我注释的人 能够知道我的良苦用心，代码有些杂 但是 功能块儿 我大致也用注释分割了
+一下 大家自己看吧！ -->
+
+
+  <!--------头部信息开始-------------->
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span class="glyphicon glyphicon-wrench">&nbsp;配件管理</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div> 
+  <!-- 头部信息结束 -->
+<div class="col-xs-12" style="margin-top:10px;">
+	<div class="table-header">备件库</div>         <!-- 表头信息 -->
+	<div class="breadcrumbs" id="breadcrumbs">
+	  <div class="pull-left">
+	  	<a href="#pjlb" data-toggle="tab" class="btn btn-mini btn-primary" style="margin-left:10px;">备件列表</a>
+	  	<a href="#bjrk" data-toggle="tab" class="btn btn-mini btn-primary" style="margin-left:10px;" onclick="big_danhao_b()">备件入库</a>
+	  	<a href="#bjck" data-toggle="tab" class="btn btn-mini btn-primary" style="margin-left:10px;" onclick="big_danhao_c()">备件出库</a>
+	  	<a href="#crkmx" data-toggle="tab" class="btn btn-mini btn-primary" style="margin-left:10px;">出入库明细</a>
+	  	<a  data-toggle="tab" class="btn btn-mini btn-primary" style="margin-left:10px;" id="add_gys">新增供应商</a>
+	  	<a  data-toggle="tab" class="btn btn-mini btn-primary" style="margin-left:10px;" id="add_bj">新增备件</a>
+	  	<a   class="btn btn-mini btn-primary" style="margin-left:10px;" id="add_bjlx">新增备件类型</a>
+<script type="text/javascript">         //这个代码有些乱，然后里面有两部分，一个弹出框，另一个是一个糅合的函数，最后一个函数用来处理添加分类用的
+
+var abcd="";  //全局变量 不要轻易动
+	$('#add_gys').on('click', function(){
+    abcd = layer.open({
+        type: 2,
+        title: '新增供应商',
+        maxmin: !true,
+        shadeClose: !true, //点击遮罩关闭层
+        area : ['800px' , '300px'],
+        content: '/mes/sbgl_gys'
+    });
+});
+	$('#add_bj').on('click', function(){
+    layer.open({
+        type: 1,
+        title: '新增备件',
+        maxmin: !true,
+        shadeClose: !true, //点击遮罩关闭层
+        area : ['800px' , '570px'],
+        content: $('#sbgl_xzbj')
+    });
+    //  JJJJJJ
+    		document.getElementById("jj_a").value ='';    
+			document.getElementById("jj_b").value ='';
+			document.getElementById("jj_c").value ='';
+			document.getElementById("jj_d").value ='';
+			document.getElementById("jj_e").innerText ='初始库存';
+			document.getElementById("jj_f").value ='台';
+			document.getElementById("jj_g").value ='';
+			document.getElementById("jj_h").value ='';
+			document.getElementById("jj_i").value ='';
+			document.getElementById("jj_j").value ='';
+			document.getElementById("jj_k").value ='';
+			document.getElementById("jj_l").value ='';
+			document.getElementById("jj_m").value ='';
+			document.getElementById("jj_n").value ='';
+			document.getElementById("jj_o").value ='';
+			
+			document.getElementById("nnnn_gys").value ='';
+			document.getElementById("nnnn_sblx").value ='';
+    
+    
+});
+$('#add_bjlx').on('click', function(){
+    layer.open({
+        type: 1,
+        title:'新增备件类型',
+        maxmin: !true,
+        shadeClose: !true, //点击遮罩关闭层
+        area : ['200px' , '500px'],
+        content: $('#tree')
+    });
+});
+function tree_return(a,c){
+  		layer.prompt({
+       		 title:'请输入'+c+'的子内容',
+        	 formType:0
+        	 },function(ax){					//其中参数ax代表的是文本框中输入的内容  a代表的是要加的节点的父亲节点的id值
+        	 		layer.closeAll(); 
+					$.post("sbgl_bjlx/add",{"a":a,"ax":ax},function(data){
+						   // 重新加载弹框内容
+						   layer.open({
+       							 type: 1,
+        						 title:'新增备件类型',
+        						 maxmin: !true,
+        						 shadeClose: !true, //点击遮罩关闭层
+        						 area : ['200px' , '500px'],
+        						 content: $('#tree')
+   								 });
+					});
+				});
+};
+
+</script>
+	  </div>
+	</div>
+	<div id="myTabContent" class="tab-content" style="padding:0px;">
+	<div class="tab-pane fade in active" id="pjlb" style="padding:0px;">
+          <table class="table table-bordered table-striped table-condensed" style="margin:0px;">
+	<thead>
+      <tr>
+         <th>物料编码</th>
+         <th>备件名称</th>
+         <th>规格型号</th>
+         <th>计量单位</th>
+         <th>生产厂商</th>
+         <th>库存数量</th>
+         <th>库存上限</th>
+         <th>库存下限</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+<!-- 又一个分页的效果的开始  这里并不是隐藏的内容！！  ！-->
+	<tbody id="bad_boy"></tbody>
+<script>
+bjk_fenye(1);
+function bjk_fenye(n) {  
+	$.get("sbgl_bjk/bjk_fenye", {"pageNumber": n}, function(data) {
+		dd_trList(data.list);  //注意这里是得到的参数是list的对象  这里进行字符串拼接！！！拼接的是内容
+		dd_add_foot(data); //调用下面的dd_add_foot方法，循环输出页码连接  
+	});
+}
+/* 填充表格 */
+function dd_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += dd_stringBuilder(v);
+	});
+	$("#bad_boy").html(dataStr);  //拼接黏贴代码！！！！
+}
+  function dd_stringBuilder(v) {
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + v.t_bjbh + '</td>';
+	dataStr += '<td>' + v.t_bjmc + '</td>';
+	dataStr += '<td>' + v.t_ggxh + '</td>';
+	dataStr += '<td>' + v.t_jldw + '</td>';
+	dataStr += '<td>' + v.t_sccs + '</td>';
+	dataStr += '<td>' + v.t_cskc + '</td>';
+	dataStr += '<td>' + v.t_kcsx + '</td>';
+	dataStr += '<td>' + v.t_kcxx + '</td>';
+	dataStr += '<td><button class="btn btn-mini btn-primary" onclick="jj(\''+v.t_bjbh+'\')">查看详细</button>';
+	dataStr += '<button class="btn btn-mini btn-primary" style="margin-left:10px" onclick="jj_sc(\''+v.t_bjbh+'\')">删除</button></td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+
+  function dd_add_foot(data){   //填充页码部分的内容！！！！
+  	var n="";
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.PageNumber){
+			n +="<li class=\"active\" onclick=\"dd_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"dd_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	$("#dd_add_foot").html(n);       //把循环好的页码给替换掉
+  };
+  function dd_pageChange(curr) {  
+	$.get("sbgl_bjk/bjk_fenye", {"pageNumber": curr}, function(data_t) {
+		dd_trList(data_t.list); //调用上面方法，填充表格数据
+		dd_add_foot(data_t); //调用上面的dd_add_foot方法，循环输出页码连接  
+	});
+};
+	function jj(x_x_x){
+		//layer.msg('玩命加载中');
+		$.post("sbgl_bjk/jj",{"jj":x_x_x},function(data){
+			var nn=data.t_cskc;
+			layer.open({			//弹出相应的弹出层
+			        type: 1,
+			        title: '修改备件',
+			        maxmin: !true,
+			        shadeClose: !true, //点击遮罩关闭层
+			        area : ['800px' , '570px'],
+			        content: $('#sbgl_xzbj')
+			    });			
+			    
+			//标签替换
+			document.getElementById("jj_a").value =data.t_bjbh;    
+			document.getElementById("jj_b").value =data.t_bjmc;
+			document.getElementById("jj_c").value =data.t_ggxh;
+			document.getElementById("jj_d").value =data.t_glsb;
+			document.getElementById("jj_e").innerText ='现有库存';
+			document.getElementById("jj_f").value =data.t_jldw;
+			document.getElementById("jj_g").value =data.t_sccs;
+			document.getElementById("jj_h").value =data.t_cskc;
+			document.getElementById("jj_i").value =data.t_kcsx;
+			document.getElementById("jj_j").value =data.t_kcxx;
+			document.getElementById("jj_k").value =data.t_ghzq;
+			document.getElementById("jj_l").value =data.t_cfwz;
+			document.getElementById("jj_m").value =data.t_ckj;
+			document.getElementById("jj_n").value =data.t_bjtp;
+			document.getElementById("jj_o").value =data.t_bz;
+			
+			document.getElementById("nnnn_gys").value =data.t_gys;
+			document.getElementById("nnnn_sblx").value =data.t_bjlx;
+			//layer.msg(nn);
+		})
+	}
+</script>
+	  
+   		</table>
+<div class="breadcrumbs" id="breadcrumbs">
+		<div class="text-center"><ul id="dd_add_foot" class="pagination">123</ul></div>
+</div>
+    </div>
+    
+<!-- 分页结束   ！！！！！ -->  
+     
+     
+     
+     
+   <div class="tab-pane fade" id="bjrk">                                                     
+        <div class="col-xs-6 col-sm-3">
+        <form method="post" class="form-horizontal" id="ttt">
+        	<fieldset class="solid">
+        	<div class="form-group" style="margin-top:15px;">
+        		<label class="col-sm-3 control-label no-padding-right">单号</label>			
+        		<div class="col-sm-9">
+        			<input type="text" id="ruku_danhao" class="col-xs-10 col-sm-10" name="sbgl_crksjb.t_dh" value="哈哈" disabled="true"/>   <!-- 这个是入库单号的生成的装载表单  我做成隐藏的了  为了解决生成单号而不好记录的问题 -->
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-3 control-label no-padding-right">入库日期</label>
+				<div class="col-sm-9">
+					<input type="text" id="time" class="col-xs-10 col-sm-10" name="sbgl_crksjb.t_ckkrq" value="" disabled="true"/>
+<script language="javascript">          //对时间进行处理
+ window.onload=function(){
+   var a =new Date();
+   var n=a.getMonth();
+   n+=1;
+   b =a.getFullYear()+"年"+n+"月"+a.getDate()+"日";
+   // a +="年"+myDate.getMonth()+"月"+myDate.getDate()+"日"; 
+   
+   document.getElementById("time").value = b;
+   document.getElementById("chuku_time").value =b;
+ }
+ 
+</script>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right">入库类型</label>
+				<div class="col-sm-9">
+					<select class="col-xs-10 col-sm-10" id="sbgl_crksjb.t_rklx">
+						<option value="采购入库">采购入库</option>
+						<option value="领用退回入库">领用退回入库</option>
+						<option value="其他">其他</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" >供应商</label>
+				<div class="col-sm-9">
+					<input type="text" id="xxxx" class="col-xs-10 col-sm-10" value="" onclick="find_gys()" />
+<script>
+function find_gys(){            //简单的弹窗效果  关联有其他的部分的内容
+	layer.open({
+        type: 1,
+        title: false,
+        area : ['800px' , '520px'],
+        content: $('#find_gys_table')
+    });
+};
+</script>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right">使用部门</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-10" id="sbgl_crksjb.t_sybm" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right">经办人</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-10" id="sbgl_crksjb.t_jbr" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right">备注信息</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-10" id="sbgl_crksjb.t_bz" value="" />
+				</div>												
+			</div>
+			</fieldset>
+			<div class="col-md-offset-2 col-md-12">
+					<button class="btn btn-info" type="button" onclick="form_nn()">
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+					</button>
+					<button class="btn" type="reset" style="margin-left:10px;">
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						重置
+					</button>
+			</div>
+		</form>
+		</div>
+<script>			//上面form表单的处理
+		function form_nn(){
+			var xax=document.getElementById("ruku_danhao").value;
+			var xbx=document.getElementById("time").value;
+			var xcx=document.getElementById("sbgl_crksjb.t_rklx").value;
+			var xdx=document.getElementById("xxxx").value;
+			var xex=document.getElementById("sbgl_crksjb.t_sybm").value;
+			var xfx=document.getElementById("sbgl_crksjb.t_jbr").value;
+			var xgx=document.getElementById("sbgl_crksjb.t_bz").value;
+			var xhx="入库";
+
+		$.post("sbgl_bjk/form_nn",{"sbgl_crksjb.t_dh":xax,"sbgl_crksjb.t_ckkrq":xbx,"sbgl_crksjb.t_rklx":xcx,"sbgl_crksjb.t_gys":xdx,"sbgl_crksjb.t_sybm":xex,"sbgl_crksjb.t_jbr":xfx,"sbgl_crksjb.t_bz":xgx,"sbgl_crksjb.t_fx":xhx},function(data){
+			layer.msg(data);
+			location.reload(false);   
+			return false;
+			});
+			 //layer.msg('订单已提交！！！');
+			 
+		}
+</script>
+		
+		
+		
+		
+		
+		
+		
+		<!--<<<<<<<<<<<<<<<<<<<<<<<              ---->
+        <div class="col-xs-6 col-sm-9">													 
+<table class="table table-bordered table-striped table-condensed" style="margin:0px;">
+		<div class="table-header">备件选择表</div>         <!-- 表头信息 -->
+			<div class="breadcrumbs" id="breadcrumbs" style="height:44px;">
+	  			<div class="pull-left" style="width:100%;">
+					  <input type="text" id="chaxunkuang"class="col-xs-10 col-sm-10" name="" value="" placeholder="输入备件名称进行查询" style="height:30px;width:200px;margin:7px;"/> 查询框标记
+	  			</div>
+	  		</div>
+<script>			//这里是查询框儿代码
+$("#chaxunkuang").blur(			//查询框儿失去焦点就运行下面的函数
+	function(){
+	var a="";
+	a=document.getElementById("chaxunkuang").value;
+	find_one(a,1);		//第一个参数为文本框查询内容 第二个参数为页码
+	}
+);
+function find_one(a,b){
+	$.post("sbgl_bjk/find_one",{"a":a,"b":b},function(data){
+		new_trList(data.list);  //注意这里是得到的参数是list的对象  这里进行字符串拼接！！！拼接的是内容
+		new_add_foot_one(data); //调用下面的dd_add_foot方法，循环输出页码连接  
+		//alert('速度点做！！！'+data);
+	});
+};
+</script>
+	<thead>
+      <tr>
+         <th>物料编码</th>
+         <th>备件名称</th>
+         <th>规格型号</th>
+         <th>生产厂商</th>
+         <th>库存数量</th>
+         <th>计量单位</th>
+      </tr>
+   </thead>
+   <tbody id="new_fenye"></tbody>
+<!-- 新的分页内容 -->
+<script>
+new_fenye(1);
+function new_fenye(n) {  
+	$.get("sbgl_bjk/bjk_fenye", {"pageNumber": n}, function(data) {
+		new_trList(data.list);  //注意这里是得到的参数是list的对象  这里进行字符串拼接！！！拼接的是内容
+		new_add_foot(data); //调用下面的dd_add_foot方法，循环输出页码连接  
+	});
+}
+/* 填充表格 */
+function new_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += new_stringBuilder(v);
+	});
+	$("#new_fenye").html(dataStr);  //拼接黏贴代码！！！！
+};
+  function new_stringBuilder(v) {
+	var dataStr = "";
+	dataStr += '<tr onclick="newx(\''+v.t_bjmc+'\',\''+v.t_cskc+'\',\''+v.t_bjbh+'\')">';
+	dataStr += '<td>' + v.t_bjbh + '</td>';
+	dataStr += '<td>' + v.t_bjmc + '</td>';
+	dataStr += '<td>' + v.t_ggxh + '</td>';
+	dataStr += '<td>' + v.t_sccs + '</td>';
+	dataStr += '<td>' + v.t_cskc + '</td>';
+	dataStr += '<td>' + v.t_jldw + '</td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+
+ function new_add_foot(data){   //填充页码部分的内容！！！！
+  	var n="";
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.PageNumber){
+			n +="<li class=\"active\" onclick=\"new_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"new_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	$("#new_add_foot").html(n);       //把循环好的页码给替换掉
+  };
+  function new_pageChange(curr) {  
+	$.get("sbgl_bjk/bjk_fenye", {"pageNumber": curr}, function(data) {
+		new_trList(data.list); //调用上面方法，填充表格数据
+		new_add_foot(data); //调用上面的dd_add_foot方法，循环输出页码连接  
+	});
+};
+
+
+
+
+
+function new_add_foot_one(data){   //填充页码部分的内容！！！！
+  	var n="";
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.PageNumber){
+			n +="<li class=\"active\" onclick=\"new_pageChange_one("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"new_pageChange_one("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	$("#new_add_foot").html(n);       //把循环好的页码给替换掉
+  };
+  function new_pageChange_one(curr) {  		//页数为b  文本框内容为a
+  	var a="";
+  	a=document.getElementById("chaxunkuang").value;
+	$.post("sbgl_bjk/find_one", {"a":a,"b": curr}, function(data) {
+		new_trList(data.list); //调用上面方法，填充表格数据
+		new_add_foot(data); //调用上面的dd_add_foot方法，循环输出页码连接  
+	});
+};
+
+
+
+
+
+ var newxx="";
+ function newx(a,b,c){																	//c为备件编号
+ 	    newxx =layer.prompt({
+  				title: '请输入入库的数量,当前库存为：'+b,
+ 				formType: 0 //prompt风格，支持0-2
+				}, function(sl){													//入库数量为sl
+					  
+					if(!isNaN(sl)){
+							var id=document.getElementById("ruku_danhao").value;		//单号
+							
+					layer.prompt({title: '请输入入库的单价(单位：元)', formType:0}, function(dj){	
+						if(!isNaN(dj)){															//入库单价为dj
+									$.post("sbgl_bjk/bjk_ruku", {"dh":id,"bjbh":c,"rksl":sl,"dj":dj }, function(data) {
+
+											  layer.msg('备件编号为：'+c+';入库数量为：'+sl+';入库单价为：'+dj+';备件编号为：'+id);				//现在仅仅是这一行回调函数的部分
+											  caocao();	   //调用caocao 函数 自行填充
+											  new_fenye(1);		//分页部分刷新
+										});	
+						}else{layer.msg('请输入合理的数字！！');}								
+  					});
+					}else{layer.msg('请输入合理的数字！！');}
+					
+			});
+ }; 
+ 
+ 
+ 
+ //下面的函数主要负责生成单号！！！             里面嵌套了两个参数
+ function big_danhao_b(){
+ 	var p="";
+    var pp=new_danhao_a();     	//加上下面的一条是生成单号的主要函数！！！
+    
+	new_danhao_xx(pp);		
+						function new_danhao_a(){			//这个方法负责单号的生成
+								var myDate = new Date();		//得到当前日期
+								var year=myDate.getFullYear();				//得到年份
+								var month=myDate.getMonth(); 				//得到月份
+								month+=1;								//因为测试的时候发现的是会比当前月份少一个月 所以这里我先给增加1了
+								var data=myDate.getDate();        		//得到当前日期
+								if(month<10){month="0"+month;}else{}
+								if(data<10){data="0"+data;}else{}
+								var pp="RK-"+year+month+data+"-";
+								//  alert(pp); 
+								//pp +=new_shuliang(pp);
+								return pp;
+						};
+						
+						function new_danhao_xx(riqi){		//依据传过来的单号信息得到当天订单表的数量
+							$.get("sbgl_bjk/bjk_dingdanshuliang", {"riqi": riqi}, function(data) {
+								if(data<9){data="00"+data;}else{
+									if(data<99){data="0"+data;}else{};
+								};
+								data=riqi+data;
+								p=data;
+								document.getElementById("ruku_danhao").value = data;
+							});	
+						};
+};
+
+
+
+
+ function big_danhao_c(){																		//<<<<<<<<<<<<<<<<<<<<<<<<
+ 	var p="";
+    var pp=new_danhao_d();     	//加上下面的一条是生成单号的主要函数！！！
+    
+	new_danhao_yy(pp);		
+						function new_danhao_d(){			//这个方法负责单号的生成
+								var myDate = new Date();		//得到当前日期
+								var year=myDate.getFullYear();				//得到年份
+								var month=myDate.getMonth(); 				//得到月份
+								month+=1;								//因为测试的时候发现的是会比当前月份少一个月 所以这里我先给增加1了
+								var data=myDate.getDate();        		//得到当前日期
+								if(month<10){month="0"+month;}else{}
+								if(data<10){data="0"+data;}else{}
+								var pp="CK-"+year+month+data+"-";
+								//  alert(pp); 
+								//pp +=new_shuliang(pp);
+								return pp;
+						};
+						
+						function new_danhao_yy(riqi){		//依据传过来的单号信息得到当天订单表的数量
+							$.get("sbgl_bjk/bjk_dingdanshuliang", {"riqi": riqi}, function(data) {
+								if(data<9){data="00"+data;}else{
+									if(data<99){data="0"+data;}else{};
+								};
+								data=riqi+data;
+								p=data;
+								document.getElementById("chuku_danhao").value = data;
+							});	
+						};
+};
+</script>
+<!-- 新的分页内容结束 -->
+  </table>
+<div class="breadcrumbs" id="breadcrumbs" style="height:38px;">
+		<div class="text-center"><ul id="new_add_foot" class="pagination" style="margin-top:5px">123</ul></div>
+</div>
+
+  
+  
+        </div>
+        <div class="col-xs-6 col-sm-9">
+<table class="table table-bordered table-striped table-condensed" style="margin:0px;">				<!-- RRRRRRRRR -->
+	<thead>
+      <tr>
+         <th>订单编号</th>
+         <th>备件编号</th>
+         <th>数量</th>
+         <th>单价</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+   <tbody id="biaobiao"></tbody>
+</table>
+
+<script type="text/javascript">
+function caocao(){		//处理上面表表的替换填充函数
+	var a=document.getElementById("ruku_danhao").value;
+		$.post("sbgl_bjk/caocao_find", {"a": a}, function(data) {
+			 caocao_trList(data);		//填充表格，这里面不做页脚操作因此得到的是list对象 。
+		});
+
+};
+function caocao_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += caocao_stringBuilder(v);
+	});
+	$("#biaobiao").html(dataStr);  //拼接黏贴代码！！！！
+};
+  function caocao_stringBuilder(v) {
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + v.t_dh + '</td>';
+	dataStr += '<td>' + v.t_bjbh + '</td>';
+	dataStr += '<td>' + v.t_sl + '</td>';
+	dataStr += '<td>' + v.t_dj + '元</td>';
+	dataStr += '<td><button class="btn btn-mini btn-primary" onclick="caocao_delete(\''+v.t_dh+'\',\''+v.t_bjbh+'\')">删除</button></td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+function caocao_delete(a,b){				//a为单号  b为备件编号
+		$.post("sbgl_bjk/caocao_delete", {"a": a,"b":b}, function(data) {
+			caocao();			            //刷新操作
+			new_fenye(1);		//分页部分刷新
+		});
+}
+</script>
+        </div>			
+   </div>
+   
+   
+   
+   
+   <div class="tab-pane fade" id="bjck">                                 
+        <div class="col-xs-6 col-sm-3">
+        <form method="post" class="form-horizontal" id="ttt">
+        	<fieldset class="solid">
+        	<div class="form-group" style="margin-top:15px;">
+        		<label class="col-sm-3 control-label no-padding-right">单号</label>			<!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->   
+        		<div class="col-sm-9">
+        			<input type="text" id="chuku_danhao" class="col-xs-10 col-sm-10" name="sbgl_crksjb.t_dh" value="哈哈" disabled="true"/>   <!-- 这个是出库库单号的生成的装载表单  为了解决生成单号而不好记录的问题 -->
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-3 control-label no-padding-right">出库日期</label>
+				<div class="col-sm-9">
+					<input type="text" id="chuku_time" class="col-xs-10 col-sm-10" name="sbgl_crksjb.t_ckkrq" value="" disabled="true"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right">出库类型</label>
+				<div class="col-sm-9">
+					<select class="col-xs-10 col-sm-10" id="chuku_sbgl_crksjb.t_rklx">
+						<option value="领用出库">领用出库</option>
+						<option value="财购退货出库">采购退货出库</option>
+						<option value="其他">其他</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right">使用部门</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-10" id="chuku_sbgl_crksjb.t_sybm" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right">经办人</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-10" id="chuku_sbgl_crksjb.t_jbr" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right">备注信息</label>
+				<div class="col-sm-9">
+					<input type="text" class="col-xs-10 col-sm-10" id="chuku_sbgl_crksjb.t_bz" value="" />
+				</div>                                 
+			</div>
+			</fieldset>
+			<div class="col-md-offset-2 col-md-12">
+					<button class="btn btn-info" type="button" onclick=""> 
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+					</button>
+					<button class="btn" type="reset" style="margin-left:10px;">
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						重置
+					</button>
+			</div>										
+        </form>
+        </div>
+<div class="col-xs-6 col-sm-9">													 
+	<table class="table table-bordered table-striped table-condensed" style="margin:0px;">
+		<div class="table-header">备件选择表</div>         <!-- 表头信息 -->
+			<div class="breadcrumbs" id="breadcrumbs" style="height:44px;">
+	  			<div class="pull-left" style="width:100%;">
+					  <input type="text" id="chuku_chaxunkuang"class="col-xs-10 col-sm-10" name="" value="" placeholder="输入备件名称进行查询" style="height:30px;width:200px;margin:7px;"/> 
+	  			</div>
+	  		</div>
+	 </table>
+</div>
+                                    
+   </div>
+   <div class="tab-pane fade" id="crkmx" style="padding:0px;">
+
+	<div class="breadcrumbs" id="breadcrumbs">
+	  <div class="pull-left" style="margin-left:10px;"> 入库列表RRRRRRRRRRRRRRRRR</div>
+	</div>
+<div class="col-xs-6 col-sm-6" style="margin:0px;">
+	<table class="table table-bordered table-striped table-condensed" style="margin:0px;">
+	<thead>
+      <tr>
+         <th>单号</th>
+         <th>入库日期</th>
+         <th>入库类型</th>
+         <th>办理人</th>
+         <th>备注信息</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+   <tbody id="RRR_ruku"></tbody>
+<script>
+RRR_ruku(1);
+function RRR_ruku(n) {  
+	$.get("sbgl_bjk/RRR_ruku", {"pageNumber": n}, function(data) {
+		RRR_ruku_trList(data.list);  //注意这里是得到的参数是list的对象  这里进行字符串拼接！！！拼接的是内容
+		RRR_ruku_foot(data); //调用下面的dd_add_foot方法，循环输出页码连接  
+		
+		//  alert('完成！！！'); 
+	});
+};
+
+function RRR_ruku_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += RRR_ruku_stringBuilder(v);
+	});
+	$("#RRR_ruku").html(dataStr);  //拼接黏贴代码！！！！
+};
+  function RRR_ruku_stringBuilder(v) {
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + v.t_dh + '</td>';
+	dataStr += '<td>' + v.t_ckkrq + '</td>';
+	dataStr += '<td>' + v.t_rklx + '</td>';
+	dataStr += '<td>' + v.t_jbr + '</td>';
+	dataStr += '<td>' + v.t_bz + '</td>';
+	dataStr += '<td><button class="btn btn-mini btn-primary" onclick="RRR_ruku_delete(\''+v.t_dh+'\')">删除</button>';	
+	dataStr += '<button class="btn btn-mini btn-primary" onclick="RRR_ruku_seesee(\''+v.t_dh+'\')" style="margin-left:7px;">查看</button></td>';				//后面的按钮的函数在这里修改
+	
+			
+	dataStr += '</tr>';
+	return dataStr;
+};
+
+/**
+
+页码填充部分 和页面的跳转有关联的
+**/
+function RRR_ruku_foot(data){   //填充页码部分的内容！！！！
+  	var n="";
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.PageNumber){
+			n +="<li class=\"active\" onclick=\"RRR_ruku_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"RRR_ruku_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	$("#RRR_ruku_foot").html(n);       //把循环好的页码给替换掉
+  };
+  function RRR_ruku_pageChange(curr) {  		//页数为b 
+	$.post("sbgl_bjk/RRR_ruku", {"pageNumber": curr}, function(data) {
+		RRR_ruku_trList(data.list); //调用上面方法，填充表格数据
+		RRR_ruku_foot(data); //调用上面的dd_add_foot方法，循环输出页码连接  
+	});
+};
+
+
+
+
+
+
+
+
+
+/***
+*             查看部分的代码
+**/
+function RRR_ruku_seesee(t){
+	  layer.open({
+  			type: 1,
+ 			title:['单子'+t+'的详细信息','background-color:#428bca;color:#fff;'],
+  			area: ['900px', '300px'],
+  			content:$('#RRRR_chaxun')
+		});
+		AAAAAA(t);			//参数t为单号  
+}
+function AAAAAA(t){			//单独列这个方法是为了刷新操作
+$.post("sbgl_bjk/caocao_find", {"a": t}, function(data) {		//这里传递的参数为单子的名称   回调回来的结果就是关于这个单子的数据
+			  RRRRR_ruku_trList(data);					//字符串填充代码！
+		});
+};
+
+
+
+function RRRRR_ruku_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += RRRR_ruku_stringBuilder(v);
+	});
+	$("#www_chaxun").html(dataStr);  //拼接黏贴代码！！！！
+};
+  function RRRR_ruku_stringBuilder(v) {
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + v.t_dh + '</td>';
+	dataStr += '<td>' + v.t_bjbh + '</td>';
+	dataStr += '<td>' + v.t_sl + '</td>';
+	dataStr += '<td>' + v.t_dj + '元</td>';
+	dataStr += '<td><button class="btn btn-mini btn-primary" onclick="AAAA_delete(\''+v.t_dh+'\',\''+v.t_bjbh+'\')">删除</button></td>';
+	dataStr += '</tr>';
+	return dataStr;
+};
+function AAAA_delete(a,b){				//a为单号  b为备件编号
+		$.post("sbgl_bjk/caocao_delete", {"a": a,"b":b}, function(data) {
+			AAAAAA(a);			//参数t为单号    进行刷新操作
+			//caocao();			            //刷新操作
+			//new_fenye(1);		//分页部分刷新
+		});
+}
+</script>
+   </table>
+   <div class="breadcrumbs" id="breadcrumbs" style="height:70px;">
+		<div class="text-center"><ul id="RRR_ruku_foot" class="pagination">123</ul></div>
+	</div>
+</div> 
+<script type="text/javascript">
+/**
+*删除部分的代码
+*     笔者：董浩！！！
+**/
+function RRR_ruku_delete(t){ 
+	  $.post("sbgl_bjk/RRR_ruku_delate",{"a":t},function(data){
+	  			alert(data); 
+	  });
+};
+</script>  
+<div class="col-sm-12" id="RRRR_chaxun" style="display:none;">         
+	<table class="table table-bordered table-striped table-condensed" style="margin:0px;">				
+	<thead>
+      <tr>
+         <th>订单编号</th>
+         <th>备件编号</th>
+         <th>数量</th>
+         <th>单价</th>
+         <th>操作</th>
+      </tr>
+    </thead> 
+  			 <tbody id="www_chaxun"></tbody>
+	</table>
+</div>                                 
+<div class="col-xs-6 col-sm-6" style="margin:0px;">
+	<table class="table table-bordered table-striped table-condensed" style="margin:0px;">
+	<thead>
+      <tr>
+         <th>单号</th>
+         <th>出库日期</th>
+         <th>出库类型</th>
+         <th>领用人</th>
+         <th>备注信息</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+   </table>
+</div>                                   
+                                    
+                                    
+                                    
+   </div>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  在此以后的所有内容都是页面中隐形的元素，都是一眼看不到的内容-->
+
+
+
+
+
+<!-- 供应商基本的弹出层的内容  从这里开始 -->
+<div id="find_gys_table" style="display:none;">
+<div class="table-header">供应商基本表</div> 
+	<div class="breadcrumbs" id="breadcrumbs">
+		<input id="chaxun" type="text" style="height:27px;margin-left:15px;" placeholder="请输入单位名称"/>
+		<input id="chaxuna" type="text" style="height:27px;margin-left:15px;" placeholder="请输入联系人名"/>
+		<input id="chaxunb" type="text" style="height:27px;margin-left:15px;" placeholder="请输入联系人电话"/>
+<script charset=utf-8>              //这里面是对失去焦点后的文本框进行查询操作的代码
+$("#chaxun").blur( function () {   //#查询失去焦点后就执行下面的语句 
+  var a =""; 
+  a=document.getElementById("chaxun").value;
+  find(1,a);
+} );  
+function find(curr,aaa){
+	$.post("sbgl_bjk/find",{"pageNumber": curr,"aaa":aaa},function(data) {
+		trList(data.list); //调用trList()方法，填充表格数据
+		writePageFoot(data); //调用下面的writePageFoot方法，循环输出页码连接  
+	});
+}
+</script>
+<script>
+$("#chaxuna").blur( function () {   //#查询失去焦点后就执行下面的语句 
+  var a =""; 
+  a=document.getElementById("chaxuna").value; 
+  find(1,a);
+} );
+$("#chaxunb").blur( function () {   //#查询失去焦点后就执行下面的语句 
+  var a =""; 
+  a=document.getElementById("chaxunb").value; 
+  find(1,a);
+} );
+</script>
+	</div>
+<table class="table table-bordered table-striped table-condensed table-hover" style="margin:0px;">
+	<thead>
+      <tr class="text-center">
+         <th>单位名称</th>
+         <th>联系人名</th>
+         <th>联系电话</th>
+      </tr>
+   </thead>
+   <tbody id="projectTable"></tbody>
+   <script>              //这里是对表单中文本框内容的处理
+   function a(a){
+     layer.closeAll(); 
+   	 document.getElementById("xxxx").value = a;
+	 document.getElementById("abc").innerHTML = a;
+};
+   </script>
+
+   <script type="text/javascript" >          //这里一部分的代码为分页展示部分的代码
+  function stringBuilder(v) {
+	var dataStr = "";
+	dataStr += '<tr onclick="a(\''+v.t_gysmc+'\')">';
+	dataStr += '<td>' + v.t_gysmc + '</td>';
+	dataStr += '<td>' + v.t_lxr + '</td>';
+	dataStr += '<td>' + v.t_lxdh + '</td>';
+	dataStr += '</tr>';
+	return dataStr;
+}
+/* 填充表格 */
+function trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += stringBuilder(v);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#projectTable").html(dataStr);
+
+}
+//获取分页数据列表并显示
+function pageChange(curr) {  
+	$.get("sbgl_bjk/activityList", {"pageNumber": curr}, function(data) {
+		trList(data.list); //调用上面trList()方法，填充表格数据
+		writePageFoot(data); //调用下面的writePageFoot方法，循环输出页码连接  
+	});
+}
+pageChange(1);
+//写一个页码连接  参数为page对象  而第二的参数为回调函数的函数名称
+function writePageFoot(data){
+	var n="";
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.PageNumber){
+			n +="<li class=\"active\" onclick=\"pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	$("#pagefoot").html(n);       //把循环好的页码给替换掉
+};
+  </script>
+</table>
+	<div class="breadcrumbs" id="breadcrumbs">
+		<div class="text-center"><ul id="pagefoot" class="pagination">123</ul></div>
+	</div>
+</div>
+<!-- 供应商基本的弹出层的内容  这里是结束！！！！！！！ --> 
+  
+  
+  
+  
+  
+  
+<!-- 这里是处理树对象的开始的代码 -->   
+<script>    //这一段js代码是处理树形对象的代码
+	function tree(){
+	$.post("sbgl_bjlx",{"abc":""},function(data){
+			var x=data;
+			var a=strToJson(x);
+			/**
+			后面的回调部分是属于ztree的配置的 x为参数
+			*/
+			var setting = {
+			view: {showIcon: showIconForTree},
+			data: {simpleData: {enable: true}}
+						  };
+			function showIconForTree(treeId, treeNode) {return !treeNode.isParent;};
+			$.fn.zTree.init($("#treeDemo"), setting, a);
+	});
+}
+function strToJson(str){   
+var json = (new Function("return " + str))();  
+return json;   
+}   
+</script>
+
+
+<div id="tree" style="display:none;">
+	<div class="text-center">
+		<ul id="treeDemo" class="ztree" style="margin-left:20px;"></ul>
+		<div class="btn btn-mini btn-primary" onclick="tree()">查看备件类型</div>
+		<div class="btn btn-mini btn-primary" onclick="tree_return('0','新分类')">新增备件类型</div>
+	</div>
+</div>
+<!-- 数对象那一部分从这里结束   但是还是会调用最前面的函数 ！！！！ -->
+
+
+
+
+
+<!-- 第二个树对象的开始  这里的用法和上面的有所不同 -->
+<div id="tree_two" style="display:none;">
+	<div class="text-center">
+		<ul id="treeDemo_two" class="ztree" style="margin-left:20px;"></ul>
+		<div class="btn btn-mini btn-primary" onclick="tree_two()">查看备件类型</div>
+	</div>
+</div>
+<script>    //这一段js代码是处理树形对象的代码
+	function tree_two(){
+	$.post("sbgl_bjlx/tree_two",{"abc":""},function(data){
+			
+			var x=data;
+			var a=strToJson(x);
+			/**
+			后面的回调部分是属于ztree的配置的 x为参数
+			*/
+			var setting = {
+			view: {showIcon: showIconForTree},
+			data: {simpleData: {enable: true}}
+						  };
+			function showIconForTree(treeId, treeNode) {return !treeNode.isParent;};
+			$.fn.zTree.init($("#treeDemo_two"), setting, a);
+	});
+}
+function strToJson(str){   			//这里时是字符串转换成json对象的方法
+var json = (new Function("return " + str))();  
+return json;   
+}   
+
+function get_tree_name(a){			//这里是点击后 把后面的值传到所有的前面的函数
+	layer.close(nnnn);
+	document.getElementById("nnnn_sblx").value = a;
+}
+</script>
+<!-- 第二个数对象的结束  这里的是用于下面的表单中 进行选择的 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 新增备件部分隐藏的内容  从这里开始 -->
+<script type="text/javascript">
+$("#button").click(function(){
+	//layer.colse(abcd);
+	$.post("/mes/sbgl_bjk/add_bj",$("#pppaaa").serialize(),function(data){
+      		layer.msg('操作完成！！');
+      		bjk_fenye(1);			//更新操作
+	});
+	return false;
+});
+</script>
+
+<div id="sbgl_xzbj" style="display:none;">
+	<form action="sbgl_bjk/add_bj" method="post" class="form-horizontal" style="width:700px;" id="pppaaa">
+        	<fieldset class="solid">
+        		<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">物料编号</label>
+				<div class="col-sm-10">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_bjbh" id="jj_a"/>
+				</div>
+				</div>
+        		<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">备件名称</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_bjmc" id="jj_b"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">规格型号</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_ggxh" id="jj_c"/>
+				</div>
+				</div>
+				<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">关联设备</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_glsb" id="jj_d"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right" >备件类型</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_bjlx" id="nnnn_sblx" onclick="show_bjlx()"/>
+				</div>
+				</div>
+<script>
+var nnnn="";	//这个nnnn是全局变量用于一个弹窗的控制的  千万不能删除掉
+	function show_bjlx(){
+				nnnn  =	layer.open({
+        				type: 1,
+        				title:'选择',
+        				maxmin: !true,
+       					shadeClose: !true, //点击遮罩关闭层
+        				area : ['200px' , '500px'],
+        				content: $('#tree_two')
+    					});
+	}
+</script>				
+				
+				<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">计量单位</label>
+				<div class="col-sm-4">
+					<select class="col-xs-12 col-sm-12" name="sbgl_bjk.t_jldw" id="jj_f">
+						<option value="台">台</option>
+						<option value="只">只</option>
+						<option value="套">套</option>
+						<option value="双">双</option>
+						<option value="对">对</option>
+						<option value="条">条</option>
+					</select>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">生产厂商</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_sccs" id="jj_g"/>
+				</div>
+				</div>
+				<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">供应商</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_gys" onclick="nnnn_gys_table()" id="nnnn_gys"/>
+				</div>
+<script>
+		var tttt="";
+		function nnnn_gys_table(){
+			tttt=layer.open({
+        					type: 1,
+       						title: false,
+        					area : ['800px' , '520px'],
+        					content:$('#nnnn_gys_table')
+    						}); 
+		}
+</script>
+				<label class="col-sm-2 control-label no-padding-right"  id="jj_e">初始库存</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_cskc" onkeyup="this.value=value.replace(/[^0-9]/gi,'')" maxlength="6" id="jj_h"/>
+				</div>
+				</div>
+				<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">库存上限</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_kcsx" onkeyup="this.value=value.replace(/[^0-9]/gi,'')" maxlength="6" id="jj_i"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">库存下限</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_kcxx" onkeyup="this.value=value.replace(/[^0-9]/gi,'')" maxlength="6" id="jj_j"/>
+				</div>
+				</div>
+				<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">更换周期</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_ghzq" onkeyup="this.value=value.replace(/[^0-9]/gi,'')" maxlength="10" placeholder="单位：天" id="jj_k"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">存放位置</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_cfwz" id="jj_l"/>
+				</div>
+				</div>
+				<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">参考价格</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_ckj" onkeyup="this.value=value.replace(/[^0-9]/gi,'')" maxlength="10" placeholder="单位：元" id="jj_m"/>
+				</div>
+				<label class="col-sm-2 control-label no-padding-right">备件图片</label>
+				<div class="col-sm-4">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_bjtp" id="jj_n"/>
+				</div>
+				</div>
+				<div class="form-group" style="margin-top:15px;">
+				<label class="col-sm-2 control-label no-padding-right">备注信息</label>
+				<div class="col-sm-10">
+					<input type="text" class="col-xs-12 col-sm-12" name="sbgl_bjk.t_bz" id="jj_o"/>
+				</div>
+				</div>
+				<div class="col-md-offset-4 col-md-9">
+					<button class="btn btn-info" type="submit" id="button">
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+					</button>
+					<button class="btn" type="reset" style="margin-left:80px;">
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						重置
+					</button>
+				</div>
+        	</fieldset>
+    </form>
+</div>
+
+
+
+<div id="nnnn_gys_table" style="display:none;">
+<div class="table-header">供应商基本表</div> 
+	<div class="breadcrumbs" id="breadcrumbs">
+		<input id="chaxunxx" type="text" style="height:27px;margin-left:15px;" placeholder="请输入单位名称"/>
+		<input id="chaxunxy" type="text" style="height:27px;margin-left:15px;" placeholder="请输入联系人名"/>
+		<input id="chaxunxz" type="text" style="height:27px;margin-left:15px;" placeholder="请输入联系人电话"/>
+	</div>
+<script charset=utf-8>              //这里面是对失去焦点后的文本框进行查询操作的代码
+$("#chaxunxx").blur( function () {   //#查询失去焦点后就执行下面的语句 
+  var a =""; 
+  a=document.getElementById("chaxunxx").value;
+  nnnn_find(1,a);
+} );  
+function nnnn_find(curr,aaa){
+	$.post("sbgl_bjk/find",{"pageNumber": curr,"aaa":aaa},function(data) {
+		nnnn_trList(data.list); //调用nnnn_trList()方法，填充表格数据
+		nnnn_writePageFoot(data); //调用下面的nnnn_writePageFoot方法，循环输出页码连接  
+	});
+}
+
+
+
+
+$("#chaxunxy").blur( function () {   //#查询失去焦点后就执行下面的语句 
+  var a =""; 
+  a=document.getElementById("chaxunxy").value;
+  nnnn_find(1,a);
+} );  
+
+
+
+
+$("#chaxunxz").blur( function () {   //#查询失去焦点后就执行下面的语句 
+  var a =""; 
+  a=document.getElementById("chaxunxz").value;
+  nnnn_find(1,a);
+} );  
+</script>
+	<table class="table table-bordered table-striped table-condensed table-hover" style="margin:0px;">
+	<thead>
+      <tr class="text-center">
+         <th>单位名称</th>
+         <th>联系人名</th>
+         <th>联系电话</th>
+      </tr>
+   </thead>
+   <tbody id="gys_tbody"></tbody>
+   
+     <script type="text/javascript" >          //这里一部分的代码为分页展示部分的代码
+     function x(b){
+		layer.close(tttt);
+		document.getElementById("nnnn_gys").value = b;
+     }
+  function nnnn_Builder(v) {
+	var dataStr = "";
+	dataStr += '<tr onclick="x(\''+v.t_gysmc+'\')">';
+	dataStr += '<td>' + v.t_gysmc + '</td>';
+	dataStr += '<td>' + v.t_lxr + '</td>';
+	dataStr += '<td>' + v.t_lxdh + '</td>';
+	dataStr += '</tr>';
+	return dataStr;
+}
+/* 填充表格 */
+function nnnn_trList(data) {
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += nnnn_Builder(v);
+	});
+	// 把拼接好的表格内容填充到指定位置
+	$("#gys_tbody").html(dataStr);
+
+}
+//获取分页数据列表并显示
+function nnnn_pageChange(curr) {  
+	$.get("sbgl_bjk/activityList", {"pageNumber": curr}, function(data) {
+		nnnn_trList(data.list); //调用上面trList()方法，填充表格数据
+		nnnn_writePageFoot(data); //调用下面的writePageFoot方法，循环输出页码连接  
+	});
+}
+nnnn_pageChange(1);
+//写一个页码连接  参数为page对象  而第二的参数为回调函数的函数名称
+function nnnn_writePageFoot(data){
+	var n="";
+	for(var a=1;a<=data.totalPage;a++){
+		if(a==data.PageNumber){
+			n +="<li class=\"active\" onclick=\"nnnn_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		}else{
+			n +="<li onclick=\"nnnn_pageChange("+a+")\"><a>"+a+"</a></li>&nbsp;&nbsp;";
+		};
+	}
+	$("#nnnn_pagefoot").html(n);       //把循环好的页码给替换掉
+};
+  </script>
+   </table>
+   <div class="breadcrumbs" id="breadcrumbs">
+		<div class="text-center"><ul id="nnnn_pagefoot" class="pagination">123</ul></div>
+	</div>
+</div>
+<!-- 新增备件部分隐藏的内容  从这里结束 -->
+

@@ -1,0 +1,176 @@
+package scjhgl;
+
+import java.util.List;
+
+
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+
+import scjhgl.Scbz;
+
+import scjhgl.Cprscjh;
+
+
+public class CprscjhController extends Controller {
+
+	public void index(){
+		
+		List<Cprscjh> listtime=Cprscjh.dao.find("select rscjhbh from scjhgl_cprscjh where id=1");
+	    List<Xsdd> or=Xsdd.dao.find("select * from scjhgl_xsdd");
+	    List<Scbz> bz=Scbz.dao.find("select * from scjhgl_scbz");
+	    setAttr("bz", bz);
+	    setAttr("or", or);
+	    setAttr("shijian", listtime);
+	    Tbody_list1();
+		renderFreeMarker("/scjhgl/Cprscjh.html");	
+		
+	}
+	public void Tbody_list1(){    //分页
+		/*Page<?> dataPage= Db.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM scjhgl_cprscjh where rscjhbh='2016-08-12'");*/   //未排产
+		Page<Cprscjh> s= Cprscjh.dao.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM scjhgl_cprscjh where rscjhbh='2016-08-12'");
+		setAttr("scjhgl_cprscjhs", s);
+		renderJson(s);
+	}
+	public void jieshou(){
+		
+	}
+	
+	public void paichan(){
+		int a=getParaToInt("id");
+		String bz=getPara("selevalue");
+		String bh=getPara("rscjhbh");
+		
+		System.out.println(a);
+		System.out.println(bz);
+		System.out.println(bh);
+		Cprscjh listd = Cprscjh.dao.findFirst("select  * from  scjhgl_cprscjh where id='"+a+"'");
+		Scbz sc=Scbz.dao.findFirst("select  * from  scjhgl_scbz where scbzmc='"+bz+"'");
+		int bb=sc.get("scbzbh");
+		System.out.println(bb);
+		
+		List<Cprscjh>cc=Cprscjh.dao.find("select * from scjhgl_cprscjh where scbzbh="+bb+" and rscjhbh='"+bh+"'");
+		int geshu=cc.size();
+		System.out.println(geshu);
+		int zxbh=geshu+1;
+		Cprscjh cp=new  Cprscjh();
+		cp.set("rscjhbh",bh)
+		   .set("scbzbh", sc.get("scbzbh"))
+		   .set("zxbh",zxbh)
+		   .set("ddh", listd.get("ddh"))
+		   .set("chbm", listd.get("chbm"))
+		   .set("pcsl", listd.get("pcsl"))
+		   .set("jhdzt","未下达")
+		   .set("jhzdrybh", listd.get("jhzdrybh"))
+		   .set("jhqrxdsj", listd.get("jhqrxdsj"));
+		cp.save();
+		redirect("#cpjh");
+		
+	}
+public void luru(){
+	 String wcrq = getPara("wcrq");
+	 int ywgs = getParaToInt("ywgs");
+	 //int wwgs = getParaToInt("wwgs");
+	 
+     int b=getParaToInt("id");
+     
+     System.out.println(wcrq);
+	 System.out.println(ywgs);
+	 //System.out.println(wwgs);
+	 System.out.println(b);
+	  Cprscjh listd = Cprscjh.dao.findFirst("select  * from  scjhgl_cprscjh where id='"+b+"'");
+	  int c=listd.get("pcsl");
+	  System.out.println(c);
+	  int wwgs=c-ywgs;
+	    if (listd!=null) {
+		 listd.set("wcrq",wcrq);
+		 listd.set("ywgs",ywgs);
+		 listd.set("wwgs",wwgs);
+		 listd.update();
+	}
+	    renderText("录入成功，请刷新页面！！！");
+	    //renderFreeMarker("/scjhgl/Cprscjh.html");
+}
+	
+	public void xiada(){
+		
+		List<Cprscjh> cp=Cprscjh.dao.find("select * from scjhgl_cprscjh where rscjhbh='2016-08-12' ");
+		List<Xsdd> or=Xsdd.dao.find("select * from scjhgl_xsdd where chbm=20704000554 or chbm=20704000902 or chbm=20704001023 or chbm=20704000947   ");
+		for(int i=0;i<cp.size();i++){
+			cp.get(i).set("jhdzt", "已下达").update();
+			int n1=cp.get(i).getInt("pcsl");
+			int n2=or.get(i).getInt("ypcsl");
+			int num =n1+n2;
+			System.out.println(n1);
+			System.out.println(n2);
+			System.out.println(num);
+			or.get(i).set("ypcsl", num).update();
+			
+		for(int j=0;j<cp.size();j++){
+			int n3=or.get(j).getInt("sl");
+			System.out.println(n3);
+			int m=or.get(j).getInt("ypcsl");
+			System.out.println(m);
+			int n4=n3-m;
+			System.out.println(n4);
+			or.get(j).set("dpcsl", n4).update();
+		}
+				
+}	
+		
+	redirect("#cpjh");
+			
+}
+	
+	
+	//获取用户的id
+	public void toUpdateUser() {
+		
+		renderJson(Cprscjh.dao.findById(getParaToInt("id")));//获取 前端传递的id
+	}
+	/**
+	* 更新用户对实体的操作
+	*/
+	public void update(){
+		//System.out.println("进入update方法");
+		
+		Cprscjh cprscjh=getModel(Cprscjh.class,"scjhgl_cprscjh");
+		cprscjh.update();
+		redirect("/#cpjh");
+	}
+	
+	
+	
+	public void delete(){
+		int id=getParaToInt(0);
+		boolean flag=Cprscjh.dao.deleteById(id);
+		if(flag){
+			redirect("/#cpjh");
+		}else{
+			renderText("有异常，删除失败");
+		}
+}
+	public void add(){
+		Cprscjh cprscjh=getModel(Cprscjh.class,"scjhgl_cprscjh");
+		cprscjh.save();
+		redirect("/#cpjh");
+		}
+	public void sele() {
+		List<Cprscjh> scjhgl_cprscjhs=Cprscjh.dao.find("select * from scjhgl_cprscjh");
+	    List<Cprscjh> listtime=Cprscjh.dao.find("select rscjhbh from scjhgl_cprscjh where id=1");
+	    List<Xsdd> or=Xsdd.dao.find("select * from scjhgl_xsdd where  id=9 or id=10 or id=11 or id=12");
+	    List<Scbz> bz=Scbz.dao.find("select * from scjhgl_scbz");
+	    setAttr("bz", bz);
+	    setAttr("or", or);
+	    setAttr("shijian", listtime);
+		setAttr("scjhgl_cprscjhs",
+				Cprscjh.dao.find("select * from scjhgl_cprscjh where "
+						+ getPara("seletype") + " = '"
+						+ getPara("selevalue") + "'"));
+		renderFreeMarker("/scjhgl/Cprscjh.html");
+		
+
+	}
+	
+}

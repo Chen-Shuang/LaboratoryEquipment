@@ -1,0 +1,10 @@
+package config;
+
+import scjhgl.scjhglController;
+import com.jfinal.config.Routes;
+
+public class scjhglConfig extends Routes{
+	public void config() {
+		add("/scjhgl",scjhglController.class);
+	}
+}

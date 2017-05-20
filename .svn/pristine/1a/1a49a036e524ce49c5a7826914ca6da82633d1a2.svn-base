@@ -1,0 +1,20 @@
+package config;
+
+ 
+ 
+import xcckgl.Xccbcpxx;
+import xcckgl.Xcccpxx;
+import xcckgl.Xccylxx;
+
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+
+public class XcckglMapping {
+
+	
+	public static void mapping(ActiveRecordPlugin arp){
+		arp.addMapping("xcc_ylxx", "id", Xccylxx.class);     //原料信息
+		arp.addMapping("xcc_bcpxx", "id", Xccbcpxx.class);    //半成品信息
+		arp.addMapping("xcc_cpxx", "id", Xcccpxx.class);      //成品信息
+		 
+	}
+}

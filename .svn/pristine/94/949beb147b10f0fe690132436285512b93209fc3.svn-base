@@ -1,0 +1,17 @@
+package xtgl;
+
+import java.util.List;
+
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Role extends Model<Role> {
+	
+	public static final Role dao=new Role();
+	
+	public List<Role> getRoles() {
+		List<Role> list = Role.dao.find("select * from role");
+		return list;
+	}
+	
+}

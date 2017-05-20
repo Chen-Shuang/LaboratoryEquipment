@@ -1,0 +1,89 @@
+ <div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span>设备基本信息</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div>  
+    <meta name="content-type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+$("#b").click(function(){
+	$.post("/mes/equipmentInfos/update",$("#a").serialize(),function(data){
+	location.hash="/mes/equipmentInfos";
+	});
+	return false;
+});
+</script>
+  <body>
+   <form action="/mes/equipmentInfos/update" method="post" name="addForm" id="a" class="form-horizontal">
+		<fieldset class="solid">
+<div id="col-xs-12">
+	<div class="page-header">
+	<h1>
+		设备基本信息添加表单 <i class="ace-icon fa fa-angle-double-right"></i>
+	</h1>
+	</div>
+	<input type="hidden" name="equipmentInfo.eNo" value="${(equipmentInfo.eNo)!}" />
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">设备名称</label>
+		<div class="col-sm-9">
+		<input type="text" class="col-xs-10 col-sm-5" name="equipmentInfo.eName" value="${(equipmentInfo.eName)!}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">设备型号</label>
+		<div class="col-sm-9">
+		<input type="text" class="col-xs-10 col-sm-5" name="equipmentInfo.eType" value="${(equipmentInfo.eType)!}" />
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">设备描述</label>
+		<div class="col-sm-9">
+		<textarea class="col-xs-10 col-sm-5" name="equipmentInfo.eDescription" cols="80" rows="10">${(equipmentInfo.eDescription)!}</textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">所属产线</label>
+		<div class="col-sm-9">
+		<input class="col-xs-10 col-sm-5" type="text" name="equipmentInfo.eOffline" value="${(equipmentInfo.eOffline)!}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">启用日期</label>
+		<div class="col-sm-9">
+		<input class="col-xs-10 col-sm-5" type="text" name="equipmentInfo.eStartday" value="${(equipmentInfo.eStartday)!}" placeholder="正确的样式：xxxx-xx-xx xx:xx:xx"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">状态:</label>
+		<div class="col-sm-1 control-label no-padding-left">
+		<input class="ace" type="radio" name="equipmentInfo.eStatus" value="0">
+		<span class="lbl">禁用</span>
+		</div>
+		<div class="col-sm-2 control-label no-padding-left">
+		<input class="ace" type="radio" name="equipmentInfo.eStatus" value="1">
+		<span class="lbl">启用</span>
+		</div>
+	</div>
+		<div class="col-md-offset-4 col-md-9">
+			<button class="btn btn-info" type="button" id="b">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+					提交
+			</button>
+			&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+			<button class="btn" type="reset">
+				<i class="ace-icon fa fa-undo bigger-110"></i>
+					重置
+			</button>
+		</div>
+</div>
+</fieldset>
+	</form>

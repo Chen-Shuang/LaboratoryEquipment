@@ -1,0 +1,230 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+
+<div class="page-content">
+
+
+	<div class="page-content">
+
+
+		<div class="row">
+			<div class="col-xs-12">
+
+				<div class="table-header">首件检验报告</div>
+
+				<div class="table-responsive">
+				<form class="form-horizontal" role="form">
+									  <table id="simple-table" class="table table-striped table-bordered table-hover">
+                                   <tr > 
+                                  <td rowspan="2">
+                                  <img src="../docs/images/logo.png" border="0" alt="">
+                                 </td>
+                                   <td colspan="3">
+                                  <b>郑州跃博汽车电器有限公司州跃博汽车电器有限公司</b>
+                                     </td>
+                                        </tr>
+                                       <tr> 
+                                          <td>
+                                           名称：首件检验报告单（电子）
+                                                  </td>
+                                                  <td colspan="2">
+                                                     编号：ZYB Q W 6.2-1.01 F-3/02
+                                                        </td>
+
+                                                            </tr>
+                                                                   <tr>
+                                                                     
+																	 <td>
+                                                                      检验类型
+                                                                      </td>                                                           
+																	    
+																		
+                                                                      																	 
+                                                                     <th colspan="3">
+                                                                   特殊工序首检&nbsp;&nbsp;<input type="checkbox" name="checkgroup" value="特殊工序首检">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;																   成品首检&nbsp;&nbsp;<input type="checkbox" name="checkgroup" value="成品首检">  
+                                                                      </th>
+																	 
+                                                                     </tr>
+																	 <tr> 
+                                          <td>
+                                          产品（工序）<br>名称
+                                                  </td>
+												   <td>
+                                          
+                                                  </td>
+                                                  <td>
+                                                     规格型号<br>/物料号
+                                                        </td>
+                                                          <td>
+                                          
+                                                          </td>
+                                                            </tr>
+                                                               <tr>
+															   <td>
+                                                                批量
+                                                  </td>
+												   <td>
+                                          
+                                                  </td>
+                                                  <td>
+                                                     生产批次
+                                                        </td>
+                                                          <td>
+                                          
+                                                          </td>
+															   </tr>    
+                                                                     <tr>
+																	  <td>
+                                                               检验日期
+                                                                      </td>
+												                         <td>
+                                          
+                                                                            </td>
+                                                                           <td>
+                                                                            时间
+                                                                               </td>
+                                                                          <td>
+                                                                         <input id="date-timepicker1" type="text" class="form-control" />
+																		 <span class="input-group-addon">
+																<i class="fa fa-clock-o bigger-20"></i>
+                                                                           </td>
+																	 </tr>
+																	 <tr>
+																	 <td>
+																	 <br><br>
+																	 首检时机
+																	 </td>
+																	 <td>
+																	 a.一批产品的第一件；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="checkgroup" > <br>
+																	 b.每班开始生产的第一件；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="checkgroup" > <br>
+																	 c.设备或工艺装备调整后的第一件；&nbsp;&nbsp;&nbsp;<input type="checkbox" name="checkgroup" > <br>
+                                                                     d.更换操作人员后的第一件；&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="checkgroup" >  <br>
+                                                                     e.首件不合格时的再检；&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="checkgroup" >  <br>
+
+																	 </td>
+																	 <td> 
+                                                                        <br><br>																	 
+																	 检验依据：首件检验指
+																	 </td>
+																	 <td> 
+																	 <br><br>
+                                                                       导书和产品技术图册																	 
+																	 </td>
+																	 </tr>
+																	 <tr>
+																	  <td>
+																	 检验<br>项目
+																	 </td>
+																	 <td>
+																	 标准<br>要求
+																	 </td>
+																	 <td>
+																	 实测结果
+																	 </td><td>
+																	 检验<br>工具
+																	 </td>
+																	 </tr>
+																	 <tr>
+																	 <td>
+																	 外观
+																	 </td>
+																	 <td rowspan="4">
+																	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;详见<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;技术<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图册<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;和检<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验指<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导书
+																	 
+																	 </td>
+																	 <td>
+																	 </td>
+																	 
+																	 </tr>
+																	 <tr>
+																	 <td>
+																	 焊接
+																	 </td>
+																	 <td>
+																	 </td>
+																	  <td>
+																	 
+																	 </td>
+																	 </tr>
+																	 <tr>
+																	 <td>
+																	 装配
+																	 </td>
+																	 <td>
+																	 </td>
+																	 
+																	  <td>
+																	 </td>
+																	 </tr>
+																	 <tr>
+																	 <td>
+																	 产品工厂
+																	 </td>
+																	 <td>
+																	 </td>
+																	  <td>
+																	 
+																	 </td>
+																	 </tr>
+																	 <tr>
+																	 <td>
+																	 检验结论
+																	 </td>
+																	 <td colspan="3"></td>
+																	 
+																	 </tr>
+																	 <tr>
+																	 <td>
+																	 处理结果
+																	 </td>
+																	 <td>
+																	 继续生产&nbsp;&nbsp;<input type="checkbox" name="checkgroup" > &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;停产并查找原因&nbsp;&nbsp;<input type="checkbox" name="checkgroup" > 
+																	 </td>
+																	 <td>
+																	 质检员
+																	 </td>
+																	 <td></td>
+																	 </tr>
+																	 <tr>
+																	 <td>
+																	 首件不合格<br>原因
+																	 </td>
+
+																	 </tr>
+																	 <tr>
+																	 <td colspan="4">
+																	 注：不需要的项目用"/"划去。首件不合格时，
+																	 检验结论一栏须详细填写原因，问题排除后进行再检，
+																	 <br>合格后可继续生产。
+																	 </td>
+																	 </tr>
+                                                                 </table>
+								</form>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<a class="red" href="#">添加数据 <i class="icon-zoom-in bigger-130"></i>
+			</a>
+		</div>
+
+	</div>
+	<!-- /.page-content -->
+
+
+
+	
+
+<!-- /.page-content -->
+<script>
+	
+</script>

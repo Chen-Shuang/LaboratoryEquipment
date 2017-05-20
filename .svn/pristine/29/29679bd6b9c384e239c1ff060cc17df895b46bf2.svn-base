@@ -1,0 +1,10 @@
+package scsjgl;
+
+import com.jfinal.core.Controller;
+
+public class QzdfbjscgcjcController extends Controller {
+	public void index(){
+		render("");
+	}
+
+}

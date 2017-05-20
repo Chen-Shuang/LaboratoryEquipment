@@ -1,0 +1,606 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">系统管理</a>
+		</li>
+
+		<li><span>角色管理</span>
+		</li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="clearfix"></div>
+					<div class="table-header">角色管理</div>
+
+					<div>
+						<div id="dynamic-table_wrapper"
+							class="dataTables_wrapper form-inline no-footer">
+							<div class="row">
+								<div class="widget">
+									<div class="widget-main">
+										<form class="form-inline">
+											<input type="search" class="form-control input-sm"
+												placeholder="输入角色编号查询" aria-controls="dynamic-table">
+											<select name="" aria-controls="dynamic-table"
+												class="form-control "><option value="1">角色名称</option>
+												<option value="0">admin</option>
+												<option value="0">维修人员</option>
+												<option value="0">质检人员</option>
+											</select> <select name="" aria-controls="dynamic-table"
+												class="form-control"><option value="1">角色状态</option>
+												<option value="0">启用</option>
+												<option value="0">停用</option>
+											</select>
+											<button type="button" class="btn btn-info btn-sm">查询</button>
+											<button type="button" class="btn btn-info btn-sm">取消</button>
+										</form>
+									</div>
+								</div>
+
+							</div>
+							<table
+								class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
+								id="dynamic-table" role="grid"
+								aria-describedby="dynamic-table_info">
+								<thead>
+									<tr>
+										<th class="col-xs-1">编号</th>
+										<th class="hidden-480 col-xs-2">角色名称</th>
+										<th class="col-xs-2">所属部门</th>
+										<th class="col-xs-2">描述</th>
+										<th class="hidden-480 col-xs-2">状态</th>
+
+										<th colspan="2"><a class="btn btn-sm btn-info col-xs-3"
+											href="javascript:addForm()">添加角色</a></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<#list list as role>
+									<tr role="row" class="odd">
+										<td>${role.role_id!}</td>
+										<td>${role.role_name!}</td>
+										<td>
+											<!-- ${role.dept_id!} --> <#list dept as dept> <#if
+											role.dept_id==dept.dept_id> ${dept.dept_name!} </#if>
+											</#list></td>
+										<td>${role.role_des!}</td>
+										<td>
+
+											<div class="btn-group">
+
+												<#if role.status==true>
+												<button type="button" class="label  label-success "
+													data-toggle="dropdown">
+													启用 <span class="caret"></span>
+												</button>
+												</#if> <#if role.status==false>
+												<button type="button"
+													class="label label-large label-inverse arrowed-in"
+													data-toggle="dropdown">
+													停用 <span class="caret"></span>
+												</button>
+												</#if>
+												<ul class="dropdown-menu" role="menu">
+													<li><a href="role/changestatus1/${role.role_id!}">启用</a>
+													</li>
+													<li><a href="role/changestatus0/${role.role_id!}">停用</a>
+													</li>
+												</ul>
+											</div>
+										</td>
+
+										<td>
+											<div class="hidden-sm hidden-xs action-buttons pull-left">
+												<a class="dd green"
+													href="role/toUpdaterole?role_id=${role.role_id}"> <i
+													class="ace-icon fa fa-pencil bigger-130"></i> </a> <a
+													href="role/delerolebyid/${role.role_id!}" class="_d red">
+													<i class="ace-icon fa fa-trash-o bigger-130"></i> </a>
+											</div>
+											<div class="btn-group">
+												<a class="edit btn btn-sm btn-info "
+													href="javascript:addqx(${role.role_id!})">添加权限</a>
+												<!-- role/toUpdaterole?role_id=${role.role_id} -->
+											</div>
+										</td>
+									</tr>
+									</#list>
+								</tbody>
+							</table>
+
+							<div class="row">
+								<div class="col-xs-12 col-md-7"></div>
+								<div class="col-xs-12 col-md-5">
+
+
+									<div class=" pull-left">
+										<label>显示<select name="dynamic-table_length"
+											aria-controls="dynamic-table" class="form-control input-sm"><option
+													value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+										</select> 条记录</label>
+									</div>
+
+									<div class="dataTables_paginate paging_simple_numbers "
+										id="dynamic-table_paginate">
+										<ul class="pagination">
+											<li class="paginate_button previous disabled"
+												aria-controls="dynamic-table" tabindex="0"
+												id="dynamic-table_previous"><a href="#">下一页</a></li>
+											<li class="paginate_button active"
+												aria-controls="dynamic-table" tabindex="0"><a href="#">1</a>
+											</li>
+											<li class="paginate_button " aria-controls="dynamic-table"
+												tabindex="0"><a href="#">2</a></li>
+											<li class="paginate_button " aria-controls="dynamic-table"
+												tabindex="0"><a href="#">3</a></li>
+											<li class="paginate_button next"
+												aria-controls="dynamic-table" tabindex="0"
+												id="dynamic-table_next"><a href="#">下一页</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.col -->
+	</div>
+</div>
+
+
+
+
+
+<!-- /.添加角色 -->
+<div class="hide" id="add">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8">
+		<form id="aform" action="role/addrole" method="post">
+			<input type="hidden" name="role.role_id">
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">角色名称</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="role.role_name"
+						id="str2" value="" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">所属部门</label>
+				<div class="col-sm-9">
+					<select name="role.dept_id" aria-controls="dynamic-table"
+						class="form-control input-sm"> <#list dept as dept>
+						<option value="${dept.dept_id!}">${dept.dept_name!}</option>
+						</#list>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">角色描述</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="role.role_des"
+						id="str2" value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">角色状态</label>
+				<div class="col-sm-9">
+					<select name="role.status" aria-controls="dynamic-table"
+						class="form-control input-sm"><option value="1">启用</option>
+						<option value="0">禁用</option>
+					</select>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="col-xs-2"></div>
+</div>
+
+<!-- /.添加权限 -->
+<div class="hidden" id="addqx">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8">
+		<form id="adx" action="role/addprivilege" method="post">
+
+			<div class="col-xs-12">
+				<div class="control-group">
+					<label class="control-label bolder blue">权限选择</label> <input
+						type="hidden" name="role.role_id" id="role_id"><#list
+					privilege as p>
+					<div class="checkbox">
+						<label> <input name="privi" type="checkbox"
+							class="ace ace-checkbox-3" value="${p.privilege_id!}"> <span
+							class="lbl">${p.privilege_name!}</span> </label>
+					</div>
+					</#list>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<div class="col-xs-2"></div>
+</div>
+
+<script type="text/javascript">
+	function addqx(id) {
+		$("#role_id").val(id);
+		document.getElementById("adx").reset();
+		$('#addqx').removeClass("hidden");
+		userMode = layer.open({
+			type : 1,
+			shade : [ 0.5 ],
+			title : '权限添加', //不显示标题
+			area : [ '20%', '500px' ], //显示空间
+			content : $('#addqx'), //捕获的元素
+			btn : [ '添加', '取消' ],
+			yes : function(index, layero) { //或者使用btn1
+				$.post("addqx", $("#adx").serialize(), function(data) {
+
+					layer.close(index);
+					$('#addqx').addClass("hidden");
+					document.getElementById("adx").submit();
+
+				});
+			},
+			cancel : function(index) {
+				layer.close(index);
+				$('#addqx').addClass("hidden"); //取消继续隐藏
+			},
+		});
+	};
+
+	function addForm() {
+		document.getElementById("aform").reset();
+		$('#add').removeClass("hide");
+		userModel = layer.open({
+
+			type : 1,
+			shade : [ 0.5 ],
+			title : '角色添加', //不显示标题
+			area : [ '30%', '300px' ], //显示空间
+			content : $('#add'), //捕获的元素
+			btn : [ '添加', '取消' ],
+			yes : function(index, layero) { //或者使用btn1
+				$.post("add", $("#aform").serialize(), function(data) {
+
+					layer.close(index);
+					$('#add').addClass("hide");
+					document.getElementById("aform").submit();
+
+				});
+			},
+			cancel : function(index) {
+				layer.close(index);
+				$('#add').addClass("hide"); //取消继续隐藏
+			},
+		});
+	};
+</script>
+
+<div class="hide" id="updaterole">
+	<form id="updateForm" action="role/update" method="post">
+		<input type="hidden" name="role.role_id" id="roleid">
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right"
+				for="form-field-1">角色名称</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="role.role_name"
+					id="role_name" value="" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right"
+				for="form-field-1">所属部门</label>
+			<div class="col-sm-9">
+				<select name="role.dept_id" aria-controls="dynamic-table"
+					class="form-control input-sm"> <#list dept as dept>
+					<option value="${dept.dept_id!}">${dept.dept_name!}</option>
+					</#list>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right"
+				for="form-field-1">角色描述</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="role.role_des"
+					id="role_des" value="" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right"
+				for="form-field-1">角色状态</label>
+			<div class="col-sm-9">
+				<select name="role.status" aria-controls="dynamic-table"
+					class="form-control input-sm"><option value="1">启用</option>
+					<option value="0">禁用</option>
+				</select>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(".dd").on('click', function(e) {
+		e.preventDefault();
+		$.get($(this).attr("href"), function(data) {
+			$("#roleid").val(data.role_id);
+			$("#role_name").val(data.role_name);
+			$("#role_des").val(data.role_des);
+			$("#status").val(data.status);
+
+			var dialog = $("#updaterole").removeClass('hide').dialog({
+				type : 1,
+				shade : [ 0.5 ],
+				modal : true,
+				title : '角色更改',
+				buttons : [ {
+					text : "修改",
+					"class" : "btn btn-primary btn-minier",
+					click : function() {
+						document.getElementById("updateForm").submit();
+						$(this).remove();
+						return false;
+					}
+				}, {
+
+					text : "取消",
+					"class" : "btn btn-minier",
+					click : function() {
+						$(this).dialog("close");
+					}
+				} ]
+
+			});
+		}, "json");
+	});
+</script>
+
+
+<script>
+	jQuery(function($) {
+		$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+			_title : function(title) {
+				var $title = this.options.title || '&nbsp;'
+				if (("title_html" in this.options)
+						&& this.options.title_html == true)
+					title.html($title);
+				else
+					title.text($title);
+			}
+		}));
+
+		//TableTools settings
+		TableTools.classes.container = "btn-group btn-overlap";
+		TableTools.classes.print = {
+			"body" : "DTTT_Print",
+			"info" : "tableTools-alert gritter-item-wrapper gritter-info gritter-center white",
+			"message" : "tableTools-print-navbar"
+		}
+
+		//initiate TableTools extension
+		var tableTools_obj = new $.fn.dataTable.TableTools(
+				oTable1,
+				{
+					//in Ace demo plugins/ace/assets will be replaced by correct assets path
+
+					"sRowSelector" : "td:not(:last-child)",
+					"sRowSelect" : "multi",
+					"fnRowSelected" : function(row) {
+						//check checkbox when row is selected
+						try {
+							$(row).find('input[type=checkbox]').get(0).checked = true
+						} catch (e) {
+						}
+					},
+					"fnRowDeselected" : function(row) {
+						//uncheck checkbox
+						try {
+							$(row).find('input[type=checkbox]').get(0).checked = false
+						} catch (e) {
+						}
+					},
+
+					"sSelectedClass" : "success",
+					"aButtons" : [
+							{
+								"sExtends" : "copy",
+								"sToolTip" : "复制到剪贴板",
+								"sButtonClass" : "btn btn-white btn-primary btn-bold",
+								"sButtonText" : "<i class='fa fa-copy bigger-110 pink'></i>",
+								"fnComplete" : function() {
+									this.fnInfo(
+											'<h3 class="no-margin-top smaller">表格已复制</h3>\
+							<p>已复制 '
+													+ (oTable1.fnSettings()
+															.fnRecordsTotal())
+													+ ' 行数据到剪贴板.</p>', 1500);
+								}
+							},
+
+							{
+								"sExtends" : "csv",
+								"sToolTip" : "导出成 CSV",
+								"sButtonClass" : "btn btn-white btn-primary  btn-bold",
+								"sButtonText" : "<i class='fa fa-file-excel-o bigger-110 green'></i>"
+							},
+
+							{
+								"sExtends" : "pdf",
+								"sToolTip" : "导出成 PDF",
+								"sButtonClass" : "btn btn-white btn-primary  btn-bold",
+								"sButtonText" : "<i class='fa fa-file-pdf-o bigger-110 red'></i>"
+							},
+
+							{
+								"sExtends" : "print",
+								"sToolTip" : "打印页面",
+								"sButtonClass" : "btn btn-white btn-primary  btn-bold",
+								"sButtonText" : "<i class='fa fa-print bigger-110 grey'></i>",
+
+								"sMessage" : "<div class='navbar navbar-default'><div class='navbar-header pull-left'><a class='navbar-brand' href='#'><small>可选导航栏 &amp; 文本</small></a></div></div>",
+
+								"sInfo" : "<h3 class='no-margin-top'>打印页面</h3>\
+							  <p>请用您的浏览器打印功能打印这个表格 \
+							  <br />请打印完成关闭此页面</p>",
+							} ]
+				});
+
+		setTimeout(function() {
+			$(tableTools_obj.fnContainer()).find('a.DTTT_button').each(
+					function() {
+						var div = $(this).find('> div');
+						if (div.length > 0)
+							div.tooltip({
+								container : 'body'
+							});
+						else
+							$(this).tooltip({
+								container : 'body'
+							});
+					});
+		}, 200);
+
+		//ColVis extension
+		var colvis = new $.fn.dataTable.ColVis(oTable1, {
+			"buttonText" : "<i class='fa fa-search'></i>",
+			"aiExclude" : [ 0, 6 ],
+			"bShowAll" : true,
+			//"bRestore": true,
+			"sAlign" : "right",
+			"fnLabel" : function(i, title, th) {
+				return $(th).text();//remove icons, etc
+			}
+
+		});
+
+		//style it
+		$(colvis.button()).addClass('btn-group').find('button').addClass(
+				'btn btn-white btn-info btn-bold')
+
+		//and append it to our table tools btn-group, also add tooltip
+		$(colvis.button()).prependTo('.tableTools-container .btn-group').attr(
+				'title', '显示/隐藏 数据列').tooltip({
+			container : 'body'
+		});
+
+		//and make the list, buttons and checkboxed Ace-like
+		$(colvis.dom.collection)
+				.addClass(
+						'dropdown-menu dropdown-light dropdown-caret dropdown-caret-right')
+				.find('li').wrapInner('<a href="javascript:void(0)" />') //'A' tag is required for better styling
+				.find('input[type=checkbox]').addClass('ace').next().addClass(
+						'lbl padding-8');
+
+		/////////////////////////////////
+		//table checkboxes
+		$('th input[type=checkbox], td input[type=checkbox]').prop('checked',
+				false);
+
+		//select/deselect all rows according to table header checkbox
+		$('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on(
+				'click',
+				function() {
+					var th_checked = this.checked;//checkbox inside "TH" table header
+
+					$(this).closest('table').find('tbody > tr').each(
+							function() {
+								var row = this;
+								if (th_checked)
+									tableTools_obj.fnSelect(row);
+								else
+									tableTools_obj.fnDeselect(row);
+							});
+				});
+
+		//select/deselect a row when the checkbox is checked/unchecked
+		$('#dynamic-table').on('click', 'td input[type=checkbox]', function() {
+			var row = $(this).closest('tr').get(0);
+			if (!this.checked)
+				tableTools_obj.fnSelect(row);
+			else
+				tableTools_obj.fnDeselect($(this).closest('tr').get(0));
+		});
+
+		$(document).on('click', '#dynamic-table .dropdown-toggle', function(e) {
+			e.stopImmediatePropagation();
+			e.stopPropagation();
+			e.preventDefault();
+		});
+
+		//And for the first simple table, which doesn't have TableTools or dataTables
+		//select/deselect all rows according to table header checkbox
+		var active_class = 'active';
+		$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on(
+				'click',
+				function() {
+					var th_checked = this.checked;//checkbox inside "TH" table header
+
+					$(this).closest('table').find('tbody > tr').each(
+							function() {
+								var row = this;
+								if (th_checked)
+									$(row).addClass(active_class).find(
+											'input[type=checkbox]').eq(0).prop(
+											'checked', true);
+								else
+									$(row).removeClass(active_class).find(
+											'input[type=checkbox]').eq(0).prop(
+											'checked', false);
+							});
+				});
+
+		//select/deselect a row when the checkbox is checked/unchecked
+		$('#simple-table').on('click', 'td input[type=checkbox]', function() {
+			var $row = $(this).closest('tr');
+			if (this.checked)
+				$row.addClass(active_class);
+			else
+				$row.removeClass(active_class);
+		});
+
+		/********************************/
+		//add tooltip for small view action buttons in dropdown menu
+		$('[data-rel="tooltip"]').tooltip({
+			placement : tooltip_placement
+		});
+
+		//tooltip placement on right or left
+		function tooltip_placement(context, source) {
+			var $source = $(source);
+			var $parent = $source.closest('table')
+			var off1 = $parent.offset();
+			var w1 = $parent.width();
+
+			var off2 = $source.offset();
+			//var w2 = $source.width();
+
+			if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2))
+				return 'right';
+			return 'left';
+		}
+
+	})
+</script>
+
+

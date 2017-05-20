@@ -1,0 +1,45 @@
+package scgygl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class ScgcgylcController extends Controller {
+
+	public void  index(){
+		System.out.println("###%%");
+		List<Scgcgylc> scgygl_scgcgylc = Scgcgylc.me.find("select*from scgygl_scgcgylc");
+		setAttr("scgygl_scgcgylc", scgygl_scgcgylc);
+		System.out.println("得到数据" + scgygl_scgcgylc.size() + "个");
+		render("/scgygl/scgcgylc.html");
+ 
+	}
+	public void del() {
+		Scgcgylc.me.deleteById(getPara(0));
+		 System.out.println(getPara(0));
+	     redirect("/scgcgylc/index");
+	}
+	public void add() {
+		System.out.println("执行增加方法");
+		Scgcgylc  scgygl_scgcgylc=getModel(Scgcgylc.class);	 
+		System.out.println("456");
+		scgygl_scgcgylc.save();
+		redirect("/scgygl/index");
+		 
+	}
+	public void getid() {
+		Scgcgylc scgygl_scgcgylc =Scgcgylc.me.findById(getPara(0));
+		setAttr("scgygl_scgcgylc",scgygl_scgcgylc);	
+		//System.out.println(scgygl_lsgyxx.getStr("gybh"));
+		render("/scgygl/scgcgylc_update.html");
+	}
+	
+	public void update() {
+		Scgcgylc  scgygl_scgcgylc=getModel(Scgcgylc.class,"scgygl_scgcgylc");
+		Scgcgylc   scgcgylc=getModel(Scgcgylc.class,"scgygl_scgcgylc");
+		 scgygl_scgcgylc=scgcgylc;
+		 scgygl_scgcgylc.update();
+		redirect("/scgcgylc/index");
+	}
+}
+

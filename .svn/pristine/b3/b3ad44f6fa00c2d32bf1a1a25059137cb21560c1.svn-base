@@ -1,0 +1,140 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">现场仓库管理</a>
+		</li>
+
+		<li><span>现场仓原料信息</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+<div class="page-content">
+
+	<div class="col-xs-12">
+
+		<div class="tabbable">
+			<!-- Only required for left/right tabs -->
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tab1" data-toggle="tab">现场仓原料记录</a></li>
+				<li><a href="#tab2" data-toggle="tab">当前现场仓原料记录</a></li>
+			</ul>
+
+
+			<br />
+			<div class="table-header">现场仓原料记录</div>
+			<div class="tab-content">
+				<!-- 不同的内容 -->
+				<div id="tab1" class="tab-pane active">
+					<script type="text/javascript">
+						function search() {
+
+							var ID = $("#id").val();
+							/* alert(ID); */
+							$.post("xccylxx/search/", {
+								ID : ID,
+							}, function(data) {
+								if (data == "flase") {
+									alert("无结果！");
+									window.location = "#xccylxx/";
+								} else {
+
+									window.location = data + ID;
+								}
+							}
+
+							);
+						}
+					</script>
+
+
+					<div class="row">
+						<div class="col-xs-6">
+							<div id="dynamic-table_length" class="dataTables_length">
+								<input type="search" id="id" placeholder="输入..." />
+								<button onclick="search();">Go</button>
+
+							</div>
+
+						</div>
+
+
+
+					</div>
+					
+					<div class="table-responsive">
+
+						<table id="sample-table-2"
+							class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>序 号</th>
+									<th>物料编码</th>
+									<th>物料名称</th>
+									<th>物料批次</th>
+									<th>物料数量</th>
+									<th>来源处</th>
+									<th>去向处</th>
+									<th>时间日期</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#list xccylxx as q>
+								<tr>
+									<td>${q.id!}</td>
+									<td>${q.wlbm!}</td>
+									<td>${q.wlmc!}</td>
+									<td>${q.wlpc!}</td>
+									<td>${q.wlsl!}</td>
+									<td>${q.lyc!}</td>
+									<td>${q.qxc!}</td>
+									<td>${q.rqsj!}</td>
+								</tr>
+								</#list>
+							</tbody>
+						</table>
+					</div>
+					<div class="dataTables_paginate paging_simple_numbers">
+						<ul class="pagination">${(m)}
+						</ul>
+					</div>
+				</div>
+
+
+				<div id="tab2" class="tab-pane">
+				<div class="table-responsive">
+
+						<table id="sample-table-2"
+							class="table table-striped table-bordered table-hover">
+							<thead>
+<tr>
+									<th>序 号</th>
+									<th>物料编码</th>
+									<th>物料名称</th>
+									<th>物料批次</th>
+									<th>物料数量</th>
+									<th>来源处</th>
+									<th>去向处</th>
+									<th>时间日期</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#list xccylxx_copy as q>
+								<tr>
+									<td>${q.id!}</td>
+									<td>${q.wlbm!}</td>
+									<td>${q.wlmc!}</td>
+									<td>${q.wlpc!}</td>
+									<td>${q.wlsl!}</td>
+									<td>${q.lyc!}</td>
+									<td>${q.qxc!}</td>
+									<td>${q.rqsj!}</td>
+								</tr>
+								</#list>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

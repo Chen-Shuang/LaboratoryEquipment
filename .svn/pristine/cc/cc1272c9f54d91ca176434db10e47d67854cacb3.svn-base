@@ -1,0 +1,355 @@
+package scjhgl;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import scjhgl.Zzprscjh;
+import scjhgl.Bom;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class ZzprscjhController extends Controller {
+	public void index(){
+		Date date=new Date();//获取时间
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd ");//转换格式
+		SimpleDateFormat df2=new SimpleDateFormat("yyyyMMdd ");//转换格式
+		String dt=df.format(date);
+		String dt2=df2.format(date);
+		setAttr("shijian", dt);
+		setAttr("rscjhbh", dt2);
+
+		renderFreeMarker("/scjhgl/zzprscjh.html");	
+	}
+	public void Tbody_list1() {
+		 //对应if语句
+		Date date=new Date();//获取时间
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd ");//转换格式
+		String dt=df.format(date);
+		
+		
+	      Page<Zzprscjh> s= Zzprscjh.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","FROM scjhgl_zzprscjh where rscjhbh='"+dt+"'");
+          List<Xsdd> list4 = Xsdd.dao.find("select * from scjhgl_xsdd");
+		  List<Zzpscdd> list5 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd");
+		  List<Scbz> scbz=Scbz.dao.find("select * from scjhgl_scbz");
+		  Map<String, Object> map1= new HashMap<String, Object>();		  
+		    map1.put("paginate", s);
+			map1.put("xsdd", list4);
+			map1.put("zzpscdd", list5);
+			map1.put("scbz", scbz);
+			List<Object> data = new ArrayList<Object>();
+			data.add(map1);
+			renderJson(data);
+
+	}
+	
+	public void Tbody_list2() {
+		//对应if语句
+		Date date=new Date();//获取时间
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd ");//转换格式
+		String dt=df.format(date);
+	      Page<Zzprscjh> s= Zzprscjh.dao.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM scjhgl_zzprscjh where rscjhbh='"+dt+"'");
+          List<Xsdd> list4 = Xsdd.dao.find("select * from scjhgl_xsdd");
+		  List<Zzpscdd> list5 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd");
+		  List<Scbz> scbz=Scbz.dao.find("select * from scjhgl_scbz");
+		    Map<String, Object> map1= new HashMap<String, Object>();		  
+			map1.put("paginate", s);
+			map1.put("xsdd", list4);
+			map1.put("zzpscdd", list5);
+			map1.put("scbz", scbz);
+			List<Object> data = new ArrayList<Object>();
+			data.add(map1);
+			renderJson(data);
+
+	}
+	
+	public void PC(){
+		List<Zzprscjh> list3 = Zzprscjh.dao.find("select * from scjhgl_zzprscjh");
+	    if(list3==null) {
+		List<Bom> lista = Bom.dao.find("select zjbm,zjmc,zjgg,jl ,mjbh ,jbyl from scjhgl_bom where zjsx = '自制' ");
+		List<Xsdd> listb = Xsdd.dao.find("select  khjc,ddh,chbm,sl ,fhrq from scjhgl_xsdd    ");
+		List<Kcxx> listc = Kcxx.dao.find("select  zjbm,kcl from scjhgl_kcxx");
+		List<Rkd> listd = Rkd.dao.find("select  zjbm,rkrq,rkl from  scjhgl_rkd");
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(i);
+			System.out.println(lista.get(i).get("zjbm"));
+			Zzprscjh zz = new Zzprscjh();
+			zz.set("zjbm", lista.get(i).get("zjbm"))
+					.set("zjmc", lista.get(i).get("zjmc"))
+					.set("zjgg", lista.get(i).get("zjgg"))
+					.set("jl", lista.get(i).get("jl"));
+
+			for (int j = 0; j < lista.size(); j++) {
+				if (lista.get(i).get("mjbh").equals(listb.get(j).get("chbm"))) {
+					zz.set("khjc", listb.get(j).get("khjc"));
+					zz.set("fhrq", listb.get(j).get("fhrq"));
+					zz.set("ddh", listb.get(j).get("ddh"));
+					System.out.println(listb.get(j).getStr("khjc") + "!!!!!");
+				}
+
+				for (int z = 0; z < listc.size(); z++) {
+					if (lista.get(i).get("zjbm").equals(listc.get(z).get("zjbm"))) {
+
+						zz.set("kcl", listc.get(z).get("kcl"));
+						}
+					for (int x = 0; x< listd.size(); x++) {
+						if (lista.get(i).get("zjbm").equals(listd.get(x).get("zjbm"))){
+							zz.set("rkrq", listd.get(x).get("rkrq"))
+							.set("rkl", listd.get(x).get("rkl"));
+							int d;  //生产数量
+							int h; // 需求量
+							int y; //未完工数
+							int m;
+							int s=listd.get(x).getInt("rkl");
+							int e = listc.get(z).getInt("kcl");
+							int f = listb.get(i).getInt("sl");
+							int g = lista.get(j).getInt("jbyl");
+							h = f * g;
+							d = h - e;
+							y=d-s;
+							m=x;
+							zz.set("wwgsl", y);
+							zz.set("xql", h);
+							zz.set("scsl", d);
+							zz.set("zxbh", m);
+										
+						}		
+					} 			
+		      }
+	 }
+
+			zz.save();
+
+		}
+		
+   } 
+	}
+	
+	public void index1(){
+		
+		 List<Zzprscjh> list2 = Zzprscjh.dao.find("select * from scjhgl_zzprscjh ");
+		 List<Zzprscjh> list = Zzprscjh.dao.find("select * from scjhgl_zzprscjh where jhdzt='已下达' ");
+		 List<Xsdd> list4 = Xsdd.dao.find("select ddh ,khjc from scjhgl_xsdd");
+		 List<Zzpscdd> list5 = Zzpscdd.dao.find("select ddh , zjbm,zjmc,zjgg,jl,scsl from scjhgl_zzpscdd");
+		 setAttr("scjhgl_zzprscjh2", list2);
+		 setAttr("scjhgl_zzprscjh", list);
+		 setAttr("scjhgl_xsdd4", list4);
+		 setAttr("scjhgl_zzprscjh5", list5);
+         render("/scjhgl/zzprscjh.html");
+		
+		
+	}
+
+	public void add() { //增
+		
+		Zzprscjh scjhgl_zzprscjh = getModel(Zzprscjh.class, "scjhgl_zzprscjh");
+		scjhgl_zzprscjh.save();
+		
+		redirect("/#zzprscjh/index1");
+	}
+
+//	public void del() { // 删
+//		System.out.println("dddddddddddddddddd");
+//		Zzprscjh.dao.deleteById(getPara(0));
+//		redirect("/#zzprscjh/index");
+//	}
+	
+	public void delete() { // 删
+		Zzprscjh.dao.deleteById(getPara("id"));
+		renderText("success");
+	}
+
+	public void toUpdateUser() {
+		renderJson(Zzprscjh.dao.findById(getParaToInt("id")));// 获取 前端传递的id
+	}
+
+	
+public void ReturnJson() {
+		
+		renderJson(Zzprscjh.dao.findById(getParaToInt("id")));//获取 前端传递的id
+	}
+	/**
+	 * 更新用户对实体的操作
+	 */
+	public void update() {     //更新
+		System.out.println("进入update方法");
+
+		Zzprscjh zzprscjh = getModel(Zzprscjh.class, "scjhgl_zzprscjh");
+		System.out.println(zzprscjh.getStr("khjc"));
+		zzprscjh.update();
+		System.out.println("执行后的方法");
+		redirect("/#zzprscjh/index1");
+	}
+
+	public void search() {   //搜索
+		System.out.println("bbbbbbbbbbbbb");
+		String keywords = getPara("keywords");
+		Zzprscjh.dao.find("select * from scjhgl_zzprscjh");
+		setAttr("scjhgl_zzprscjh",Zzprscjh.dao.find("select * from scjhgl_zzprscjh where ddh = '"+ keywords + "'||zjbm = '"+ keywords + "'"));
+		//setAttr("scjhgl_zzprscjh",Zzprscjh.dao.find("select * from scjhgl_zzprscjh where zjbm = '"+ keywords + "'"));
+		render("/scjhgl/zzprscjh.html");
+
+	}
+
+	public void paginate() {
+		Integer pageNumber = getParaToInt("pageNumber");
+		if (pageNumber == null) {
+			pageNumber = 1;
+
+		}
+		Page<Zzprscjh> page = Zzprscjh.dao.paginate(pageNumber, 5, "select *"," from scjhgl_zzprscjh");
+		System.out.println("aaaaaaaaaaaaaaaa");
+		setAttr("scjhgl_zzprscjh", page);
+		render("/scjhgl/zzprscjh.html");
+	}
+	
+	public void paichan(){     //排产
+		int a=getParaToInt("id");
+		String bz=getPara("selevalue");
+		String bh=getPara("rscjhbh");
+		
+		Zzprscjh listd = Zzprscjh.dao.findFirst("select  * from  scjhgl_zzprscjh where id='"+a+"' ");
+        List<Zzprscjh> cc=Zzprscjh.dao.find("select * from scjhgl_zzprscjh where scbz='"+bz+"' and rscjhbh='"+bh+"'");
+		System.out.println("aaaaaaaaaaaaaaa");
+        int geshu=cc.size();
+		int zxbh=geshu+1;
+		Zzprscjh cp=new  Zzprscjh();
+		cp.set("rscjhbh",bh)
+		   .set("scbz", bz)
+		   .set("zxbh",zxbh)
+		   .set("ddh", listd.get("ddh"))
+		   .set("zjbm", listd.get("zjbm"))
+		   .set("pcsl", listd.get("pcsl"))
+		   .set("jhdzt","未下达")
+		   .set("jhzdrybh", listd.get("jhzdrybh"))
+		   .set("jhqrxdsj", listd.get("jhqrxdsj"));
+		    cp.save();
+
+		 
+		 redirect("/#zzprscjh/index1");
+		 		 
+	    
+
+		
+	}
+
+
+	public void doplan(){
+		Date date=new Date();//获取时间
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd ");//转换格式
+		String dt=df.format(date);
+		List<Zzprscjh> zzp=Zzprscjh.dao.find("select * from scjhgl_zzprscjh where rscjhbh='"+dt+"'&& jhdzt='未下达' ");
+		for (int i = 0; i < zzp.size(); i++) {
+			Long x=zzp.get(i).getLong("zjbm");
+			int n1=zzp.get(i).getInt("pcsl"); 
+			
+			List<Zzpscdd> zd=Zzpscdd.dao.find("select * from scjhgl_zzpscdd where zjbm="+x);   //从存货编码判断
+			for (int j = 0; j < zd.size(); j++) {
+				int n2=zd.get(j).getInt("ypcs");
+				int num =n1+n2;
+				zd.get(j).set("ypcs", num).update();
+				
+				int n3=zd.get(j).getInt("scsl");
+				int m=zd.get(j).getInt("ypcs");
+				System.out.println(m);
+				int n4=n3-m;
+				zd.get(j).set("dpcs", n4).update();
+			}
+			zzp.get(i).set("jhdzt", "已下达").update();
+		}
+	redirect("#zzprscjh");
+}	
+	
+	
+	
+	
+	public void luru(){
+		 String wcrq = getPara("wcrq");
+		 int ywgs = getParaToInt("ywgs");
+	     int b=getParaToInt("id");
+	     
+	     System.out.println(wcrq);
+		 System.out.println(ywgs);
+		 
+		 System.out.println(b);
+		  Zzprscjh listd = Zzprscjh.dao.findFirst("select  * from  scjhgl_zzprscjh where id='"+b+"'");
+		  int c=listd.get("pcsl");
+		  System.out.println(c);
+		  int wwgs=c-ywgs;
+		    if (listd!=null) {
+			 listd.set("wcrq",wcrq);
+			 listd.set("ywgs",ywgs);
+			 listd.set("wwgs",wwgs);
+			 listd.update();
+		}
+		    renderText(String.valueOf(wwgs));
+
+	}
+	
+	public void sele1() {
+		Date date=new Date();//获取时间
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd ");//转换格式
+		String dt=df.format(date);
+		String ddh=getPara("ddh");
+		System.out.println(ddh);
+		String zjbm=getPara("zjbm");
+		System.out.println(zjbm);
+		Page<Zzprscjh> s = null;
+		if(ddh.equals("")&&zjbm.equals("")){
+			s=Zzprscjh.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","FROM scjhgl_zzprscjh where rscjhbh='"+dt+"'");
+		}else if(!ddh.equals("")&&zjbm.equals("")){
+			s=Zzprscjh.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","FROM scjhgl_zzprscjh where rscjhbh='"+dt+"' and ddh="+ddh);
+		}else if(ddh.equals("")&&!zjbm.equals("")){
+			s=Zzprscjh.dao.paginate(getParaToInt("pageNumber", 1), 4, "SELECT *","FROM scjhgl_zzprscjh where rscjhbh='"+dt+"' and zjbm="+zjbm);
+		}
+		List<Xsdd> list4 = Xsdd.dao.find("select * from scjhgl_xsdd");
+		List<Zzpscdd> list5 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd");
+		List<Scbz> scbz=Scbz.dao.find("select * from scjhgl_scbz");
+		Map<String, Object> map1= new HashMap<String, Object>();		  
+		    map1.put("paginate", s);
+			map1.put("xsdd", list4);
+			map1.put("zzpscdd", list5);
+			map1.put("scbz", scbz);
+			List<Object> data = new ArrayList<Object>();
+			data.add(map1);
+			renderJson(data);
+		
+
+	}
+
+	public void sele2() {
+		Date date=new Date();//获取时间
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd ");//转换格式
+		String dt=df.format(date);
+		String ddh=getPara("ddh");
+		System.out.println(ddh);
+		String zjbm=getPara("zjbm");
+		System.out.println(zjbm);
+		Page<Zzprscjh> s = null;
+		if(ddh.equals("")&&zjbm.equals("")){
+			s=Zzprscjh.dao.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM scjhgl_zzprscjh where rscjhbh='"+dt+"'");
+		}else if(!ddh.equals("")&&zjbm.equals("")){
+			s=Zzprscjh.dao.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM scjhgl_zzprscjh where rscjhbh='"+dt+"' and ddh="+ddh);
+		}else if(ddh.equals("")&&!zjbm.equals("")){
+			s=Zzprscjh.dao.paginate(getParaToInt("pageNumber", 1), 2, "SELECT *","FROM scjhgl_zzprscjh where rscjhbh='"+dt+"' and zjbm="+zjbm);
+		}
+		List<Xsdd> list4 = Xsdd.dao.find("select * from scjhgl_xsdd");
+		List<Zzpscdd> list5 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd");
+		List<Scbz> scbz=Scbz.dao.find("select * from scjhgl_scbz");
+		Map<String, Object> map1= new HashMap<String, Object>();		  
+		    map1.put("paginate", s);
+			map1.put("xsdd", list4);
+			map1.put("zzpscdd", list5);
+			map1.put("scbz", scbz);
+			List<Object> data = new ArrayList<Object>();
+			data.add(map1);
+			renderJson(data);
+		
+
+	}
+	
+}

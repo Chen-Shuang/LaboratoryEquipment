@@ -1,0 +1,9 @@
+function checkAddForm(){
+	if((addForm.moldMaintenance.moldNo.value==null || addForm.moldMaintenance.moldNo.value.equals("")) ||(addForm.moldMaintenance.maintenanceContents.value==null || addForm.moldMaintenance.maintenanceContents.value.equals(""))){
+		alert("模具编号或维护内容未填写");
+		history.go(0);
+	}else{
+		alert("添加成功");
+		//window.history.back(-1);
+	}
+}

@@ -1,0 +1,71 @@
+package scsjgl;
+
+import java.util.List;
+ 
+import com.jfinal.core.Controller;
+
+public class BfhczhjgcjcController extends Controller {
+	  public void index(){
+		
+/*		System.out.println("////");
+		  List<Bfhczhjgcjc> bf=Bfhczhjgcjc.me.find("select*from scsjgl_bfhczhjgcjc");
+		
+		 setAttr("bfhcjz", bf);
+		System.out.println("共有数据" +bf.size()+"条");
+		  
+		render("/scsjgl/bfhczj_main.html");*/
+		  
+			List<Bfhczhjgcjc> bf = Bfhczhjgcjc.me.find("select*from scsjgl_bfhczhjgcjc");
+			setAttr("bfhcjz", bf);
+			System.out.println("得到数据" + bf.size() + "个");
+			render("/scsjgl/bfhczj_main.html");
+	}
+	  public void bfdel(){
+		  //Lsgyxx.me.deleteById(getPara(0));
+		  Bfhczhjgcjc.me.deleteById(getPara(0));
+		  System.out.println("///"+getPara(0));
+		  redirect("/#bfhczhjgcjc/index");
+		  
+	  }
+	  
+	  public void bfadd(){
+                Bfhczhjgcjc bf=getModel(Bfhczhjgcjc.class,"scsjgl_bfhczhjgcjc");
+		       bf.save();
+ 			  redirect("/#bfhczhjgcjc/index");
+	  }
+	  public void bfgetid(){
+		  
+		  Bfhczhjgcjc bf= Bfhczhjgcjc.me.findById(getPara(0));
+		  System.out.println("//////"+getPara(0));
+		  setAttr("bfhcjz", bf);
+		  
+		  render("/scsjgl/javascript:update()");
+		  
+		  
+	  }
+	  
+	    public void bfupdate(){
+	    	 Bfhczhjgcjc bf=getModel(Bfhczhjgcjc.class,"scsjgl_bfhczhjgcjc");
+	    	 setAttr("id", bf);
+	    	  System.out.println("//////bfupdate/////"+getPara(0));
+	    	 bf.update();
+	    	 redirect("/#bfhczhjgcjc/index");
+		  
+	  }
+	    
+	    
+	    public void toUpdateUser() {
+			renderJson(Bfhczhjgcjc.me.findById(getParaToInt("id")));//获取 前端传递的id
+		}
+ 
+		public void update(){
+			System.out.println("进入update方法");
+			
+			Bfhczhjgcjc zzprscjh=getModel(Bfhczhjgcjc.class,"scsjgl_bfhczhjgcjc");
+			zzprscjh.update();
+			System.out.println("b");
+			 redirect("/#bfhczhjgcjc/index");
+		}
+
+
+}

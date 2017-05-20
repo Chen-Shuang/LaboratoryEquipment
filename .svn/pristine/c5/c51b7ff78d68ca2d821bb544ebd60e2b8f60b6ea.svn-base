@@ -1,0 +1,18 @@
+package config;
+
+import scgygl.LsgyxxController;
+import scgygl.Scgcgylc;
+import scgygl.ScgcgylcController;
+
+import com.jfinal.config.Routes;
+
+public class scgyglConfig extends Routes {
+
+	@Override
+	public void config() {
+		// TODO Auto-generated method stub
+		add("/lsgyxx",LsgyxxController.class);
+		add("/scgcgylc",ScgcgylcController.class);
+	}
+
+}

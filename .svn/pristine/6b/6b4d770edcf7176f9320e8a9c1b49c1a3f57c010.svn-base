@@ -1,0 +1,8 @@
+package xcckgl;
+
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
+
+public class Rkck extends Model<Rkck> {
+	public static final Rkck me = new Rkck();
+}

@@ -1,0 +1,51 @@
+package sbgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+
+public class AAA extends Controller{
+	public void index(){
+		render("/sbgl/AAA.html");	//这里所有的备件管理模块儿的东西全部都放在这个里面处理，页面为AAA  处理的类为AAA
+	}
+	public void F001(){		//后台处理字符串
+		int n=getParaToInt("pageNumber");
+		String data="";
+		Page<sbgl_bjk> list =sbgl_bjk.dao.paginate(n, 10, "select *", "from sbgl_bjk");
+		data+=this.W001(list);			//这个是负责处理第一段字符串的方法	
+		System.out.println(data);
+		renderText(data);		//将处理好的字符串发送给前台
+	}
+	public String W001(Page<sbgl_bjk> t){
+		String x="";
+		sbgl_bjk z=new sbgl_bjk();		//初始化备件库
+		List<sbgl_bjk> a=t.getList();
+
+		for(int n=0;n<a.size();n++){
+			z=a.get(n);
+			x+="<tr role=\"row\">";
+			x+="<td class=\"center\" style=\"width:50px;\">";
+			x+="<label>";
+			x+="<input class=\"ace\" type=\"checkbox\"></input>";
+			x+="<span class=\"lbl\"></span>";
+			x+="</label>";
+			x+="</td>";
+			x+="<td>详情</td>";
+			x+="<td>"+z.getStr("t_bjbh")+"</td>";
+			x+="<td>"+z.getStr("t_bjmc")+"</td>";
+			x+="<td>"+z.getStr("t_ggxh")+"</td>";
+			x+="<td>"+z.getStr("t_bjlx")+"</td>";
+			x+="<td>"+z.getStr("t_jldw")+"</td>";
+			x+="<td>"+String.valueOf(z.getInt("t_kcsx"))+"</td>";
+			x+="<td>"+String.valueOf(z.getInt("t_kcxx"))+"</td>";
+			x+="<td>"+String.valueOf(z.getInt("t_ckj"))+"</td>";
+			x+="<td>"+String.valueOf(z.getInt("t_cskc"))+"</td>";     //将数字变成字符
+			x+="<td>"+z.getStr("t_sccs")+"</td>";
+			x+="<td>删除</td>";
+			x+="</tr>";
+		}
+		return x;
+	}
+}

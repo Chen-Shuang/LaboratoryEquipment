@@ -1,0 +1,23 @@
+package config;
+
+ 
+import xcckgl.XccbcpxxController;
+import xcckgl.XcccpxxController;
+import xcckgl.XcckglController;
+import xcckgl.XccylxxController;
+
+import com.jfinal.config.Routes;
+
+public class XcckglConfig extends Routes {
+
+	@Override
+	public void config() {
+		// TODO Auto-generated method stub
+		add("/xccylxx",XccylxxController.class);       //原料信息
+		add("/xccbcpxx",XccbcpxxController.class);       //半成品信息
+		add("/xcccpxx",XcccpxxController.class);       //成品信息
+		add("/xcckgl",XcckglController.class);       //单表信息
+
+	}
+
+}

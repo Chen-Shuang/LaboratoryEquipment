@@ -1,0 +1,8 @@
+package scsjgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Ltwdcsjl extends Model<Ltwdcsjl> {
+	public static final Ltwdcsjl me = new Ltwdcsjl();
+
+}

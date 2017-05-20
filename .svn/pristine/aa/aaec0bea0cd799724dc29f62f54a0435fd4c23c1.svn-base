@@ -1,0 +1,17 @@
+package config;
+
+
+import sczlgl.BcpbhgcxController;
+import sczlgl.SjjcjlController;
+
+import com.jfinal.config.Routes;
+
+
+public class sczlglConfig  extends Routes {  
+	public void config() {
+		add("/sjjcjl",SjjcjlController.class);
+		add("/bcpbhgtj",BcpbhgcxController.class);
+		
+		
+	}
+}

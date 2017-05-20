@@ -1,0 +1,29 @@
+package xtgl;
+
+import xtgl.Role;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+
+public class RoleController extends Controller {
+
+	//��ת��jsgl.html
+	public void index(){
+		setAttr("list", Role.dao.getRoles());
+		setAttr("privilege", Privilege.dao.getPrivilege());
+		render("/xtgl/jsgl.html");
+	}
+	
+	//ͨ��idɾ���ɫ
+	public void delerolebyid(){
+		Db.update("delete from role where role_id="+getParaToInt(0));
+		redirect("/#role");
+	}
+	
+	//��ӽ�ɫ
+	public void addrole(){
+		Role role = getModel(Role.class);
+		role.save();
+		redirect("/#role");
+	}
+}

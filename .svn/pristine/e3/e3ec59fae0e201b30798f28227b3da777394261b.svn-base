@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>moldInfo.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+   <a href="/mes/moldInfos/add">添加</a>
+    <form action="/mes/moldInfo./selectById" method="post">
+    查找(请输入ID):<input type="text" name="id" value="${(worker.id)!}" />
+                     <input value="确定" type="submit">${idMsg!}
+    
+    </form>
+   <table border="1">
+   	<tr>
+   		<td>模具编号</td>
+   		<td>模具名称</td>
+   		<td>模具材料类型</td>
+   		<td>模具类别</td>
+   		<td>制作年月</td>
+   		<td>设计顺序编号</td>
+   		<td>创建时间</td>
+   		<td>创建人</td>
+   		<td>图纸路径</td>
+   		<td>模具状态</td>
+   	</tr>
+   	<#list moldInfolist as moldInfo>
+   	<tr>
+   		<td>${moldInfo.moldNo}</td>
+   		<td>${moldInfo.moldName}</td>
+   		<td>${moldInfo.moldType}</td>
+   		<td>${moldInfo.makeCategory}</td>
+   		<td>${moldInfo.makeDate}</td>
+   		<td>${moldInfo.designNo}</td>
+   		<td>${moldInfo.createTime}</td>
+   		<td>${moldInfo.creator}</td>
+   		<td>${moldInfo.paperUrl}</td>
+   		<td>${moldInfo.moldStatus}</td>
+   		<td><a href="/mes/moldInfos/delete/${moldInfo.moldNo}">删除</a>
+   			<a href="/mes/moldInfos/updater/${moldInfo.moldNo}">修改</a>
+   		</td>
+   	</tr>
+   	</#list>
+   	</table>
+  </body>
+</html>

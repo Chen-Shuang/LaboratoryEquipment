@@ -1,0 +1,11 @@
+package scsjgl;
+
+import com.jfinal.core.Controller;
+
+public class WldbdController extends Controller {
+	
+	public void index(){
+		renderFreeMarker("/scsjgl/wldbd.html");
+	}
+
+}

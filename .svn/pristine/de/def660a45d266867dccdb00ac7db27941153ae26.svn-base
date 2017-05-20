@@ -1,0 +1,138 @@
+package scgygl;
+
+import java.util.Date;
+import java.util.List;
+
+
+
+
+
+
+import xcckgl.Xccylxx;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+  
+ 
+
+
+public class LsgyxxController extends Controller {
+	public void  index(){
+		//Page<Lsgyxx> pjb=Lsgyxx.me.paginate(n[0],n[1],"select *","from scgygl_lsgyxx");
+		int n[]=this.fenye();  //接收分页参数
+		Page<Lsgyxx> pjb=Lsgyxx.me.paginate(n[0],n[1],"select *","from scgygl_lsgyxx");
+		
+		
+		int z=pjb.getTotalPage();  //得到页面的总数
+		int p=pjb.getTotalRow();   //得到总条数
+		
+		String m=this.fenye(z, n[1],n[0]);
+		
+		setAttr("x",n[0]);
+		setAttr("m",m);
+		List<Lsgyxx> a=pjb.getList();
+		setAttr("scgygl_lsgyxx",a);		
+		render("/scgygl/lsgyxx_main.html");
+	}
+
+	public void lsdel() {
+		Lsgyxx.me.deleteById(getPara(0));
+		 System.out.println(getPara(0));
+	     redirect("/#lsgyxx/index");
+	}
+	
+	public void lsadd() {
+		System.out.println("执行增加方法");
+		Lsgyxx  lsgyxx=getModel(Lsgyxx.class,"scgygl_lsgyxx");
+		
+		Xccylxx xccylxx = getModel(Xccylxx.class);
+		lsgyxx.save();
+		xccylxx.set("cpmc",lsgyxx.get("gybh"));
+		xccylxx.set("sczld", lsgyxx.get("gymc"));
+		xccylxx.set("bz",lsgyxx.get("cpbh"));
+		xccylxx.set("ljh", lsgyxx.get("bbh"));
+		xccylxx.set("sl", lsgyxx.get("zt"));
+		xccylxx.set("khddh", 123);
+		xccylxx.set("scpc", 321);
+		xccylxx.set("rqsj", new Date());
+		xccylxx.save();
+		
+		 redirect("/#lsgyxx/index");
+	}
+	
+	public void lsgetid() {
+	 
+		Lsgyxx scgygl_lsgyxx =Lsgyxx.me.findById(getPara(0));
+		
+		 
+		setAttr("scgygl_lsgyxx",scgygl_lsgyxx);	
+		 
+		 
+		//System.out.println(scgygl_lsgyxx.getStr("gybh"));
+		 render("/scgygl/lsgyxx_update.html");
+		//redirect("/scgygl/lsgyxx_query.html");
+		
+	}
+	
+	
+	public void lsquery() {
+		 
+	 
+		//String str=getPara("##");
+		 Integer str=getParaToInt(0);
+		System.out.println("*******##*********"+str+getAttr("myCondition"));
+		int n[]=this.fenye();  //接收分页参数
+		Page<Lsgyxx> pjb=Lsgyxx.me.paginate(n[0],n[1],"select *","from scgygl_lsgyxx where gybh like '%"+str+"%'");
+		List<Lsgyxx> a=pjb.getList();
+		if(a.isEmpty()){
+			pjb=Lsgyxx.me.paginate(n[0],n[1],"select *","from scgygl_lsgyxx where gymc like '%"+str+"%'");
+			a=pjb.getList();
+		}if(a.isEmpty()){
+			pjb=Lsgyxx.me.paginate(n[0],n[1],"select *","from scgygl_lsgyxx where cpbh like '%"+str+"%'");
+		}if(a.isEmpty()){
+			this.index();
+		}
+		int z=pjb.getTotalPage();
+		String m=this.fenye(z, n[1],n[0]);
+		setAttr("m",m);
+		a=pjb.getList();
+		setAttr("scgygl_lsgyxx",a);
+		render("/scgygl/lsgyxx_main.html");
+		
+		
+	}
+	
+	
+	
+	public void lsupdate() {
+		Lsgyxx  scgygl_lsgyxx=getModel(Lsgyxx.class,"scgygl_lsgyxx");
+		Lsgyxx   lsgyxx=getModel(Lsgyxx.class,"scgygl_lsgyxx");
+		scgygl_lsgyxx=lsgyxx;
+		scgygl_lsgyxx.update();
+		redirect("/#lsgyxx/index");
+		
+	}
+	
+	public int[] fenye(){   //分页代码  返回一页多少个内容以及从第多少页开始的代码，返回值为数组
+		int x=1;  //x代表起始页
+		int y=10;  //y代表每一页的数量  默认为每页十个
+		if(getParaToInt("x")==null||getParaToInt("y")==null){}  //如果页面元素为空的话就直接采用默认值
+		else{
+			x=getParaToInt("x");
+			y=getParaToInt("y");
+		}
+		int[] n={x,y};
+		return n;  
+	}
+	public String fenye(int z,int y,int x){   //打印分页的样式的方法
+		String a="";
+		for(int b=1;b<=z;b++){
+			if(b==x){   //当前页
+				a=a+"<li class=\"active\"><a href=\"/mes/#lsgyxx/index?x="+b+"&y="+y+"\">"+b+"</a></li>&nbsp;&nbsp;";
+			}else{    //其他页
+			a=a+"<li><a href=\"/mes/#lsgyxx/index?x="+b+"&y="+y+"\">"+b+"</a></li>&nbsp;&nbsp;";   //这里直接打印出分页链接，可以在这里修改样式
+			}
+		}
+		return a;
+	}
+}

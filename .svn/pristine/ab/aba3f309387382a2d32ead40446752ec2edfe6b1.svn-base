@@ -1,0 +1,176 @@
+package scjhgl;
+
+import java.util.Date;
+import java.util.List;
+
+import com.jfinal.core.Controller;
+
+public class ZzpscddController extends Controller {
+	
+	public void index(){
+		 List<Zzpscdd> list1 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd where ddzt='未排产'");
+		 List<Zzpscdd> list2 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd where ddzt='已排产'");
+		 List<Zzpscdd> list3 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd where ddzt='已闭单'");
+		 List<Xsdd> list4 = Xsdd.dao.find("select ddh ,khjc from scjhgl_xsdd");
+		 List<Kcxx> list5 = Kcxx.dao.find("select zjbm ,kcl from scjhgl_kcxx");
+		 setAttr("scjhgl_zzpscdd1", list1);
+		 setAttr("scjhgl_zzpscdd2", list2);
+		 setAttr("scjhgl_zzpscdd3", list3);
+		 setAttr("scjhgl_xsdd4", list4);
+		 setAttr("scjhgl_kcxx5", list5);
+		 render("/scjhgl/zzpscdd.html");
+	    }
+	
+	public void index1(){
+		 List<Zzpscdd> list1 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd where ddzt='未排产'");
+		 List<Zzpscdd> list2 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd where ddzt='已排产'");
+		 List<Zzpscdd> list3 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd where ddzt='已闭单'");
+		 List<Xsdd> list4 = Xsdd.dao.find("select ddh ,khjc from scjhgl_xsdd");
+		 setAttr("scjhgl_zzpscdd1", list1);
+		 setAttr("scjhgl_zzpscdd2", list2);
+		 setAttr("scjhgl_zzpscdd3", list3);
+		 setAttr("scjhgl_xsdd4", list4);
+		 render("/scjhgl/zzpscdd.html");
+		 
+		
+		
+		
+	}
+	public void index2(){
+		 List<Zzpscdd> list1 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd where ddzt='未排产'");
+		 List<Zzpscdd> list2 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd where ddzt='已排产'");
+		 List<Zzpscdd> list3 = Zzpscdd.dao.find("select * from scjhgl_zzpscdd where ddzt='已闭单'");
+		 List<Xsdd> list4 = Xsdd.dao.find("select ddh ,khjc from scjhgl_xsdd");
+		 setAttr("scjhgl_zzpscdd1", list1);
+		 setAttr("scjhgl_zzpscdd2", list2);
+		 setAttr("scjhgl_zzpscdd3", list3);
+		 setAttr("scjhgl_xsdd4", list4);
+		 render("/scjhgl/zzpscdd.html");
+	}
+	public void search() {
+		String keywords = getPara("keywords");
+		setAttr("scjhgl_zzpscdd1",Zzpscdd.dao.find("select * from scjhgl_zzpscdd where  ddh = '"+ keywords + "'||zjbm = '"+ keywords + "'"));
+		render("/scjhgl/zzpscdd.html");
+
+	}
+	public void del() { // 删
+		Zzpscdd.dao.deleteById(getPara(0));
+		redirect("/#zzpscdd/index");
+	}
+
+	public void toUpdateUser() {
+		renderJson(Zzpscdd.dao.findById(getParaToInt("id")));// 获取 前端传递的id
+	}
+
+	/**
+	 * 更新用户对实体的操作
+	 */
+	public void update() {
+        Zzpscdd zzpscdd = getModel(Zzpscdd.class, "scjhgl_zzpscdd");
+		zzpscdd.update();
+		
+		redirect("/#zzpscdd/index1");
+	}
+	public void donext() {  //排产
+		 
+			 
+		     int b=getParaToInt("id");
+			 Zzpscdd listd = Zzpscdd.dao.findFirst("select  * from  scjhgl_zzpscdd where id='"+b+"'");
+			 if (listd!=null) {
+				String n="已排产";
+				 listd.set("ddzt", n);
+				 listd.update();
+			}
+			
+			
+			
+			Zzprscjh scjhgl_zzprscjh = new Zzprscjh();
+			scjhgl_zzprscjh.set("ddh", listd.get("ddh"));
+			scjhgl_zzprscjh.set("zjbm", listd.get("zjbm"));
+			scjhgl_zzprscjh.set("pcsl", listd.get("scsl"));
+			
+			scjhgl_zzprscjh.save();
+			
+			
+			redirect("/#zzpscdd/index1"); 
+			
+			
+     	}
+	
+	public void closenext() {  //闭单
+		 
+		  String keywords = getPara("keywords");
+		  System.out.println("keywords");
+	      int b=getParaToInt("id");
+		  Zzpscdd listd = Zzpscdd.dao.findFirst("select  * from  scjhgl_zzpscdd where id='"+b+"'");
+		    if (listd!=null) {
+			 String n="已闭单";
+		
+			 listd.set("ddzt", n);
+			 listd.set("yrks",keywords);
+			 listd.update();
+		}
+		redirect("/#zzpscdd/index1"); 
+	}
+	
+	
+	
+	
+	
+	
+	
+	public void add() {//增加
+		Zzpscdd scjhgl_zzpscdd = getModel(Zzpscdd.class, "scjhgl_zzpscdd");
+		scjhgl_zzpscdd.save();
+		redirect("/#zzprscjh/index1");
+	}
+	public void PC2(){
+		donext();
+		Integer id = getParaToInt("id");
+    	Zzpscdd.dao.findById(id).set("ddzt","已排产").update();
+		redirect("/#zzpscdd/index1"); 
+		
+		
+	}
+	public void PC3(){
+		Integer id = getParaToInt("id");
+		Zzpscdd.dao.findById(id).set("ddzt","已闭单").update();
+		redirect("/#zzpscdd/index1"); 
+		
+		
+	}
+	public void yrks(){    		//插入更新 已入库数
+		Integer id = getParaToInt("id");
+		System.out.println(id);
+		Integer yrks = getParaToInt("yrks");
+		System.out.println(yrks);
+		Zzpscdd listd = Zzpscdd.dao.findFirst("select  * from  scjhgl_zzpscdd where id='"+id+"'");
+		//int n=listd.get("yrks");
+		int y=listd.get("yrks");
+		int m=y+yrks;
+		Zzpscdd.dao.findById(id).set("yrks",m).update();
+		redirect("/#zzpscdd/index1");
+	}
+	public void bdrq(){    		//插入闭单日期
+		Integer id = getParaToInt("id");
+		System.out.println(id);
+		Date bdrq = getParaToDate("bdrq");
+		System.out.println(bdrq);
+		Zzpscdd.dao.findById(id).set("bdrq",bdrq).update();
+		redirect("/#zzpscdd/index1");
+	}
+
+	
+	
+	
+ }
+	
+	
+	
+	
+	
+	
+	
+	
+
+

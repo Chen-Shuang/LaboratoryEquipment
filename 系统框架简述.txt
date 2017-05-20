@@ -1,0 +1,16 @@
+项目框架为jFinal框架，以下为目录结构：
+目录
+	controller: 控制器类，需集成Controller基类。Controller以及在其中定义的 public无参方法称为一个 Action。Action是请求的最小单位
+	core: 核心配置
+	handler: 当需要自定义路由配置时需要此类，暂时不用
+	interceptor: 拦截器
+	route: 路由映射
+文件：
+	dbConfig.txt 数据库连接配置
+	
+其他引用说明：
+	前端框架：bootstrap、jQuery框架、freeMark模板引擎。
+	系统模板：Ace后台管理系统模板。
+	开源组件：layer弹层组件。
+	
+	

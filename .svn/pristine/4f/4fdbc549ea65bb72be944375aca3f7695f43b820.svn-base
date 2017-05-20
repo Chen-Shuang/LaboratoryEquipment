@@ -1,0 +1,91 @@
+CREATE DATABASE ac_act;
+
+USE ac_act;
+
+CREATE TABLE `moldInfo` (
+  `moldNo` varchar(11) NOT NULL ,
+  `moldName` varchar(20) NOT NULL,
+  `moldType` varchar(1) NOT NULL,
+  `makeCategory` varchar(1) NOT NULL,
+  `makeDate` varchar(4)  NOT NULL,
+  `designNo` varchar(2) NOT NULL,
+  `createTime` datetime  NOT NULL,
+  `creator` int  NOT NULL,
+  `paperUrl` varchar(50)  NOT NULL,
+  `moldStatus` int(1) NOT NULL,
+  PRIMARY KEY  (`moldNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `moldMaintenance` (
+  `flowNo` int NOT NULL auto_increment,
+  `moldNo` varchar(11) NOT NULL,
+  `maintenanceContents` varchar(100) NOT NULL,
+  `recordTime` datetime NOT NULL,
+  `recorder` int NOT NULL,
+  PRIMARY KEY  (`flowNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `equipmentInfo` (
+  `eNo` int NOT NULL auto_increment,
+  `eName` varchar(30) NOT NULL,
+  `eType` varchar(50) NOT NULL,
+  `eDescription` varchar(100) NOT NULL,
+  `eOffline` varchar(20) NOT NULL,
+  `eStartday` datetime NOT NULL,
+  `eStatus` int(1) NOT NULL,
+  PRIMARY KEY  (`eNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `equipmentMaintenance` (
+  `eFlowNO` int NOT NULL auto_increment,
+  `eNo` int NOT NULL,
+  `eMeContents` varchar(100) NOT NULL,
+  `eRecordTime` datetime NOT NULL,
+  `eRecorder` int NOT NULL,
+  `eAccessory` varchar(50) NOT NULL,
+  PRIMARY KEY  (`eFlowNO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `equipmentSpotCheck` (
+  `eSpotNo` int NOT NULL auto_increment,
+  `eNo` int NOT NULL,
+  `eSpotContents` varchar(100) NOT NULL,
+  `eSpotRecordTime` datetime NOT NULL,
+  `eSpotRecorder` int NOT NULL,
+  `eSpotAccessory` varchar(50) NOT NULL,
+  PRIMARY KEY  (`eSpotNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `eSpotContentsTable` (
+  `eContentsNo` int NOT NULL auto_increment,
+  `eSpotNo` int NOT NULL,
+  `eSpotItem` varchar(30) NOT NULL,
+  `eSpotResult` varchar(10) NOT NULL,
+  PRIMARY KEY  (`eContentsNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `moldInfo` VALUES ('20911160122','塑料ahhh','1','1','1601','22','2016-7-26 16:23:55','41','C:\Users\bsx\Desktop\董浩.docx','0');
+INSERT INTO `moldInfo` VALUES ('20911160123','塑料rr','1','1','1601','23','2016-7-26 16:23:58','41','C:\Users\bsx\Desktop\董浩.docx','100');
+
+INSERT INTO `moldMaintenance` VALUES ('1','20911160122','从电话覅 电话及安徽','2016-7-26','14');
+
+INSERT INTO `equipmentInfo` VALUES ('1','设备A','设备型号B','该设备用来生产火花塞~~~','产线A','2016-07-26 16:23:55','1');
+INSERT INTO `equipmentInfo` VALUES ('2','设备A','设备型号B','该设备用来生产车门~~~','产线A','2016-07-28 16:23:55','1');
+INSERT INTO `equipmentInfo` VALUES ('3','设备A','设备型号B','该设备用来生产座椅 。。。','产线A','2016-07-26 16:23:55','0');
+
+
+INSERT INTO `equipmentMaintenance` VALUES ('1','1','无损坏','2016-07-26 16:23:55','12','/Equip/201604111503');
+INSERT INTO `equipmentMaintenance` VALUES ('2','2','无损坏','2016-07-26 16:23:55','12','/Equip/201604111504');
+INSERT INTO `equipmentMaintenance` VALUES ('3','3','无损坏','2016-07-26 16:23:55','12','/Equip/201604111501');
+
+
+INSERT INTO `equipmentSpotCheck` VALUES ('1','1','666','2016-07-26 16:23:55','41','/Equip/201604111507');
+INSERT INTO `equipmentSpotCheck` VALUES ('2','2','666','2016-07-26 16:23:55','41','/Equip/201604111505');
+INSERT INTO `equipmentSpotCheck` VALUES ('3','1','666','2016-07-26 16:23:55','41','/Equip/201604111503');
+
+
+INSERT INTO `eSpotContentsTable` VALUES ('1','1','混合回声','不合格');
+INSERT INTO `eSpotContentsTable` VALUES ('2','1','施工方','合格');

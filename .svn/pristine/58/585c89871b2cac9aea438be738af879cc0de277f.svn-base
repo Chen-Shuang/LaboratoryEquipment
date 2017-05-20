@@ -1,0 +1,57 @@
+package sbgl;
+
+import java.util.List;
+import java.util.regex.Pattern;
+
+import com.jfinal.core.Controller;
+
+public class EquipmentMaintenanceController extends Controller{
+	public void index(){
+		List<EquipmentMaintenance> list = EquipmentMaintenance.dao.find("select * from equipmentMaintenance");
+		setAttr("equipmentMaintenancelist",list);
+		render("/sbgl/equipmentMaintenance.html");
+	}
+	public void add(){
+		render("/sbgl/addViewEquipmentMaintenance.html");
+	}
+	public void updater() {
+		setAttr("equipmentMaintenance", EquipmentMaintenance.dao.findById(getParaToInt()));
+		render("/sbgl/updaterEquipmentMaintenance.html");
+	}
+	public void update(){
+		EquipmentMaintenance equipmentMaintenance = getModel(EquipmentMaintenance.class);
+		equipmentMaintenance.update();
+		redirect("/equipmentMaintenances");
+	}
+	public void select(){
+		String _id =(String)getPara("option");
+		if(_id!=null && !_id.equals("")){
+			if(isNumeric(_id)){
+				List<EquipmentMaintenance> list = EquipmentMaintenance.dao.find("select * from equipmentMaintenance where eFlowNO= "+_id);
+				setAttr("equipmentMaintenanceslist",list);
+				render("/sbgl/selectEquipmentMaintenance.html");
+			}else{
+				List<EquipmentInfo> li = EquipmentInfo.dao.find("select moldNo from equipmentInfo where eName like '%"+_id+"%'");
+				EquipmentInfo equipmentInfo =(EquipmentInfo)li.get(0);
+				System.out.println(equipmentInfo);
+				int in = (int) equipmentInfo.getENo();
+				System.out.println(in);
+				List<EquipmentMaintenance> list =EquipmentMaintenance.dao.find("select * from equipmentMaintenance where eNo="+in);
+				setAttr("equipmentMaintenanceslist",list);
+				render("/sbgl/selectEquipmentMaintenance.html");
+		   }
+	   }else{
+			System.out.println("fdghjkl");
+			render("/sbgl/selectViewEquipmentMaintenance.html");
+		 }
+	}
+	public void save(){
+		EquipmentMaintenance equipmentMaintenance= getModel(EquipmentMaintenance.class);
+		equipmentMaintenance.save();
+		redirect("/sbgl/equipmentMaintenances");
+	}
+	public static boolean isNumeric(String str){ 
+	     Pattern pattern = Pattern.compile("[0-9]*"); 
+	     return pattern.matcher(str).matches();    
+	} 
+}

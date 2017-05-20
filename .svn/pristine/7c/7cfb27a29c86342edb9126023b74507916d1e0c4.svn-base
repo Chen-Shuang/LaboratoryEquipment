@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>updaterEquipmentMaintenance.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script language = "JavaScript" src="/js/checkAddForm.js"></script>
+  </head>
+  
+  <body>
+    <form action="/mes/equipmentMaintenances/update" method="post" name="addForm" >
+		<fieldset class="solid">
+	<legend>equipmentMaintenance</legend>
+	<input type="hidden" name="equipmentMaintenance.eFlowNO" value="${(equipmentMaintenance.eFlowNO)!}" />
+	<div>
+		<label>设备编号</label>
+		<input type="text" name="equipmentMaintenance.eNo" value="${(equipmentMaintenance.eNo)!}" />
+	</div>
+	<div>
+		<label>维护内容</label>
+		<textarea name="equipmentMaintenance.eMeContents" cols="80" rows="10">${(equipmentMaintenance.eMeContents)!}</textarea>
+	</div>
+	<div>
+		<label>记录时间</label>
+		<input type="text" name="equipmentMaintenance.eRecordTime" value="${(equipmentMaintenance.eRecordTime)!}" />
+	</div>
+	<div>
+		<label>记录人员</label>
+		<input type="text" name="equipmentMaintenance.eRecorder" value="${(equipmentMaintenance.eRecorder)!}" />
+	</div>
+	<div>
+		<label>附件</label>
+		<input type="text" name="equipmentMaintenance.eAccessory" value="${(equipmentMaintenance.eAccessory)!}" />
+	</div>
+	<div>
+		<label>&nbsp;</label>
+		<input value="确定" type="submit" onClick="return checkAddForm()"/>
+	</div>
+</fieldset>
+	</form>
+   
+  </body>
+</html>

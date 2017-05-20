@@ -1,0 +1,15 @@
+package xtgl;
+
+import xtgl.Privilege;
+
+import com.jfinal.core.Controller;
+
+public class PrivilegeController extends Controller {
+
+	//Ìø×ªqxgl.html
+	public void index(){
+		setAttr("list", Privilege.dao.getPrivilege());
+		render("/xtgl/qxgl.html");
+	}
+	
+}

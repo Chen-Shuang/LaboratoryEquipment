@@ -1,0 +1,9 @@
+package scsjgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Scgcgxnr extends Model<Scgcgxnr> {
+	public static final Scgcgxnr me = new Scgcgxnr();
+
+}
+//此处显示的是生产过程工序流转卡的内容 

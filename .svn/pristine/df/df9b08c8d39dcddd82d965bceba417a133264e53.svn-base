@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>selectEquipmentInfo.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+    <table border="1">
+    
+   	<tr>
+   		<td>设备编号</td>
+   		<td>设备名称</td>
+   		<td>设备型号</td>
+   		<td>设备描述</td>
+        <td>所属产线</td>
+        <td>启用日期</td>
+        <td>状态</td>
+   	</tr>
+   	<#list equipmentInfoslist as equipmentInfo>
+   	<tr>
+   		<td>${equipmentInfo.eNo}</td>
+   		<td>${equipmentInfo.eName}</td>
+   		<td>${equipmentInfo.eType}</td>
+   		<td>${equipmentInfo.eDescription}</td>
+        <td>${equipmentInfo.eOffline}</td>
+        <td>${equipmentInfo.eStartday}</td>
+        <td>${equipmentInfo.eStatus}</td>
+   	</tr>
+  </#list>
+     </table>
+     <a href="/mes/equipmentInfos" >返回</a>
+  
+  </body>
+</html>

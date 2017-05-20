@@ -1,0 +1,13 @@
+package gzgl;
+
+import com.jfinal.config.Routes;
+
+public class gzglConfigRoute extends Routes {
+	public void config() {
+		// TODO Auto-generated method stub
+		add("/gzgl", MoldController.class);
+		add("/gzgl_ok",MoldOkController.class,"/gzgl");
+	}
+
+
+}

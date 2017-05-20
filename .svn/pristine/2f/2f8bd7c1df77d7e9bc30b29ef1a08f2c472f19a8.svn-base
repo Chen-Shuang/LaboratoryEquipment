@@ -1,0 +1,127 @@
+ 
+ 
+ <meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">主页</a>
+		</li>
+
+		<li><span>控制台</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+ 
+ 
+ 
+	<!-- /section:basics/content.breadcrumbs -->
+	<div class="page-content">
+
+
+		<div class="row">
+			<div class="col-xs-12">
+				<form class="form-horizontal" role="form" method="post"
+					action="/mes/bcpxlbzzjl/save">
+
+
+
+					<div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<!-- #section:elements.form -->
+													<p>
+				订单号<input type="text" name="bcpxlbzzjl.id"
+					 maxlength="20 size="50">
+			</p>
+								<p>
+				计划数量<input type="text" name="bcpxlbzzjl.jihuashuliang"
+					 maxlength="20 size="50">
+			</p>
+			
+			<p>
+				计划日期<input type="date" name="bcpxlbzzjl.jihuariqi"
+					maxlength="50 size="50">
+			</p>
+			<p>
+				完成数量：<input type="text" name="bcpxlbzzjl.wanchengshuliang"
+					 maxlength="20 size="50">
+			</p>
+			
+				<p>
+				未完成数量<input type="text" name="bcpxlbzzjl.weiwanchengshuliang"
+					 maxlength="20 size="50">
+			</p>
+			<p>
+				计划数量<input type="text" name="bcpxlbzzjl.jihuashuliang"
+					 maxlength="20 size="50">
+			</p>
+			<p>
+				未完成原因<input type="text" name="bcpxlbzzjl.weiwanchengyuanyin"
+					 maxlength="50 size="50">
+			</p>
+			<p>
+				最终完成日期<input type="date" name="bcpxlbzzjl.zuizhongwanchengriqi"
+					 maxlength="20 size="50">
+			</p>
+			
+				<p>
+				上次寄存数量<input type="text" name="bcpxlbzzjl.shangcijicunshuliang"
+					 maxlength="20 size="50">
+			</p>
+			<p>
+				现有数量<input type="text" name="bcpxlbzzjl.xianyoushuliang"
+					 maxlength="50 size="50">
+			</p>
+			<p>
+				领取数量<input type="text" name="bcpxlbzzjl.lingqushuliang"
+					 maxlength="20 size="50">
+			</p>
+			
+			<p>
+				发放人<input type="text" name="bcpxlbzzjl.fafangren"
+					 maxlength="50 size="50">
+			</p>
+			<p>
+				领取人<input type="text" name="bcpxlbzzjl.lingquren"
+					 maxlength="20 size="50">
+			</p>
+			
+				<p>
+				领取日期<input type="date" name="bcpxlbzzjl.lingquriqi"
+					 maxlength="20 size="50">
+			</p>
+			<p>
+				剩余数量<input type="text" name="bcpxlbzzjl.shengyushuliang"
+					 maxlength="50 size="50">
+			</p>
+			<p>
+				备注<input type="text" name="bcpxlbzzjl.beizhu"
+					 maxlength="20 size="50">
+			</p>
+
+								<div class="clearfix form-actions">
+									<div class="col-md-offset-3 col-md-9">
+										<button class="btn btn-info" type="submit">
+											<i class="ace-icon fa fa-check bigger-110"></i> 添加
+										</button>
+
+										&nbsp; &nbsp; &nbsp;
+										<button class="btn" type="reset">
+											<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+										</button>
+						</div>
+						</div>
+						</div>
+						</div>
+						</div>
+						
+				</form>
+			</div>
+		</div>
+	</div>
+ <script>
+	
+</script>

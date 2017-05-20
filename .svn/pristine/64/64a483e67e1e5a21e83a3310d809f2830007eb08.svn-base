@@ -1,0 +1,124 @@
+<meta charset="utf-8" />
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li><i class="ace-icon fa fa-home home-icon"></i> <a href="index">现场仓库管理</a>
+		</li>
+
+		<li><span>现场仓半成品信息</span></li>
+	</ul>
+	<!-- /.breadcrumb -->
+</div>
+
+
+	<script type="text/javascript">
+		function search(){
+		
+		 	var ID = $("#id").val();
+		    /* alert(ID); */
+			$.post("xccbcpxx/search/",
+				{
+					ID : ID,
+				},
+				function(data){
+					if(data=="flase"){
+						alert("无结果！");
+						window.location = "#xccbcpxx/";
+					}
+					else{
+
+						window.location = data + ID;
+					}
+				}
+				
+			);
+		}
+	</script>
+
+<div class="page-content">
+
+
+	<div class="row">
+		<div class="col-xs-12">
+
+			<div class="table-header">现场仓半成品信息记录表</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<div id="dynamic-table_length" class="dataTables_length">
+					
+
+
+
+				
+					     <div >
+							  <input type="search" id="id"   placeholder="输入 查询id" aria-controls="dynamic-table"/>
+							 <button type="button" class="btn btn-info" onclick="search();">模糊查询</button>
+							 
+							  
+                                </div>
+						 
+				 
+
+
+					</div>
+				</div>
+
+
+
+			</div>
+
+			<div class="table-responsive">
+
+				<table id="sample-table-2"
+					class="table table-striped table-bordered table-hover">
+					<thead>
+
+
+
+						<tr>
+							<th>序 号</th>
+							<th>流转卡编号</th>
+							<th>生产批次</th>
+							<th>工序序号</th>
+							<th>工序名称</th>
+							<th>配置物料名称</th>
+							<th>数量</th>
+							<th>不合格数量</th>
+							<th>待接收数量</th>
+							<th>物料批次</th>
+							 
+							 
+							<th>日期时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<#list xccbcpxx.getList() as q>
+						<tr>
+							<td>${q.id!}</td>
+							<td>${q.gxbz!}</td>
+							<td>${q.scpc!}</td>
+							<td>${q.gxbh!}</td>
+							<td>${q.gxmc!}</td>
+							<td>${q.pzwlmc!}</td>
+							<td>${q.sl!}</td>
+							<td>${q.bhgsl!}</td>
+							<td>${q.djssl!}</td>
+							<td>${q.wlpc!}</td>
+							<td>${q.rqsj!}</td>
+
+
+						</tr>
+						</#list>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="text-right">
+						<#include "/WEB-INF/common/_paginate.html" />
+						<@paginate currentPage=xccbcpxx.pageNumber totalPage=xccbcpxx.totalPage actionUrl="#xccbcpxx/" />
+						<!--  actionUrl 示例方法写在index中，未配置路由因此不填，若配置路由分页调用的action不在index方法中，应为“路由/方法名/” 如：teacher/toThesisList/  -->
+					</div>
+		</div>
+	</div>
+</div>
+
+

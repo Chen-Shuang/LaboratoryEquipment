@@ -1,0 +1,31 @@
+package controller;
+
+import xtgl.User;
+
+import com.jfinal.core.Controller;
+
+public class TestController extends Controller{
+
+public void index(){
+	User user= (User) getSession().getAttribute("user");
+	System.out.println(user);
+	if(user==null){
+		System.out.println("不对哦");
+		render("/login.html");
+		return;
+	}else{
+		System.out.println("登录上了");
+		render("/index.html");
+	}
+}
+	
+public void console() {
+	render("/scjhgl/console.html");
+}
+
+public void logout(){
+	getSession().invalidate();
+	render("/login.html");
+}
+
+}

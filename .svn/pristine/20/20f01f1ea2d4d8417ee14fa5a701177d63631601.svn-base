@@ -1,0 +1,23 @@
+package xcckgl;
+
+ 
+ 
+import java.util.List;
+
+import com.jfinal.core.Controller;
+  
+ 
+
+
+public class XccbcpxxController extends Controller {
+	public void  index(){
+		
+		List<Xccbcpxx> xcc_bcpxx = Xccbcpxx.me.find("select*from xcc_bcpxx");
+		setAttr("xccbcpxx", xcc_bcpxx);
+		System.out.println("得到数据" + xcc_bcpxx.size() + "个");
+		render("/xcckgl/Xccbcpxx_main.html");
+		 
+	}
+
+	
+}

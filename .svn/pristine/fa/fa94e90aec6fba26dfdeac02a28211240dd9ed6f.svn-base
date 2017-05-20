@@ -1,0 +1,8 @@
+package scsjgl;
+
+import com.jfinal.plugin.activerecord.Model;
+
+public class Gwqxjl extends Model<Gwqxjl> {
+	public static final Gwqxjl me = new Gwqxjl();
+
+}

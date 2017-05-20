@@ -1,0 +1,14 @@
+package scsjgl;
+
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
+
+public class Tzhljl extends Model<Tzhljl> {
+	public static final Tzhljl dao = new Tzhljl();
+	
+	public Page<Tzhljl> paginate( int pageNumber, int pageSize){
+		
+		return Tzhljl.dao.paginate(pageNumber, pageSize,"select *","from scsjgl_tzhljl order by  id asc");
+}
+	
+}

@@ -1,0 +1,76 @@
+ <div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="ace-icon fa fa-home home-icon"></i>
+			<a href="index">主页</a>
+		</li>
+		<li>
+			<a href="equipmentInfos" class="_p">设备管理</a>
+		</li>
+		<li>
+			<span>设备基本信息</span>
+		</li>
+	</ul><!-- /.breadcrumb -->
+</div>    
+ <script type="text/javascript">
+$("#b").click(function(){
+	$.post("/mes/equipmentMaintenances/save",$("#a").serialize(),function(data){
+	location.hash="/mes/equipmentMaintenance";
+	});
+	return false;
+});
+</script>
+  <form action="/mes/equipmentMaintenances/save" method="post" name="addForm" id="a" class="form-horizontal" >
+		<fieldset class="solid">
+			<div id="col-xs-12">
+				<div class="page-header">
+					<h1>
+						设备维护记录添加表单 <i class="ace-icon fa fa-angle-double-right"></i>
+					</h1>
+				</div>
+	<input type="hidden" name="equipmentMaintenance.eFlowNO" value="${(equipmentMaintenance.eFlowNO)!}" />
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">设备编号</label>
+		<div class="col-sm-9">
+		<input type="text" class="col-xs-10 col-sm-5" name="equipmentMaintenance.eNo" value="${(equipmentMaintenance.eNo)!}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">维护内容</label>
+		<div class="col-sm-9">
+		<textarea name="equipmentMaintenance.eMeContents" class="col-xs-10 col-sm-5" cols="80" rows="10">${(equipmentMaintenance.eMeContents)!}</textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">记录时间</label>
+		<div class="col-sm-9">
+		<input type="text" name="equipmentMaintenance.eRecordTime" class="col-xs-10 col-sm-5" value="${(equipmentMaintenance.eRecordTime)!}" placeholder="正确的样式：xxxx-xx-xx xx:xx:xx" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">记录人员</label>
+		<div class="col-sm-9">
+		<input type="text" name="equipmentMaintenance.eRecorder" class="col-xs-10 col-sm-5" value="${(equipmentMaintenance.eRecorder)!}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label no-padding-right">附件</label>
+		<div class="col-sm-9">
+		<input type="text" name="equipmentMaintenance.eAccessory" class="col-xs-10 col-sm-5" value="${(equipmentMaintenance.eAccessory)!}" />
+		</div>
+	</div>
+	<div class="col-md-offset-4 col-md-9">
+			<button class="btn btn-info" type="button" id="b">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+					添加
+			</button>
+			&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+			<button class="btn" type="reset">
+				<i class="ace-icon fa fa-undo bigger-110"></i>
+					重置
+			</button>
+	</div>
+			</div>
+		</fieldset>
+	</form>

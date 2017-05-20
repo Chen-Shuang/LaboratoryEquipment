@@ -1,0 +1,186 @@
+package xtgl;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.jfinal.core.Controller;
+
+public class UserController extends Controller {
+	public void users() {
+		List<User> users = User.dao.find("select * from user");
+		List<Department> depts = Department.dao.find("select * from dept");
+		List<Role> roles = Role.dao.find("select * from role");
+		/*for (int i = 0; i < users.size(); i++) {
+			User user = users.get(i);
+			if (user.getDate("hiredate") != null) {
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date date = new Date();
+				String now = df.format(date);
+				Date d1 = df.parse(now);
+				Date d2 = user.getDate("hiredate");                              //计算正确的工龄代码
+				String str=df.format(d2);
+				Date d3 = df.parse(str);
+				long diff = d1.getTime() - d3.getTime();
+				long year =diff / (1000 * 60 * 60 * 24);
+				int y = (int)(year/365);
+				user.set("seniority", y);
+			}
+
+		}*/
+		setAttr("roles", roles);
+		setAttr("lists", users);
+		setAttr("depts", depts);
+		setAttr("a",10);
+		render("/xtgl/Users.html");
+		
+		
+	}
+	public void allUser(){
+		int a = 0;			//每页从数据的哪个位置开始遍历
+		int b = 10;					//每页显示几个数据
+		List<User> users = User.dao.find("select * from user");
+		List<Department> depts = Department.dao.find("select * from dept");
+		List<Role> roles = Role.dao.find("select * from role");
+		if(getParaToInt("num")!=null){
+			System.out.println(getParaToInt("num"));
+			a = getParaToInt("num");
+		}
+		int c = users.size()/b+1;		//总共几页
+		users = User.dao.find("select * from user limit "+a+","+b);
+		setAttr("a",a);
+		Map<String, Object> map1= new HashMap<String, Object>();
+		map1.put("users", users);
+		map1.put("depts", depts);
+		map1.put("roles", roles);
+		List<Object> list1 = new ArrayList<Object>();
+		list1.add(map1);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list1);
+		
+		List<Object> list = new ArrayList<Object>();
+		list.add(map);
+		renderJson(list);
+	}
+
+	public void delete() {
+		User.dao.deleteById(getParaToInt("id"));
+		redirect("#users/users");
+	}
+
+	public void addUser() throws Exception {
+		User user = getModel(User.class, "u");
+
+		Date date = new Date();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = format.format(date);
+		System.out.println(time);
+		user.set("regist_date", time);
+		if(user.getDate("hiredate")!=null){
+			Date d1 = format.parse(time);
+			Date d2 = user.getDate("hiredate");                              
+			String str=format.format(d2);
+			Date d3 = format.parse(str);
+			long diff = d1.getTime() - d3.getTime();
+			long year =diff / (1000 * 60 * 60 * 24);
+			int y = (int)(year/365);
+			user.set("seniority", y);
+		}
+		user.save();
+		redirect("#users/users");
+	}
+
+	public void update() throws Exception {
+		User user = User.dao.findById(getParaToInt("id"));
+		int role_id = 0;
+		List<Role> roles = Role.dao.find("select * from role");
+		for(int i =0;i<roles.size();i++){
+			Role role = roles.get(i);
+			if(role.getStr("role_name").equals(getPara("role_id"))){
+				role_id=role.getInt("role_id");
+				break;
+			}
+		}
+		user.set("username", getPara("username"));
+		user.set("gender", getPara("gender"));
+		user.set("name", getPara("name"));
+		user.set("age", getParaToInt("age"));
+		user.set("dept_id", getParaToInt("dept_id"));	
+		user.set("position", getPara("position"));
+		user.set("education", getPara("education"));
+		user.set("hiredate", getParaToDate("hiredate"));
+		user.set("email", getPara("email"));
+		user.set("regist_date", getParaToDate("regist_date"));
+		user.set("role_id", role_id);
+		user.set("status", getParaToBoolean("status"));
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		String now = df.format(date);
+		Date d1 = df.parse(now);
+		Date d2 = user.getDate("hiredate");                              
+		String str=df.format(d2);
+		Date d3 = df.parse(str);
+		long diff = d1.getTime() - d3.getTime();
+		long year =diff / (1000 * 60 * 60 * 24);
+		int y = (int)(year/365);
+		user.set("seniority", y);
+		user.update();
+		redirect("#users/users");
+	}
+
+	
+	public void select() {
+		String str = getPara("str");
+		String type = getPara("type");
+		
+		
+		 if (type.equals("dept_id")) {
+			List<User> users = User.dao
+					.find("select * from user where dept_id in (select dept_id from dept where dept_name like '%"
+							+ str + "%')");
+			if(users.size()==0){
+				users = User.dao.find("select * from user");
+			}
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			Map<String, Object> map1= new HashMap<String, Object>();
+			map1.put("users", users);
+			map1.put("depts", depts);
+			map1.put("roles", roles);
+			List<Object> list1 = new ArrayList<Object>();
+			list1.add(map1);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list1);
+			List<Object> list = new ArrayList<Object>();
+			list.add(map);
+			renderJson(list);
+			//render("/xtgl/Users.html");
+		} else{
+			List<User> users = User.dao
+					.find("select * from user where "+type+" like '%" + str
+							+ "%'");
+			if(users.size()==0){
+				users = User.dao.find("select * from user");
+			}
+			List<Department> depts = Department.dao.find("select * from dept");
+			List<Role> roles = Role.dao.find("select * from role");
+			Map<String, Object> map1= new HashMap<String, Object>();
+			map1.put("users", users);
+			map1.put("depts", depts);
+			map1.put("roles", roles);
+			List<Object> list1 = new ArrayList<Object>();
+			list1.add(map1);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list1);
+			List<Object> list = new ArrayList<Object>();
+			list.add(map);
+			renderJson(list);
+			//render("xtgl/Users.html");
+		}
+	}
+}

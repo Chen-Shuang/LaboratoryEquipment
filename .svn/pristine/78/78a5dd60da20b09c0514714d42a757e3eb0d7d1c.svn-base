@@ -1,0 +1,112 @@
+package sbgl;
+
+import java.util.List;
+
+import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Page;
+
+public class A_JD extends Controller{
+	public void index(){
+		render("/sbgl/A_JD.html");
+	}
+	public void A001(){
+		int n=getParaToInt("n");
+		System.out.println(n);
+		Page<sbgl_sbjd> list =sbgl_sbjd.dao.paginate(n, 10, "select *", "from sbgl_sbjd");	//从设备台账表中得到page对象
+		renderJson(list);		//将台账的列表信息展示到前台
+	}
+	public void C001(){
+		int n=getParaToInt("n");			//n代表的是页码
+		int m=getParaToInt("m");			//m代表的是精度表的外键
+		
+		List<sbgl_s_jdjc> list =sbgl_s_jdjc.dao.find( "select * from sbgl_s_jdjc where t_id = "+String.valueOf(m));	//从精度检查表中得到list对象
+		System.out.println(list);
+		renderJson(list);		//将精度检查表的list对象发送到前台
+	}
+	public void D001(){
+		int n=getParaToInt("n");			//n代表的是页码
+		int m=getParaToInt("m");			//m代表的是精度表的外键
+		
+		List<sbgl_s_sjjc> list =sbgl_s_sjjc.dao.find( "select * from sbgl_s_sjjc where t_id = "+String.valueOf(m));	//从精度检查表中得到list对象
+		System.out.println(list);
+		renderJson(list);		//将精度检查表的list对象发送到前台
+	}
+	public void E001(){
+		int x=getParaToInt("x");
+		sbgl_s_jdjc n=sbgl_s_jdjc.dao.findById(x);
+		int y=n.get("t_id");
+		n.delete();
+		System.out.println(y);
+		renderJson(y);
+	}
+	public void F001(){
+		int x=getParaToInt("x");
+		sbgl_s_sjjc n=sbgl_s_sjjc.dao.findById(x);
+		int y=n.get("t_id");
+		n.delete();
+		System.out.println(y);
+		renderJson(y);
+	}
+	public void G001(){
+		sbgl_s_jdjc t=getModel(sbgl_s_jdjc.class);
+		t.save();
+		renderText("随便玩玩！");
+	}
+	public void H001(){
+		sbgl_s_sjjc t=getModel(sbgl_s_sjjc.class);
+		t.save();
+		renderText("随便玩玩！");
+	}
+	public void J001(){
+		List<sbgl_sbtz> x=sbgl_sbtz.dao.find("select * from sbgl_sbtz");
+		renderJson(x);
+	}
+	public void H00H(){
+		sbgl_sbjd n=getModel(sbgl_sbjd.class);
+		n.save();
+		renderText("保存成功！");
+	}
+	public void H00F(){
+		sbgl_sbjd n=getModel(sbgl_sbjd.class);
+		
+		n.update();
+		renderText("修改成功！");
+	}
+	public void Z00B(){
+		int x=getParaToInt("x");		
+		sbgl_sbjd n=sbgl_sbjd.dao.findById(x);
+		renderJson(n);
+	}
+	public void Z00Ba(){
+		int x=getParaToInt("x");
+		List<sbgl_s_jdjc> n=sbgl_s_jdjc.dao.find("select * from sbgl_s_jdjc where t_id ="+String.valueOf(x));
+		renderJson(n);
+	}
+	public void Z00Bb(){
+		int x=getParaToInt("x");
+		List<sbgl_s_sjjc> n=sbgl_s_sjjc.dao.find("select * from sbgl_s_sjjc where t_id ="+String.valueOf(x));
+		renderJson(n);
+	}
+	public void Z00C(){
+		int x=getParaToInt("x");
+		sbgl_sbjd.dao.findById(x).delete();   //找到主表的内容  进行删除
+		List<sbgl_s_jdjc> n=sbgl_s_jdjc.dao.find("select * from sbgl_s_jdjc where t_id ="+String.valueOf(x));
+	if(n.isEmpty()){}else{
+		for(int m=0;m<n.size();m++){
+			n.get(m).delete();				//把查询到的内容依次删除掉
+		}
+	};
+		List<sbgl_s_sjjc> a=sbgl_s_sjjc.dao.find("select * from sbgl_s_sjjc where t_id ="+String.valueOf(x));
+	if(a.isEmpty()){}else{
+		for(int m=0;m<n.size();m++){
+			a.get(m).delete();				//把查询到的内容依次删除掉
+		}
+	};
+	renderText("删除完成");
+	}
+	public void seebyebye(){
+		String x=getPara("x");			//得到前台参数
+		Page<sbgl_sbjd> n=sbgl_sbjd.dao.paginate(1,10,"select *","from sbgl_sbjd where t_sbbh like '%"+x+"%'");		//从数据库查询数据 并且准备发送给前台
+		renderJson(n);
+	}
+}

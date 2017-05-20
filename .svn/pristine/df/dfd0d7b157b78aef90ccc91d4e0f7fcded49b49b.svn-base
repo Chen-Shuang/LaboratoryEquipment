@@ -1,0 +1,315 @@
+
+	  
+										<br>  <br>  <br>  <br>
+                                          <div class="form-actions center" >
+											<button onclick="addForm()" type="button" class="btn btn-sm btn-success" >
+												我要发送物料
+												<i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+												</button>
+												</div>
+                                                      
+											<div class="form-actions center" >
+											<button onclick="check()" type="button" class="btn btn-sm btn-success" >
+											我要接收物料
+											<i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+											</button>
+											</div>
+                              
+ 
+<div class="hide" id="add">
+		<form id="pform" action="/mes/wldbd/add" method="post">
+			<!-- <input type="hidden" name="role.role_id"> -->
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">物料编号</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.wlbh" 
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">物料名称</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.wlmc"
+						 value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">数量</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.sl" 
+						value="" />
+				</div>
+			</div>
+				<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">单位</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.dw" 
+						value="" />
+				</div>
+			</div>
+				<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">发出地</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.fcd" 
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">发出人</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.fcr" 
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">接受地</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.jsd"
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">接收人</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.jsr" 
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">接收时间</label>
+				<div class="col-sm-9">
+					<input type="date" class="form-control" name="scsjgl_wldbd.jssj" 
+						value="" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">备注</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.bz" 
+						value="" />
+				</div>
+			</div>
+				<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"
+					for="form-field-1">状态</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="scsjgl_wldbd.zt" 
+						value="" />
+				</div>
+			</div>
+			
+			
+			
+		</form>
+	</div>
+         <div class="hide" id="ch">
+		<form id="pform" action="wldbd/getid" method="post">
+			<!-- <input type="hidden" name="role.role_id"> -->
+
+			<div class="row">
+		<div class="col-xs-12">
+
+			<div class="clearfix"></div>
+			<div class="table-header">接收物料</div>
+
+			<!-- div.table-responsive -->
+
+			<!-- div.dataTables_borderWrap -->
+			<div>
+				<div id="dynamic-table_wrapper"
+					class="dataTables_wrapper form-inline no-footer">
+					<div class="row">
+						<div class="col-xs-6">
+						<form action="#" method="post" >
+						<input type="text" class="form-control" name="str" id="str2"
+						value="" />
+						<select name="a"> 
+						<option value="wlbh">物料编号</option> 
+						<option value="wlmc">物料名称</option>
+						<option value="fcd">发出地</option>
+						
+						</select>
+						<input class="btn btn-sm btn-primary"  type="submit" value="寻找" />
+						</form>
+						</div>
+						
+					</div>
+
+
+
+
+					<table
+						class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
+						id="dynamic-table" role="grid"
+						aria-describedby="dynamic-table_info">
+						<thead>
+							<tr role="row">
+								<th class="center sorting_disabled" rowspan="1" colspan="1"aria-label=""><label class="pos-rel"> <input
+										type="checkbox" class="ace"> <span class="lbl"></span>
+								</label>
+								</th>
+								<th>物料编号</th>
+								<th>物料名称</th>
+								<th>数量</th>
+								<th>单位</th>
+								<th>发出地</th>
+								<th>发出人</th>
+								<th>接受地</th>
+								<th>接收人</th>
+								<th>接收时间</th>
+								<th>备注</th>
+								<th>状态</th>
+								
+							</tr>
+						</thead>
+                  
+						<tbody>
+                         <#list scsjgl_wldbd as p >
+							<tr role="row" class="even">
+								<td class="center"><label class="pos-rel"> <input
+										type="checkbox" class="ace"> <span class="lbl"></span>
+								</label>
+								</td>
+
+								<td>${p.wlbh!}</td>
+								<td>${p.wlmc!}</td>
+								<td>${p.sl!}</td>
+								<td>${p.dw!}</td>
+								<td>${p.fcd!}</td>
+								<td>${p.fcr!}</td>
+								<td>${p.jsd!}</td>
+								<td>${p.jsr!}</td>
+								<td>${p.jssj!}</td>
+								<td>${p.bz!}</td>
+								<td>${p.zt!}<td>
+								<td>
+ 				 		<a href="/mes/wldbd/getid/${p.wlbh}" class="_p" >
+ 				 		修改<i class="icon-zoom-in bigger-130">
+ 				 		</a>
+ 				 		<a href="/mes/wldbd/del/${p.wlbh}" class="red" class="_p" class="icon-pencil bigger-130">
+ 				 		删除
+ 				 		</a>
+ 				 		</td>
+								</tr>
+								
+								
+					            </#list>     
+                              </tbody>
+                              
+					        </table>
+					<div class="row">
+						<div class="col-xs-6">
+							<!-- <div class="dataTables_info" id="dynamic-table_info"
+								role="status" aria-live="polite">Showing 1 to 10 of 23
+								entries</div> -->
+
+						</div>
+						<div class="col-xs-6">
+						
+							<div class="dataTables_paginate paging_simple_numbers"
+								id="dynamic-table_paginate">
+								<label>显示<select name="dynamic-table_length"
+									aria-controls="dynamic-table" class="form-control input-sm"><option
+											value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+								</select>条</label>
+								<ul class="pagination">
+									
+									
+									
+									<li class="paginate_button previous disabled"
+										aria-controls="dynamic-table" tabindex="0"
+										id="dynamic-table_previous"><a href="#">上一页</a></li>
+									<li class="paginate_button active"
+										aria-controls="dynamic-table" tabindex="0"><a href="#">1</a>
+									</li>
+									<li class="paginate_button next disabled" aria-controls="dynamic-table"
+										tabindex="0" id="dynamic-table_next"><a href="#">下一页</a>
+									</li> 
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+</div>	
+		
+			
+		
+	
+         
+
+<script type="text/javascript">
+	function addForm() {
+		document.getElementById("pform").reset();
+		$('#add').removeClass("hide");
+		userModel = layer.open({
+			type : 1,
+			shade : [ 0.5 ],
+			title : '发送物料',
+			area : [ '50%', '500px' ],
+			content : $('#add'), //捕获的元素
+			btn : [ '确认发送', '取消发送' ],
+			yes : function(index, layero) { //或者使用btn1
+				$.post("add", $("#pform").serialize(), function(data) {
+
+					layer.close(index);
+					$('#add').addClass("hide");
+					document.getElementById("pform").submit();
+				});
+				
+			},
+			cancel : function(index) {
+				layer.close(index);
+				$('#add').addClass("hide"); //取消继续隐藏
+			},
+		});
+	};
+	
+</script>
+<script type="text/javascript">
+	function check() {
+	
+		document.getElementById("pform").reset();
+		$('#ch').removeClass("hide");
+		userModel = layer.open({
+			type : 1,
+			shade : [ 0.5 ],
+			title : '接收物料',
+			area : [ '50%', '600px' ],
+			content : $('#ch'), //捕获的元素
+			btn : [ '确认接收', '取消接收' ],
+			yes : function(index, layero) { //或者使用btn1
+				$.post("ch", $("#pform").serialize(), function(data) {
+
+					layer.close(index);
+					$('#ch').addClass("hide");
+					document.getElementById("pform").submit();
+				});
+				
+			},
+			cancel : function(index) {
+				layer.close(index);
+				$('#ch').addClass("hide"); //取消继续隐藏
+			},
+		});
+	};
+	
+</script>
+

@@ -1,0 +1,14 @@
+package scsjgl;
+
+import com.jfinal.core.Controller;
+
+public class bmtzgcjcController extends Controller {
+	public void index(){
+
+		render("/scsjgl/bmtzgcjc_main.html");
+
+	
+
+	}
+
+}
