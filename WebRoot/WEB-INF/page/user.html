@@ -15,14 +15,25 @@
 						<div id="dynamic-table_wrapper"
 							class="dataTables_wrapper form-inline no-footer">
 							<div class="row" style="height: 50px;">
-										<div class="nav-search" style="float: left;">
-											<span class="input-icon" style="float: left;"> <input
-												type="text" placeholder="关键字查询 " class="nav-search-input"
-												onchange="" autocomplete="off" > <i
-												class="ace-icon fa fa-search nav-search-icon"></i>
-											</span>
-										</div>
-									</div>
+								<div class="col-xs-5"></div>
+								<div class="nav-search col-xs-7">
+									<span class="input-icon"
+										style="float: right;margin-left: 10px;">
+										<button onclick="addUserInfo();" type="button"
+											class="btn btn-info btn-sm" style="float: right;">
+											添加</button>
+									</span> <span class="input-icon" style="float: right;">
+										<button onclick="getUserInfo(1);" type="button"
+											class="btn btn-info btn-sm" style="float: right;">
+											查询</button>
+									</span> <span class="input-icon" style="float: right;"> <input
+										title="姓名/角色模糊查询" style="float: left;" type="text"
+										placeholder="关键字查询 " class="nav-search-input"
+										onkeyup="getUserInfo(1);" id="search_input" autocomplete="off">
+										<i class="ace-icon fa fa-search nav-search-icon"></i>
+									</span>
+								</div>
+							</div>
 							<table
 								class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
 								id="dynamic-table" role="grid"
@@ -30,18 +41,25 @@
 								<thead>
 									<tr>
 										<th class="col-xs-1">姓名</th>
-										<th class="col-xs-1">角色</th>
+										<th class="col-xs-1">角色
+											<select name="interest" onchange="getUserInfo(1);"
+											id="role_select" lay-filter="aihao">
+												<option value="-1">全部</option>
+												<option value="1">设备管理员</option>
+												<option value="2">领导</option>
+										 	</select>
+										</th>
 										<th class="col-xs-1">邮箱</th>
 										<th class="col-xs-1">手机号</th>
 										<th class="col-xs-1">状态 
 											<select name="interest" onchange="getUserInfo(1);"
 											id="status_select" lay-filter="aihao">
-												<option value="2">全部</option>
+												<option value="-1">全部</option>
 												<option value="0">禁用</option>
 												<option value="1">可用</option>
-										 </select>
+										 	</select>
 										</th>
-										<th class="col-xs-1">操作</th>
+										<th class="col-xs-2">操作</th>
 									</tr>
 								</thead>
 								<tbody id="userPage">
@@ -59,14 +77,15 @@
 </div>
 
 <!-- 添加弹框 -->
-<div class="hide" id="add">
+<div hidden="hidden" id="addUserContent">
 	<form id="addfrom" action="#" method="post">
+		<div class="col-xs-12">&nbsp;</div>
 		<div class="col-xs-12">
 			<div class="col-xs-12">
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">姓名</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name=""/>
+					<input type="text" class="form-control" placeholder="必填" name="user_login.name"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -74,7 +93,10 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">角色</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name=""/>
+					<select name="user_login.role_id" class="form-control">
+						<option value="1">设备管理员</option>
+						<option value="2">领导</option>
+					</select>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -82,7 +104,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">邮箱</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name=""/>
+					<input type="text" class="form-control" placeholder="必填" id="addEmail" name="user_login.email" />
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -90,7 +112,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">手机号</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name=""/>
+					<input type="text" class="form-control" placeholder="必填" id="addPhone" name="user_login.phone" />
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -99,14 +121,16 @@
 </div>
 
 <!-- 修改弹框 -->
-<div class="hide" id="update">
+<div hidden="hidden" id="update">
 	<form id="updatefrom" action="#" method="post">
+		<div class="col-xs-12">&nbsp;</div>
+		<input type="text" id="updateId" name="user_login.id" hidden="hidden"/>
 		<div class="col-xs-12">
 			<div class="col-xs-12">
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">姓名</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name=""/>
+					<input type="text" class="form-control" placeholder="必填" id="updateName" name="user_login.name"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -114,7 +138,10 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">角色</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name=""/>
+					<select name="user_login.role_id" id="updateRole" class="form-control">
+						<option value="1">设备管理员</option>
+						<option value="2">领导</option>
+					</select>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -122,7 +149,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">邮箱</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name=""/>
+					<input type="text" class="form-control" placeholder="必填" id="updateEmail" name="user_login.email" />
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -130,7 +157,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">手机号</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name=""/>
+					<input type="text" class="form-control" placeholder="必填" id="updatePhone" name="user_login.phone" />
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -138,13 +165,27 @@
 	</form>
 </div>
 <script type="text/javascript">
-getUserInfo(1);
-//获取用户信息
+
+getUserInfo(1); // 初始化页面信息
+
+/**
+ * 获取用户信息
+ */
 function getUserInfo(curr) {
 	var userStatus = $("#status_select").val(); // 获取选择框的状态值
+	var role = $("#role_select").val(); // 获取选择的角色
 	var search = $("#search_input").val();  // 获取搜索框中信息
-	$.post("need/getUserInfo", {"curr":curr,"size":10,"search":search,"userStatus":userStatus},
-	function(resp) {
+	
+	var getUrl = "user/getUserInfo"; // 定义请求地址
+	var data = {   // 定义参数变量
+			"curr":curr,
+			"size":10,
+			"search":search,
+			"userStatus":userStatus,
+			"role":role
+		};
+	
+	$.post(getUrl, data, function(resp) {
 		pack(resp.list,curr);  // 填充表格数据
 		laypage({  // 调用分页
 			cont : $('#page5'), // 分页容器。
@@ -162,6 +203,9 @@ function getUserInfo(curr) {
 		});
 	});
 }
+/**
+ * 循环填充
+ */
 function pack(data,curr) { // 填充表格数据
 	var dataStr = "";
 	$.each(data, function(i, v) {
@@ -169,21 +213,25 @@ function pack(data,curr) { // 填充表格数据
 	});
 	$("#userPage").html(dataStr);
 }
+/**
+ * 按行填充
+ */
 function packlist(v,curr) { 
 	var dataStr = "";
 	dataStr += '<tr>';
 	dataStr += '<td>' + v.name + '</td>';
-	dataStr += '<td>' + v.type + '</td>';
-	if(v.type==0){
-		dataStr += '<td>系统管理员</td>';
-	}else if(v.type==1){
+	if(v.type==1){
 		dataStr += '<td>设备管理员</td>';
 	}else if(v.type==2){
 		dataStr += '<td>领导</td>';
 	}
 	dataStr += '<td>' + v.email + '</td>';
 	dataStr += '<td>' + v.phone + '</td>';
-	dataStr += '<td>' + v.status + '</td>';
+	if(v.status==1){
+		dataStr += '<td>可用</td>';
+	}else if(v.status==0){
+		dataStr += '<td>禁用</td>';
+	}
 	
 	dataStr += '<td> <div class="hidden-sm hidden-xs action-buttons">';
 	dataStr += '<button class="layui-btn layui-btn-small" onclick="updateUserInfo('
@@ -191,11 +239,11 @@ function packlist(v,curr) {
 	
 	dataStr += '<button class="layui-btn layui-btn-danger layui-btn-small"  onclick="delUserInfo('
 		+ v.id + "," + curr + ')">删除</button>'; 
-	if(v.type!=1&&v.status==1){
+	if(v.status==1){
 		dataStr += '<button class="layui-btn layui-btn-grey layui-btn-small"  onclick="changeStatusInfo('
 			+ v.id + "," + curr + ",0" +')">禁用</button>'; 
-	}else if(v.type!=1&&v.status==0){
-		dataStr += '<button class="layui-btn layui-btn-grey layui-btn-small"  onclick="changeStatusInfo('
+	}else if(v.status==0){
+		dataStr += '<button class="layui-btn btn-warning layui-btn-small"  onclick="changeStatusInfo('
 			+ v.id + "," + curr + ",1" + ')">可用</button>'; 
 	}
 	dataStr += '</div> </td>';
@@ -204,18 +252,26 @@ function packlist(v,curr) {
 	return dataStr;
 };
 
-//添加用户
-function addUser() {
+/**
+ * 添加用户
+ */
+function addUserInfo() {
 	$("input").val(""); // 清空文本框数据
 	layer.open({
 		type : 1,
 		shade : [ 0.5 ],
-		title : '添加用户信息', 
-		area : [ '38%', '450px' ], //显示空间
-		content : $('#add'), //捕获的元素
+		title : '添加用户', 
+		area : [ '30%', '320px' ], //显示空间
+		content : $('#addUserContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { //或者使用btn1
-			$.post("user/addUser", $("#addform").serialize(), function(resp) {
+			if(isExist("add")){ // 验证邮箱手机号是否重复
+				return;
+			}
+		
+			var addUrl = "user/addUserInfo"; // 定义请求地址
+			var data = $("#addfrom").serialize(); // 表单序列化
+			$.post(addUrl, data, function(resp) {
 				if(resp=="success"){
 					getUserInfo(1); // 更新数据
 					layer.msg("添加成功");
@@ -232,25 +288,90 @@ function addUser() {
 	});
 };
 
-//修改用户信息
+/**
+ * 验证手机号、邮箱是否已绑定其他账号
+ * operate 操作类型（add、update）
+ */
+function isExist(operate){
+	var isExist = false;  // 定义返回值变量
+
+	var url = "user/isExist"; // 定义请求地址
+	var data = {}; 		// 定义参数变量
+	if(operate=="add"){ // 添加操作
+		data = {
+			"email" : $("#addEmail").val(),
+			"phone" : $("#addPhone").val(),
+			"userId" : -1,
+		}
+	}else if(operate=="update"){
+		data = {
+			"email" : $("#updateEmail").val(),
+			"phone" : $("#updatePhone").val(),
+			"userId" : $("#updateId").val(),
+		}
+	}
+	
+	$.ajax({ type:"POST", url : url, async : false, data : data,
+		 success : function(resp){
+			 if(resp!=0){ // 存在重复
+				isExist = true;  // 将查询的结果赋给返回值
+				if(resp==1){
+					layer.msg("该邮箱已经绑定其他账号，请更换邮箱");
+				}else if(resp==2){
+					layer.msg("该手机号已经绑定其他账号，请更换手机号");
+				}else{
+					layer.msg("该邮箱和手机号已绑定其他账号，请更换邮箱和手机号");
+				}
+			}
+		} 
+	});
+	return isExist;
+}
+
+/**
+ * 修改用户信息
+ * id 用户id
+ * curr 当前页面
+ */
 function updateUserInfo(id,curr){
 	$("input").val(""); // 清空文本框数据
+	$("select").val("");
 	// 填充弹框信息
-	$.post("user/getUserInfo", {"id":id}, function(resp) {
-		$("#user_id").val(resp.id);
+	var getOneUrl = "user/getOneUserInfo"; // 获得单个用户信息接口
+	var data = {
+			"id":id
+		};
+	$.post(getOneUrl, data, function(resp) {
+		$("#updateId").val(resp.id);
+		$("#updateName").val(resp.name);
+		$("#updateEmail").val(resp.email);
+		$("#updatePhone").val(resp.phone);
+		var str;
+		if(resp.type==2){ // 如果角色为领导，默认选择领导
+			str = '<option value="1">设备管理员</option><option value="2" selected="selected">领导</option>';
+		}else{
+			str = '<option value="1">设备管理员</option><option value="2" >领导</option>';
+		}
+		$("#updateRole").html(str); // 填充选择框
 	});
 	
-	layer.open({
+	layer.open({ // 弹出提示框
 		type : 1,
 		shade : [ 0.5 ],
 		title : '修改用户信息', 
-		area : [ '35%', '450px' ], //显示空间
+		area : [ '30%', '320px' ], //显示空间
 		content : $('#update'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
-			$.post("user/updateUserInfo", $("#updateform").serialize(), function(resp) {
-				if(resp=="success"){
-					getUserInfo(curr);
+			if(isExist("update")){ // 验证邮箱手机号是否重复
+				return;
+			}
+			
+			var updateUrl = "user/updateUserInfo"; // 更新用户信息接口
+			var data = $("#updatefrom").serialize(); // 序列化表单
+			$.post(updateUrl, data, function(resp) {
+				if(resp){
+					getUserInfo(curr); // 更新表单数据
 					layer.msg("修改成功");
 				}else{
 					layer.msg("修改失败");
@@ -268,7 +389,7 @@ function updateUserInfo(id,curr){
 function changeStatusInfo(id,curr,status){
 	layer.confirm("你确定更改设备状态吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("user/changeStatusInfo", {"id":id,"status":status}, function(resp) {
-			if(resp=="success"){
+			if(resp){
 				getUserInfo(curr); // 刷新数据
 				layer.msg("修改成功");
 			}else{
@@ -284,11 +405,11 @@ function changeStatusInfo(id,curr,status){
 function delUserInfo(id,curr){
 	layer.confirm("你确定删除该用户吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("user/delUserInfo", {"id":id,"status":status}, function(resp) {
-			if(resp=="success"){
+			if(resp){
 				getUserInfo(curr); // 刷新数据
-				layer.msg("修改成功");
+				layer.msg("删除成功");
 			}else{
-				layer.msg("修改失败");
+				layer.msg("删除失败");
 			}
 		});	
 	},function(){ 

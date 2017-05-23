@@ -9,7 +9,7 @@ import model.userLoginModel;
 
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
-import com.jfinal.kit.PathKit;
+import com.jfinal.plugin.activerecord.Page;
 
 /**
  * 用户管理
@@ -19,6 +19,20 @@ public class userController extends Controller{
 
 	public void index() {
 		render("user.html");
+	}
+	
+	/**
+	 * 获取用户注册信息
+	 */
+	public void getUserInfo(){
+		int curr = getParaToInt("curr"); // 获取当前页
+		int size = getParaToInt("size"); // 每页显示的数量
+		String search = getPara("search"); // 获取搜索的内容
+		int status = getParaToInt("userStatus"); // 获得用户状态
+		int role = getParaToInt("role"); // 获得用户角色
+		
+		Page<userLoginModel> userInfo = userLoginModel.dao.getUserInfo(curr, size, search, status, role); // 获取用户信息
+		renderJson(userInfo);
 	}
 	
 	/**
@@ -53,6 +67,62 @@ public class userController extends Controller{
 	    }
 	}
 	
+	/**
+	 * 获取单个用户信息
+	 */
+	public void getOneUserInfo(){
+		int id = getParaToInt("id"); // 获得用户的ID
+		userLoginModel userInfo = userLoginModel.dao.getOneUserInfo(id); // 获取用户信息
+		renderJson(userInfo);
+	}
+	
+	/**
+	 * 查询用户信息是否已经绑定其他注册用户
+	 */
+	public void isExist(){
+		String email = getPara("email"); // 获取用户邮箱
+		String phone = getPara("phone"); // 获取用户手机号
+		int userId = getParaToInt("userId"); // 获取要修改用户的id
+		
+		int isExist = userLoginModel.dao.isExist(email, phone, userId); // 查询手机号、邮箱是否已存在
+		
+		renderJson(isExist);
+	}
+	
+	public void updateUserInfo(){
+		userLoginModel userInfo = getModel(userLoginModel.class,"user_login"); // 获取表单信息
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String nowTime = df.format(new Date()).toString(); // 获取当前系统时间
+		
+		userInfo.set("updateTime", nowTime); // 添加修改时间
+		boolean isSuccess = userInfo.update(); // 更新用户信息
+		
+		renderJson(isSuccess);
+	}
+	
+	/**
+	 * 修改用户的状态
+	 */
+	public void changeStatusInfo(){
+		int id = getParaToInt("id"); // 获得用户id
+		int status = getParaToInt("status"); // 获得要修改的状态
+		
+		boolean isSucces = userLoginModel.dao.changeStatusInfo(id,status);
+		
+		renderJson(isSucces);
+	}
+	
+	/**
+	 * 删除用户
+	 */
+	public void delUserInfo() {
+		int id = getParaToInt("id");  // 获取用户的id
+		
+		boolean isSucces = userLoginModel.dao.delUserInfo(id);
+		renderJson(isSucces);
+	}
+
 	 /**
 	  *  定义随机的内容
 	  */
