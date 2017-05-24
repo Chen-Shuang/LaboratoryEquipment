@@ -42,8 +42,8 @@ public class userLoginModel extends Model<userLoginModel> {
 	 */
 	public int isExist(String email,String phone,int userId){
 		int count = 0;
-		int	isEmail = userLoginModel.dao.find("select id  from user_login where email='"+email+"' and id!="+userId).size(); // 查询邮箱重复数量
-		int	isPhone = userLoginModel.dao.find("select id  from user_login where phone='"+phone+"' and id!="+userId).size(); // 查询手机号重复数量
+		int	isEmail = userLoginModel.dao.find("select id  from user_login where status!=-1 and email='"+email+"' and id!="+userId).size(); // 查询邮箱重复数量
+		int	isPhone = userLoginModel.dao.find("select id  from user_login where status!=-1 and phone='"+phone+"' and id!="+userId).size(); // 查询手机号重复数量
 		
 		if(isEmail>0){
 			count += 1;  // 1表示邮箱存在
