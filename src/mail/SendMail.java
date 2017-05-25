@@ -1,6 +1,5 @@
 package mail;
 
-
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -22,9 +21,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
-
-
-
 
 public class SendMail implements Runnable {
 	//收件人邮箱地址
@@ -161,8 +157,6 @@ public class SendMail implements Runnable {
 			//props.put("mail.smtp.ssl.socketFactory", sf);
 			props.put("mail.smtp.host", smtpServer);
 			props.put("mail.smtp.auth", "true");
-	
-
 	
 		//创建session对象 
 		Session session=Session.getDefaultInstance(props, new Authenticator() {
