@@ -180,7 +180,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">购置日期</label>
 				<div class="col-sm-10 layui-inline" style="float: left">
-					<input name="need_items.repairDate" class="layui-input " placeholder="选择日期（必填）"  
+					<input name="need_items.purchaseDate" class="layui-input " placeholder="选择日期（必填）"  
 					onclick="layui.laydate({elem: this, festival: true})">
 				</div>
 			</div>
@@ -279,7 +279,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">购置日期</label>
 				<div class="col-sm-10 layui-inline" style="float: left">
-					<input id="needItems_repairDate" name="need_items.repairDate" class="layui-input " placeholder="选择日期（必填）"  
+					<input id="needItems_purchaseDate" name="need_items.purchaseDate" class="layui-input " placeholder="选择日期（必填）"  
 					onclick="layui.laydate({elem: this, festival: true})">
 				</div>
 			</div>
@@ -373,7 +373,7 @@ function packlist(v,curr) {
 	}else{
 		dataStr += '<td>已购买</td>';
 	}
-	dataStr += '<td>' + v.repairDate + '</td>';
+	dataStr += '<td>' + v.purchaseDate + '</td>';
 	dataStr += '<td> <div class="hidden-sm hidden-xs action-buttons">';
 	dataStr += '<button class="layui-btn layui-btn-small" onclick="updateItemInfo('
 		+ v.items_id + "," + curr + ')">详情/修改</button> ';
@@ -399,12 +399,12 @@ function updateItemInfo(itemsId,curr){
 		$("#items_name").val(resp.name);
 		$("#items_type").val(resp.type);
 		$("#items_modelNum").val(resp.modelNum);
-		$("#items_norms").val(resp.price);
+		$("#items_norms").val(resp.norms);
 		$("#items_remark").val(resp.remark);
 		$("#needItems_id").val(resp.need_id);
 		$("#needItems_price").val(resp.price);
 		$("#needItems_number").val(resp.number);
-		$("#needItems_repairDate").val(resp.repairDate);
+		$("#needItems_purchaseDate").val(resp.purchaseDate);
 		$("#needItems_vender").val(resp.vender);
 		$("#needItems_expirationDate").val(resp.expirationDate);
 		$("#needItems_userName").val(resp.userName);

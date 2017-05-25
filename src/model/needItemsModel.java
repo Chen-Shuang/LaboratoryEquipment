@@ -25,11 +25,11 @@ public class needItemsModel extends Model<needItemsModel> {
 		if(needStatus==2) // 查询所有的审核状态
 			return paginate(curr, size, "select a.*,b.*,b.status need_status,a.id items_id",
 				" from items a,need_items b where a.status=0 and a.id=b.items_id and concat(name,type) like '%"+search+"%' "
-						+ "and b.repairDate >= '"+sTime+"' and b.repairDate <= '"+eTime+"' order by a.createTime desc");
+						+ "and b.purchaseDate >= '"+sTime+"' and b.purchaseDate <= '"+eTime+"' order by a.createTime desc");
 		else
 			return paginate(curr, size, "select a.*,b.*,b.status need_status,a.id items_id",
 					" from items a,need_items b where a.status=0 and a.id=b.items_id and concat(name,type) like '%"+search+"%' "
-							+ "and b.repairDate >= '"+sTime+"' and b.repairDate <= '"+eTime+"' and b.status='"+needStatus+"' order by a.createTime desc");
+							+ "and b.purchaseDate >= '"+sTime+"' and b.purchaseDate <= '"+eTime+"' and b.status='"+needStatus+"' order by a.createTime desc");
 	}
 	/**
 	 * 获取需购设备信息
@@ -43,11 +43,11 @@ public class needItemsModel extends Model<needItemsModel> {
 		if(needStatus==2) // 查询所有的审核状态
 			return needItemsModel.dao.find("select a.*,b.*,b.status need_status,a.id items_id"
 				+" from items a,need_items b where a.status=0 and a.id=b.items_id and concat(name,type) like '%"+search+"%' "
-						+ "and b.repairDate >= '"+sTime+"' and b.repairDate <= '"+eTime+"' order by a.createTime desc");
+						+ "and b.purchaseDate >= '"+sTime+"' and b.purchaseDate <= '"+eTime+"' order by a.createTime desc");
 		else
 			return needItemsModel.dao.find("select a.*,b.*,b.status need_status,a.id items_id"
 					+" from items a,need_items b where a.status=0 and a.id=b.items_id and concat(name,type) like '%"+search+"%' "
-							+ "and b.repairDate >= '"+sTime+"' and b.repairDate <= '"+eTime+"' and b.status='"+needStatus+"' order by a.createTime desc");
+							+ "and b.purchaseDate >= '"+sTime+"' and b.purchaseDate <= '"+eTime+"' and b.status='"+needStatus+"' order by a.createTime desc");
 	}
 	
 	/**
