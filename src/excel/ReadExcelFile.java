@@ -24,6 +24,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 
+import controller.newController;
+
 
 public class ReadExcelFile {
 	/**
@@ -53,6 +55,7 @@ public class ReadExcelFile {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
+	@SuppressWarnings("resource")
 	private static void readFile(Integer table , String fileName,String loginId,String nowTime) throws FileNotFoundException, IOException {
 		Workbook workbook = null;
 		if(fileName.endsWith(".xls")){// 用后缀去区别不同版本的Excel文件
@@ -70,7 +73,7 @@ public class ReadExcelFile {
 		}
 	}
 	/**
-	 * 将上传的文件写入数据库
+	 * 将需购设备上传的文件信息写入数据库
 	 * @param sheet 第几个标签
 	 * @param loginId 登录人id
 	 * @param nowTime 当前系统时间
@@ -148,40 +151,83 @@ public class ReadExcelFile {
 		
 	}
 
-	private static void readFileWithNewItems(Sheet sheet,String loginId,String nowTime) {
-		int rowNum = sheet.getLastRowNum(); // 获取该标签的行数，（从0开始，比实际行数少一行）
+	/**
+	 * 将新添设备上传的文件信息写入数据库
+	 * @param sheet 第几个标签
+	 * @param loginId 登录人id
+	 * @param nowTime 当前系统时间
+	 */
+	private static void readFileWithNewItems(final Sheet sheet,final String loginId,final String nowTime) {
+		final int rowNum = sheet.getLastRowNum(); // 获取该标签的行数，（从0开始，比实际行数少一行）
 		if(rowNum<1){
 			return ;
 		}
-		Row firstRow = sheet.getRow(0);  // 获取标签的第一行
+		final Row firstRow = sheet.getRow(0);  // 获取标签的第一行
 		if(firstRow==null){
 			return ;
 		}
-		Map<String,String> map = new HashMap<String,String>(); 
-		map.put("职工号", "tno");
-		map.put("姓名", "name");
-		map.put("密码", "password");
-		map.put("职称", "title");
-		map.put("联系方式", "tel");
-		map.put("邮箱", "email");
-		map.put("性别", "gender");
+		final Map<String,String> mapItems = new HashMap<String,String>(); // 定义map对象，存入要存储items表的字段
+		mapItems.put("设备名称", "name");
+		mapItems.put("设备类别", "type");
+		mapItems.put("设备型号", "modelNum");
+		mapItems.put("设备规格", "norms");
 		
-		List<String> list = new ArrayList<String>();
-		int colNum = firstRow.getPhysicalNumberOfCells();  // 获取第一行的列输
-		for (int i = 0; i < colNum; i++) {
-			list.add(map.get(firstRow.getCell(i).getStringCellValue())); // 获取第一行的标题，获取对应map中的字段名
-		}
-		for (int i = 1; i <= rowNum; i++) { // 按行循环
-			Row row = sheet.getRow(i);
-			if(row==null){
-				continue;
-			}
-			newItemsModel newItems = new newItemsModel();
-			for (int j = 0; j < list.size(); j++) {
-				newItems.set(list.get(j), row.getCell(j).getStringCellValue()); // 每行中将数据库将字段名和cell中的值对应set存储
-			}
-			newItems.save(); // 保存数据
-		}
+		final Map<String,String> mapNewItems = new HashMap<String,String>(); // 定义map对象，存入要存储need_items表的字段
+		mapNewItems.put("单价（元）", "price");
+		mapNewItems.put("购置日期", "purchaseDate");
+		mapNewItems.put("生产厂家", "vender");
+		mapNewItems.put("保质期（年）", "expirationDate");
+		mapNewItems.put("经办人", "userName");
+		mapNewItems.put("备注", "remark");
+		
+		final List<String> listItems = new ArrayList<String>();  // 定义数组存放Excel对应的items表字段
+		final List<String> listNewItems = new ArrayList<String>();
+		final int colNum = firstRow.getPhysicalNumberOfCells();  // 获取第一行的列数
+		
+		boolean success = Db.tx(new IAtom() {    // 添加事务处理，如果中间有错误则回滚，数据不保存到数据库
+	        @Override
+	        public boolean run() throws SQLException {
+	            try {
+	            	// 循环将Excel表头对应的表字段存入list数组中
+	        		for (int i = 0; i < colNum; i++) { 
+	        			String cellTitle = firstRow.getCell(i).getStringCellValue(); // 获取Excel中标题
+	        			if(mapItems.get(cellTitle) != null) // 判断表头字段对应是否为空
+	        				listItems.add(mapItems.get(cellTitle)); // 获取第一行的标题，获取对应map中的字段名，添加到list列表中
+	        			else if(mapNewItems.get(cellTitle) != null)
+	        				listNewItems.add(mapNewItems.get(cellTitle));
+	        		}
+	        		// 按行循环保存数据结构
+	        		for (int i = 1; i <= rowNum; i++) {
+	        			Row row = sheet.getRow(i);
+	        			if(row==null){
+	        				continue;
+	        			}
+	        			// 因为Excel中的数据要存放到不同
+	        			ItemsModel items = new ItemsModel(); 
+	        			for (int j = 0; j < listItems.size(); j++) {
+	        				row.getCell(j).setCellType(Cell.CELL_TYPE_STRING); // 将cell中数字类型转化为字符串类型读入
+	        				items.set(listItems.get(j), row.getCell(j).getStringCellValue()); // 每行中将数据库将字段名和cell中的值对应set存储
+	        			}
+	        			newItemsModel newItems = new newItemsModel(); // 创建新添设备model对象
+	        			for (int j = 0; j < listNewItems.size(); j++) {
+	        				row.getCell(j+4).setCellType(Cell.CELL_TYPE_STRING); // 将cell中数字类型转化为字符串类型读入   加4是因为模板中前4个字段存入了items表中
+	        				newItems.set(listNewItems.get(j), row.getCell(j+4).getStringCellValue()); // 每行中将数据库将字段名和cell中的值对应set存储
+	        			}
+	        			
+	        			newController newControl = new newController(); // 创建对象，为获取设备编码
+	        			items.set("code", newControl.getCode()).set("user_login_id", loginId).set("status", 1).set("createTime", nowTime).set("updateTime", nowTime); // 状态置为新添设备
+	        			items.save(); // 先将基本数据插入数据库
+	        			newItems.set("items_id", items.getLong("id")).set("status", 0); 
+	        			newItems.save(); // 将数据插入数据库
+	        		}
+	            	
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	                return false;
+	            }
+	            return true;
+	        }
+	    });
 	}
 	
 }

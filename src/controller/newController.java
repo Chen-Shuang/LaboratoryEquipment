@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,6 +17,9 @@ import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.upload.UploadFile;
+
+import excel.ReadExcelFile;
 /**
  * 新添设备
  * @author 陈爽 
@@ -59,13 +64,11 @@ public class newController extends Controller {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		final String nowTime = df.format(new Date()).toString(); // 获取当前系统时间
 		
-		final String code = "A123"; // 获取该信息的编码（自动编号）
-		
 		boolean success = Db.tx(new IAtom() {  // 添加事务处理
 	        @Override
 	        public boolean run() throws SQLException {
 	            try {
-	            	items.set("code", code).set("createTime", nowTime).set("updateTime", nowTime)
+	            	items.set("code", getCode()).set("createTime", nowTime).set("updateTime", nowTime)
 	            		.set("status", 1).set("user_login_id", userLoginId).save();  // 保存新添设备的基本信息
 	        		newItems.set("items_id", items.getLong("id")).set("status", 0).save(); // 保存新添设备信息{items.getLong("id") 获取保存后对象的id}
 	            } catch (Exception e) {
@@ -204,6 +207,32 @@ public class newController extends Controller {
 	}
 	
 	/**
+	 * 新添设备（Excel文件）批量上传
+	 */
+	public void uploadFileWithNewItemsExcel(){
+		String userLoginId = getSession().getAttribute("userLoginId").toString(); // 获取登录人id
+
+		UploadFile file = getFile("file");
+		if(file==null){
+			renderText("文件为空");
+		}
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //设置日期格式
+		String nowTime = df.format(new Date()).toString(); // 获取当前系统时间
+		try {
+			ReadExcelFile.readFile(ReadExcelFile.TABLE_NEWITEMS , file.getFile(),userLoginId,nowTime); // 将数据写入数据库
+			file.getFile().delete(); // 数据插入成功后删除Excel文件
+		} catch (FileNotFoundException e) {
+			System.out.println("找不到该文件");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("加载错误");
+			e.printStackTrace();
+		}
+		renderText("123");
+	}
+	
+	/**
 	 * Excel模板下载
 	 */
 	public void downloadTemplate() {
@@ -217,5 +246,13 @@ public class newController extends Controller {
 			realFile = PathKit.getWebRootPath() + "/template/" + "批量文件上传使用说明文档.txt"; // 根据路径获取文件
 		}
 		renderFile(new File(realFile));
+	}
+	
+	/**
+	 * 为设备自动编码
+	 * @return 设备的唯一编码
+	 */
+	public String getCode(){
+		return "A1234";
 	}
 }
