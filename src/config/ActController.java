@@ -19,11 +19,11 @@ public class ActController extends Controller {
 		// 根据管理员级别显示对应菜单
 		List dataList; 
 		if(user.get("rank").equals(1)){
-			dataList = Db.find("select * from memu where rank=1 and status=1 order by id"); // 普通用户权限
+			dataList = Db.find("select * from memu where rank=1 and status=1 order by sequence"); // 普通用户权限
 		}else if(user.get("rank").equals(2)){
-			dataList = Db.find("select * from memu where rank!=0 and status=1 order by id"); // 领导用户权限
+			dataList = Db.find("select * from memu where rank!=0 and status=1 order by sequence"); // 领导用户权限
 		}else{
-			dataList = Db.find("select * from memu where status=1 order by id"); // 超级管理员权限
+			dataList = Db.find("select * from memu where status=1 order by sequence"); // 超级管理员权限
 		}
 		
 		Map<String, Object> resp=new HashMap<String, Object>();
