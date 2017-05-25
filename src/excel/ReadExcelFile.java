@@ -89,15 +89,15 @@ public class ReadExcelFile {
 		mapItems.put("设备类别", "type");
 		mapItems.put("设备型号", "modelNum");
 		mapItems.put("设备规格", "norms");
-		mapItems.put("备注", "remark");
+		
 		final Map<String,String> mapNeedItems = new HashMap<String,String>(); // 定义map对象，存入要存储need_items表的字段
 		mapNeedItems.put("单价（元）", "price");
 		mapNeedItems.put("需购数量", "number");
-		mapNeedItems.put("购置日期", "repairDate");
+		mapNeedItems.put("购置日期", "purchaseDate");
 		mapNeedItems.put("生产厂家", "vender");
 		mapNeedItems.put("保质期（年）", "expirationDate");
 		mapNeedItems.put("经办人", "userName");
-		
+		mapNeedItems.put("备注", "remark");
 		
 		final List<String> listItems = new ArrayList<String>();  // 定义数组存放Excel对应的items表字段
 		final List<String> listNeedItems = new ArrayList<String>();
@@ -129,8 +129,8 @@ public class ReadExcelFile {
 	        			}
 	        			needItemsModel needItems = new needItemsModel(); 
 	        			for (int j = 0; j < listNeedItems.size(); j++) {
-	        				row.getCell(j+5).setCellType(Cell.CELL_TYPE_STRING); // 将cell中数字类型转化为字符串类型读入   加5是因为前5个字段存入了items表中
-	        				needItems.set(listNeedItems.get(j), row.getCell(j+5).getStringCellValue()); // 每行中将数据库将字段名和cell中的值对应set存储
+	        				row.getCell(j+4).setCellType(Cell.CELL_TYPE_STRING); // 将cell中数字类型转化为字符串类型读入   加4是因为模板中前4个字段存入了items表中
+	        				needItems.set(listNeedItems.get(j), row.getCell(j+4).getStringCellValue()); // 每行中将数据库将字段名和cell中的值对应set存储
 	        			}
 	        			items.set("user_login_id", loginId).set("status", 0).set("createTime", nowTime).set("updateTime", nowTime); // 需购设备不需要
 	        			items.save(); // 先将基本数据插入数据库

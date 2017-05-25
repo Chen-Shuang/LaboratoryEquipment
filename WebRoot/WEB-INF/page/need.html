@@ -213,7 +213,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">备注</label>
 				<div class="col-sm-10" style="float: left">
-					<textarea class="form-control" name="items.remark" placeholder="选填" maxlength="50"></textarea>
+					<textarea class="form-control" name="need_items.remark" placeholder="选填" maxlength="50"></textarea>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -312,7 +312,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">备注</label>
 				<div class="col-sm-10" style="float: left">
-					<textarea id="items_remark" class="form-control" name="items.remark" placeholder="选填" maxlength="50"></textarea>
+					<textarea id="needItems_remark" class="form-control" name="need_items.remark" placeholder="选填" maxlength="50"></textarea>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -400,7 +400,6 @@ function updateItemInfo(itemsId,curr){
 		$("#items_type").val(resp.type);
 		$("#items_modelNum").val(resp.modelNum);
 		$("#items_norms").val(resp.norms);
-		$("#items_remark").val(resp.remark);
 		$("#needItems_id").val(resp.need_id);
 		$("#needItems_price").val(resp.price);
 		$("#needItems_number").val(resp.number);
@@ -408,6 +407,7 @@ function updateItemInfo(itemsId,curr){
 		$("#needItems_vender").val(resp.vender);
 		$("#needItems_expirationDate").val(resp.expirationDate);
 		$("#needItems_userName").val(resp.userName);
+		$("#needItems_remark").val(resp.remark);
 	});
 	
 	layer.open({
