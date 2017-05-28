@@ -42,7 +42,7 @@ public class repairController extends Controller {
 		if(eTime==""){
 			eTime += "2099-06-16"; // 当前系统时间
 		}
-		Page<repairItemsModel> repairItems = repairItemsModel.dao.getRepairItemsInfo(curr, size, search,sTime,eTime,status); // 查询需购设备信息
+		Page<repairItemsModel> repairItems = repairItemsModel.dao.getRepairItemsInfo(curr, size, search,sTime,eTime,status); // 查询维修设备信息
 		renderJson(repairItems);
 	}
 	
@@ -69,8 +69,8 @@ public class repairController extends Controller {
 	        @Override
 	        public boolean run() throws SQLException {
 	            try {
-	            	items.set("updateTime", nowTime).update();  // 修改新添设备的基本信息
-	            	repairItems.update(); // 修改新添设备信息
+	            	items.set("updateTime", nowTime).update();  // 修改设备的基本信息
+	            	repairItems.update(); // 修改报废设备信息
 	            } catch (Exception e) {
 	                e.printStackTrace();
 	                return false;

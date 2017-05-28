@@ -48,7 +48,7 @@ public class newController extends Controller {
 		if(eTime==""){
 			eTime += "2099-06-16"; // 当前系统时间
 		}
-		Page<newItemsModel> newItems = newItemsModel.dao.getNewItemsInfo(curr, size, search,sTime,eTime); // 查询需购设备信息
+		Page<newItemsModel> newItems = newItemsModel.dao.getNewItemsInfo(curr, size, search,sTime,eTime); // 查询新添设备信息
 		renderJson(newItems);
 	}
 	
