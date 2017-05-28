@@ -239,13 +239,13 @@
 		</div>
 	</form>
 </div>
-<!-- 新添设备信息查看 -->
+<!-- 待修设备信息查看 -->
 <script type="text/javascript">
 
 getRepairItemsInfo(1); // 初始加载数据
 
 /**
- * 获取新添设备信息
+ * 获取待修设备信息
  */
 function getRepairItemsInfo(curr) {
 	var sTime = $("#LAY_demorange_s").val(); // 获取起始时间 
@@ -253,7 +253,7 @@ function getRepairItemsInfo(curr) {
 	var search = $("#search_input").val();  // 获取搜索框中信息
 	var status = $("#status_select").val(); // 获取设备状态
 	
-	var getUrl = "repair/getRepairItemsInfo";  // 新添设备接口
+	var getUrl = "repair/getRepairItemsInfo";  // 待修设备接口
 	var data = {      // 所需参数
 			"curr":curr,
 			"size":10,
@@ -320,7 +320,7 @@ function packlist(v,curr) {
 };
 
 /**
- * 修改新添设备信息
+ * 修改待修设备信息
  */
 function updateItemInfo(itemsId,curr){
 	$("input").val(""); // 清空文本框数据
@@ -344,7 +344,7 @@ function updateItemInfo(itemsId,curr){
 	layer.open({
 		type : 1,
 		shade : [ 0.5 ],
-		title : '修改新添设备', 
+		title : '修改待修设备', 
 		area : [ '35%', '450px' ], //显示空间
 		content : $('#updateRepairItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],

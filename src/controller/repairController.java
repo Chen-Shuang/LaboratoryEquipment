@@ -42,8 +42,8 @@ public class repairController extends Controller {
 		if(eTime==""){
 			eTime += "2099-06-16"; // 当前系统时间
 		}
-		Page<repairItemsModel> newItems = repairItemsModel.dao.getRepairItemsInfo(curr, size, search,sTime,eTime,status); // 查询需购设备信息
-		renderJson(newItems);
+		Page<repairItemsModel> repairItems = repairItemsModel.dao.getRepairItemsInfo(curr, size, search,sTime,eTime,status); // 查询需购设备信息
+		renderJson(repairItems);
 	}
 	
 	/**
@@ -51,8 +51,8 @@ public class repairController extends Controller {
 	 */
 	public void getRepairItemInfo() {
 		int itemsId = getParaToInt("itemsId"); // 获取设备id
-		repairItemsModel newItem = repairItemsModel.dao.getRepairItemInfo(itemsId); // 获取设备信息
-		renderJson(newItem);
+		repairItemsModel repairItem = repairItemsModel.dao.getRepairItemInfo(itemsId); // 获取设备信息
+		renderJson(repairItem);
 	}
 	
 	/**
