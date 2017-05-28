@@ -53,7 +53,6 @@
 											<select name="interest" onchange="getRepairItemsInfo(1);" id="status_select" lay-filter="aihao">
 													<option value="0">待维修</option>
 													<option value="1">已维修</option>
-													<option value="2">全部</option>
 											</select>
 										</th>
 										<th class="col-xs-1">修理日期</th>
@@ -75,24 +74,25 @@
 </div>
 
 <!-- 设备维修所需信息弹框 -->
-<div id="repairItemContent" hidden="hidden" >
+<div id="updateRepairItemContent" hidden="hidden" >
 	<form id="repairItemform" action="#" method="post">
 		<input id="repair_items_id" name="items.id" type="text" hidden="hidden">
-		<input id="repair_repairItems_id" name="repair_items.id" type="text" hidden="hidden">
+		<input id="repairItems_id" name="repair_items.id" type="text" hidden="hidden">
 		<div class="col-xs-12">&nbsp;</div>
 		<div class="col-xs-12">
 			<div class="col-xs-12">
 				<label class="col-sm-2 control-label no-padding-right"
-					for="form-field-1">设备名称</label>
+					for="form-field-1">设备编号</label>
 				<div class="col-sm-10" style="float: left">
 					<input id="repair_items_code" type="text" class="form-control" readonly="readonly" />
 				</div>
 			</div>
+			<div class="col-xs-12">&nbsp;</div>
 			<div class="col-xs-12">
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">设备名称</label>
 				<div class="col-sm-10" style="float: left">
-					<input id="repair_items_name" type="text" class="form-control" name="" placeholder="必填" maxlength="30" />
+					<input id="repair_items_name" type="text" class="form-control" name="items.name" placeholder="必填" maxlength="30" />
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -100,7 +100,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">设备类别</label>
 				<div class="col-sm-10" style="float: left">
-					<input id="repair_items_type" type="text" class="form-control" name="" placeholder="必填" maxlength="30"/>
+					<input id="repair_items_type" type="text" class="form-control" name="items.type" placeholder="必填" maxlength="30"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -108,7 +108,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">设备型号</label>
 				<div class="col-sm-10" style="float: left">
-					<input id="repair_items_modelNum" type="text" class="form-control" name="" placeholder="必填" maxlength="30"/>
+					<input id="repair_items_modelNum" type="text" class="form-control" name="items.modelNum" placeholder="必填" maxlength="30"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -116,7 +116,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">规格</label>
 				<div class="col-sm-10" style="float: left">
-					<input id="repair_items_norms" type="text" class="form-control" name="" placeholder="必填" maxlength="30"/>
+					<input id="repair_items_norms" type="text" class="form-control" name="items.norms" placeholder="必填" maxlength="30"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -124,7 +124,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">修理日期</label>
 				<div class="col-sm-10 layui-inline" style="float: left">
-					<input  name="repair_items.repairDate" class="layui-input " placeholder="选择日期（必填）"  
+					<input id="repairItems_repairDate" name="repair_items.repairDate" class="layui-input " placeholder="选择日期（必填）"  
 					onclick="layui.laydate({elem: this, festival: true})">
 				</div>
 			</div>
@@ -133,7 +133,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">修理厂家</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name="repair_items.vender" placeholder="必填" maxlength="50"/>
+					<input id="repairItems_vender" type="text" class="form-control" name="repair_items.vender" placeholder="必填" maxlength="50"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -141,7 +141,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">修理费用</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name="repair_items.price" placeholder="必填" onkeyup="value=value.replace(/[\W]/g,'')" maxlength="3"/>
+					<input id="repairItems_price" type="text" class="form-control" name="repair_items.price" placeholder="必填" onkeyup="value=value.replace(/[\W]/g,'')" maxlength="3"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -149,7 +149,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">责任人</label>
 				<div class="col-sm-10" style="float: left">
-					<input type="text" class="form-control" name="repair_items.userName" placeholder="必填" maxlength="10"/>
+					<input id="repairItems_userName" type="text" class="form-control" name="repair_items.userName" placeholder="必填" maxlength="10"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -157,7 +157,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">备注</label>
 				<div class="col-sm-10" style="float: left">
-					<textarea class="form-control" name="repair_items.remark" placeholder="选填" maxlength="50"></textarea>
+					<textarea id="repairItems_remark" class="form-control" name="repair_items.remark" placeholder="选填" maxlength="50"></textarea>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -168,12 +168,12 @@
 <div id="toScrapItemContent" hidden="hidden" >
 	<form id="toScrapItemform" action="#" method="post">
 		<input id="scrap_items_id" name="items.id" type="text" hidden="hidden">
-		<input id="scrap_newItems_id" name="new_items.id" type="text" hidden="hidden">
+		<input id="scrap_repairItems_id" name="repair_items.id" type="text" hidden="hidden">
 		<div class="col-xs-12">&nbsp;</div>
 		<div class="col-xs-12">
 			<div class="col-xs-12">
 				<label class="col-sm-2 control-label no-padding-right"
-					for="form-field-1">设备名称</label>
+					for="form-field-1">设备编码</label>
 				<div class="col-sm-10" style="float: left">
 					<input id="scrap_items_code" type="text" class="form-control" readonly="readonly" />
 				</div>
@@ -305,9 +305,9 @@ function packlist(v,curr) {
 	dataStr += '<button class="layui-btn layui-btn-small" onclick="updateItemInfo('
 		+ v.items_id + "," + curr + ')">详情/修改</button> ';
 	
-	dataStr += '<button class="layui-btn layui-btn-danger layui-btn-small"  onclick="delItemInfo('
-		+ v.items_id + "," + curr + ')">删除</button>'; 
 	if(v.repair_status==0){
+		dataStr += '<button class="layui-btn layui-btn-danger layui-btn-small"  onclick="delItemInfo('
+			+ v.items_id + "," + curr + ')">删除</button>';
 		dataStr += '<button class="layui-btn btn-warning layui-btn-small"  onclick="toNewItem('
 			+ v.items_id + "," + curr + ')">已维修</button>'; 
 		dataStr += '<button class="layui-btn btn-grey layui-btn-small"  onclick="toScrapItem('
@@ -327,13 +327,15 @@ function updateItemInfo(itemsId,curr){
 	$("textarea").val(""); // 清空文本框数据
 	// 填充弹框信息
 	$.post("repair/getRepairItemInfo", {"itemsId":itemsId}, function(resp) {
-		$("#items_id").val(resp.items_id);
-		$("#items_name").val(resp.name);
-		$("#items_type").val(resp.type);
-		$("#items_modelNum").val(resp.modelNum);
-		$("#items_norms").val(resp.norms);
+		$("#repair_items_id").val(resp.items_id);
+		$("#repair_items_code").val(resp.code);
+		$("#repair_items_name").val(resp.name);
+		$("#repair_items_type").val(resp.type);
+		$("#repair_items_modelNum").val(resp.modelNum);
+		$("#repair_items_norms").val(resp.norms);
 		$("#repairItems_id").val(resp.repair_id);
 		$("#repairItems_repairDate").val(resp.repairDate);
+		$("#repairItems_price").val(resp.price);
 		$("#repairItems_vender").val(resp.vender);
 		$("#repairItems_userName").val(resp.userName); 
 		$("#repairItems_remark").val(resp.remark);
@@ -344,10 +346,10 @@ function updateItemInfo(itemsId,curr){
 		shade : [ 0.5 ],
 		title : '修改新添设备', 
 		area : [ '35%', '450px' ], //显示空间
-		content : $('#updateNewItemContent'), //捕获的元素
+		content : $('#updateRepairItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
-			$.post("new/updateItemInfo", $("#updateNewItemform").serialize(), function(resp) {
+			$.post("repair/updateItemInfo", $("#repairItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getRepairItemsInfo(curr);
 					layer.msg("修改成功");
@@ -367,9 +369,9 @@ function updateItemInfo(itemsId,curr){
 /**
  * 删除设备信息
  */
-function toNewItem(itemsId,curr){
-	layer.confirm("你确定已经完成维修吗？",{ btn:['确定','取消']}, function(){ 
-		$.post("new/delItemInfo", {"itemsId":itemsId}, function(resp) {
+ function delItemInfo(itemsId,curr){
+	layer.confirm("你确定删除吗？",{ btn:['确定','取消']}, function(){ 
+		$.post("repair/delItemInfo", {"itemsId":itemsId}, function(resp) {
 			if(resp=="success"){
 				getRepairItemsInfo(curr); // 刷新数据
 				layer.msg("删除成功");
@@ -381,18 +383,18 @@ function toNewItem(itemsId,curr){
 		layer.msg("取消");
 	});
 }
-
-/**
- * 设备完成维修
- */
-function delItemInfo(itemsId,curr){
-	layer.confirm("你确定删除吗？",{ btn:['确定','取消']}, function(){ 
-		$.post("new/delItemInfo", {"itemsId":itemsId}, function(resp) {
+	
+ /**
+  * 设备完成维修
+  */	
+function toNewItem(itemsId,curr){
+	layer.confirm("你确定已经完成维修吗？",{ btn:['确定','取消']}, function(){ 
+		$.post("repair/toNewItem", {"itemsId":itemsId}, function(resp) {
 			if(resp=="success"){
 				getRepairItemsInfo(curr); // 刷新数据
-				layer.msg("删除成功");
+				layer.msg("操作成功");
 			}else{
-				layer.msg("删除失败");
+				layer.msg("操作失败");
 			}
 		});	
 	},function(){ 
@@ -407,13 +409,14 @@ function toScrapItem(itemsId,curr){
 	$("input").val(""); // 清空文本框数据
 	$("textarea").val(""); // 清空文本框数据
 	// 填充弹框信息
-	$.post("new/getNewItemInfo", {"itemsId":itemsId}, function(resp) {
+	$.post("repair/getRepairItemInfo", {"itemsId":itemsId}, function(resp) {
 		$("#scrap_items_id").val(resp.items_id);
+		$("#scrap_items_code").val(resp.code);
 		$("#scrap_items_name").val(resp.name);
 		$("#scrap_items_type").val(resp.type);
 		$("#scrap_items_modelNum").val(resp.modelNum);
 		$("#scrap_items_norms").val(resp.norms);
-		$("#scrap_newItems_id").val(resp.new_id);
+		$("#scrap_repairItems_id").val(resp.repair_id);
 	});
 	
 	layer.open({
@@ -424,7 +427,7 @@ function toScrapItem(itemsId,curr){
 		content : $('#toScrapItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
-			$.post("new/toScrapItem", $("#toScrapItemform").serialize(), function(resp) {
+			$.post("repair/toScrapItem", $("#toScrapItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getRepairItemsInfo(curr);
 					layer.msg("提交成功");
