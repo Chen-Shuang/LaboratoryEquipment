@@ -149,7 +149,7 @@ public class needController extends Controller {
 	 */
 	public void buyItemInfo() {
 		int itemsId = getParaToInt("itemsId"); // 获取设备id
-		int count = ItemsModel.dao.buyItemInfo(itemsId); // 更新状态
+		int count = needItemsModel.dao.buyItemInfo(itemsId); // 更新状态
 		if(count>0){
 			renderText("success");
 		}else{

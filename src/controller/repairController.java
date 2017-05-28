@@ -1,9 +1,17 @@
 package controller;
 
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import model.ItemsModel;
 import model.newItemsModel;
 import model.repairItemsModel;
+import model.scrapItemsModel;
 
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
 /**
  * 待修设备
@@ -45,5 +53,111 @@ public class repairController extends Controller {
 		int itemsId = getParaToInt("itemsId"); // 获取设备id
 		repairItemsModel newItem = repairItemsModel.dao.getRepairItemInfo(itemsId); // 获取设备信息
 		renderJson(newItem);
+	}
+	
+	/**
+	 * 修改设备信息
+	 */
+	public void updateItemInfo() {
+		final ItemsModel items = getModel(ItemsModel.class, "items"); // 获取序列化表单数据
+		final repairItemsModel repairItems = getModel(repairItemsModel.class, "repair_items"); // 获取序列化表单数据
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		final String nowTime = df.format(new Date()).toString(); // 获取当前系统时间
+		
+		boolean success = Db.tx(new IAtom() {  // 添加事务处理
+	        @Override
+	        public boolean run() throws SQLException {
+	            try {
+	            	items.set("updateTime", nowTime).update();  // 修改新添设备的基本信息
+	            	repairItems.update(); // 修改新添设备信息
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	                return false;
+	            }
+	            return true;
+	        }
+	    });
+	    
+	    if(success){
+	    	renderText("success");
+	    }else{
+	    	renderText("error");
+	    }
+	}
+	
+	/**
+	 * 删除单个设备信息
+	 */
+	public void delItemInfo() {
+		int itemsId = getParaToInt("itemsId"); // 获取设备id
+		int count = ItemsModel.dao.delItemInfo(itemsId);
+		if(count>0){
+			renderText("success");
+		}else{
+			renderText("error");
+		}
+		
+	}
+	
+	/**
+	 * 设备完成维修
+	 */
+	public void toNewItem(){
+		final int itemsId = getParaToInt("itemsId"); // 获取设备id
+		
+		boolean success = Db.tx(new IAtom() {  // 添加事务处理
+	        @Override
+	        public boolean run() throws SQLException {
+	            try {
+	            	ItemsModel.dao.updateToNewItem(itemsId); // 修改基本信息状态为新添设备
+	            	newItemsModel.dao.updateRepairFinish(itemsId); // 更新新添设备表中的状态为完成维修
+	            	repairItemsModel.dao.RepairFinish(itemsId);   // 更新维修表中状态为已完成维修
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	                return false;
+	            }
+	            return true;
+	        }
+	    });
+	    
+	    if(success){
+	    	renderText("success");
+	    }else{
+	    	renderText("error");
+	    }
+	}
+	
+	/**
+	 * 设备状态设置为报废
+	 */
+	public void toScrapItem(){
+		final ItemsModel items = getModel(ItemsModel.class, "items"); // 获取设备信息的id
+		final repairItemsModel repairItems = getModel(repairItemsModel.class, "repair_items"); // 获取新添设备信息的id
+		final scrapItemsModel scrapItems = getModel(scrapItemsModel.class, "scrap_items"); // 获取修改设备信息的序列化表单数据
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		final String nowTime = df.format(new Date()).toString(); // 获取当前系统时间
+		
+		boolean success = Db.tx(new IAtom() {  // 添加事务处理
+	        @Override
+	        public boolean run() throws SQLException {
+	            try {
+	            	items.set("status", 3).set("updateTime", nowTime).update();  // 将设备状态设置为待报废状态
+	            	repairItems.set("status", 2).update(); // 将维修状态设置为维修失败报废                                                                                                  
+	        		scrapItems.set("items_id", items.getLong("id")).set("status", 0).save(); // 插入该条设备修改的信息，状态为待审核
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	                return false;
+	            }
+	            return true;
+	        }
+	    });
+	    
+	    if(success){
+	    	renderText("success");
+	    }else{
+	    	renderText("error");
+	    }
 	}
 }

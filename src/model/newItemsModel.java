@@ -1,5 +1,6 @@
 package model;
 
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 /**
@@ -35,4 +36,13 @@ public class newItemsModel extends Model<newItemsModel> {
 		return newItemsModel.dao.findFirst("select a.*,b.*,a.id items_id,b.id new_id"
 				+ "  from items a,new_items b where a.status=1 and b.status=0 and a.id=b.items_id and a.id=?",itemsId);
 	}
+	
+	/**
+	 * 维修成功后更新新添设备状态
+	 * @param itemsId 设备id
+	 */
+	public void updateRepairFinish(int itemsId){
+		Db.update("update new_items set status=0 where items_id=?",itemsId);
+	}
 }
+

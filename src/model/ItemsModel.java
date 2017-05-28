@@ -22,11 +22,10 @@ public class ItemsModel extends Model<ItemsModel> {
 	}
 	
 	/**
-	 * 修改设备状态为
+	 * 已修改设备状态为新添设备
 	 * @param itemsId 设备id
-	 * @return
 	 */
-	public int buyItemInfo(int itemsId) {
-		return Db.update("update need_items set status=-2 where items_id=?",itemsId);
+	public void updateToNewItem(int itemsId){
+		Db.update("update items set status=1 where id=?",itemsId);
 	}
 }

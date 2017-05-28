@@ -59,4 +59,13 @@ public class needItemsModel extends Model<needItemsModel> {
 		return needItemsModel.dao.findFirst("select a.*,b.*,a.id items_id,b.id need_id"
 				+ "  from items a,need_items b where a.status=0 and a.id=b.items_id and a.id=?",itemsId);
 	}
+	
+	/**
+	 * 修改设备状态为已购设备
+	 * @param itemsId 设备id
+	 * @return 受影响行数
+	 */
+	public int buyItemInfo(int itemsId) {
+		return Db.update("update need_items set status=-2 where items_id=?",itemsId);
+	}
 }

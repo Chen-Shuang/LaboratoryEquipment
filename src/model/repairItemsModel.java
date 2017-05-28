@@ -1,5 +1,6 @@
 package model;
 
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 /**
@@ -21,18 +22,14 @@ public class repairItemsModel extends Model<repairItemsModel> {
 	 * @return 返回该页设备信息
 	 */
 	public Page<repairItemsModel> getRepairItemsInfo(int curr, int size, String search, String sTime, String eTime, int status){
-		if(status==2){ // 获得全部维修信息(分组展示)
-			return paginate(curr, size, "select a.*,b.*,a.id items_id,b.status repair_status",
-					" from items a,repair_items b where a.id=b.items_id and concat(a.code,a.name,a.type) like '%"+search+"%' "
-							+ "and b.repairDate >= '"+sTime+"' and b.repairDate <= '"+eTime+"' group by a.code order by a.createTime desc");
-		}else if(status==0){ // 获得待维修信息
+		if(status==0){ // 获得待维修信息
 			return paginate(curr, size, "select a.*,b.*,a.id items_id,b.status repair_status",
 					" from items a,repair_items b where a.status=2 and b.status=0 and a.id=b.items_id and concat(a.code,a.name,a.type) like '%"+search+"%' "
 							+ "and b.repairDate >= '"+sTime+"' and b.repairDate <= '"+eTime+"' order by a.createTime desc");
 		}else{ // 已完成设备信息(分组展示)
 			return paginate(curr, size, "select a.*,b.*,a.id items_id,b.status repair_status",
-					" from items a,repair_items b where  b.status=1 and a.id=b.items_id and concat(a.code,a.name,a.type) like '%"+search+"%' "
-							+ "and b.repairDate >= '"+sTime+"' and b.repairDate <= '"+eTime+"' group by a.code order by a.createTime desc");
+					" from items a,repair_items b where a.status!=-1 and  b.status=1 and a.id=b.items_id and concat(a.code,a.name,a.type) like '%"+search+"%' "
+							+ "and b.repairDate >= '"+sTime+"' and b.repairDate <= '"+eTime+"' order by a.createTime desc");
 		}
 		
 	}
@@ -45,5 +42,13 @@ public class repairItemsModel extends Model<repairItemsModel> {
 	public repairItemsModel getRepairItemInfo(int itemsId) {
 		return repairItemsModel.dao.findFirst("select a.*,b.*,a.id items_id,b.id repair_id"
 				+ "  from items a,repair_items b where a.id=b.items_id and a.id=?",itemsId);
+	}
+	
+	/**
+	 * 更新设备待修状态为已修状态
+	 * @param itemsId 设备id
+	 */
+	public void RepairFinish(int itemsId){
+		Db.update("update repair_items set status=1 where items_id=?",itemsId);
 	}
 }
