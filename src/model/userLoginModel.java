@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
@@ -89,5 +91,44 @@ public class userLoginModel extends Model<userLoginModel> {
 	 */
 	public userLoginModel getOneUserInfo(int id){
 		return userLoginModel.dao.findFirst("select a.*,b.type from user_login a,role b where a.role_id=b.id and a.id="+id);
+	}
+	
+	/**
+	 * 验证原密码是否正确
+	 * @param oldPwd 旧密码
+	 * @param userId 用户id
+	 * @return true/false
+	 */
+	public boolean isTrueOldpwd(String oldPwd,String userId){
+		List<userLoginModel> user = userLoginModel.dao.find("select * from user_login where pwd='"+oldPwd+"' and id="+userId);
+		if(user.size()>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * 修改密码
+	 * @param newPwd 新密码
+	 * @param userId 用户id
+	 * @return true/false
+	 */
+	public boolean updatePwd(String newPwd,String userId){
+		int count = Db.update("update user_login set pwd='"+newPwd+"' where id="+userId);
+		if(count>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean updateUserInfo(String name,String phone,String email,String userId){
+		int count = Db.update("update user_login set name='"+name+"',phone='"+phone+"',email='"+email+"' where id="+userId);
+		if(count>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

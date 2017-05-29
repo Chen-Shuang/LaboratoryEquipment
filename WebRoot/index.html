@@ -84,7 +84,6 @@
 				 
 				<!-- /section:basics/sidebar.mobile.toggle -->
 				<div class="navbar-header pull-left">
-					<!-- #section:basics/navbar.layout.brand -->
 					<a href="" class="navbar-brand" style="height: 45px;padding-top: 1px;">
 						<small >
 							<img alt="LOGO" style="height: 43px;" src="plugins/images/minlogo.png">
@@ -94,16 +93,14 @@
 
 				</div>
 
-				<!-- #section:basics/navbar.dropdown -->
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
-						<!-- #section:basics/navbar.user_menu -->
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="plugins/ace/assets/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="plugins/ace/assets/avatars/user.jpg"  />
 								<span class="user-info">
 									<small>欢迎您</small>
-									<span id="usernametitle"></span>
+									<span id="userNameTitle"></span>
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -117,7 +114,7 @@
 									</a>
 								</li>
 								<li>	
-									<a href="javascript:updatePerson()">
+									<a href="javascript:updatePassword()">
 										<i class="ace-icon fa fa-cog"></i>
 										修改密码
 									</a>
@@ -178,8 +175,7 @@
 					<!-- #section:basics/footer -->
 					<div class="footer-content">
 						<span class="bigger-120">
-							<span class="red">郑州大学</span>
-							 © Copyright 2017-2018 
+							Copyright © 2017 zzu. All Rights Reserved.
 						</span>
 						&nbsp; &nbsp;
 					</div>
@@ -260,162 +256,226 @@
 		<script src="js/jquery-form.js" type="text/javascript"></script>
 		<script src="js/jquery.myLayout.js"></script>
 		<script src="js/jquery.myTree.js"></script>
-		<div class="hide" id="update">
-				<div class="form-group">
-					<label class="col-sm-2 control-label no-padding-right" >原密码</label>
-					<div class="col-sm-10">
-						<input type="password" id="old_pwd" class="form-control" placeholder="请输入原密码" />
-					</div>
+	<div hidden="hidden" id="updatePwd">
+		<div class="col-xs-12">&nbsp;</div>
+		<div class="col-xs-12">
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">原密码</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="old_pwd" type="password" class="form-control"
+						placeholder="请输入旧密码" />
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label no-padding-right" >新密码</label>
-					<div class="col-sm-10">
-						<input type="password" id="new_pwd" class="form-control"  placeholder="请输入新密码" />
-					</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">新密码</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="new_pwd" type="password" class="form-control"
+						placeholder="请输入新密码" />
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label no-padding-right">确认密码</label>
-					<div class="col-sm-10">
-						<input type="password" id="new_pwd1" class="form-control" placeholder="请输入新密码"/>
-					</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">新密码</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="new_pwd1" type="password" class="form-control"
+						placeholder="请再次输入新密码" />
 				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
 		</div>
-		<!-- 个人信息 -->
-		<div class="hide" id="user_Info" style="text-align: center">
-			<div class="form-group" style="padding-top: 20px">
-				<label class="control-label no-padding-right" >用户名</label>
-				<input type="text" readonly="readonly" id="g_name"  placeholder="请输入用户名" />
+	</div>
+	<div hidden="hidden" id="userInfo">
+		<div class="col-xs-12">&nbsp;</div>
+		<input id="userId" type="text" hidden="hidden" />
+		<div class="col-xs-12">
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">用户名</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="userName" type="text" class="form-control" placeholder="请输入用户名" />
+				</div>
 			</div>
-			<div class="form-group">
-				<label class="control-label no-padding-right">手机号</label>
-				<input type="text" readonly="readonly" id="g_phone"  placeholder="请输入新手机号" />
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">邮箱</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="userEmail" type="text" class="form-control" placeholder="请输入邮箱" />
+				</div>
 			</div>
-			<div class="form-group" >
-				<label class="control-label no-padding-right">邮箱</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="text" readonly="readonly" id="g_mail"  placeholder="请输入新邮箱"/>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">手机号</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="userPhone" type="text" class="form-control" placeholder="请输入手机号" />
+				</div>
 			</div>
-			<div class="form-group">
-				<a id="g_btn" type="button" onclick="updateInfo()" >修改信息</a>
-			</div>
+			<div class="col-xs-12">&nbsp;</div>
 		</div>
-		<script type="text/javascript">
-		var $url = window.location.hash;
-		$.get("act/getMenuList", function(data) {
-			$("#topTree").toTree(data.content, "0");
-			$.onHeaderClick();
-		}); 
-		/* $url = 'polls/listByPageAndPoliceId'; */
-		$.updateByUrl($url.substr(1));
-		window.onhashchange = function() {
-			$.updateByUrl(window.location.hash.substr(1));
-		};
-		</script>
-		<script type="text/javascript">
-			// 获取用户登录信息
-			$.post("userInfo",{},function(data){
-				$("#usernametitle").html(data.name);
-				$("#g_name").val(data.name);
-				$("#g_phone").val(data.phone);
-				$("#g_mail").val(data.mail);
+	</div>
+<!-- 初始化加载菜单项 -->
+<script type="text/javascript">
+	var $url = window.location.hash;
+	$.get("act/getMenuList", function(resp) {
+		$("#topTree").toTree(resp.content, "0");
+		$.onHeaderClick();
+	});
+	
+	/* $url = 'polls/listByPageAndPoliceId'; */
+	$.updateByUrl($url.substr(1));
+	window.onhashchange = function() {
+		$.updateByUrl(window.location.hash.substr(1));
+	};
+</script>
+<!-- 用户信息 -->
+<script type="text/javascript">
+loadUserInfo();
+/**
+ * 加载用户信息
+ */
+function loadUserInfo(){
+	$.get("getUserInfo",function(resp){
+		$("#userId").html(resp.id);
+		$("#userNameTitle").html(resp.name);
+		$("#userName").html(resp.name);
+		$("#userPhone").val(resp.phone);
+		$("#userEmail").val(resp.email);
+	});
+});
+	
+/**
+ * 修改密码
+ */
+function updatePassword(){
+	userModel = layer.open({
+		type: 1,
+		shade: [0.5],
+		title: '修改密码', //不显示标题
+		area: ['30%', '250px'],
+		content: $('#updatePwd'), //捕获的元素
+		btn: [ '确认','取消'],
+		yes: function(index, layero){ //或者使用btn1
+			var old = $("#old_pwd").val();
+			var str1 = $("#new_pwd").val();
+			var str2 = $("#new_pwd1").val();
+			if(old==""||str1==""){
+				 layer.msg("密码不能为空!");
+				 return;
+			}else if(str1!=str2){
+				 layer.msg("两次输入的密码不同,请重新输入!");
+				 return;
+			}
+			
+			$.post("updatePwd",{"oldPwd":old,"newPwd":str1},function(resp){
+				  if(resp=='success'){
+				    	layer.msg("修改成功，请重新登陆!");
+						layer.close(index);
+				    	window.location.href="logout";
+				   }else if(resp=='oldPwdError'){
+					  	layer.msg("原密码错误，请重新输入！");
+					    return;
+				   }else{
+					   layer.msg("修改失败!");
+					   layer.close(index);
+				   }
 			});
-		</script>
-		<script type="text/javascript">
-			function updatePerson(){
-				$('#update').removeClass("hide");
-				userModel = layer.open({
-				    type: 1,
-				    shade: [0.5],
-				    title: '修改密码', //不显示标题
-				    area: ['35%', '250px'],
-				    content: $('#update'), //捕获的元素
-				    btn: [ '确认','取消'],
-				    yes: function(index, layero){ //或者使用btn1
-				    	var old = $("#old_pwd").val();
-				    	var str1 = $("#new_pwd").val();
-				    	var str2 = $("#new_pwd1").val();
-				    	if(str1!=str2||str1.length<6){
-				    		layer.msg("密码太短,或者是两次输入的密码不同,请重新输入!");
-				    		return;
-				    	}
-				    	$.post("updatePwd",{"oldPwd":old,"newPwd":str1},function(data){
-				    		if(data=='success'){
-				    			layer.msg("修改成功!请重新登陆!");
-								layer.close(index);
-								$('#update').addClass("hide");
-				    			window.location.href="logout";
-				    		}else{
-					    		layer.msg("密码错误!请重新输入.");
-					    		return;
-				    		}
-				    	});
-				    },
-				    cancel: function(index){
-				        layer.close(index);
-						$('#update').addClass("hide");
-				    },
-				});
-			};
-		</script>
-		<script type="text/javascript">
-		// 个人信息
-		function personInfo(){
-			$("#user_Info").removeClass("hide");
-			$("#g_btn").show();
-			$("#g_name").attr("readonly","readonly");
-			$("#g_phone").attr("readonly","readonly");
-			$("#g_mail").attr("readonly","readonly");
-			userModel = layer.open({
-			    type: 1,
-			    shade: [0.5],
-			    title: '个人信息', 
-			    area: ['20%', '300px'],
-			    content: $('#user_Info'), //捕获的元素
-			    btn: [ '确认','取消'],
-			    yes: function(index, layero){ 
-			    	if($("#g_name").attr("readonly")==false){
-			    		// 修改了信息,需要提交信息
-			    		$.post("",{},function(data){
-				    		if(data=='success'){
-				    			layer.msg("修改成功!");
-				    		}else{
-					    		layer.msg("修改失败，请重试!");
-					    		return;
-				    		}
-				    	});
-			    	}
-			    	layer.close(index);
-					$('#update').addClass("hide");
-			    },
-			    cancel: function(index){
-			        layer.close(index);
-					$('#update').addClass("hide");
-			    },
+		},
+		cancel: function(index){
+			layer.close(index);
+			layer.msg("取消");
+		},
+	});
+};		
+		
+/**
+ * 修改个人信息
+ */
+function personInfo() {
+	userModel = layer.open({
+		type : 1,
+		shade : [ 0.5 ],
+		title : '个人信息',
+		area : [ '30%', '300px' ],
+		content : $('#userInfo'), //捕获的元素
+		btn : [ '确认', '取消' ],
+		yes : function(index, layero) {
+			var name = $("#userName").html();
+			var phone = $("#userPhone").val();
+			var email = $("#userEmail").val();
+			
+			if(name==""||phone==""||email==""){
+				layer.msg("请将信息填写完整！");
+				return;
+			}else if(isExist()){ // 验证邮箱、手机号是否重复
+				return;
+			}
+			
+			$.post("updateUserInfo", {"name":name,"phone":phone,"email":email}, function(resp) {
+				if (resp == 'success') {
+					layer.msg("修改成功!");
+					loadUserInfo();
+				} else {
+					layer.msg("修改失败!");
+				}
 			});
-		}
-		
-		// 修改用户信息按钮事件
-		function updateInfo(){
-			$("#g_btn").hide();
-			$("#g_name").removeAttr("readonly");
-			$("#g_phone").removeAttr("readonly");
-			$("#g_mail").removeAttr("readonly");
-		}
-		</script>
-		
+			layer.close(index);
+		},
+		cancel : function(index) {
+			layer.close(index);
+			layer.msg("取消");
+		},
+	});
+}
+
+/**
+ * 验证手机号、邮箱是否已绑定其他账号
+ */
+function isExist(){
+	var isExist = false;  // 定义返回值变量
+
+	var url = "user/isExist"; // 定义请求地址
+	
+	var	data = {
+		"email" : $("#userEmail").val(),
+		"phone" : $("#userPhone").val(),
+		"userId" : $("#userId").val(),
+	};
+	
+	$.ajax({ type:"POST", url : url, async : false, data : data,
+		 success : function(resp){
+			 if(resp!=0){ // 存在重复
+				isExist = true;  // 将查询的结果赋给返回值
+				if(resp==1){
+					layer.msg("该邮箱已经绑定其他账号，请更换邮箱");
+				}else if(resp==2){
+					layer.msg("该手机号已经绑定其他账号，请更换手机号");
+				}else{
+					layer.msg("该邮箱和手机号已绑定其他账号，请更换邮箱和手机号");
+				}
+			}
+		} 
+	});
+	return isExist;
+}
+</script>
 		
 <script type="text/javascript">
+/**
+ * 退出系统
+ */
 	$("#signout").click(function(){
-		//询问框
 		layer.confirm('确定是否退出？', {
-		  btn: ['确定','取消'] //按钮
+		  btn: ['确定','取消'] 
 		}, function(){
 			window.location.href="logout";
 		}, function(){
 			 layer.msg("已取消");
 		});
-	});
-	$("#flush").click(function(){
-		window.location.reload(true);
 	});
 </script>
 

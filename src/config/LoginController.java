@@ -1,4 +1,6 @@
 package config;
+import model.userLoginModel;
+
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
 public class LoginController extends Controller{
@@ -15,7 +17,7 @@ public void index(){
  */
 public void login(){
 	String user = getPara("user");
-	String pwd = HashKit.md5(HashKit.sha1(getPara(getPara("pwd")))); // 获取密码进行md5加密处理; 
+	String pwd = HashKit.md5(HashKit.sha1(getPara("pwd"))); // 将用户密码进行加密 
 
 	
 }
@@ -35,14 +37,50 @@ public void first(){
 }
 
 /**
+ * 获取登录人信息
+ */
+public void getUserInfo(){
+	String userId =  getSession().getAttribute("userLoginId").toString(); // 获取登录人的session值
+	userLoginModel userInfo = userLoginModel.dao.findById(userId);  // 获取登录人信息
+	renderJson(userInfo);
+}
+
+/**
  * 修改密码
  */
 public void updatePwd(){
-	String oldPwd = getPara("oldPwd");
-	String newPwd = getPara("newPwd");
-	// MD5加密
-	String user = getSession().getAttribute("user").toString();
+	String oldPwd = HashKit.md5(HashKit.sha1(getPara("oldPwd"))); // 获取加密后的原密码
+	String newPwd = HashKit.md5(HashKit.sha1(getPara("newPwd"))); // 获取加密后的新密码
+	String userId =  getSession().getAttribute("userLoginId").toString(); // 获取登录人的session值
 	
+	boolean isTrue = userLoginModel.dao.isTrueOldpwd(oldPwd,userId); // 验证旧密码是否正确
+	if(isTrue){
+		boolean isUpdateTrue = userLoginModel.dao.updatePwd(newPwd, userId); // 更新用户密码
+		if(isUpdateTrue){
+			renderText("success");
+		}else{
+			renderText("updateError");
+		}
+	}else{
+		renderText("oldPwdError");
+	}
+}
+
+/**
+ * 修改个人信息
+ */
+public void updateUserInfo(){
+	String userId =  getSession().getAttribute("userLoginId").toString(); // 获取登录人的session值
+	String name = getPara("name");
+	String phone = getPara("phone");
+	String email = getPara("email");
+	
+	boolean isTrue = userLoginModel.dao.updateUserInfo(name, phone, email, userId); // 修改用户信息
+	if(isTrue){
+		renderText("success");
+	}else{
+		renderText("error");
+	}
 }
 
 /**
