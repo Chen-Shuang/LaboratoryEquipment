@@ -326,7 +326,9 @@
 
 getNeedItemsInfo(1); // 初始加载数据
 
-// 获取需购设备信息
+/**
+ * 获取需购设备信息
+ */
 function getNeedItemsInfo(curr) {
 	var sTime = $("#LAY_demorange_s1").val(); // 获取起始时间 
 	var eTime = $("#LAY_demorange_e1").val(); // 获取终止时间
@@ -397,7 +399,9 @@ function packlist1(v,curr) {
 	return dataStr;
 };
 
-// 修改审核设备信息
+/**
+ * 修改审核设备信息
+ */
 function updateItemInfo1(itemsId,curr){
 	$("input").val(""); // 清空文本框数据
 	// 填充弹框信息
@@ -453,7 +457,9 @@ function updateItemInfo1(itemsId,curr){
 	});
 }
 
-//详情
+/**
+ * 详情
+ */
 function detailItemInfo1(itemsId,curr){
 	$("input").val(""); // 清空文本框数据
 	// 填充弹框信息
@@ -486,7 +492,10 @@ function detailItemInfo1(itemsId,curr){
 		},
 	});
 }
-// 删除设备信息
+
+/**
+ * 删除设备信息
+ */
 function delItemInfo1(itemsId,curr){
 	layer.confirm("你确定删除吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("need/delItemInfo", {"itemsId":itemsId}, function(resp) {
@@ -502,7 +511,9 @@ function delItemInfo1(itemsId,curr){
 	});
 }
 
-//更改设备状态
+/**
+ * 更改设备状态
+ */
 function buyItemInfo1(itemsId,curr){
 	layer.confirm("你确定该设备已购买吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("need/buyItemInfo", {"itemsId":itemsId}, function(resp) {
