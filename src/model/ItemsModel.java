@@ -2,6 +2,7 @@ package model;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
 /**
  * 设备基本信息
  * @author 陈爽  
@@ -11,6 +12,28 @@ import com.jfinal.plugin.activerecord.Model;
 public class ItemsModel extends Model<ItemsModel> {
 
 	public static final ItemsModel dao= new ItemsModel();
+	
+	/**
+	 * 按分页所有的设备信息
+	 * @param curr 当前页
+	 * @param size 页面显示数量
+	 * @param search 查询内容
+	 * @param sTime 起始时间
+	 * @param eTime 结束时间
+	 * @param status 设备状态
+	 * @return 返回该页设备信息
+	 */
+	public Page<ItemsModel> allItemsInfo(int curr, int size, String search, String sTime, String eTime, int status){
+		if(status==-2){
+			return paginate(curr, size, "select *",
+					" from items a where  concat(a.code,a.name,a.type) like '%"+search+"%' "
+							+ "and a.createTime >= '"+sTime+"' and a.createTime <= '"+eTime+"' order by a.createTime desc");
+		}else{
+			return paginate(curr, size, "select *",
+					" from items a where  concat(a.code,a.name,a.type) like '%"+search+"%' and a.status="+status+" "
+							+ "and a.createTime >= '"+sTime+"' and a.createTime <= '"+eTime+"' order by a.createTime desc");
+		}
+	}
 	
 	/**
 	 * 删除设备信息
