@@ -324,7 +324,9 @@
 
 getNeedItemsInfo(1); // 初始加载数据
 
-// 获取需购设备信息
+/**
+ * 获取需购设备信息
+ */
 function getNeedItemsInfo(curr) {
 	var sTime = $("#LAY_demorange_s").val(); // 获取起始时间 
 	var eTime = $("#LAY_demorange_e").val(); // 获取终止时间
@@ -390,7 +392,9 @@ function packlist(v,curr) {
 	return dataStr;
 };
 
-// 修改设备信息
+/**
+ * 修改设备信息
+ */
 function updateItemInfo(itemsId,curr){
 	$("input").val(""); // 清空文本框数据
 	// 填充弹框信息
@@ -435,7 +439,9 @@ function updateItemInfo(itemsId,curr){
 	});
 }
 
-// 删除设备信息
+/**
+ * 删除设备信息
+ */
 function delItemInfo(itemsId,curr){
 	layer.confirm("你确定删除吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("need/delItemInfo", {"itemsId":itemsId}, function(resp) {
@@ -451,7 +457,9 @@ function delItemInfo(itemsId,curr){
 	});
 }
 
-//更改设备状态
+/**
+ * 更改设备状态
+ */
 function buyItemInfo(itemsId,curr){
 	layer.confirm("你确定设备已购买吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("need/buyItemInfo", {"itemsId":itemsId}, function(resp) {
@@ -466,7 +474,10 @@ function buyItemInfo(itemsId,curr){
 		layer.msg("取消");
 	});
 }
-//设备购买申请表下载
+
+/**
+ * 设备购买申请表下载
+ */
 function downloadNeedItemsWord() {
 	var sTime = $("#LAY_demorange_s").val(); // 获取起始时间 
 	var eTime = $("#LAY_demorange_e").val(); // 获取终止时间
@@ -479,7 +490,9 @@ function downloadNeedItemsWord() {
 
 <!-- 需购设备添加 -->
 <script type="text/javascript">
-//添加需购设备
+/**
+ * 添加需购设备
+ */
 function addNeedItem() {
 	$("input").val(""); // 清空文本框数据
 	layer.open({
@@ -507,7 +520,9 @@ function addNeedItem() {
 	});
 };
 
-// 下载模板文件
+/**
+ * 下载模板文件
+ */
 function downloadTemplate(type){
 	window.location.href="need/downloadTemplate?type="+type;
 }
