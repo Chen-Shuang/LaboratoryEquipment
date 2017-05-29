@@ -21,10 +21,15 @@ public class scrapItemsModel extends Model<scrapItemsModel> {
 	 * @return 返回该页设备信息
 	 */
 	public Page<scrapItemsModel> getScrapItemsInfo(int curr, int size, String search, String sTime, String eTime, int status){
-		return paginate(curr, size, "select a.*,b.*,a.id items_id,b.status scrap_status",
-				" from items a,scrap_items b where a.status=3 and b.status='"+status+"' and a.id=b.items_id and concat(a.code,a.name,a.type) like '%"+search+"%' "
-						+ "and b.scrapDate >= '"+sTime+"' and b.scrapDate <= '"+eTime+"' order by a.createTime desc");
-		
+		if(status==-1){ // 驳回
+			return paginate(curr, size, "select a.*,b.*,a.id items_id,b.status scrap_status",
+					" from items a,scrap_items b where  b.status=-1 and a.id=b.items_id and concat(a.code,a.name,a.type) like '%"+search+"%' "
+							+ "and b.scrapDate >= '"+sTime+"' and b.scrapDate <= '"+eTime+"' order by a.createTime desc");
+		}else{
+			return paginate(curr, size, "select a.*,b.*,a.id items_id,b.status scrap_status",
+					" from items a,scrap_items b where a.status=3 and b.status='"+status+"' and a.id=b.items_id and concat(a.code,a.name,a.type) like '%"+search+"%' "
+							+ "and b.scrapDate >= '"+sTime+"' and b.scrapDate <= '"+eTime+"' order by a.createTime desc");
+		}
 	}
 	
 	/**

@@ -53,6 +53,7 @@
 											<select name="interest" onchange="getScrapItemsInfo(1);" id="status_select" lay-filter="aihao">
 												<option value="0">待审核</option>
 												<option value="1">已报废</option>
+												<option value="-1">驳回</option>
 											</select>
 										</th>
 										<th class="col-xs-1">报废日期</th>
@@ -206,8 +207,10 @@ function packlist(v,curr) {
 	dataStr += '<td>' + v.userName + '</td>';
 	if(v.scrap_status==0){
 		dataStr += '<td>待审核</td>';
-	}else{
+	}else if(v.scrap_status==1){
 		dataStr += '<td>已报废</td>';
+	}else{
+		dataStr += '<td>驳回</td>';
 	}
 	dataStr += '<td>' + v.scrapDate + '</td>';
 	dataStr += '<td> <div class="hidden-sm hidden-xs action-buttons">';

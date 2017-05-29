@@ -2,66 +2,142 @@
 	<div class="main-content-inner">
 		<div class="breadcrumbs" id="breadcrumbs">
 			<ul class="breadcrumb">
-				<li><i class="ace-icon fa fa-home home-icon"></i> <a href="">首页</a></li>
+				<li><i class="ace-icon fa fa-home home-icon"></i> <a>首页</a></li>
 				<li class="active">设备审核</li>
 			</ul>
 		</div>
-		<!--内容部分 -->
-		<div class="page-content">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="clearfix"></div>
-					<div>
-						<div id="dynamic-table_wrapper"
-							class="dataTables_wrapper form-inline no-footer">
-							<div class="row" style="height: 50px;">
+		<div class="tabbable">
+			<ul class="nav nav-tabs padding-12 tab-color-blue background-blue"
+				id="myTab4">
+				<li class="active"><a data-toggle="tab" href="#home4"
+					onclick="getNewItemsInfo(1)" aria-expanded="true">需购审核</a></li>
+				<li class=""><a data-toggle="tab" href="#profile4"
+					aria-expanded="false">报废审核</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="home4" class="tab-pane active">
+					<!-- 第一个标签 -->
+					<div class="row">
+						<div class="col-xs-12">
+							<div id="dynamic-table_wrapper"
+								class="dataTables_wrapper form-inline no-footer">
+								<div class="row" style="height: 50px;">
 									<div class="nav-search col-xs-7" >
 										<span class="input-icon" style="float: right;">
-											<button onclick="getScrapItemsInfo(1);" type="button"  class="btn btn-info btn-sm" style="float: right;">
+											<button onclick="getNeedItemsInfo(1);" type="button"  class="btn btn-info btn-sm" style="float: right;">
 											查询
 											</button>
 										</span>
 										<span class="input-icon" style="float: right;"> <input
 											style="float: left;" type="text" placeholder="关键字查询 "
-											class="nav-search-input" onkeyup="getScrapItemsInfo(1)"
-											id="search_input" autocomplete="off"> <i
+											class="nav-search-input" onkeyup="getNeedItemsInfo(1)"
+											id="search_input1" autocomplete="off"> <i
 											class="ace-icon fa fa-search nav-search-icon"></i>
 										</span>
 										<span class="input-icon" style="float: right;"> 
 											<input class="nav-search-input" placeholder="截止日期"
-													id="LAY_demorange_e" >
+													id="LAY_demorange_e1" >
 										</span>
 										<span class="input-icon" style="float: right;"> 
 											<input class="nav-search-input" placeholder="开始日期"
-													id="LAY_demorange_s" >
+													id="LAY_demorange_s1" >
 										</span>
-								  </div>
+									</div>
+								</div>
+								<table
+									class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
+									id="dynamic-table" role="grid"
+									aria-describedby="dynamic-table_info">
+									<thead>
+										<tr>
+											<th class="col-xs-2">设备名称</th>
+											<th class="col-xs-1">类别</th>
+											<th class="col-xs-1">型号</th>
+											<th class="col-xs-1">需购数量</th>
+											<th class="col-xs-1">经办人</th>
+											<th class="col-xs-2">
+												审核状态
+												<select name="interest" onchange="getNeedItemsInfo(1);" id="status_select1" lay-filter="aihao">
+													<option value="0">待审核</option>
+													<option value="1">通过</option>
+													<option value="-1">驳回</option>
+													<option value="-2">已购</option>
+													<option value="2">全部</option>
+												</select>
+											</th>
+											<th class="col-xs-1.5">购置日期</th>
+											<th class="col-xs-2.5">操作</th>
+										</tr>
+									</thead>
+									<tbody id="itemsPage1">
+									</tbody>
+								</table>
+								<!-- 分页 -->
+								<hr>
+								<div id="page1" style="float: right;"></div>
 							</div>
-							<table
-								class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
-								id="dynamic-table" role="grid"
-								aria-describedby="dynamic-table_info">
-								<thead>
-									<tr>
-										<th class="col-xs-1">设备编号</th>
-										<th class="col-xs-1">设备名称</th>
-										<th class="col-xs-1">类别</th>
-										<th class="col-xs-1">型号</th>
-										<th class="col-xs-1">经办人</th>
-										<th class="col-xs-1">
-											状态
-											<select name="interest" onchange="getScrapItemsInfo(1);" id="status_select" lay-filter="aihao">
-												<option value="0">待审核</option>
-												<option value="1">已报废</option>
-											</select>
-										</th>
-										<th class="col-xs-1">报废日期</th>
-										<th class="col-xs-2">操作</th>
-									</tr>
-								</thead>
-								<tbody id="itemsPage">
-								</tbody>
-							</table>
+						</div>
+					</div>
+				</div>
+				<div id="profile4" class="tab-pane">
+					<!-- 第二个标签 -->
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="clearfix"></div>
+							<div>
+								<div id="dynamic-table_wrapper"
+									class="dataTables_wrapper form-inline no-footer">
+									<div class="row" style="height: 50px;">
+										<div class="nav-search col-xs-7">
+											<span class="input-icon" style="float: right;">
+												<button onclick="getScrapItemsInfo(1);" type="button"
+													class="btn btn-info btn-sm" style="float: right;">
+													查询</button>
+											</span> <span class="input-icon" style="float: right;"> <input
+												style="float: left;" type="text" placeholder="关键字查询 "
+												class="nav-search-input" onkeyup="getScrapItemsInfo(1)"
+												id="search_input2" autocomplete="off"> <i
+												class="ace-icon fa fa-search nav-search-icon"></i>
+											</span> <span class="input-icon" style="float: right;"> <input
+												class="nav-search-input" placeholder="截止日期"
+												id="LAY_demorange_e2">
+											</span> <span class="input-icon" style="float: right;"> <input
+												class="nav-search-input" placeholder="开始日期"
+												id="LAY_demorange_s2">
+											</span>
+										</div>
+									</div>
+									<table
+										class="table table-striped table-bordered table-hover dataTable no-footer DTTT_selectable"
+										id="dynamic-table" role="grid"
+										aria-describedby="dynamic-table_info">
+										<thead>
+											<tr>
+												<th class="col-xs-1">设备编号</th>
+												<th class="col-xs-1">设备名称</th>
+												<th class="col-xs-1">类别</th>
+												<th class="col-xs-1">型号</th>
+												<th class="col-xs-1">经办人</th>
+												<th class="col-xs-1">状态 <select name="interest"
+													onchange="getScrapItemsInfo(1);" id="status_select2"
+													lay-filter="aihao">
+														<option value="0">待审核</option>
+														<option value="1">已报废</option>
+														<option value="-1">驳回</option>
+												</select>
+												</th>
+												<th class="col-xs-1">报废日期</th>
+												<th class="col-xs-2">操作</th>
+											</tr>
+										</thead>
+										<tbody id="itemsPage2">
+										</tbody>
+									</table>
+									<!-- 分页 -->
+								<hr>
+								<div id="page2" style="float: right;"></div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -69,27 +145,18 @@
 		</div>
 	</div>
 </div>
-
-<!-- 详情修改弹框 -->
-<div id="toScrapItemContent" hidden="hidden" >
-	<form id="toScrapItemform" action="#" method="post">
-		<input id="items_id" name="items.id" type="text" hidden="hidden">
-		<input id="scrapItems_id" name="scrap_items.id" type="text" hidden="hidden">
+<!-- 修改审核需购设备弹框 -->
+<div id="updateNeedItemContent" hidden="hidden" >
+	<form id="updateNeedItemform" action="#" method="post">
 		<div class="col-xs-12">&nbsp;</div>
+		<input id="need_items_id" name="items.id" type="text" hidden="hidden">
+		<input id="needItems_id" name="need_items.id" type="text" hidden="hidden">
 		<div class="col-xs-12">
-			<div class="col-xs-12">
-				<label class="col-sm-2 control-label no-padding-right"
-					for="form-field-1">设备编码</label>
-				<div class="col-sm-10" style="float: left">
-					<input id="items_code" type="text" class="form-control" readonly="readonly" />
-				</div>
-			</div>
-			<div class="col-xs-12">&nbsp;</div>
 			<div class="col-xs-12">
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">设备名称</label>
 				<div class="col-sm-10" style="float: left">
-					<input id="items_name" name="items.name" type="text" class="form-control" placeholder="必填" maxlength="30" />
+					<input id="need_items_name" type="text" class="form-control" name="items.name" placeholder="必填" maxlength="30" />
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -97,7 +164,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">设备类别</label>
 				<div class="col-sm-10" style="float: left">
-					<input id="items_type" name="items.type" type="text" class="form-control" placeholder="必填" maxlength="30" />
+					<input id="need_items_type" type="text" class="form-control" name="items.type" placeholder="必填" maxlength="30"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -105,7 +172,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">设备型号</label>
 				<div class="col-sm-10" style="float: left">
-					<input id="items_modelNum" name="items.modelNum" type="text" class="form-control" placeholder="必填" maxlength="30"/>
+					<input id="need_items_modelNum" type="text" class="form-control" name="items.modelNum" placeholder="必填" maxlength="30"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -113,7 +180,115 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">规格</label>
 				<div class="col-sm-10" style="float: left">
-					<input id="items_norms" name="items.norms" type="text" class="form-control" placeholder="必填" maxlength="30"/>
+					<input id="need_items_norms" type="text" class="form-control" name="items.norms" placeholder="必填" maxlength="30"/>
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">单价（元）</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="needItems_price" type="text" class="form-control" name="need_items.price" placeholder="必填" onkeyup="value=value.replace(/[\W]/g,'')" maxlength="6"/>
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">需购数量</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="needItems_number" type="text" class="form-control" name="need_items.number" placeholder="必填" onkeyup="value=value.replace(/[\W]/g,'')" maxlength="10"/>
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">购置日期</label>
+				<div class="col-sm-10 layui-inline" style="float: left">
+					<input id="needItems_purchaseDate" name="need_items.purchaseDate" class="layui-input " placeholder="选择日期（必填）"  
+					onclick="layui.laydate({elem: this, festival: true})">
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">生产厂家</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="needItems_vender" type="text" class="form-control" name="need_items.vender" placeholder="必填" maxlength="50"/>
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">保质期（年）</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="needItems_expirationDate" type="text" class="form-control" name="need_items.expirationDate" placeholder="必填" onkeyup="value=value.replace(/[\W]/g,'')" maxlength="3"/>
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">经办人</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="needItems_userName" type="text" class="form-control" name="need_items.userName" placeholder="必填" maxlength="10"/>
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">备注</label>
+				<div class="col-sm-10" style="float: left">
+					<textarea id="needItems_remark" class="form-control" name="need_items.remark" placeholder="选填" maxlength="50"></textarea>
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+		</div>
+	</form>
+</div>
+
+<!-- 修改审核报废弹框 -->
+<div id="toScrapItemContent" hidden="hidden" >
+	<form id="toScrapItemform" action="#" method="post">
+		<input id="scrap_items_id" name="items.id" type="text" hidden="hidden">
+		<input id="scrapItems_id" name="scrap_items.id" type="text" hidden="hidden">
+		<div class="col-xs-12">&nbsp;</div>
+		<div class="col-xs-12">
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">设备编码</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="scrap_items_code" type="text" class="form-control" readonly="readonly" />
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">设备名称</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="scrap_items_name" name="items.name" type="text" class="form-control" placeholder="必填" maxlength="30" />
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">设备类别</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="scrap_items_type" name="items.type" type="text" class="form-control" placeholder="必填" maxlength="30" />
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">设备型号</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="scrap_items_modelNum" name="items.modelNum" type="text" class="form-control" placeholder="必填" maxlength="30"/>
+				</div>
+			</div>
+			<div class="col-xs-12">&nbsp;</div>
+			<div class="col-xs-12">
+				<label class="col-sm-2 control-label no-padding-right"
+					for="form-field-1">规格</label>
+				<div class="col-sm-10" style="float: left">
+					<input id="scrap_items_norms" name="items.norms" type="text" class="form-control" placeholder="必填" maxlength="30"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -145,6 +320,205 @@
 		</div>
 	</form>
 </div>
+
+<!-- 需购设备查看 -->
+<script type="text/javascript">
+
+getNeedItemsInfo(1); // 初始加载数据
+
+// 获取需购设备信息
+function getNeedItemsInfo(curr) {
+	var sTime = $("#LAY_demorange_s1").val(); // 获取起始时间 
+	var eTime = $("#LAY_demorange_e1").val(); // 获取终止时间
+	var needStatus = $("#status_select1").val(); // 获取选择框的状态值
+	var search = $("#search_input1").val();  // 获取搜索框中信息
+	$.post("need/getNeedItemsInfo", {"curr":curr,"size":10,"search":search,"sTime":sTime,"eTime":eTime,"needStatus":needStatus},
+	function(resp) {
+		pack1(resp.list,curr);  // 填充表格数据
+		laypage({  // 调用分页
+			cont : $('#page1'), // 分页容器。
+			pages : resp.totalPage, // 总页数
+			skin : '#2283C5',//保持ace中间的样式
+			first : 1,
+			last : resp.totalPage, //总页数，将尾页显示为总页数
+			curr : resp.pageNumber,//当前页
+			groups : 5, //连续显示分页数
+			jump : function(obj, first) {
+				if (!first) { //一定要加此判断，否则初始时会无限刷新
+					getNeedItemsInfo(obj.curr);
+				}
+			}
+		});
+	});
+}
+function pack1(data,curr) { // 填充表格数据
+	var dataStr = "";
+	$.each(data, function(i, v) {
+		dataStr += packlist1(v,curr);
+	});
+	$("#itemsPage1").html(dataStr);
+}
+function packlist1(v,curr) { 
+	var dataStr = "";
+	dataStr += '<tr>';
+	dataStr += '<td>' + v.name + '</td>';
+	dataStr += '<td>' + v.type + '</td>';
+	dataStr += '<td>' + v.modelNum + '</td>';
+	dataStr += '<td>' + v.number + '</td>';
+	dataStr += '<td>' + v.userName + '</td>';
+	if(v.need_status==0){
+		dataStr += '<td>待审核</td>';
+	}else if(v.need_status==1){
+		dataStr += '<td>通过</td>';
+	}else if(v.need_status==-1){
+		dataStr += '<td>驳回</td>';
+	}else{
+		dataStr += '<td>已购买</td>';
+	}
+	dataStr += '<td>' + v.purchaseDate + '</td>';
+	dataStr += '<td> <div class="hidden-sm hidden-xs action-buttons">';
+	if(v.need_status==0){
+		dataStr += '<button class="layui-btn layui-btn-small" onclick="updateItemInfo1('
+			+ v.items_id + "," + curr + ')">修改审核</button> ';
+	}else{
+		dataStr += '<button class="layui-btn layui-btn-small" onclick="detailItemInfo1('
+			+ v.items_id + "," + curr + ')">详情</button> ';
+	}
+	
+	dataStr += '<button class="layui-btn layui-btn-danger layui-btn-small"  onclick="delItemInfo1('
+		+ v.items_id + "," + curr + ')">删除</button>'; 
+	if(v.need_status!=-2){
+		dataStr += '<button class="layui-btn btn-success layui-btn-small"  onclick="buyItemInfo1('
+			+ v.items_id + "," + curr + ')">已购</button>'; 
+	}
+	dataStr += '</div> </td>';
+	
+	dataStr += '</tr>';
+	return dataStr;
+};
+
+// 修改审核设备信息
+function updateItemInfo1(itemsId,curr){
+	$("input").val(""); // 清空文本框数据
+	// 填充弹框信息
+	$.post("need/getNeedItemInfo", {"itemsId":itemsId}, function(resp) {
+		$("#need_items_id").val(resp.items_id);
+		$("#need_items_name").val(resp.name);
+		$("#need_items_type").val(resp.type);
+		$("#need_items_modelNum").val(resp.modelNum);
+		$("#need_items_norms").val(resp.norms);
+		$("#needItems_id").val(resp.need_id);
+		$("#needItems_price").val(resp.price);
+		$("#needItems_number").val(resp.number);
+		$("#needItems_purchaseDate").val(resp.purchaseDate);
+		$("#needItems_vender").val(resp.vender);
+		$("#needItems_expirationDate").val(resp.expirationDate);
+		$("#needItems_userName").val(resp.userName);
+		$("#needItems_remark").val(resp.remark);
+	});
+	
+	layer.open({
+		type : 1,
+		shade : [ 0.5 ],
+		title : '修改审核需购设备', 
+		area : [ '35%', '450px' ], //显示空间
+		content : $('#updateNeedItemContent'), //捕获的元素
+		btn : [ '通过','驳回', '取消' ],
+		yes : function(index, layero) { 
+			$.post("audit/auditPassNeedItem", $("#updateNeedItemform").serialize(), function(resp) {
+				if(resp=="success"){
+					getNeedItemsInfo(curr);
+					layer.msg("审核成功");
+				}else{
+					layer.msg("审核失败");
+				}
+				layer.close(index);
+			});
+		},
+		btn2 : function(index, layero) {
+			$.post("audit/auditRejectNeedItem", $("#updateNeedItemform").serialize(), function(resp) {
+				if(resp=="success"){
+					getNeedItemsInfo(curr);
+					layer.msg("驳回成功");
+				}else{
+					layer.msg("驳回失败");
+				}
+				layer.close(index);
+			});
+		},
+		btn3 : function(index) {
+			layer.close(index);
+			layer.msg("取消");
+		}, 
+	});
+}
+
+//详情
+function detailItemInfo1(itemsId,curr){
+	$("input").val(""); // 清空文本框数据
+	// 填充弹框信息
+	$.post("need/getNeedItemInfo", {"itemsId":itemsId}, function(resp) {
+		$("#need_items_id").val(resp.items_id);
+		$("#need_items_name").val(resp.name);
+		$("#need_items_type").val(resp.type);
+		$("#need_items_modelNum").val(resp.modelNum);
+		$("#need_items_norms").val(resp.norms);
+		$("#needItems_id").val(resp.need_id);
+		$("#needItems_price").val(resp.price);
+		$("#needItems_number").val(resp.number);
+		$("#needItems_purchaseDate").val(resp.purchaseDate);
+		$("#needItems_vender").val(resp.vender);
+		$("#needItems_expirationDate").val(resp.expirationDate);
+		$("#needItems_userName").val(resp.userName);
+		$("#needItems_remark").val(resp.remark);
+	});
+	
+	layer.open({
+		type : 1,
+		shade : [ 0.5 ],
+		title : '详情', 
+		area : [ '35%', '450px' ], //显示空间
+		content : $('#updateNeedItemContent'), //捕获的元素
+		btn : [ '关闭' ],
+		yes : function(index, layero) { 
+			layer.close(index);
+			layer.msg("取消");
+		},
+	});
+}
+// 删除设备信息
+function delItemInfo1(itemsId,curr){
+	layer.confirm("你确定删除吗？",{ btn:['确定','取消']}, function(){ 
+		$.post("need/delItemInfo", {"itemsId":itemsId}, function(resp) {
+			if(resp=="success"){
+				getNeedItemsInfo(curr); // 刷新数据
+				layer.msg("删除成功");
+			}else{
+				layer.msg("删除失败");
+			}
+		});	
+	},function(){ 
+		layer.msg("取消");
+	});
+}
+
+//更改设备状态
+function buyItemInfo1(itemsId,curr){
+	layer.confirm("你确定该设备已购买吗？",{ btn:['确定','取消']}, function(){ 
+		$.post("need/buyItemInfo", {"itemsId":itemsId}, function(resp) {
+			if(resp=="success"){
+				getNeedItemsInfo(curr); // 刷新数据
+				layer.msg("修改成功");
+			}else{
+				layer.msg("修改失败");
+			}
+		});	
+	},function(){ 
+		layer.msg("取消");
+	});
+}
+
+</script>
 <!-- 报废设备信息查看 -->
 <script type="text/javascript">
 
@@ -154,10 +528,10 @@ getScrapItemsInfo(1); // 初始加载数据
  * 获取待修设备信息
  */
 function getScrapItemsInfo(curr) {
-	var sTime = $("#LAY_demorange_s").val(); // 获取起始时间 
-	var eTime = $("#LAY_demorange_e").val(); // 获取终止时间
-	var search = $("#search_input").val();  // 获取搜索框中信息
-	var status = $("#status_select").val(); // 获取设备状态
+	var sTime = $("#LAY_demorange_s2").val(); // 获取起始时间 
+	var eTime = $("#LAY_demorange_e2").val(); // 获取终止时间
+	var search = $("#search_input2").val();  // 获取搜索框中信息
+	var status = $("#status_select2").val(); // 获取设备状态
 	
 	var getUrl = "scrap/getScrapItemsInfo";  // 待修设备接口
 	var data = {      // 所需参数
@@ -169,9 +543,9 @@ function getScrapItemsInfo(curr) {
 			"status":status
 		};
 	$.post(getUrl, data, function(resp) {
-		pack(resp.list,curr);  // 填充表格数据
+		pack2(resp.list,curr);  // 填充表格数据
 		laypage({  // 调用分页
-			cont : $('#page5'), // 分页容器。
+			cont : $('#page2'), // 分页容器。
 			pages : resp.totalPage, // 总页数
 			skin : '#2283C5',//保持ace中间的样式
 			first : 1,
@@ -186,14 +560,14 @@ function getScrapItemsInfo(curr) {
 		});
 	});
 }
-function pack(data,curr) { // 填充表格数据
+function pack2(data,curr) { // 填充表格数据
 	var dataStr = "";
 	$.each(data, function(i, v) {
-		dataStr += packlist(v,curr);
+		dataStr += packlist2(v,curr);
 	});
-	$("#itemsPage").html(dataStr);
+	$("#itemsPage2").html(dataStr);
 }
-function packlist(v,curr) { 
+function packlist2(v,curr) { 
 	var dataStr = "";
 	dataStr += '<tr>';
 	dataStr += '<td>' + v.code + '</td>';
@@ -203,14 +577,21 @@ function packlist(v,curr) {
 	dataStr += '<td>' + v.userName + '</td>';
 	if(v.scrap_status==0){
 		dataStr += '<td>待审核</td>';
-	}else{
+	}else if(v.scrap_status==1){
 		dataStr += '<td>已报废</td>';
+	}else{
+		dataStr += '<td>驳回</td>';
 	}
 	dataStr += '<td>' + v.scrapDate + '</td>';
 	dataStr += '<td> <div class="hidden-sm hidden-xs action-buttons">';
-	dataStr += '<button class="layui-btn layui-btn-small" onclick="updateItemInfo('
-		+ v.items_id + "," + curr + ')">修改审核</button> ';
-	dataStr += '<button class="layui-btn layui-btn-danger layui-btn-small"  onclick="delItemInfo('
+	if(v.scrap_status==0){
+		dataStr += '<button class="layui-btn layui-btn-small" onclick="updateItemInfo2('
+			+ v.items_id + "," + curr + ')">修改审核</button> ';
+	}else{
+		dataStr += '<button class="layui-btn layui-btn-small" onclick="detailItemInfo2('
+			+ v.items_id + "," + curr + ')">详情</button> ';
+	}
+	dataStr += '<button class="layui-btn layui-btn-danger layui-btn-small"  onclick="delItemInfo2('
 		+ v.items_id + "," + curr + ')">删除</button>';
 	dataStr += '</div> </td>';
 	
@@ -221,17 +602,17 @@ function packlist(v,curr) {
 /**
  * 修改审核报废信息
  */
-function updateItemInfo(itemsId,curr){
+function updateItemInfo2(itemsId,curr){
 	$("input").val(""); // 清空文本框数据
 	$("textarea").val(""); // 清空文本框数据
 	// 填充弹框信息
 	$.post("scrap/getScrapItemInfo", {"itemsId":itemsId}, function(resp) {
-		$("#items_id").val(resp.items_id);
-		$("#items_code").val(resp.code);
-		$("#items_name").val(resp.name);
-		$("#items_type").val(resp.type);
-		$("#items_modelNum").val(resp.modelNum);
-		$("#items_norms").val(resp.norms);
+		$("#scrap_items_id").val(resp.items_id);
+		$("#scrap_items_code").val(resp.code);
+		$("#scrap_items_name").val(resp.name);
+		$("#scrap_items_type").val(resp.type);
+		$("#scrap_items_modelNum").val(resp.modelNum);
+		$("#scrap_items_norms").val(resp.norms);
 		$("#scrapItems_id").val(resp.scrap_id);
 		$("#scrapItems_scrapDate").val(resp.scrapDate);
 		$("#scrapItems_userName").val(resp.userName); 
@@ -246,31 +627,72 @@ function updateItemInfo(itemsId,curr){
 		content : $('#toScrapItemContent'), //捕获的元素
 		btn : [ '通过','驳回', '取消' ],
 		yes : function(index, layero) { 
-			$.post("scrap/updateItemInfo", $("#toScrapItemform").serialize(), function(resp) {
+			$.post("audit/auditPassScrapItem", $("#toScrapItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getScrapItemsInfo(curr);
-					layer.msg("修改成功");
+					layer.msg("审核成功");
 				}else{
-					layer.msg("修改失败");
+					layer.msg("审核失败");
 				}
 				layer.close(index);
 			});
 		},
 		btn2 : function(index, layero){
-			// ---------------
+			$.post("audit/auditRejectScrapItem", $("#toScrapItemform").serialize(), function(resp) {
+				if(resp=="success"){
+					getScrapItemsInfo(curr);
+					layer.msg("驳回成功");
+				}else{
+					layer.msg("驳回失败");
+				}
+				layer.close(index);
+			});
 		},
-		cancel : function(index) {
+		btn3 : function(index) {
 			layer.close(index);
 			layer.msg("取消");
 		}, 
 	});
 }
 
+/**
+ * 详情
+ */
+function detailItemInfo2(itemsId,curr){
+	$("input").val(""); // 清空文本框数据
+	$("textarea").val(""); // 清空文本框数据
+	// 填充弹框信息
+	$.post("scrap/getScrapItemInfo", {"itemsId":itemsId}, function(resp) {
+		$("#scrap_items_id").val(resp.items_id);
+		$("#scrap_items_code").val(resp.code);
+		$("#scrap_items_name").val(resp.name);
+		$("#scrap_items_type").val(resp.type);
+		$("#scrap_items_modelNum").val(resp.modelNum);
+		$("#scrap_items_norms").val(resp.norms);
+		$("#scrapItems_id").val(resp.scrap_id);
+		$("#scrapItems_scrapDate").val(resp.scrapDate);
+		$("#scrapItems_userName").val(resp.userName); 
+		$("#scrapItems_remark").val(resp.remark);
+	});
+	
+	layer.open({
+		type : 1,
+		shade : [ 0.5 ],
+		title : '详情', 
+		area : [ '35%', '450px' ], //显示空间
+		content : $('#toScrapItemContent'), //捕获的元素
+		btn : [ '关闭' ],
+		yes : function(index, layero) { 
+			layer.close(index);
+			layer.msg("取消");
+		},
+	});
+}
 
 /**
  * 删除设备信息
  */
- function delItemInfo(itemsId,curr){
+ function delItemInfo2(itemsId,curr){
 	layer.confirm("你确定删除吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("repair/delItemInfo", {"itemsId":itemsId}, function(resp) {
 			if(resp=="success"){
@@ -287,7 +709,7 @@ function updateItemInfo(itemsId,curr){
 
 
 </script>
-<!-- 日期选择器 -->
+<!-- 日期选择器1 -->
 <script type="text/javascript">
 layui.use('laydate', function(){
   var laydate = layui.laydate;
@@ -311,11 +733,46 @@ layui.use('laydate', function(){
     }
   };
   
-   document.getElementById('LAY_demorange_s').onclick = function(){
+   document.getElementById('LAY_demorange_s1').onclick = function(){
     start.elem = this;
     laydate(start);
   }
-  document.getElementById('LAY_demorange_e').onclick = function(){
+  document.getElementById('LAY_demorange_e1').onclick = function(){
+    end.elem = this
+    laydate(end);
+  } 
+  
+});
+</script>
+<!-- 日期选择器2 -->
+<script type="text/javascript">
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  var start = {
+    min: '1900-01-01 23:59:59'//laydate.now()
+    ,max: '2099-06-16 23:59:59'
+    ,istoday: false
+    ,choose: function(datas){
+      end.min = datas; //开始日选好后，重置结束日的最小日期
+      end.start = datas //将结束日的初始值设定为开始日
+    }
+  };
+  
+  var end = {
+    min: '1900-01-01 23:59:59'//laydate.now()
+    ,max: '2099-06-16 23:59:59'
+    ,istoday: false
+    ,choose: function(datas){
+      start.max = datas; //结束日选好后，重置开始日的最大日期
+    }
+  };
+  
+   document.getElementById('LAY_demorange_s2').onclick = function(){
+    start.elem = this;
+    laydate(start);
+  }
+  document.getElementById('LAY_demorange_e2').onclick = function(){
     end.elem = this
     laydate(end);
   } 

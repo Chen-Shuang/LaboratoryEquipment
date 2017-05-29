@@ -44,5 +44,13 @@ public class newItemsModel extends Model<newItemsModel> {
 	public void updateRepairFinish(int itemsId){
 		Db.update("update new_items set status=0 where items_id=?",itemsId);
 	}
+	
+	/**
+	 * 报废审核驳回更新新添设备状态
+	 * @param itemsId 设备id
+	 */
+	public void auditRejectScrap(Long itemsId){
+		Db.update("update new_items set status=0 where items_id=?",itemsId);
+	}
 }
 
