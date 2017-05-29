@@ -453,7 +453,7 @@ function delItemInfo(itemsId,curr){
 
 //更改设备状态
 function buyItemInfo(itemsId,curr){
-	layer.confirm("你确定更改设备状态吗？",{ btn:['确定','取消']}, function(){ 
+	layer.confirm("你确定设备已购买吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("need/buyItemInfo", {"itemsId":itemsId}, function(resp) {
 			if(resp=="success"){
 				getNeedItemsInfo(curr); // 刷新数据
