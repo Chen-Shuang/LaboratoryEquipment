@@ -385,7 +385,10 @@ function updateUserInfo(id,curr){
 		}, 
 	});
 }
-//更改用户状态
+
+/**
+ * 更改用户状态
+ */
 function changeStatusInfo(id,curr,status){
 	layer.confirm("你确定更改设备状态吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("user/changeStatusInfo", {"id":id,"status":status}, function(resp) {
@@ -401,7 +404,9 @@ function changeStatusInfo(id,curr,status){
 	});
 }
 
-//删除用户
+/**
+ * 删除用户
+ */
 function delUserInfo(id,curr){
 	layer.confirm("你确定删除该用户吗？",{ btn:['确定','取消']}, function(){ 
 		$.post("user/delUserInfo", {"id":id,"status":status}, function(resp) {
