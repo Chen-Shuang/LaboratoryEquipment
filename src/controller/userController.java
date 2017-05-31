@@ -49,13 +49,14 @@ public class userController extends Controller{
 		boolean isTrue = userLogin.save(); // 保存用户信息，返回受影响行数
 	    
 	    if(isTrue){ // 保存成功
+	    	String Url = new changePwdController().changePwdUrl +HashKit.md5(HashKit.sha1(pwd));  // 修改密码地址（地址中添加了加密的密码）
 		    String name = getPara("user_login.name"); // 获取添加的用户姓名
 		    String email = getPara("user_login.email"); // 获取添加的用户邮箱
 	    	String subject = "您的邮箱已加入实验室设备管理系统";  // 定义邮件主题
 	    	String content = "亲爱的" + name + "！\r\n\r\n";  // 定义邮件内容;
 	    		   content += "欢迎使用实验室设备管理系统，您的邮箱已被管理员加入实验室设备管理系统，您的密码为"+pwd+"（打死都不能告诉别人）\r\n";  
 	    		   content += "请点击下列链接修改您的初始密码\r\n\r\n";
-	    		   content +=  "域名地址\r\n\r\n";
+	    		   content +=  Url+"\r\n\r\n";
 	    		   content +=  "郑州大学";
 	    	SendMail send = new SendMail(email,subject,content); // 定义线程、邮件对象
 	    	new Thread(send).start(); // 启动线程发送邮件 （发送邮件跟网速有关，如果不开启多线程，添加操作将会有延迟）

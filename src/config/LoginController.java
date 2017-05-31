@@ -4,6 +4,8 @@ import model.userLoginModel;
 
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
+
+import controller.changePwdController;
 public class LoginController extends Controller{
 
 /**
@@ -101,7 +103,7 @@ public void forgotPwd(){
 	userLoginModel user = userLoginModel.dao.getUserInfo(email); // 获取用户密码
 	String pwd = user.getStr("pwd");  // 获取加密过的密码
 	String name = user.getStr("name"); // 获取用户名
-	String Url = "http://106.14.170.241/change?p="+pwd;  // 修改密码地址（地址中添加了加密的密码）
+	String Url = new changePwdController().changePwdUrl +pwd;  // 修改密码地址（地址中添加了加密的密码）
 if(pwd==null){ // 判断用户所输入的邮箱账号是否存在
 		renderText("error");
 	}else{
@@ -118,5 +120,6 @@ if(pwd==null){ // 判断用户所输入的邮箱账号是否存在
 		renderText("success");
 	}
 }
+
 
 }

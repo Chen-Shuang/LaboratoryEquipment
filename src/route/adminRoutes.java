@@ -6,6 +6,7 @@ import config.ActController;
 import config.LoginController;
 import controller.allController;
 import controller.auditController;
+import controller.changePwdController;
 import controller.homeController;
 import controller.needController;
 import controller.newController;
@@ -29,5 +30,6 @@ public class adminRoutes extends Routes {
 		add("/scrap", scrapController.class,"WEB-INF/page/"); // 报废设备
 		add("/all", allController.class,"WEB-INF/page/"); // 全部设备
 		add("/user", userController.class,"WEB-INF/page/"); // 用户管理
+		add("/change",changePwdController.class,"WEB-INF/page/"); // 忘记密码
 	}
 }

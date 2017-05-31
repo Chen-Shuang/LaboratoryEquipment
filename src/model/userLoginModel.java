@@ -124,6 +124,22 @@ public class userLoginModel extends Model<userLoginModel> {
 	}
 	
 	/**
+	 * 修改密码
+	 * @param email 邮箱
+	 * @param oldPwd 旧密码
+	 * @param newPwd 新密码
+	 * @return 修改是否成功
+	 */
+	public boolean updatePwd(String email,String oldPwd,String newPwd){
+		int count = Db.update("update user_login set pwd='"+newPwd+"' where email='"+email+"' and pwd='"+oldPwd+"'");
+		if(count>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
 	 * 更新用户信息
 	 * @param name 用户名
 	 * @param phone 手机号
