@@ -118,15 +118,60 @@
 												</fieldset>
 											</form>
 
-											 <div class="social-or-login center">
-												<span class="bigger-110"></span>
-											</div> 
-											
 										</div><!-- /.widget-main -->
-
+										
+										<div class="toolbar clearfix">
+											<div>
+												<a href="#" data-target="#forgot-box" class="forgot-password-link">
+													<i class="ace-icon fa fa-arrow-left"></i>
+													忘记密码
+												</a>
+											</div>
+										</div>
 									</div><!-- /.widget-body -->
 								</div><!-- /.login-box -->
 
+								<div id="forgot-box" class="forgot-box widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header red lighter bigger">
+												<i class="ace-icon fa fa-key"></i>
+												修改密码
+											</h4>
+
+											<div class="space-6"></div>
+											<p>
+												填写您的邮箱，发送成功后查看您收到的邮件。
+											</p>
+
+											<form>
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input id="f_email" type="email" class="form-control" placeholder="请输入您的邮箱" />
+															<i class="ace-icon fa fa-envelope"></i>
+														</span>
+													</label>
+
+													<div class="clearfix">
+														<button onclick="forgotPwd();" type="button" class="width-35 pull-right btn btn-sm btn-danger">
+															<i class="ace-icon fa fa-lightbulb-o"></i>
+															<span class="bigger-110">发送邮件</span>
+														</button>
+													</div>
+												</fieldset>
+											</form>
+										</div><!-- /.widget-main -->
+
+										<div class="toolbar center">
+											<a href="#" data-target="#login-box" class="back-to-login-link">
+												登陆
+												<i class="ace-icon fa fa-arrow-right"></i>
+											</a>
+										</div>
+									</div><!-- /.widget-body -->
+								</div><!-- /.forgot-box -->
+								
 							</div><!-- /.position-relative -->
 
 							<div class="navbar-fixed-top align-right">
@@ -194,6 +239,24 @@
 			 });
 			 
 			});
+		</script>
+		<!-- 忘记密码 -->
+		<script type="text/javascript">
+			/**
+			 * 忘记密码，发送邮件链接修改密码
+			 */
+			function forgotPwd(){
+				var email = $("#f_email").val();  // 获取用户输入的邮箱
+				// 邮箱验证
+				$.post("forgotPwd",{"email":email},function(resp){
+					if(resp=="error"){
+						layer.msg("没有检索到您输入的邮箱账号");
+					}else{
+						layer.msg("邮件已发送，注意查收！");
+					}
+					
+				});
+			}
 		</script>
 	</body>
 </html>

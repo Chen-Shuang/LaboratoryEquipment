@@ -123,6 +123,14 @@ public class userLoginModel extends Model<userLoginModel> {
 		}
 	}
 	
+	/**
+	 * 更新用户信息
+	 * @param name 用户名
+	 * @param phone 手机号
+	 * @param email 邮箱
+	 * @param userId 用户id
+	 * @return true/false
+	 */
 	public boolean updateUserInfo(String name,String phone,String email,String userId){
 		int count = Db.update("update user_login set name='"+name+"',phone='"+phone+"',email='"+email+"' where id="+userId);
 		if(count>0){
@@ -130,5 +138,14 @@ public class userLoginModel extends Model<userLoginModel> {
 		}else{
 			return false;
 		}
+	}
+	
+	/**
+	 * 根据邮箱获得用户加密的密码
+	 * @param email 用户邮箱
+	 * @return 用户密码
+	 */
+	public userLoginModel getUserInfo(String email){
+		return userLoginModel.dao.findFirst("select pwd,name from user_login where email='"+email+"'");
 	}
 }

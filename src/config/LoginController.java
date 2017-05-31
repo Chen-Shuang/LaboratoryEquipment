@@ -1,4 +1,5 @@
 package config;
+import mail.SendMail;
 import model.userLoginModel;
 
 import com.jfinal.core.Controller;
@@ -91,5 +92,31 @@ public void logout(){
 	render("login.html");
 }
 
+/**
+ * 忘记密码
+ */
+public void forgotPwd(){
+	String email = getPara("email"); // 获取用户邮箱
+
+	userLoginModel user = userLoginModel.dao.getUserInfo(email); // 获取用户密码
+	String pwd = user.getStr("pwd");  // 获取加密过的密码
+	String name = user.getStr("name"); // 获取用户名
+	String Url = "http://106.14.170.241/change?p="+pwd;  // 修改密码地址（地址中添加了加密的密码）
+if(pwd==null){ // 判断用户所输入的邮箱账号是否存在
+		renderText("error");
+	}else{
+		// 开启另一个线程发送邮件，修改密码
+	    String subject = "实验室设备管理系统密码修改";  // 定义邮件主题
+	    String content = "亲爱的" + name + "！\r\n\r\n";  // 定义邮件内容;
+	    	   content += "您已申请实验室设备管理系统密码修改\r\n";  
+	    	   content += "请点击下列链接修改您的密码，如果不是本人，请忽略！\r\n\r\n";
+	    	   content +=  Url+"\r\n\r\n";
+	    	   content +=  "郑州大学";
+	    SendMail send = new SendMail(email,subject,content); // 定义线程、邮件对象
+	    new Thread(send).start(); // 启动线程发送邮件 （发送邮件跟网速有关，如果不开启多线程，添加操作将会有延迟）
+	    
+		renderText("success");
+	}
+}
 
 }
