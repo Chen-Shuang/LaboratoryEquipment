@@ -327,11 +327,6 @@
 					 if(resp=="success"){ // 验证成功
 						window.location.href="loginIndex"; 
 					 }else if(resp=="codeError"){ // 验证码错误
-						 clearTimeout(timershow);
-						 timer = 60;
-						 $("#sendValid").attr("send","1");
-						 $("#sendValid").removeClass("disabled");
-						 $("#sendValid").text("发送验证码");
 						 layer.msg("验证码错误");
 					 }else if(resp=="codeOutTime"){ // 验证码超时
 						 clearTimeout(timershow);
