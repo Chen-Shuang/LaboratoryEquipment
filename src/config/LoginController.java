@@ -40,8 +40,6 @@ public void sendEmailCode(){
     	SendMail send = new SendMail(email,subject,content); // 定义线程、邮件对象
     	new Thread(send).start(); // 启动线程发送邮件 （发送邮件跟网速有关，如果不开启多线程，添加操作将会有延迟）
 		
-    	/*SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		String nowTime = df.format(new Date()).toString(); // 获取当前系统时间*/    
     	getSession().setAttribute("sendCode", code); // 存储发送的验证码
     	getSession().setAttribute("sendEmailTime", new Date().getTime()); // 存储发送邮件的时间
 		
