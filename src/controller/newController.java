@@ -257,7 +257,7 @@ public class newController extends Controller {
 	public String getCode(){
 		String ALLCHAR = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // 定义字符串
 		String code = null; // 定义编码
-		int count = ItemsModel.dao.getItemsCount(); // 查询设备除需购设备无编号之外的设备数量（包涵被删除的，因为被删除的设备有编号）
+		int count = ItemsModel.dao.getItemsCount()+1; // 查询设备除需购设备无编号之外的设备数量（包涵被删除的，因为被删除的设备有编号）
 		
 		 DecimalFormat df = new DecimalFormat("000000"); // 格式化为6位
 		if(count<100000){ // 判断是否超过100,000
