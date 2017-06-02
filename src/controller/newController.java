@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import model.ItemsModel;
 import model.newItemsModel;
@@ -249,10 +251,21 @@ public class newController extends Controller {
 	}
 	
 	/**
-	 * 为设备自动编码
+	 * 为设备自动编码（编码规则：取6位基数，如果数量大于100,000 ，则将之前的数换算成A~Z，这样可存储26*100,000个设备。例如第一位数为A000000）
 	 * @return 设备的唯一编码
 	 */
 	public String getCode(){
-		return "A1234";
+		String ALLCHAR = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // 定义字符串
+		String code = null; // 定义编码
+		int count = ItemsModel.dao.getItemsCount(); // 查询设备除需购设备无编号之外的设备数量（包涵被删除的，因为被删除的设备有编号）
+		
+		 DecimalFormat df = new DecimalFormat("000000"); // 格式化为6位
+		if(count<100000){ // 判断是否超过100,000
+			code = ALLCHAR.charAt(0) +  df.format(count);  
+		}else{
+			
+			code = ALLCHAR.charAt(count/100000) + df.format(count);  
+		}
+		return code;
 	}
 }

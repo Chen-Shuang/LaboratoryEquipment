@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
@@ -50,5 +52,14 @@ public class ItemsModel extends Model<ItemsModel> {
 	 */
 	public void updateToNewItem(int itemsId){
 		Db.update("update items set status=1 where id=?",itemsId);
+	}
+	
+	/**
+	 * 查询设备除需购设备无编号之外的设备数量（包涵被删除的，因为被删除的设备有编号）
+	 * @return 数量
+	 */
+	public int getItemsCount(){
+		List<ItemsModel> items = ItemsModel.dao.find("select * from items where status!=0");
+		return items.size();
 	}
 }
