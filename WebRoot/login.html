@@ -29,25 +29,6 @@
 		<link rel="stylesheet" href="plugins/layer/skin/layer.css">
 		<link rel="stylesheet" href="plugins/layer/skin/layer.ext.css">
 		<script src="plugins/layer/layer.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		// 登录
-		$("#login_btn").click(function(){   // 点击确定按钮提交信息
-			
-			// 验证数据是否为空
-			window.location.href="loginIndex";
-		 
-		});
-		
-		// 回车事件
-		$("body").keydown(function() {
-           if (event.keyCode == "13") { //keyCode=13是回车键
-              $("#login_btn").click();
-           } 
-        });
-}); 
-	
-</script>
 	
 	</head>
 
@@ -84,14 +65,14 @@
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="账号" id="user"/>
+															<input id="email" type="text" class="form-control" placeholder="邮箱" />
 															<i class="ace-icon fa fa-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" id="password" />
+															<input id="password" type="password" class="form-control" placeholder="密码"  />
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 													</label>
@@ -99,7 +80,7 @@
 														<span class="block input-icon input-icon-right">
 															<input id="emailCode" type="text" style="width: 68%;float: left;" class="form-control" placeholder="邮箱验证码" />
 															<!-- <i class="ace-icon fa fa-envelope"></i>  -->
-															<button id="sendEmail_btn" type="button" style="width: 32%" class="width-18 pull-right btn btn-sm btn-primary">
+															<button id="sendValid" type="button" send="1"  style="width: 32%" class="width-18 pull-right btn btn-sm btn-primary">
 															<span class="bigger-110">发送验证码</span>
 														</button>
 														</span>
@@ -250,7 +231,7 @@
 				// 邮箱验证
 				$.post("forgotPwd",{"email":email},function(resp){
 					if(resp=="error"){
-						layer.msg("没有检索到您输入的邮箱账号");
+						layer.msg("系统没有检索到您的邮箱账号");
 					}else{
 						layer.msg("邮件已发送，注意查收！");
 					}
@@ -258,6 +239,122 @@
 				});
 			}
 		</script>
+		<script type="text/javascript">
+			/**
+			 * 发送验证码
+			 */
+			var timer = 60;
+			var timershow;
+			$("#sendValid").click(function(){ // 点击验证码触发事件
+				
+				 // 判断用户是否已经点击发送验证码
+				 if($(this).attr("send")==0){ 
+					return; 
+				 };
+				 
+				 // 验证信息是否输入
+				 var email = $.trim($("#email").val());
+				 var pwd = $.trim($("#password").val());
+				 if(!email){
+					 layer.msg("请填写邮箱");
+					 return;
+				 }else if(!pwd){
+					 layer.msg("请填写密码");
+					 return;
+				 }
+				 
+				 // 设置按钮被点击
+				 $("#sendValid").attr("send","0");
+				 $("#sendValid").addClass("disabled");
+				 function timeCount(){ 
+					 if(timer>=1){
+						 $("#sendValid").text(timer+"s");
+						 timer -= 1;
+						 timershow = setTimeout(function(){timeCount()},1000);
+					 }else{
+						 timer = 60;
+						 $("#sendValid").attr("send","1");
+						 $("#sendValid").removeClass("disabled");
+						 $("#sendValid").text("发送验证码");
+					 }
+				 }
+				 timeCount(); // 开始倒计时
+				 
+				 // 提交信息发送验证码
+				 $.post("sendEmailCode",{"email":email,"pwd":pwd},function(resp){ 
+					 if(resp=="success"){ // 邮件成功发送
+						 layer.msg("邮件已发送，请到邮件中查看验证码");
+					 }else{
+						 clearTimeout(timershow);
+						 timer = 60;
+						 $("#sendValid").attr("send","1");
+						 $("#sendValid").removeClass("disabled");
+						 $("#sendValid").text("发送验证码");
+						 layer.msg("邮箱或密码错误");
+					 }
+				 })
+			})
+		</script>
+		<!-- 用户登录 -->
+		<script type="text/javascript">
+		$(document).ready(function(){
+			// 回车登录事件
+			$("body").keydown(function() {
+	           if (event.keyCode == "13") { //keyCode=13是回车键
+	              $("#login_btn").click();
+	           } 
+	        });
+			
+			// 登录
+			$("#login_btn").click(function(){   // 点击确定按钮提交信息
+				 // 验证信息是否输入
+				 var email = $.trim($("#email").val());
+				 var pwd = $.trim($("#password").val());
+				 var code = $.trim($("#emailCode").val());
+				 if(!email){
+					 layer.msg("请填写邮箱");
+					 return;
+				 }else if(!pwd){
+					 layer.msg("请填写密码");
+					 return;
+				 }else if(!code){
+					 layer.msg("请填写验证码");
+					 return;
+				 }
+				 
+				 // 提交信息发送验证码
+				 $.post("login",{"email":email,"pwd":pwd,"code":code},function(resp){ 
+					 if(resp=="success"){ // 验证成功
+						window.location.href="loginIndex"; 
+					 }else if(resp=="codeError"){ // 验证码错误
+						 clearTimeout(timershow);
+						 timer = 60;
+						 $("#sendValid").attr("send","1");
+						 $("#sendValid").removeClass("disabled");
+						 $("#sendValid").text("发送验证码");
+						 layer.msg("验证码错误");
+					 }else if(resp=="codeOutTime"){ // 验证码超时
+						 clearTimeout(timershow);
+						 timer = 60;
+						 $("#sendValid").attr("send","1");
+						 $("#sendValid").removeClass("disabled");
+						 $("#sendValid").text("发送验证码");
+						 layer.msg("验证码超时，请重新发送");
+					 }else{ // 账号密码错误
+						 clearTimeout(timershow);
+						 timer = 60;
+						 $("#sendValid").attr("send","1");
+						 $("#sendValid").removeClass("disabled");
+						 $("#sendValid").text("发送验证码");
+						 layer.msg("邮箱或密码错误");
+					 }
+				 })
+				 
+			});
+			
+		}); 
+	
+</script>
 	</body>
 </html>
 		

@@ -162,6 +162,22 @@ public class userLoginModel extends Model<userLoginModel> {
 	 * @return 用户密码
 	 */
 	public userLoginModel getUserInfo(String email){
-		return userLoginModel.dao.findFirst("select pwd,name from user_login where email='"+email+"'");
+		return userLoginModel.dao.findFirst("select id,pwd,name from user_login where email='"+email+"'");
+	}
+	
+	/**
+	 * 验证账号密码是否正确
+	 * @param email 邮箱
+	 * @param pwd 已加密的密码
+	 * @return true/false
+	 */
+	public boolean validUser(String email,String pwd){
+		int count = userLoginModel.dao.find("select * from user_login where email='"+email+"' and pwd='"+pwd+"'").size(); // 查询是否存在
+		if(count>0){ // 如果存在返回true
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 }

@@ -12,7 +12,7 @@ import com.jfinal.plugin.activerecord.Db;
 public class ActController extends Controller {
 
 	public void getMenuList() {	
-		getSession().setAttribute("userLoginId", 1); // 测试，登录完善后删除
+		
 		String userLoginId = getSession().getAttribute("userLoginId").toString(); // 获取管理员登录用户的id
 		userLoginModel user = userLoginModel.dao.findFirst("select b.rank from user_login a,role b where a.role_id=b.id and a.id='"+userLoginId+"'");  // 查询该用户的权限
 		
