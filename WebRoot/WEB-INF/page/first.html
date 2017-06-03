@@ -8,49 +8,7 @@
 	</ul><!-- /.breadcrumb -->
 </div>
 <div class="page-content">
-
 	<div class="row ">
-		<div class="col-sm-6">
-			<div class="widget-box" style="margin-bottom: 0px;">
-				<div class="widget-header widget-header-flat">
-					<h4 class="widget-title lighter">
-						<i class="ace-icon fa fa-signal"></i> 工作提醒
-					</h4>
-					<div class="widget-toolbar">
-						<a href="#" data-action="collapse"> <i
-							class="ace-icon fa fa-chevron-up"></i>
-						</a>
-					</div>
-				</div>
-
-				<div class="widget-body"
-					style="display: block; overflow:auto; height: 305px;">
-					<div class="widget-main padding-0">
-						<table class="table table-striped table-bordered table-hover">
-							<thead class="thin-border-bottom">
-								<tr>
-									<th>负责人</th>
-									<th>内容</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-
-							<tbody>
-								<tr>
-									<td>管理员001</td>
-									<td>审核用户提交信息......</td>
-									<td><button type="button" class="btn btn-xs btn-info"
-											data-toggle="button">编辑</button>
-										<button type="button" class="btn btn-xs btn-info"
-											data-toggle="button">删除</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div class="col-sm-6">
 			<div class="widget-box" style="margin-bottom: 0px;">
 				<div class="widget-header widget-header-flat">
@@ -75,10 +33,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div class="row ">
-
+		
 		<div class="col-sm-6">
 			<div class="widget-box" style="margin-bottom: 0px;">
 				<div class="widget-header widget-header-flat">
@@ -103,36 +58,64 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-6">
-			<div class="widget-box" style="margin-bottom: 0px;">
-				<div class="widget-header widget-header-flat">
-					<h4 class="widget-title lighter">
-						<i class="ace-icon fa fa-signal"></i> 用户信息统计
-					</h4>
-					<div class="widget-toolbar">
-						<a href="#" data-action="collapse"> <i
-							class="ace-icon fa fa-chevron-up"></i>
-						</a>
-					</div>
-				</div>
-
-				<div class="widget-body" style="display: block; height: 305px;">
-					<div class="widget-main padding-0">
-						<div id="news2">
-							<div id="dataPage">
-								<div id="user" style="width: 100%;height:300px;"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
 	</div>
+</div>
+<!-- 存储统计数据信息 -->
+<div id="database" hidden="hidden">
+	<!-- 需购设备 -->
+	<input id="buy" type="text" value="0"> <!-- 默认值为0 -->
+	<input id="audit" type="text" value="0">
+	<input id="pass" type="text" value="0">
+	<input id="reject" type="text" value="0">
+	<!-- 库存设备 -->
+	<input id="repair" type="text" value="0">
+	<input id="new" type="text" value="0">
+	<input id="scrap" type="text" value="0">
 </div>
 <!-- 获取统计图所需的数据信息 -->
 <script type="text/javascript">
-
+	/**
+	 * 获取统计图数据
+	 */
+	 
+	 $.ajax({ type:"GET", url : "home/getStatistical", async : false,
+		 success : function(resp){
+			 $.each(resp.itemsCategory, function(i, v) {
+				packlist1(v);
+			 });
+				 
+			 $.each(resp.needItemsCategory, function(i, v) {
+				packlist2(v);
+			 });
+		}
+	}); 
+	/**
+	 * 库存信息
+	 */
+	function packlist1(v) { 
+		if(v.status==1){
+			$("#new").val(v.counts);
+		}else if(v.status==2){
+			$("#repair").val(v.counts);
+		}else if(v.status==3){
+			$("#scrap").val(v.counts);
+		}
+	}
+	
+	/**
+	 * 需购设备信息
+	 */
+	function packlist2(v) { 
+		if(v.status==0){
+			$("#audit").val(v.counts);
+		}else if(v.status==1){
+			$("#pass").val(v.counts);
+		}else if(v.status==-1){
+			$("#reject").val(v.counts);
+		}else if(v.status==-2){
+			$("#buy").val(v.counts);
+		}
+	}
 </script>
 <!-- 需购设备信息统计 -->
 <script type="text/javascript">
@@ -152,10 +135,10 @@ option1 = {
             radius : '80%',
             center: ['50%', '50%'],
             data:[
-                {value:335, name:'审核通过'},
-                {value:544, name:'审核驳回'},
-                {value:135, name:'待审核'},
-                {value:1549, name:'已购买'}
+                {value:$("#pass").val(), name:'审核通过'},
+                {value:$("#reject").val(), name:'审核驳回'},
+                {value:$("#audit").val(), name:'待审核'},
+                {value:$("#buy").val(), name:'已购买'}
             ],
             itemStyle: {
                 emphasis: {
@@ -169,40 +152,6 @@ option1 = {
 };
 // 使用刚指定的配置项和数据显示图表。
 myChart1.setOption(option1);
-</script>
-<!-- 用户信息统计 -->
-<script type="text/javascript">
- // 基于准备好的dom，初始化echarts实例
-var myChart2 = echarts.init(document.getElementById('user'));
- 
-option2 = {
-    tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-    },
-    
-    series : [
-        {
-            name: '数量统计',
-            type: 'pie',
-            radius : '80%',
-            center: ['50%', '50%'],
-            data:[
-                {value:335, name:'领导'},
-                {value:544, name:'设备管理员'},
-            ],
-            itemStyle: {
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-        }
-    ]
-};
-// 使用刚指定的配置项和数据显示图表。
-myChart2.setOption(option2);
 </script>
 <!-- 库存设备信息统计 -->
 <script type="text/javascript">
@@ -222,9 +171,9 @@ option3 = {
             radius : '80%',
             center: ['50%', '50%'],
             data:[
-                {value:335, name:'新添设备'},
-                {value:544, name:'待修设备'},
-                {value:135, name:'报废设备'},
+                {value:$("#new").val(), name:'新添设备'},
+                {value:$("#repair").val(), name:'待修设备'},
+                {value:$("#scrap").val(), name:'报废设备'},
             ],
             itemStyle: {
                 emphasis: {

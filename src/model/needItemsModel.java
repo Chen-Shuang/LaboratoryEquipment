@@ -68,4 +68,12 @@ public class needItemsModel extends Model<needItemsModel> {
 	public int buyItemInfo(int itemsId) {
 		return Db.update("update need_items set status=-2 where items_id=?",itemsId);
 	}
+	
+	/**
+	 * 查询各种状态
+	 * @return 类别信息
+	 */
+	public List<needItemsModel> getNeedItemsCategory() {
+		return needItemsModel.dao.find("select status,count(*) counts from need_items group by status");
+	}
 }

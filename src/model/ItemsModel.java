@@ -62,4 +62,12 @@ public class ItemsModel extends Model<ItemsModel> {
 		List<ItemsModel> items = ItemsModel.dao.find("select * from items where status!=0");
 		return items.size();
 	}
+	
+	/**
+	 * 查询设备类别
+	 * @return 类别信息
+	 */
+	public List<ItemsModel> getItemsCategory() {
+		return ItemsModel.dao.find("select status,count(*) counts from items group by status");
+	}
 }
