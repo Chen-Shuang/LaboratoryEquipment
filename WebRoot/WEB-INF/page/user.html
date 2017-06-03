@@ -256,7 +256,7 @@ function packlist(v,curr) {
  * 添加用户
  */
 function addUserInfo() {
-	$("input").val(""); // 清空文本框数据
+	$("#addfrom input").val(""); // 清空文本框数据
 	layer.open({
 		type : 1,
 		shade : [ 0.5 ],
@@ -334,8 +334,8 @@ function isExist(operate){
  * curr 当前页面
  */
 function updateUserInfo(id,curr){
-	$("input").val(""); // 清空文本框数据
-	$("select").val("");
+	$("#updatefrom input").val(""); // 清空文本框数据
+	$("#updatefrom select").val("");
 	// 填充弹框信息
 	var getOneUrl = "user/getOneUserInfo"; // 获得单个用户信息接口
 	var data = {

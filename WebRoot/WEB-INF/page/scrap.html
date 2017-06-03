@@ -228,8 +228,8 @@ function packlist(v,curr) {
  * 修改报废信息
  */
 function updateItemInfo(itemsId,curr){
-	$("input").val(""); // 清空文本框数据
-	$("textarea").val(""); // 清空文本框数据
+	$("#toScrapItemform input").val(""); // 清空文本框数据
+	$("#toScrapItemform textarea").val(""); // 清空文本框数据
 	// 填充弹框信息
 	$.post("scrap/getScrapItemInfo", {"itemsId":itemsId}, function(resp) {
 		$("#items_id").val(resp.items_id);

@@ -396,7 +396,7 @@ function packlist(v,curr) {
  * 修改设备信息
  */
 function updateItemInfo(itemsId,curr){
-	$("input").val(""); // 清空文本框数据
+	$("#updateNeedItemform input").val(""); // 清空文本框数据
 	// 填充弹框信息
 	$.post("need/getNeedItemInfo", {"itemsId":itemsId}, function(resp) {
 		$("#items_id").val(resp.items_id);
@@ -494,7 +494,7 @@ function downloadNeedItemsWord() {
  * 添加需购设备
  */
 function addNeedItem() {
-	$("input").val(""); // 清空文本框数据
+	$("#addNeedItemform input").val(""); // 清空文本框数据
 	layer.open({
 		type : 1,
 		shade : [ 0.5 ],

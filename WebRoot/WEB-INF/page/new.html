@@ -543,8 +543,8 @@ function packlist(v,curr) {
  * 修改新添设备信息
  */
 function updateItemInfo(itemsId,curr){
-	$("input").val(""); // 清空文本框数据
-	$("textarea").val(""); // 清空文本框数据
+	$("#updateNewItemform input").val(""); // 清空文本框数据
+	$("#updateNewItemform textarea").val(""); // 清空文本框数据
 	// 填充弹框信息
 	$.post("new/getNewItemInfo", {"itemsId":itemsId}, function(resp) {
 		$("#items_id").val(resp.items_id);
@@ -609,8 +609,8 @@ function delItemInfo(itemsId,curr){
  * 设备维修
  */
 function toRepairItem(itemsId,curr){
-	$("input").val(""); // 清空文本框数据
-	$("textarea").val(""); // 清空文本框数据
+	$("#toRepairItemform input").val(""); // 清空文本框数据
+	$("#toRepairItemform textarea").val(""); // 清空文本框数据
 	// 填充弹框信息
 	$.post("new/getNewItemInfo", {"itemsId":itemsId}, function(resp) {
 		$("#repair_items_id").val(resp.items_id);
@@ -651,8 +651,8 @@ function toRepairItem(itemsId,curr){
  * 设备报废
  */
 function toScrapItem(itemsId,curr){
-	$("input").val(""); // 清空文本框数据
-	$("textarea").val(""); // 清空文本框数据
+	$("#toScrapItemform input").val(""); // 清空文本框数据
+	$("#toScrapItemform textarea").val(""); // 清空文本框数据
 	// 填充弹框信息
 	$.post("new/getNewItemInfo", {"itemsId":itemsId}, function(resp) {
 		$("#scrap_items_id").val(resp.items_id);
@@ -694,8 +694,8 @@ function toScrapItem(itemsId,curr){
 <script type="text/javascript">
 //添加新设备
 function addNewItem() {
-	$("input").val(""); // 清空文本框数据
-	$("textarea").val(""); // 清空文本框数据
+	$("#addNewItemform input").val(""); // 清空文本框数据
+	$("#addNewItemform textarea").val(""); // 清空文本框数据
 	layer.open({
 		type : 1,
 		shade : [ 0.5 ],
