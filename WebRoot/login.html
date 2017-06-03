@@ -53,8 +53,15 @@
 
 							<div class="position-relative">
 								<div id="login-box" class="login-box visible widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
+								<!-- 显示方式 -->
+								<div style="float: right;height: 47px;width: 47px;top: 0px;cursor: pointer;">
+									<a id="quickLogin"><img alt="快速登录" src="plugins/images/QuickLogin-47-47.png"></a>
+									<a id="pwdLogin" hidden="hidden"><img alt="账号密码登录"src="plugins/images/PwdLogin-48-48.png"></a>
+								</div>
+								
+								<div class="widget-body">
+										<!-- 账号密码登录 -->
+										<div class="widget-main" id="pwd_Login">
 											<h4 class="header blue lighter bigger">
 												<i class="ace-icon fa fa-coffee green"></i>
 												请输入你的账户信息
@@ -98,8 +105,21 @@
 													<div class="space-4"></div>
 												</fieldset>
 											</form>
-
 										</div><!-- /.widget-main -->
+										<!-- 二维码登录 -->
+										<div class="widget-main" id="quick_Login" hidden="hidden" style="height: 298px;">
+											<h4 class="header blue lighter bigger">
+												<i class="ace-icon fa fa-coffee green"></i>
+												扫码登录更安全
+											</h4>
+											<div class="space-6"></div>
+											<form style="text-align: center;">
+												<fieldset>
+													<img style="height: 65%;width: 65%;"  src="http://qr.liantu.com/api.php?text=106.14.170.241"/>
+												</fieldset>
+											</form>
+											
+										</div>
 										
 										<div class="toolbar clearfix">
 											<div>
@@ -349,6 +369,28 @@
 			
 		}); 
 	
+</script>
+<!-- 切换登录方式 -->
+<script type="text/javascript">
+/**
+ * 二维码登录
+ */
+$("#quickLogin").click(function(){
+	$("#quickLogin").hide();
+	$("#pwdLogin").show();
+	$("#pwd_Login").hide();
+	$("#quick_Login").show();
+});
+
+/**
+ * 账号密码登录
+ */
+ $("#pwdLogin").click(function(){
+		$("#quickLogin").show();
+		$("#pwdLogin").hide();
+		$("#pwd_Login").show();
+		$("#quick_Login").hide();
+	});
 </script>
 	</body>
 </html>
