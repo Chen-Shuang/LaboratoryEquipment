@@ -17,6 +17,7 @@ public class ActController extends Controller {
 		userLoginModel user = userLoginModel.dao.findFirst("select b.rank from user_login a,role b where a.role_id=b.id and a.id='"+userLoginId+"'");  // 查询该用户的权限
 		
 		// 根据管理员级别显示对应菜单
+		@SuppressWarnings("rawtypes")
 		List dataList; 
 		if(user.get("rank").equals(1)){
 			dataList = Db.find("select * from memu where rank=1 and status=1 order by sequence"); // 普通用户权限

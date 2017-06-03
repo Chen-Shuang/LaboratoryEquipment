@@ -11,6 +11,8 @@ import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
 import com.jfinal.plugin.activerecord.Page;
 
+import config.MainConfig;
+
 /**
  * 用户管理
  * @author 陈爽
@@ -49,7 +51,7 @@ public class userController extends Controller{
 		boolean isTrue = userLogin.save(); // 保存用户信息，返回受影响行数
 	    
 	    if(isTrue){ // 保存成功
-	    	String Url = new changePwdController().changePwdUrl +HashKit.md5(HashKit.sha1(pwd));  // 修改密码地址（地址中添加了加密的密码）
+	    	String Url = new MainConfig().webUrl+"change?p=" +HashKit.md5(HashKit.sha1(pwd));  // 修改密码地址（地址中添加了加密的密码）
 		    String name = getPara("user_login.name"); // 获取添加的用户姓名
 		    String email = getPara("user_login.email"); // 获取添加的用户邮箱
 	    	String subject = "您的邮箱账号已加入实验室设备管理系统";  // 定义邮件主题

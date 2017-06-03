@@ -13,6 +13,7 @@ import com.jfinal.plugin.c3p0.C3p0Plugin;
 
 public class MainConfig extends JFinalConfig {
 
+	public static String webUrl; // 定义静态变量保存项目地址
 	/**
 	 * 配置
 	 */
@@ -21,6 +22,7 @@ public class MainConfig extends JFinalConfig {
 		loadPropertyFile("dbConfig.txt");
 		arg0.setDevMode(getPropertyToBoolean("devMode"));
 		
+		webUrl = getProperty("webUrl"); // 读取配置文件中的项目地址
 	}
 
 	@Override

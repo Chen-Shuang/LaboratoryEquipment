@@ -115,7 +115,7 @@
 											<div class="space-6"></div>
 											<form style="text-align: center;">
 												<fieldset>
-													<img style="height: 65%;width: 65%;"  src="http://qr.liantu.com/api.php?text=106.14.170.241"/>
+													<img id="QRcodeImg" style="height: 65%;width: 65%;"  src="http://qr.liantu.com/api.php?text=${webUrl}"/><!-- 默认为登录地址 -->
 												</fieldset>
 											</form>
 											
@@ -391,6 +391,47 @@ $("#quickLogin").click(function(){
 		$("#pwd_Login").show();
 		$("#quick_Login").hide();
 	});
+</script>
+<!-- 扫码登录 -->
+<input id="webUrl" type="text" hidden="hidden" value="${webUrl}"><!-- 存储项目地址 -->
+<script type="text/javascript" src="http://cdn.goeasy.io/goeasy.js"></script> <!-- 引入GoEasy -->
+<script type="text/javascript">
+	$.post("getGoEasyInfo",{},function(resp){
+		
+		// 填充二维码信息
+		var path = "http://qr.liantu.com/api.php?text="+ $("#webUrl").val() + "?c=" +resp.channel; // 将登录地址+channel放到二维码中
+		$("#QRcodeImg").attr("src",path);
+		
+		var goEasy = new GoEasy({
+			appkey:resp.appKey,  // goeasy key
+			// 事件监听器
+			onConnected:function(){
+				layer.msg("成功连接GoEasy");
+			},
+			onDisconnected:function(){
+				layer.msg("与GoEasy连接断开");
+			},
+			onConnectFailed:function(error){
+				layer.msg("与GoEasy连接失败，错误编码："+error.code+"错误信息："+error.content);
+			}
+		});
+
+		// 在web浏览器端接收消息
+		goEasy.subscribe({
+		    channel: resp.channel, // 相当于一个通信管道，全局唯一
+		    onMessage: function(message){
+		    	layer.msg("收到："+message.content);
+		    },
+		    onSuccess:function(){
+		    	layer.msg("channel订阅成功。");
+		    },
+		    onFailed:function(error){
+		    	layer.msg("channel订阅失败，错误编码："+error.code+"错误信息："+error.content);
+		    }
+		});
+	});
+	
+	
 </script>
 	</body>
 </html>

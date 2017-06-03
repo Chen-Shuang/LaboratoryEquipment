@@ -4,6 +4,7 @@ import model.userLoginModel;
 
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
+
 /**
  * 忘记修改密码界面
  * @author 陈爽
@@ -11,8 +12,6 @@ import com.jfinal.kit.HashKit;
  */
 public class changePwdController extends Controller {
 
-	public String changePwdUrl = "http://106.14.170.241/change?p=";  // 忘记密码中修改密码的页面地址
-	
 	public void index(){
 		
 		String oldPwd = getPara("p"); // 获取旧密码
