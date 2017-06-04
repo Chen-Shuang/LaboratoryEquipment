@@ -396,41 +396,67 @@ $("#quickLogin").click(function(){
 <input id="webUrl" type="text" hidden="hidden" value="${webUrl}"><!-- 存储项目地址 -->
 <script type="text/javascript" src="http://cdn.goeasy.io/goeasy.js"></script> <!-- 引入GoEasy -->
 <script type="text/javascript">
-	$.post("getGoEasyInfo",{},function(resp){
+
+startQuickLogin(); // 进入页面启动扫码
+setInterval("startQuickLogin()",30000); // 定时刷新二维码
+
+function startQuickLogin(){ // 启动扫码登录
+	
+	$.post("getGoEasyInfo",{},function(resp){ // 请求服务器获得channel、appKey
 		
 		// 填充二维码信息
 		var path = "http://qr.liantu.com/api.php?text="+ $("#webUrl").val() + "?c=" +resp.channel; // 将登录地址+channel放到二维码中
 		$("#QRcodeImg").attr("src",path);
 		
+		// 连接goEasy服务器
 		var goEasy = new GoEasy({
 			appkey:resp.appKey,  // goeasy key
 			// 事件监听器
 			onConnected:function(){
-				layer.msg("成功连接GoEasy");
+				console.log("成功连接GoEasy");
 			},
 			onDisconnected:function(){
-				layer.msg("与GoEasy连接断开");
+				console.log("与GoEasy连接断开");
 			},
 			onConnectFailed:function(error){
-				layer.msg("与GoEasy连接失败，错误编码："+error.code+"错误信息："+error.content);
+				console.log("与GoEasy连接失败，错误编码："+error.code+"错误信息："+error.content);
 			}
 		});
 
-		// 在web浏览器端接收消息
+		// 在web浏览器端接收goEasy服务器推送的消息
 		goEasy.subscribe({
 		    channel: resp.channel, // 相当于一个通信管道，全局唯一
 		    onMessage: function(message){
-		    	layer.msg("收到："+message.content);
+		    	
+		    	var data = message.content.split("-"); // 将获得信息分割（邮箱，密码，验证码）
+		    	quickLogin(data[0],data[1]); // 调用登录函数
 		    },
 		    onSuccess:function(){
-		    	layer.msg("channel订阅成功。");
+		    	console.log("channel订阅成功。");
 		    },
 		    onFailed:function(error){
-		    	layer.msg("channel订阅失败，错误编码："+error.code+"错误信息："+error.content);
+		    	console.log("channel订阅失败，错误编码："+error.code+"错误信息："+error.content);
 		    }
 		});
+		
+		/**
+		 * 验证码登录
+		 */
+		function quickLogin(email,pwd){ // 密码是加密过的密码
+			 // 提交信息发送验证码
+			 $.post("quickLogin",{"email":email,"pwd":pwd},function(resp){ 
+				 if(resp=="success"){ // 验证成功
+					
+					window.location.href="loginIndex"; 
+				 }else{ // 账号密码错误
+					 layer.msg("邮箱或密码错误");
+				 }
+			 })
+		}
+		
 	});
 	
+}
 	
 </script>
 	</body>

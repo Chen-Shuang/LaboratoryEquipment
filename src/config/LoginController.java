@@ -67,6 +67,8 @@ public void login(){
 		long sendTime = (Long) getSession().getAttribute("sendEmailTime"); // 获取发送验证码时间
 		String sendCode = getSession().getAttribute("sendCode").toString();
 		
+		System.out.println("login code:"+sendCode);//-----------------
+		
 		// 对比发送验证码时间
 		int timeDifference = (int)((new Date().getTime() - sendTime) / 1000); 
 		if(timeDifference<300){ // 设置验证码超时时间为300秒
@@ -229,32 +231,52 @@ public void getGoEasyInfo() {
 final String appKey = "BC-fadbf06156d349e688f1507d077b4c65"; 
 
 /**
- * java消息推送
+ * java消息推送（外部调用接口需要三个参数）
+ * channel 通信频道
+ * email 邮箱账号
+ * pwd 用户密码
  */
 public void sendMsg() {
 	String channel = getPara("channel"); // 获取channel
 	String email = getPara("email"); // 获取用户名
 	String pwd = getPara("pwd"); // 获取密码
 	
-	// 这里要存储一个随机验证码，将用户邮箱、密码、验证码推送给前台，然后调用登录接口登录
-	String code = emailCode(4); // 产生一个随机数验证码
-	getSession().setAttribute("sendCode", code); // 存储发送的验证码
-	getSession().setAttribute("sendEmailTime", new Date().getTime()); // 存储发送邮件的时间
-	
-	String content = email+"-"+pwd+"-"+code; // 将扫码用户的信息发送给前台
+	String content = email+"-"+pwd; // 将扫码用户的信息发送给前台
 	
 	GoEasy goEasy = new GoEasy(appKey); // 创建goeasy对象
 	goEasy.publish(channel, content, new PublishListener(){
 		@Override
 		public void onSuccess() {
 			System.out.println("消息发布成功");
+			renderText("success");
 		}
 		
 		@Override
 		public void onFailed(GoEasyError error) {
 			System.out.println("消息发送失败，错误编码："+error.getCode()+"错误消息："+error.getContent());
+			renderText("消息发送失败，错误编码："+error.getCode()+"错误消息："+error.getContent());
 		}
 	});
+	
+}
+
+/**
+ * 用户扫码登录
+ */
+public void quickLogin(){
+	String email = getPara("email"); // 获得用户邮箱
+	String pwd = getPara("pwd"); // 密码是加密过的密码
+	
+	boolean isTrue = userLoginModel.dao.validUser(email, pwd); // 验证账号密码是否正确
+	if(isTrue){ // 账号密码正确，登录系统
+		getSession().invalidate(); // 将之前存储的session失效
+					
+		Long id = userLoginModel.dao.getUserInfo(email).getLong("id"); // 获取用户id
+		getSession().setAttribute("userLoginId", id); // 存储用户ID
+		renderText("success");
+	}else{ // 账号密码错误
+		renderText("error");
+	}
 	
 }
 }
