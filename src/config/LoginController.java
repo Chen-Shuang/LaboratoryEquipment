@@ -67,8 +67,6 @@ public void login(){
 		long sendTime = (Long) getSession().getAttribute("sendEmailTime"); // 获取发送验证码时间
 		String sendCode = getSession().getAttribute("sendCode").toString();
 		
-		System.out.println("login code:"+sendCode);//-----------------
-		
 		// 对比发送验证码时间
 		int timeDifference = (int)((new Date().getTime() - sendTime) / 1000); 
 		if(timeDifference<300){ // 设置验证码超时时间为300秒
@@ -93,7 +91,6 @@ public void login(){
 	} catch (Exception e) { // 没有存储记录，返回验证码错误
 		renderText("codeError");
 	}
-	
 	
 }
 
