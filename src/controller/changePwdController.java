@@ -2,6 +2,7 @@ package controller;
 
 import model.userLoginModel;
 
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
 
@@ -10,6 +11,7 @@ import com.jfinal.kit.HashKit;
  * @author ³ÂË¬
  *
  */
+@Clear
 public class changePwdController extends Controller {
 
 	public void index(){

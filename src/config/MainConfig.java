@@ -1,4 +1,5 @@
 package config;
+import interceptor.LoginInterceptor;
 import route.adminRoutes;
 
 import com.jfinal.config.Constants;
@@ -37,7 +38,7 @@ public class MainConfig extends JFinalConfig {
 	@Override
 	public void configInterceptor(Interceptors arg0) {
 		arg0.add(new SessionInViewInterceptor());
-		// TODO Auto-generated method stub
+		arg0.add(new LoginInterceptor()); // Ìí¼ÓµÇÂ¼À¹½ØÆ÷
 		
 	}
 	

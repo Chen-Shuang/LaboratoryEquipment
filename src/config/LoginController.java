@@ -11,6 +11,7 @@ import java.util.Random;
 import mail.SendMail;
 import model.userLoginModel;
 
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
 
@@ -19,12 +20,14 @@ import com.jfinal.kit.HashKit;
  * @author 陈爽
  *
  */
+
 public class LoginController extends Controller{
 
 /**
  * 登录页面
  */
 @SuppressWarnings("static-access")
+@Clear
 public void index(){
 	
 	setAttr("webUrl",new MainConfig().webUrl); // 返回项目地址
@@ -34,6 +37,7 @@ public void index(){
 /**
  * 发送验证码
  */
+@Clear
 public void sendEmailCode(){
 	String email = getPara("email"); // 获得用户邮箱
 	String pwd = HashKit.md5(HashKit.sha1(getPara("pwd"))); // 将用户密码进行加密 
@@ -58,6 +62,7 @@ public void sendEmailCode(){
 /**
  * 用户登录
  */
+@Clear
 public void login(){
 	String email = getPara("email"); // 获得用户邮箱
 	String pwd = HashKit.md5(HashKit.sha1(getPara("pwd"))); // 将用户密码进行加密 
@@ -73,7 +78,6 @@ public void login(){
 			if(code.equals(sendCode)){ // 验证码正确
 				boolean isTrue = userLoginModel.dao.validUser(email, pwd); // 验证账号密码是否正确
 				if(isTrue){ // 账号密码正确，登录系统
-					getSession().invalidate(); // 将验证码session失效
 					
 					Long id = userLoginModel.dao.getUserInfo(email).getLong("id"); // 获取用户id
 					getSession().setAttribute("userLoginId", id); // 存储用户ID
@@ -85,7 +89,6 @@ public void login(){
 				renderText("codeError");
 			}
 		}else{ // 验证码超时
-			getSession().invalidate(); // 将验证码session失效
 			renderText("codeOutTime");
 		}
 	} catch (Exception e) { // 没有存储记录，返回验证码错误
@@ -159,8 +162,12 @@ public void updateUserInfo(){
  * 退出登录
  */
 @SuppressWarnings("static-access")
+@Clear
 public void logout(){
-	getSession().invalidate(); // 将session失效
+	if(null != getSession()){ // 如果session不为空，则将其销毁
+		getSession().invalidate(); // 将session失效
+	}
+	
 	setAttr("webUrl",new MainConfig().webUrl); // 返回项目地址
 	render("login.html");
 }
@@ -169,6 +176,7 @@ public void logout(){
  * 忘记密码
  */
 @SuppressWarnings("static-access")
+@Clear
 public void forgotPwd(){
 	String email = getPara("email"); // 获取用户邮箱
 
@@ -176,7 +184,7 @@ public void forgotPwd(){
 	String pwd = user.getStr("pwd");  // 获取加密过的密码
 	String name = user.getStr("name"); // 获取用户名
 	String Url = new MainConfig().webUrl+"change?p=" +pwd;  // 修改密码地址（地址中添加了加密的密码）
-if(pwd==null){ // 判断用户所输入的邮箱账号是否存在
+	if(pwd==null){ // 判断用户所输入的邮箱账号是否存在
 		renderText("error");
 	}else{
 		// 开启另一个线程发送邮件，修改密码
@@ -201,6 +209,7 @@ private  final String ALLCHAR = "0123456789";
 /**
  * 生成长度为length随机数
  */
+@Clear
 private  String emailCode(int length) {  
     StringBuffer sb = new StringBuffer();  // 定义一个可变长的字符串变量
     Random random = new Random();  // 定义随机的对象
@@ -213,6 +222,7 @@ private  String emailCode(int length) {
 /**
  * 获取appkey和全局唯一channel
  */
+@Clear
 public void getGoEasyInfo() {
 	HashMap<String,Object> map = new HashMap<String,Object>(); // 创建map对象
 	String channel = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()).toString(); //channel必须保证系统全局唯一，目前暂时先用这种方法
@@ -233,6 +243,7 @@ final String appKey = "BC-fadbf06156d349e688f1507d077b4c65";
  * email 邮箱账号
  * pwd 用户密码
  */
+@Clear
 public void sendMsg() {
 	String channel = getPara("channel"); // 获取channel
 	String email = getPara("email"); // 获取用户名
@@ -260,13 +271,13 @@ public void sendMsg() {
 /**
  * 用户扫码登录
  */
+@Clear
 public void quickLogin(){
 	String email = getPara("email"); // 获得用户邮箱
 	String pwd = getPara("pwd"); // 密码是加密过的密码
 	
 	boolean isTrue = userLoginModel.dao.validUser(email, pwd); // 验证账号密码是否正确
 	if(isTrue){ // 账号密码正确，登录系统
-		getSession().invalidate(); // 将之前存储的session失效
 					
 		Long id = userLoginModel.dao.getUserInfo(email).getLong("id"); // 获取用户id
 		getSession().setAttribute("userLoginId", id); // 存储用户ID
