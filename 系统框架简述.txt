@@ -11,6 +11,29 @@
 其他引用说明：
 	前端框架：bootstrap、jQuery框架、freeMark模板引擎。
 	系统模板：Ace后台管理系统模板。
-	开源组件：layer弹层组件。
+	开源组件：layer弹层组件（包涵弹出层、日期时间选择、多功能分页）。
+
+部分功能说明：
+	Word文档下载：利用freeMark填充，数据流下载。
+	表单验证：jQuery Validate。
+	发送邮件：使用JavaMail实现发送邮件功能（开启了多线程）。
+	Excel操作：POI提供API给Java程序对Microsoft Office格式档案读和写的功能。
+	扫码登录：GoEasy-Web实时消息推送
 	
 	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+------仅供学习参考，禁止商业使用。
+------作者邮箱：chen_s_vip@163.com
