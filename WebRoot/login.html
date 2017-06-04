@@ -447,15 +447,16 @@ function startQuickLogin(){ // 启动扫码登录
 			 // 提交信息发送验证码
 			 $.post("quickLogin",{"email":email,"pwd":pwd},function(resp){ 
 				 if(resp=="success"){ // 验证成功
-					 unsubscribe();
-					window.location.href="loginIndex"; 
+					 unSubscribeEnd(); // 销毁登陆成功的channel
+				 
+					 window.location.href="loginIndex"; // 跳转页面，进入系统
 				 }else{ // 账号密码错误
 					 layer.msg("邮箱或密码错误");
 				 }
 			 })
 		}
 		
-		// 取消订阅channel，减少无用的channel并发量
+		// 取消订阅channel，减少无用的channel并发量，生成新的
 		function unSubscribe(){
 			goEasy.unsubscribe({ // 销毁旧的channel
 				channel: resp.channel,
@@ -468,6 +469,19 @@ function startQuickLogin(){ // 启动扫码登录
 			});
 			
 			startQuickLogin(); // 定时刷新二维码，生成新的channel
+		}
+		
+		// 取消订阅已经登录成功的channel
+		function unSubscribeEnd(){
+			goEasy.unsubscribe({ // 销毁旧的channel
+				channel: resp.channel,
+				onSuccess:function(){
+					console.log("订阅取消成功");
+				},
+				onFailed:function(error){
+					console.log("取消订阅失败，错误编码："+error.code+"错误信息："+error.content);
+				}
+			});
 		}
 	});
 	
