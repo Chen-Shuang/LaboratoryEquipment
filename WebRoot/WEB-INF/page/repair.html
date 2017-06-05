@@ -15,6 +15,9 @@
 						<div id="dynamic-table_wrapper"
 							class="dataTables_wrapper form-inline no-footer">
 							<div class="row" style="height: 50px;">
+									<div class="col-xs-5">
+										<a style="cursor: pointer;" onclick="downloadRepairItemsWord();">维修设备资金统计表下载</a>
+									</div>
 									<div class="nav-search col-xs-7" >
 										<span class="input-icon" style="float: right;">
 											<button onclick="getRepairItemsInfo(1);" type="button"  class="btn btn-info btn-sm" style="float: right;">
@@ -442,6 +445,19 @@ function toScrapItem(itemsId,curr){
 			layer.msg("取消");
 		}, 
 	});
+}
+
+/**
+ * 维修设备资金统计表下载
+ */
+function downloadRepairItemsWord() {
+	var sTime = $("#LAY_demorange_s").val(); // 获取起始时间 
+	var eTime = $("#LAY_demorange_e").val(); // 获取终止时间
+	var search = $("#search_input").val();  // 获取搜索框中信息
+	var status = $("#status_select").val(); // 获取设备状态
+	
+	var data = "search="+search+"&sTime="+sTime+"&eTime="+eTime+"&status="+status;
+	window.location.href="repair/downloadExcel?"+data;
 }
 </script>
 <!-- 日期选择器 -->

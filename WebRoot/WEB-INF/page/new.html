@@ -22,6 +22,9 @@
 							<div id="dynamic-table_wrapper"
 								class="dataTables_wrapper form-inline no-footer">
 								<div class="row" style="height: 50px;">
+									<div class="col-xs-5">
+										<a style="cursor: pointer;" onclick="downloadNewItemsWord();">新添设备统计表下载</a>
+									</div>
 									<div class="nav-search col-xs-7" >
 										<span class="input-icon" style="float: right;">
 											<button onclick="getNewItemsInfo(1);" type="button"  class="btn btn-info btn-sm" style="float: right;">
@@ -726,6 +729,18 @@ function downloadTemplate(type){
 	window.location.href="new/downloadTemplate?type="+type;
 }
 
+
+/**
+ * 新添设备统计表下载
+ */
+function downloadNewItemsWord() {
+	var sTime = $("#LAY_demorange_s").val(); // 获取起始时间 
+	var eTime = $("#LAY_demorange_e").val(); // 获取终止时间
+	var search = $("#search_input").val();  // 获取搜索框中信息
+	
+	var data = "search="+search+"&sTime="+sTime+"&eTime="+eTime;
+	window.location.href="new/downloadExcel?"+data;
+}
 </script>
 
 <!-- 文件上传 -->

@@ -1,18 +1,26 @@
 package controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import model.ItemsModel;
 import model.newItemsModel;
 import model.repairItemsModel;
 import model.scrapItemsModel;
 
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.upload.UploadFile;
+
+import excel.ReadExcelFile;
+import excel.WriteExcelFile;
 /**
  * 待修设备
  * @author 陈爽 
@@ -159,5 +167,31 @@ public class repairController extends Controller {
 	    }else{
 	    	renderText("error");
 	    }
+	}
+	
+	/**
+	 * 下载（Excel文件）
+	 * @throws IOException 
+	 */
+	public void downloadExcel() throws IOException{
+		String search = getPara("search"); // 获取搜索条件
+		String sTime = getPara("sTime"); // 获取起始时间  日期搜索是查询的
+		String eTime = getPara("eTime"); // 获取终止时间
+		int status = getParaToInt("status"); // 获取维修状态
+		
+		// 判断是否选择了时间,时间格式转换
+		if(sTime==""){
+			sTime = "1900-01-01";
+		}
+		if(eTime==""){
+			eTime += "2099-06-16"; // 当前系统时间
+		}
+		
+		List<repairItemsModel> repairItems = repairItemsModel.dao.getRepairItemsInfo(search,sTime,eTime,status); // 获取查询内容
+		
+		String fileName = "维修资金统计表.xls"; // 文件下载名称
+		
+		WriteExcelFile.writeRepairExcel(repairItems, fileName, getResponse()); // 下载文档
+		
 	}
 }

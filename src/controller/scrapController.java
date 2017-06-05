@@ -3,9 +3,11 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import model.ItemsModel;
 import model.repairItemsModel;
@@ -15,6 +17,8 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
+
+import excel.WriteExcelFile;
 
 /**
  * 报废设备
@@ -101,5 +105,30 @@ public class scrapController extends Controller {
 			renderText("error");
 		}
 		
+	}
+	
+	/**
+	 * 下载（Excel文件）
+	 * @throws IOException 
+	 */
+	public void downloadExcel() throws IOException{
+		String search = getPara("search"); // 获取搜索条件
+		String sTime = getPara("sTime"); // 获取起始时间  日期搜索是查询的
+		String eTime = getPara("eTime"); // 获取终止时间
+		int status = getParaToInt("status"); // 获取维修状态
+		
+		// 判断是否选择了时间,时间格式转换
+		if(sTime==""){
+			sTime = "1900-01-01";
+		}
+		if(eTime==""){
+			eTime += "2099-06-16"; // 当前系统时间
+		}
+		
+		List<scrapItemsModel> scrapItems = scrapItemsModel.dao.getScrapItemsInfo(search,sTime,eTime,status); // 查询维修设备信息
+		
+		String fileName = "报废设备统计表.xls"; // 文件下载名称
+		
+		WriteExcelFile.writeScrapExcel(scrapItems, fileName, getResponse()); // 下载文档
 	}
 }

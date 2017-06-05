@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import model.ItemsModel;
@@ -22,6 +23,7 @@ import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.upload.UploadFile;
 
 import excel.ReadExcelFile;
+import excel.WriteExcelFile;
 /**
  * 新添设备
  * @author 陈爽 
@@ -267,5 +269,28 @@ public class newController extends Controller {
 			code = ALLCHAR.charAt(count/100000) + df.format(count);  
 		}
 		return code;
+	}
+	
+	/**
+	 * 下载（Excel文件）
+	 * @throws IOException 
+	 */
+	public void downloadExcel() throws IOException{
+		String search = getPara("search"); // 获取搜索条件
+		String sTime = getPara("sTime"); // 获取起始时间  日期搜索是查询的
+		String eTime = getPara("eTime"); // 获取终止时间
+		
+		// 判断是否选择了时间,时间格式转换
+		if(sTime==""){
+			sTime = "1900-01-01";
+		}
+		if(eTime==""){
+			eTime += "2099-06-16"; // 当前系统时间
+		}
+		List<newItemsModel> newItems = newItemsModel.dao.getNewItemsInfo(search,sTime,eTime); // 查询新添设备信息
+		
+		String fileName = "新添设备统计表.xls"; // 文件下载名称
+		
+		WriteExcelFile.writeNewExcel(newItems, fileName, getResponse()); // 下载文档
 	}
 }
