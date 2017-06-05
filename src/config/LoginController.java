@@ -46,7 +46,7 @@ public void sendEmailCode(){
 	if(isTrue){ // 账号密码正确，发送邮件
 		String code = emailCode(4);
     	String subject = "实验室设备管理系统登录验证码";  // 定义邮件主题
-    	String content = "您的登录验证码为  "+ code +" ，如果非本人操作，请忽略（打死都不能告诉别人）。\r\n\r\n";  
+    	String content = "您的登录验证码为  "+ code +" ，验证码五分钟内有效，如果非本人操作，请忽略（打死都不能告诉别人）。\r\n\r\n";  
     		   content +=  "郑州大学";
     	SendMail send = new SendMail(email,subject,content); // 定义线程、邮件对象
     	new Thread(send).start(); // 启动线程发送邮件 （发送邮件跟网速有关，如果不开启多线程，添加操作将会有延迟）
