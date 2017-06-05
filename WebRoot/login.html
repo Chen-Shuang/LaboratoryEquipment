@@ -431,7 +431,7 @@ function startQuickLogin(){ // 启动扫码登录
 		    	quickLogin(data[0],data[1]); // 调用登录函数
 		    },
 		    onSuccess:function(){
-		    	setTimeout(function(){unSubscribe()},60000); // 销毁之前的channel,生成新的channel
+		    	setTimeout(function(){unSubscribe()},300000); // 销毁之前的channel,生成新的channel，每5分钟更新一次
 		    	
 		    	console.log("channel订阅成功。");
 		    },
