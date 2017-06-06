@@ -352,6 +352,12 @@ function updateItemInfo(itemsId,curr){
 		content : $('#updateRepairItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
+			// validator验证
+			$("#repairItemform").submit();
+			if(!repair_validator.form()){
+				return false;
+			}
+			
 			$.post("repair/updateItemInfo", $("#repairItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getRepairItemsInfo(curr);
@@ -430,6 +436,12 @@ function toScrapItem(itemsId,curr){
 		content : $('#toScrapItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
+			// validator验证
+			$("#toScrapItemform").submit();
+			if(!scrap_validator.form()){
+				return false;
+			}
+			
 			$.post("repair/toScrapItem", $("#toScrapItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getRepairItemsInfo(curr);
@@ -459,6 +471,158 @@ function downloadRepairItemsWord() {
 	var data = "search="+search+"&sTime="+sTime+"&eTime="+eTime+"&status="+status;
 	window.location.href="repair/downloadExcel?"+data;
 }
+</script>
+<!-- 表单验证 -->
+<script type="text/javascript">
+/* 维修表单验证 */
+var repair_validator = $("#repairItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"repair_items.price" : {
+				required : true,
+				maxlength : "10",
+			},
+			"repair_items.repairDate" : {
+				required : true,
+			},
+			"repair_items.vender" : {
+				required : true,
+				maxlength : "50",
+			},
+			"repair_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"repair_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"repair_items.price" : {
+				required : "请填写维修费用",
+				maxlength : "长度不能超过10位",
+			},
+			"repair_items.repairDate" : {
+				required : "请选择维修日期",
+			},
+			"repair_items.vender" : {
+				required : "请填写维修厂家",
+				maxlength : "长度不能超过50字符",
+			},
+			"repair_items.userName" : {
+				required : "请填写负责人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"repair_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
+	
+/* 报废表单验证 */
+var scrap_validator = $("#toScrapItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"scrap_items.scrapDate" : {
+				required : true,
+			},
+			"scrap_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"scrap_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"scrap_items.scrapDate" : {
+				required : "请选择日期",
+			},
+			"scrap_items.userName" : {
+				required : "请填写经办人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"scrap_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
 </script>
 <!-- 日期选择器 -->
 <script type="text/javascript">
