@@ -38,18 +38,17 @@
 	<script src="plugins/layui-master/build/layui.js" charset="utf-8"></script>
 	<!-- 分页 -->
 	<link rel="stylesheet" href="plugins/laypage/skin/laypage.css" type="text/css">
-	<script src="plugins/laypage/laypage.js"></script>
-	<!-- validate验证 -->
-	<script src="plugins/jquery-validation-1.14.0/lib/jquery.js"></script>
+	<script src="js/jquery-1.9.1.js"></script>
+		<!-- validate验证 -->
 	<script src="plugins/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 	<!-- 中文信息包 -->
 	<script src="plugins/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+	<script src="plugins/laypage/laypage.js"></script>
 	<style type="text/css">
 	.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
 	</style>
 	
 		<script src="plugins/ace/assets/js/ace-extra.js"></script>
-		<script src="plugins/ace/assets/js/jquery1x.js"></script>
 		<script src="plugins/echart/echarts-all.js" type="text/javascript"></script>
 		
 		<style type="text/css">
@@ -185,14 +184,7 @@
 			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 			</a>
-		</div><!-- /.main-container -->
-		<!-- basic scripts -->
-		<!--[if !IE]> -->
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='plugins/ace/assets/js/jquery.js'>"+"<"+"/script>");
-		</script>
-
-		<!-- <![endif]-->
+		</div>
 
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='plugins/ace/assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
@@ -479,6 +471,5 @@ function isExist(){
 		});
 	});
 </script>
-
 	</body>
 </html>

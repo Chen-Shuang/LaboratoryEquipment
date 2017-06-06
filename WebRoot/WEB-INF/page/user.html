@@ -264,7 +264,14 @@ function addUserInfo() {
 		area : [ '30%', '320px' ], //显示空间
 		content : $('#addUserContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
-		yes : function(index, layero) { //或者使用btn1
+		yes : function(index, layero) {
+			// validator验证
+			$("#addfrom").submit();
+			if(!add_validator.form()){
+				return false;
+			}
+			
+			//或者使用btn1
 			if(isExist("add")){ // 验证邮箱手机号是否重复
 				return;
 			}
@@ -279,7 +286,7 @@ function addUserInfo() {
 					layer.msg("添加失败");
 				}
 				layer.close(index);
-			});
+			}); 
 		},
 		cancel : function(index) {
 			layer.close(index);
@@ -363,6 +370,12 @@ function updateUserInfo(id,curr){
 		content : $('#update'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
+			// validator验证
+			$("#updatefrom").submit();
+			if(!update_validator.form()){
+				return false;
+			}
+			
 			if(isExist("update")){ // 验证邮箱手机号是否重复
 				return;
 			}
@@ -377,7 +390,7 @@ function updateUserInfo(id,curr){
 					layer.msg("修改失败");
 				}
 				layer.close(index);
-			});
+			}); 
 		},
 		cancel : function(index) {
 			layer.close(index);
@@ -422,46 +435,99 @@ function delUserInfo(id,curr){
 	});
 }
 </script>
-<!-- 表单校验 -->
+<!-- 添加表单校验 -->
 <script type="text/javascript">
 	  /* 添加表单验证 */
-	  $("#addfrom").validate({
-	    rules: {
-	      user_login.name: {
-	        required: true,
-	        minlength: 2,
-	        maxlength: 10,
-	      },
-	      user_login.email: {
-	        required: true,
-	        maxlength: 50,
-	        email: true
-	      },
-	      user_login.phone: {
-	        required: true,
-	        minlength: 11,
-	        maxlength: 11,
-	        number:true
-	      },
-	    },
-	    messages: {
-	    	user_login.name: {
-		        required: "请输入用户姓名",
-		        minlength: "长度至少为2个字符",
-		        maxlength: "长度不能最多为10个字符",
+	  var add_validator = $("#addfrom").validate({
+		  submitHandler:function(form) {
+				console.log("提交表单");
+			},
+		  errorPlacement: function(error, element) {
+			  layer.msg(error[0].innerText);
+		 	},
+		 	onkeyup:false, // 敲键盘是不验证
+		    rules: {
+		      "user_login.name": {
+		        required: true,
+		        minlength: "2",
+		        maxlength: "10",
+		      },
+		      "user_login.email": {
+		        required: true,
+		        maxlength: "50",
+		        email: true
+		      },
+		      "user_login.phone": {
+		        required: true,
+		        minlength: "11",
+		        maxlength: "11",
+		        number:true
+		      },
 		    },
-		    user_login.email: {
-		        required: "请输入邮箱",
-		        maxlength: "长度不能最多为50个字符",
-		        email: "请输入正确的邮箱格式"
-		    },
-		    user_login.phone: {
-		        required: "请输入手机号",
-		        minlength: "请输入11位的手机号",
-		        maxlength: "请输入11位的手机号",
-		        number: "请输入合法的手机号"
-		    },
-	    }
+		    messages: {
+		    	"user_login.name": {
+			        required: "请输入用户姓名",
+			        minlength: "长度至少为2个字符",
+			        maxlength: "长度不能最多为10个字符",
+			    },
+			    "user_login.email": {
+			        required: "请输入邮箱",
+			        maxlength: "长度不能最多为50个字符",
+			        email: "请输入正确的邮箱格式"
+			    },
+			    "user_login.phone": {
+			        required: "请输入手机号",
+			        minlength: "请输入11位的手机号",
+			        maxlength: "请输入11位的手机号",
+			        number: "请输入合法的手机号"
+			    },
+		   }
 	});
-
+	  
+	  /* 添加表单验证 */
+	  var update_validator = $("#updatefrom").validate({
+		  submitHandler:function(form) {
+				console.log("提交表单");
+			},
+		  errorPlacement: function(error, element) {
+			  layer.msg(error[0].innerText);
+		 	},
+		 	onkeyup:false, // 敲键盘时不验证
+		    rules: {
+		      "user_login.name": {
+		        required: true,
+		        minlength: "2",
+		        maxlength: "10",
+		      },
+		      "user_login.email": {
+		        required: true,
+		        maxlength: "50",
+		        email: true
+		      },
+		      "user_login.phone": {
+		        required: true,
+		        minlength: "11",
+		        maxlength: "11",
+		        number:true
+		      },
+		    },
+		    messages: {
+		    	"user_login.name": {
+			        required: "请输入用户姓名",
+			        minlength: "长度至少为2个字符",
+			        maxlength: "长度不能最多为10个字符",
+			    },
+			    "user_login.email": {
+			        required: "请输入邮箱",
+			        maxlength: "长度不能最多为50个字符",
+			        email: "请输入正确的邮箱格式"
+			    },
+			    "user_login.phone": {
+			        required: "请输入手机号",
+			        minlength: "请输入11位的手机号",
+			        maxlength: "请输入11位的手机号",
+			        number: "请输入合法的手机号"
+			    },
+		   }
+	});
 </script>
