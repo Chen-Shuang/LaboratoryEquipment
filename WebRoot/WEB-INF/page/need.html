@@ -422,6 +422,12 @@ function updateItemInfo(itemsId,curr){
 		content : $('#updateNeedItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
+			// validator验证
+			$("#updateNeedItemform").submit();
+			if(!update_validator.form()){
+				return false;
+			}			
+			
 			$.post("need/updateItemInfo", $("#updateNeedItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getNeedItemsInfo(curr);
@@ -503,6 +509,12 @@ function addNeedItem() {
 		content : $('#addNeedItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { //或者使用btn1
+			// validator验证
+			$("#addNeedItemform").submit();
+			if(!add_validator.form()){
+				return false;
+			}
+			
 			$.post("need/addNeedItem", $("#addNeedItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getNeedItemsInfo(1); // 更新数据
@@ -528,7 +540,203 @@ function downloadTemplate(type){
 }
 
 </script>
+<!-- 表单验证 -->
+<script type="text/javascript">
 
+/* 添加表单验证 */
+var add_validator = $("#addNeedItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"need_items.price" : {
+				required : true,
+				maxlength : "10",
+			},
+			"need_items.number" : {
+				required : true,
+				maxlength : "10",
+			},
+			"need_items.purchaseDate" : {
+				required : true,
+			},
+			"need_items.vender" : {
+				required : true,
+				maxlength : "50",
+			},
+			"need_items.expirationDate" : {
+				required : true,
+			},
+			"need_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"need_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"need_items.price" : {
+				required : "请填写设备单价",
+				maxlength : "长度不能超过10位",
+			},
+			"need_items.number" : {
+				required : "请填写设备数量",
+				maxlength : "长度不能超过10位",
+			},
+			"need_items.purchaseDate" : {
+				required : "请选择购置日期",
+			},
+			"need_items.vender" : {
+				required : "请填写生产厂家",
+				maxlength : "长度不能超过50字符",
+			},
+			"need_items.expirationDate" : {
+				required : "请填写设备保质期",
+			},
+			"need_items.userName" : {
+				required : "请填写经办人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"need_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
+	
+/* 修改表单验证 */
+var update_validator = $("#updateNeedItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"need_items.price" : {
+				required : true,
+				maxlength : "10",
+			},
+			"need_items.number" : {
+				required : true,
+				maxlength : "10",
+			},
+			"need_items.purchaseDate" : {
+				required : true,
+			},
+			"need_items.vender" : {
+				required : true,
+				maxlength : "50",
+			},
+			"need_items.expirationDate" : {
+				required : true,
+			},
+			"need_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"need_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"need_items.price" : {
+				required : "请填写设备单价",
+				maxlength : "长度不能超过10位",
+			},
+			"need_items.number" : {
+				required : "请填写设备数量",
+				maxlength : "长度不能超过10位",
+			},
+			"need_items.purchaseDate" : {
+				required : "请选择购置日期",
+			},
+			"need_items.vender" : {
+				required : "请填写生产厂家",
+				maxlength : "长度不能超过50字符",
+			},
+			"need_items.expirationDate" : {
+				required : "请填写设备保质期",
+			},
+			"need_items.userName" : {
+				required : "请填写经办人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"need_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
+</script>
 <!-- 文件上传 -->
 <script type="text/javascript">
 jQuery(function($){
