@@ -26,7 +26,7 @@ public class scrapItemsModel extends Model<scrapItemsModel> {
 	public Page<scrapItemsModel> getScrapItemsInfo(int curr, int size, String search, String sTime, String eTime, int status){
 		if(status==-1){ // ²µ»Ø
 			return paginate(curr, size, "select a.*,b.*,a.id items_id,b.status scrap_status",
-					" from items a,scrap_items b where  b.status=-1 and a.id=b.items_id and concat(a.code,a.name,a.type) like '%"+search+"%' "
+					" from items a,scrap_items b where a.status!=-1 and b.status=-1 and a.id=b.items_id and concat(a.code,a.name,a.type) like '%"+search+"%' "
 							+ "and b.scrapDate >= '"+sTime+"' and b.scrapDate <= '"+eTime+"' order by a.createTime desc");
 		}else{
 			return paginate(curr, size, "select a.*,b.*,a.id items_id,b.status scrap_status",
