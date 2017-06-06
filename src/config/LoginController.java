@@ -181,6 +181,10 @@ public void forgotPwd(){
 	String email = getPara("email"); // 获取用户邮箱
 
 	userLoginModel user = userLoginModel.dao.getUserInfo(email); // 获取用户密码
+	if(null==user){ // 如果user为空，则返回没有找到
+		renderText("error");
+		return;
+	}
 	String pwd = user.getStr("pwd");  // 获取加密过的密码
 	String name = user.getStr("name"); // 获取用户名
 	String Url = new MainConfig().webUrl+"change?p=" +pwd;  // 修改密码地址（地址中添加了加密的密码）
