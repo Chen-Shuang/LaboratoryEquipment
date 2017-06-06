@@ -3,6 +3,8 @@ import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 
+import config.MainConfig;
+
 /**
  * 登录session拦截器
  * @author 陈爽
@@ -10,6 +12,7 @@ import com.jfinal.core.Controller;
  */
 public class LoginInterceptor implements Interceptor {
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void intercept(Invocation arg0) {
 		
@@ -19,6 +22,7 @@ public class LoginInterceptor implements Interceptor {
 	    if (loginUser != null) 
 	    	arg0.invoke(); // 如果session不为空，则放行
 	    else
-	      controller.redirect("/login.html"); // 负责跳转到登录页面
+	        controller.setAttr("webUrl",new MainConfig().webUrl); // 返回项目地址
+	        controller.redirect("/login.html"); // 负责跳转到登录页面
 	}
 }
