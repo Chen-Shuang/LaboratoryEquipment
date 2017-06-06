@@ -573,6 +573,12 @@ function updateItemInfo(itemsId,curr){
 		content : $('#updateNewItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
+			// validator验证
+			$("#updateNewItemform").submit();
+			if(!update_validator.form()){
+				return false;
+			}
+			
 			$.post("new/updateItemInfo", $("#updateNewItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getNewItemsInfo(curr);
@@ -633,6 +639,12 @@ function toRepairItem(itemsId,curr){
 		content : $('#toRepairItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
+			// validator验证
+			$("#toRepairItemform").submit();
+			if(!repair_validator.form()){
+				return false;
+			}
+			
 			$.post("new/toRepairItem", $("#toRepairItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getNewItemsInfo(curr);
@@ -675,6 +687,12 @@ function toScrapItem(itemsId,curr){
 		content : $('#toScrapItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { 
+			// validator验证
+			$("#toScrapItemform").submit();
+			if(!scrap_validator.form()){
+				return false;
+			}
+			
 			$.post("new/toScrapItem", $("#toScrapItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getNewItemsInfo(curr);
@@ -707,6 +725,12 @@ function addNewItem() {
 		content : $('#addNewItemContent'), //捕获的元素
 		btn : [ '确定', '取消' ],
 		yes : function(index, layero) { //或者使用btn1
+			// validator验证
+			$("#addNewItemform").submit();
+			if(!add_validator.form()){
+				return false;
+			}
+			
 			$.post("new/addNewItem", $("#addNewItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getNewItemsInfo(1); // 更新数据
@@ -742,7 +766,337 @@ function downloadNewItemsWord() {
 	window.location.href="new/downloadExcel?"+data;
 }
 </script>
+<!-- 表单验证 -->
+<script type="text/javascript">
 
+/* 添加表单验证 */
+var add_validator = $("#addNewItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"new_items.price" : {
+				required : true,
+				maxlength : "10",
+			},
+			"new_items.purchaseDate" : {
+				required : true,
+			},
+			"new_items.vender" : {
+				required : true,
+				maxlength : "50",
+			},
+			"new_items.expirationDate" : {
+				required : true,
+			},
+			"new_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"new_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"new_items.price" : {
+				required : "请填写设备单价",
+				maxlength : "长度不能超过10位",
+			},
+			"new_items.purchaseDate" : {
+				required : "请选择购置日期",
+			},
+			"new_items.vender" : {
+				required : "请填写生产厂家",
+				maxlength : "长度不能超过50字符",
+			},
+			"new_items.expirationDate" : {
+				required : "请填写设备保质期",
+			},
+			"new_items.userName" : {
+				required : "请填写经办人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"new_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
+	
+/* 修改表单验证 */
+var update_validator = $("#updateNewItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"new_items.price" : {
+				required : true,
+				maxlength : "10",
+			},
+			"new_items.purchaseDate" : {
+				required : true,
+			},
+			"new_items.vender" : {
+				required : true,
+				maxlength : "50",
+			},
+			"new_items.expirationDate" : {
+				required : true,
+			},
+			"new_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"new_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"new_items.price" : {
+				required : "请填写设备单价",
+				maxlength : "长度不能超过10位",
+			},
+			"new_items.purchaseDate" : {
+				required : "请选择购置日期",
+			},
+			"new_items.vender" : {
+				required : "请填写生产厂家",
+				maxlength : "长度不能超过50字符",
+			},
+			"new_items.expirationDate" : {
+				required : "请填写设备保质期",
+			},
+			"new_items.userName" : {
+				required : "请填写经办人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"new_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
+	
+/* 维修表单验证 */
+var repair_validator = $("#toRepairItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"repair_items.price" : {
+				required : true,
+				maxlength : "10",
+			},
+			"repair_items.repairDate" : {
+				required : true,
+			},
+			"repair_items.vender" : {
+				required : true,
+				maxlength : "50",
+			},
+			"repair_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"repair_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"repair_items.price" : {
+				required : "请填写维修费用",
+				maxlength : "长度不能超过10位",
+			},
+			"repair_items.repairDate" : {
+				required : "请选择维修日期",
+			},
+			"repair_items.vender" : {
+				required : "请填写维修厂家",
+				maxlength : "长度不能超过50字符",
+			},
+			"repair_items.userName" : {
+				required : "请填写负责人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"repair_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
+	
+/* 报废表单验证 */
+var scrap_validator = $("#toScrapItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"scrap_items.scrapDate" : {
+				required : true,
+			},
+			"scrap_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"scrap_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"scrap_items.scrapDate" : {
+				required : "请选择日期",
+			},
+			"scrap_items.userName" : {
+				required : "请填写经办人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"scrap_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
+</script>
 <!-- 文件上传 -->
 <script type="text/javascript">
 jQuery(function($){
