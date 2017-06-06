@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -12,14 +11,11 @@ import model.newItemsModel;
 import model.repairItemsModel;
 import model.scrapItemsModel;
 
-import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
-import com.jfinal.upload.UploadFile;
 
-import excel.ReadExcelFile;
 import excel.WriteExcelFile;
 /**
  * ´ýÐÞÉè±¸

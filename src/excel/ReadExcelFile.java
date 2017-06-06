@@ -78,6 +78,7 @@ public class ReadExcelFile {
 	 * @param loginId 登录人id
 	 * @param nowTime 当前系统时间
 	 */
+	@SuppressWarnings("unused")
 	private static void readFileWithNeedItems(final Sheet sheet,final String loginId,final String nowTime) {
 		final int rowNum = sheet.getLastRowNum(); // 获取该标签的行数，（从0开始，比实际行数少一行）
 		if(rowNum<1){
@@ -157,6 +158,7 @@ public class ReadExcelFile {
 	 * @param loginId 登录人id
 	 * @param nowTime 当前系统时间
 	 */
+	@SuppressWarnings("unused")
 	private static void readFileWithNewItems(final Sheet sheet,final String loginId,final String nowTime) {
 		final int rowNum = sheet.getLastRowNum(); // 获取该标签的行数，（从0开始，比实际行数少一行）
 		if(rowNum<1){

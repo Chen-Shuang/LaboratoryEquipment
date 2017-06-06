@@ -40,6 +40,7 @@ public class userController extends Controller{
 	/**
 	 * 添加用户
 	 */
+	@SuppressWarnings("static-access")
 	public void addUserInfo() {
 		userLoginModel userLogin = getModel(userLoginModel.class,"user_login");  // 获取表单信息
 		

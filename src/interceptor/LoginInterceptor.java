@@ -3,8 +3,6 @@ import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 
-import config.LoginController;
-
 /**
  * µÇÂ¼sessionÀ¹½ØÆ÷
  * @author ³ÂË¬

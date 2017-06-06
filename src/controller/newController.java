@@ -8,7 +8,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import model.ItemsModel;
 import model.newItemsModel;

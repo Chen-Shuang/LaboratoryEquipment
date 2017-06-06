@@ -10,6 +10,7 @@ import com.jfinal.plugin.activerecord.Page;
  * @author ³ÂË¬ 
  *
  */
+@SuppressWarnings("serial")
 public class newItemsModel extends Model<newItemsModel> {
 
 	public static final newItemsModel dao= new newItemsModel();
