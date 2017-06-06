@@ -1,5 +1,7 @@
 package route;
 
+import appAPI.phoneLoginController;
+
 import com.jfinal.config.Routes;
 
 import config.ActController;
@@ -31,5 +33,7 @@ public class adminRoutes extends Routes {
 		add("/all", allController.class,"WEB-INF/page/"); // 全部设备
 		add("/user", userController.class,"WEB-INF/page/"); // 用户管理
 		add("/change",changePwdController.class,"WEB-INF/page/"); // 忘记密码
+		
+		add("/phoneLogin",phoneLoginController.class,"WEB-INF/page/"); // 移动设备登录
 	}
 }
