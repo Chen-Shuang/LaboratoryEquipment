@@ -188,7 +188,7 @@
 				<label class="col-sm-2 control-label no-padding-right"
 					for="form-field-1">单价（元）</label>
 				<div class="col-sm-10" style="float: left">
-					<input id="needItems_price" type="text" class="form-control" name="need_items.price" placeholder="必填" onkeyup="value=value.replace(/[\W]/g,'')" maxlength="6"/>
+					<input id="needItems_price" type="text" class="form-control" name="need_items.price" placeholder="必填" onkeyup="value=value.replace(/[\W]/g,'')" maxlength="10"/>
 				</div>
 			</div>
 			<div class="col-xs-12">&nbsp;</div>
@@ -429,6 +429,12 @@ function updateItemInfo1(itemsId,curr){
 		content : $('#updateNeedItemContent'), //捕获的元素
 		btn : [ '通过','驳回', '取消' ],
 		yes : function(index, layero) { 
+			// validator验证
+			$("#updateNeedItemform").submit();
+			if(!need_validator.form()){
+				return false;
+			}
+			
 			$.post("audit/auditPassNeedItem", $("#updateNeedItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getNeedItemsInfo(curr);
@@ -440,6 +446,12 @@ function updateItemInfo1(itemsId,curr){
 			});
 		},
 		btn2 : function(index, layero) {
+			// validator验证
+			$("#updateNeedItemform").submit();
+			if(!need_validator.form()){
+				return false;
+			}
+			
 			$.post("audit/auditRejectNeedItem", $("#updateNeedItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getNeedItemsInfo(curr);
@@ -590,7 +602,7 @@ function packlist2(v,curr) {
 		dataStr += '<td>待审核</td>';
 	}else if(v.scrap_status==1){
 		dataStr += '<td>已报废</td>';
-	}else{
+	}else if(v.scrap_status==-1){
 		dataStr += '<td>驳回</td>';
 	}
 	dataStr += '<td>' + v.scrapDate + '</td>';
@@ -638,6 +650,12 @@ function updateItemInfo2(itemsId,curr){
 		content : $('#toScrapItemContent'), //捕获的元素
 		btn : [ '通过','驳回', '取消' ],
 		yes : function(index, layero) { 
+			// validator验证
+			$("#toScrapItemform").submit();
+			if(!scrap_validator.form()){
+				return false;
+			}
+			
 			$.post("audit/auditPassScrapItem", $("#toScrapItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getScrapItemsInfo(curr);
@@ -649,6 +667,12 @@ function updateItemInfo2(itemsId,curr){
 			});
 		},
 		btn2 : function(index, layero){
+			// validator验证
+			$("#toScrapItemform").submit();
+			if(!scrap_validator.form()){
+				return false;
+			}
+			
 			$.post("audit/auditRejectScrapItem", $("#toScrapItemform").serialize(), function(resp) {
 				if(resp=="success"){
 					getScrapItemsInfo(curr);
@@ -705,7 +729,7 @@ function detailItemInfo2(itemsId,curr){
  */
  function delItemInfo2(itemsId,curr){
 	layer.confirm("你确定删除吗？",{ btn:['确定','取消']}, function(){ 
-		$.post("repair/delItemInfo", {"itemsId":itemsId}, function(resp) {
+		$.post("scrap/delItemInfo", {"itemsId":itemsId}, function(resp) {
 			if(resp=="success"){
 				getScrapItemsInfo(curr); // 刷新数据
 				layer.msg("删除成功");
@@ -720,6 +744,246 @@ function detailItemInfo2(itemsId,curr){
 
 
 </script>
+<!-- 添加表单校验 -->
+<script type="text/javascript">
+/* 添加表单验证 */
+var scrap_validator = $("#toScrapItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"scrap_items.scrapDate" : {
+				required : true,
+			},
+			"scrap_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"scrap_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"scrap_items.scrapDate" : {
+				required : "请选择日期",
+			},
+			"scrap_items.userName" : {
+				required : "请填写经办人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"scrap_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
+	
+
+/* 添加表单验证 */
+var need_validator = $("#updateNeedItemform").validate({
+	  submitHandler:function(form) {
+			console.log("提交表单");
+		},
+	  errorPlacement: function(error, element) {
+		  layer.msg(error[0].innerText);
+	 	},
+	 	onkeyup:false, // 敲键盘是不验证
+		rules : {
+			"items.name" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.type" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.modelNum" : {
+				required : true,
+				maxlength : "30",
+			},
+			"items.norms" : {
+				required : true,
+				maxlength : "30",
+			},
+			"need_items.price" : {
+				required : true,
+				maxlength : "10",
+			},
+			"need_items.number" : {
+				required : true,
+				maxlength : "10",
+			},
+			"need_items.purchaseDate" : {
+				required : true,
+			},
+			"need_items.vender" : {
+				required : true,
+				maxlength : "50",
+			},
+			"need_items.expirationDate" : {
+				required : true,
+			},
+			"need_items.userName" : {
+				required : true,
+				maxlength : "20",
+			},
+			"need_items.remark" : {
+				maxlength : "50",
+			},
+		},
+		messages : {
+			"items.name" : {
+				required : "请填写设备名称",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.type" : {
+				required : "请填写设备类别",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.modelNum" : {
+				required : "请填写设备型号",
+				maxlength : "长度不能超过30字符",
+			},
+			"items.norms" : {
+				required : "请填写设备规格",
+				maxlength : "长度不能超过30字符",
+			},
+			"need_items.price" : {
+				required : "请填写设备单价",
+				maxlength : "长度不能超过10位",
+			},
+			"need_items.number" : {
+				required : "请填写设备数量",
+				maxlength : "长度不能超过10位",
+			},
+			"need_items.purchaseDate" : {
+				required : "请选择购置日期",
+			},
+			"need_items.vender" : {
+				required : "请填写生产厂家",
+				maxlength : "长度不能超过50字符",
+			},
+			"need_items.expirationDate" : {
+				required : "请填写设备保质期",
+			},
+			"need_items.userName" : {
+				required : "请填写经办人姓名",
+				maxlength : "长度不能超过20字符",
+			},
+			"need_items.remark" : {
+				maxlength : "长度不能超过50字符",
+			},
+		}
+	});
+</script>
+
+<!-- 日期选择器1 -->
+<script type="text/javascript">
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  var start = {
+    min: '1900-01-01 23:59:59'//laydate.now()
+    ,max: '2099-06-16 23:59:59'
+    ,istoday: false
+    ,choose: function(datas){
+      end.min = datas; //开始日选好后，重置结束日的最小日期
+      end.start = datas //将结束日的初始值设定为开始日
+    }
+  };
+  
+  var end = {
+    min: '1900-01-01 23:59:59'//laydate.now()
+    ,max: '2099-06-16 23:59:59'
+    ,istoday: false
+    ,choose: function(datas){
+      start.max = datas; //结束日选好后，重置开始日的最大日期
+    }
+  };
+  
+   document.getElementById('LAY_demorange_s1').onclick = function(){
+    start.elem = this;
+    laydate(start);
+  }
+  document.getElementById('LAY_demorange_e1').onclick = function(){
+    end.elem = this
+    laydate(end);
+  } 
+  
+});
+</script>
+<!-- 日期选择器2 -->
+<script type="text/javascript">
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  var start = {
+    min: '1900-01-01 23:59:59'//laydate.now()
+    ,max: '2099-06-16 23:59:59'
+    ,istoday: false
+    ,choose: function(datas){
+      end.min = datas; //开始日选好后，重置结束日的最小日期
+      end.start = datas //将结束日的初始值设定为开始日
+    }
+  };
+  
+  var end = {
+    min: '1900-01-01 23:59:59'//laydate.now()
+    ,max: '2099-06-16 23:59:59'
+    ,istoday: false
+    ,choose: function(datas){
+      start.max = datas; //结束日选好后，重置开始日的最大日期
+    }
+  };
+  
+   document.getElementById('LAY_demorange_s2').onclick = function(){
+    start.elem = this;
+    laydate(start);
+  }
+  document.getElementById('LAY_demorange_e2').onclick = function(){
+    end.elem = this
+    laydate(end);
+  } 
+  
+});
+
+</script>
+
 <!-- 日期选择器1 -->
 <script type="text/javascript">
 layui.use('laydate', function(){
