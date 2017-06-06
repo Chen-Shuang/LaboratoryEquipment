@@ -37,6 +37,7 @@ public class WriteExcelFile extends Controller {
 	 * @param response 请求
 	 * @throws IOException 输出流异常
 	 */
+		@SuppressWarnings("resource")
 		public static void writeNewExcel(List<newItemsModel> newItems,String outputFileName, HttpServletResponse response) throws IOException {
 			//创建HSSFWorkbook对象(excel的文档对象)  
 		    HSSFWorkbook wb = new HSSFWorkbook();  
@@ -108,6 +109,7 @@ public class WriteExcelFile extends Controller {
 		 * @param response 请求
 		 * @throws IOException 输出流异常
 		 */
+		@SuppressWarnings("resource")
 		public static void writeRepairExcel(List<repairItemsModel> repairItems,String outputFileName, HttpServletResponse response) throws IOException {
 			//创建HSSFWorkbook对象(excel的文档对象)  
 		    HSSFWorkbook wb = new HSSFWorkbook();  
@@ -177,6 +179,7 @@ public class WriteExcelFile extends Controller {
 		 * @param response HttpServletResponse
 		 * @throws IOException 输出流异常
 		 */
+		@SuppressWarnings("resource")
 		public static void writeScrapExcel(List<scrapItemsModel> scrapItems,String outputFileName, HttpServletResponse response) throws IOException {
 			//创建HSSFWorkbook对象(excel的文档对象)  
 		    HSSFWorkbook wb = new HSSFWorkbook();  
