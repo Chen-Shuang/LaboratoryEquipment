@@ -28,7 +28,7 @@ public class ItemsModel extends Model<ItemsModel> {
 	public Page<ItemsModel> allItemsInfo(int curr, int size, String search, String sTime, String eTime, int status){
 		if(status==-2){
 			return paginate(curr, size, "select *",
-					" from items a where  concat(a.code,a.name,a.type) like '%"+search+"%' "
+					" from items a where  concat(a.code,a.name,a.type) like '%"+search+"%' and a.status!=-1 "
 							+ "and a.createTime >= '"+sTime+"' and a.createTime <= '"+eTime+"' order by a.createTime desc");
 		}else{
 			return paginate(curr, size, "select *",
