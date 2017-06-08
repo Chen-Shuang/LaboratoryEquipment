@@ -240,7 +240,8 @@ public void getGoEasyInfo() {
  * 定义goeasy key
  */
 
-final String appKey = "BC-fba8d2c8868d4c43b5157729b17e3f17";
+final String appKey = "BC-c46fc50c00f048849d055f8ded00daff";
+//final String appKey = "BC-56a98a2767884c0d8deed3f8635eca6a"; // 备用
 /**
  * java消息推送（外部调用接口需要三个参数）
  * channel 通信频道
