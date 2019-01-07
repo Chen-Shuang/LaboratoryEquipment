@@ -19,22 +19,3 @@
 	发送邮件：使用JavaMail实现发送邮件功能（开启了多线程）。
 	Excel操作：POI提供API给Java程序对Microsoft Office格式档案读和写的功能（读入数据使用了事务处理，防止脏数据读入）。
 	扫码登录：GoEasy-Web实时消息推送服务器
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-------仅供学习参考，禁止商业使用。
-------作者邮箱：chen_s_vip@163.com  欢迎技术交流
-------项目下载地址：https://github.com/Chen-Shuang/LaboratoryEquipment
